@@ -28,7 +28,7 @@
        panelInstanceUID="5PN2" panelInstanceManufacturerID="qmWq" panelModulatorListColumns="&lt;TABLELAYOUT sortedCol=&quot;491&quot; sortForwards=&quot;1&quot;&gt;&lt;COLUMN id=&quot;544&quot; visible=&quot;1&quot; width=&quot;118&quot;/&gt;&lt;COLUMN id=&quot;1&quot; visible=&quot;1&quot; width=&quot;125&quot;/&gt;&lt;COLUMN id=&quot;543&quot; visible=&quot;1&quot; width=&quot;86&quot;/&gt;&lt;COLUMN id=&quot;545&quot; visible=&quot;1&quot; width=&quot;113&quot;/&gt;&lt;COLUMN id=&quot;98&quot; visible=&quot;1&quot; width=&quot;131&quot;/&gt;&lt;COLUMN id=&quot;102&quot; visible=&quot;1&quot; width=&quot;82&quot;/&gt;&lt;COLUMN id=&quot;103&quot; visible=&quot;1&quot; width=&quot;82&quot;/&gt;&lt;COLUMN id=&quot;109&quot; visible=&quot;1&quot; width=&quot;82&quot;/&gt;&lt;COLUMN id=&quot;490&quot; visible=&quot;1&quot; width=&quot;82&quot;/&gt;&lt;COLUMN id=&quot;487&quot; visible=&quot;1&quot; width=&quot;82&quot;/&gt;&lt;COLUMN id=&quot;491&quot; visible=&quot;1&quot; width=&quot;144&quot;/&gt;&lt;COLUMN id=&quot;16&quot; visible=&quot;1&quot; width=&quot;67&quot;/&gt;&lt;COLUMN id=&quot;17&quot; visible=&quot;1&quot; width=&quot;67&quot;/&gt;&lt;/TABLELAYOUT&gt;"
        panelModulatorListCsvDelimiter="," panelModulatorListXmlRoot="ctrlrModulatorList"
        panelModulatorListXmlModulator="ctrlrModulator" panelModulatorListSortOption="1"
-       panelGlobalVariables="63:4:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0"
+       panelGlobalVariables="0:4:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0"
        panelResources="" panelPropertyDisplayIDs="0" ctrlrMenuItemBackgroundColour="ffffffff"
        ctrlrMenuItemTextColour="ff000000" ctrlrMenuItemHighlightedTextColour="ffffffff"
        ctrlrMenuItemHighlightColour="ff4364ff" ctrlrMenuItemFont="&lt;Sans-Serif&gt;;13;0;0;0;0;1;3"
@@ -42,7 +42,7 @@
        uiPanelModulatorListViewTree="0">
   <uiWindowManager>
     <uiChildWindow uiChildWindowName="LuaMethodEditor" uiChildWindowState="fs 0 0 800 500">
-      <uiChildWindowContentState luaMethodEditor="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#13;&#10;&#13;&#10;&lt;OPEN id=&quot;LUA&quot; scrollPos=&quot;0&quot;&gt;&#13;&#10;  &lt;OPEN id=&quot;Voice&quot;/&gt;&#13;&#10;  &lt;SELECTED id=&quot;/LUA/Voice/Voice_WritePatch&quot;/&gt;&#13;&#10;&lt;/OPEN&gt;&#13;&#10;;cdb194622d874353932180dbd1233905:13af3b33a859471282e951a5755f0d01:101edde1365e48ab9c1ce92334272474:89f5c7bc36f24726b5556a2551fa5cb4:332c7b3ae6be4134848098c9fcd098bc:173d447c9f454e61ad6aa9f8c88e5d87:082c5a0a89db494c99b9b3a6d6472c7f:48666430b160470cb9a111c796db7246:0422598860a34531b2796f772587f8b2:9eb4a20c79054b3c86bb205bb05380f6"/>
+      <uiChildWindowContentState luaMethodEditor="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#13;&#10;&#13;&#10;&lt;OPEN id=&quot;LUA&quot; scrollPos=&quot;0&quot;&gt;&#13;&#10;  &lt;OPEN id=&quot;Voice&quot;/&gt;&#13;&#10;  &lt;SELECTED id=&quot;/LUA/Voice/Voice_WritePatch&quot;/&gt;&#13;&#10;&lt;/OPEN&gt;&#13;&#10;;cdb194622d874353932180dbd1233905:13af3b33a859471282e951a5755f0d01:101edde1365e48ab9c1ce92334272474:082c5a0a89db494c99b9b3a6d6472c7f"/>
     </uiChildWindow>
     <uiChildWindow uiChildWindowName="LuaConsole" uiChildWindowState="1384 325 175 499">
       <uiChildWindowContentState/>
@@ -218,7 +218,7 @@
                    luaMethodLinkedProperty="" luaMethodSource="0" uuid="00000000000000000000000000000006"
                    luaMethodValid="1"/>
       </luaMethodGroup>
-      <luaMethod luaMethodName="midiReceived" luaMethodCode="--&#13;&#10;-- Called when a panel receives a midi message (does not need to match any modulator mask)&#13;&#10;-- @midi   http://ctrlr.org/api/class_ctrlr_midi_message.html&#13;&#10;midiReceived = function(midi)&#13;&#10;&#9;midiSize = midi:getData():getSize()&#13;&#10;&#9;console(string.format(&quot;Received %d&quot;, midiSize))&#13;&#10;&#9;if midiSize == 163 then&#13;&#10;&#9;&#9;-------------------- process Voice patch data ----------------------------------------&#13;&#10;&#9;&#9;Voice_AssignValues(midi:getData(), false)&#13;&#10;&#9;&#9;panel:sendMidiMessageNow(CtrlrMidiMessage({0xF0,0x43,0x20,0x01,0xF7}))&#13;&#10;    &#9;dump_send = 1&#13;&#10;&#9;end&#13;&#10;&#9;---------------------------------------------------------------------------------&#13;&#10;&#9;if midiSize == 102 then&#13;&#10;&#9;&#9;-------------------- process Performance patch data ----------------------------------------&#13;&#10;&#9;&#9;Performance_AssignValues(midi:getData(), false)&#13;&#10;&#9;end&#13;&#10;&#9;---------------------------------------------------------------------------------&#13;&#10;&#9;if midiSize == 4104 then&#13;&#10;&#9;&#9;-------------------- process Voice bank data ----------------------------------------&#13;&#10;&#9;&#9;Voice_AssignBank(midi:getData())&#13;&#10;&#9;end&#13;&#10;end&#13;&#10;"
+      <luaMethod luaMethodName="midiReceived" luaMethodCode="--&#13;&#10;-- Called when a panel receives a midi message (does not need to match any modulator mask)&#13;&#10;-- @midi   http://ctrlr.org/api/class_ctrlr_midi_message.html&#13;&#10;midiReceived = function(midi)&#13;&#10;&#9;midiSize = midi:getData():getSize()&#13;&#10;&#9;if midiSize == 163 then&#13;&#10;&#9;&#9;-------------------- process Voice patch data ----------------------------------------&#13;&#10;&#9;&#9;Voice_AssignValues(midi:getData(), false)&#13;&#10;&#9;end&#13;&#10;&#9;---------------------------------------------------------------------------------&#13;&#10;&#9;if midiSize == 102 then&#13;&#10;&#9;&#9;-------------------- process Performance patch data ----------------------------------------&#13;&#10;&#9;&#9;Performance_AssignValues(midi:getData(), false)&#13;&#10;&#9;end&#13;&#10;&#9;---------------------------------------------------------------------------------&#13;&#10;&#9;if midiSize == 4104 then&#13;&#10;&#9;&#9;-------------------- process Voice bank data ----------------------------------------&#13;&#10;&#9;&#9;Voice_AssignBank(midi:getData())&#13;&#10;&#9;end&#13;&#10;   &#9;dump_send = 0&#13;&#10;end&#13;&#10;"
                  luaMethodLinkedProperty="" luaMethodSource="0" uuid="101edde1365e48ab9c1ce92334272474"
                  luaMethodValid="1"/>
       <luaMethod luaMethodName="panelCreated" luaMethodCode="--&#13;&#10;-- Called when a panel loaded &#13;&#10;function panelCreated()&#13;&#10;    PerformanceBankData = nil&#13;&#10;    Performance_checksumEnd = 4101&#13;&#10;    Performance_checksumOffset = 4102&#13;&#10;    Performance_checksumStart = 6&#13;&#10;    Performance_dxSinglePackedSize = 64&#13;&#10;    Performance_dxSysexHeaderSize = 6&#13;&#10;    Performance_singleSize = 102&#13;&#10;    VoiceBankData = nil&#13;&#10;    Voice_offsets={[26]=7, [47]=7, [68]=7, [89]=7, [110]=7, [131]=7}&#13;&#10;    Voice_checksumEnd = 160&#13;&#10;    Voice_checksumOffset = 161&#13;&#10;    Voice_checksumStart = 6&#13;&#10;    Voice_dxSinglePackedSize = 128&#13;&#10;    Voice_dxSysexHeaderSize = 6&#13;&#10;    Voice_singleSize = 163&#13;&#10;    Voice_SelectedPatchIndex = 0&#13;&#10;&#13;&#10;    timer:setCallback (33, panelLoadedCallback)&#13;&#10;    timer:startTimer(33, 100)&#13;&#10;&#13;&#10;end&#13;&#10;&#13;&#10;"
@@ -227,23 +227,23 @@
       <luaMethod luaMethodName="panelLoadedCallback" luaMethodCode="--&#13;&#10;&#13;&#10;-- Called when a panel loaded &#13;&#10;&#13;&#10;function panelLoadedCallback()&#13;&#10;&#13;&#10;        panel_loaded = 1&#13;&#10;&#13;&#10;        timer:stopTimer(33)&#13;&#10;&#13;&#10;end&#13;&#10;&#13;&#10;"
                  luaMethodLinkedProperty="" luaMethodSource="0" uuid="98f8c18912904427b200ee37e2abbb39"
                  luaMethodValid="1"/>
-      <luaMethod luaMethodName="beforePanelCreated" luaMethodCode="--&#13;&#10;-- Called before a panel has loaded &#13;&#10;function beforePanelCreated()&#13;&#10;    panel_loaded = 0&#13;&#10;&#13;&#10;&#9;local ret = AlertWindow.showOkCancelBox(AlertWindow.InfoIcon, &quot;Prepare device&quot;, &quot;Ctrlr will now turn off memory protection and enable sys avail&quot;, &quot;OK&quot;, &quot;Cancel&quot;)&#13;&#10;&#9;if ret == false then return end&#13;&#10;&#9;panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x21, 0x7f, 0xf7}))&#13;&#10;&#9;panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x21, 0x00, 0xf7}))&#13;&#10;&#9;panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x28, 0x7f, 0xf7}))&#13;&#10;&#9;panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x28, 0x00, 0xf7}))&#13;&#10;&#9;panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x25, 0x7f, 0xf7}))&#13;&#10;&#9;panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x25, 0x00, 0xf7}))&#13;&#10;&#9;panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x27, 0x7f, 0xf7}))&#13;&#10;&#9;panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x27, 0x00, 0xf7}))&#13;&#10;&#9;panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x0d, 0x7f, 0xf7}))&#13;&#10;&#9;panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x0d, 0x00, 0xf7}))&#13;&#10;&#9;panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x07, 0x7f, 0xf7}))&#13;&#10;&#9;panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x07, 0x00, 0xf7}))&#13;&#10;&#9;panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x07, 0x7f, 0xf7}))&#13;&#10;&#9;panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x07, 0x00, 0xf7}))&#13;&#10;&#9;panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x29, 0x7f, 0xf7}))&#13;&#10;&#9;panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x29, 0x00, 0xf7}))&#13;&#10;&#9;panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x21, 0x7f, 0xf7}))&#13;&#10;&#9;panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x21, 0x00, 0xf7}))&#13;&#10;&#9;panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x28, 0x7f, 0xf7}))&#13;&#10;&#9;panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x28, 0x00, 0xf7}))&#13;&#10;&#9;panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x25, 0x7f, 0xf7}))&#13;&#10;&#9;panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x25, 0x00, 0xf7}))&#13;&#10;&#9;panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x27, 0x7f, 0xf7}))&#13;&#10;&#9;panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x27, 0x00, 0xf7}))&#13;&#10;&#9;panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x0d, 0x7f, 0xf7}))&#13;&#10;&#9;panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x0d, 0x00, 0xf7}))&#13;&#10;&#9;panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x07, 0x7f, 0xf7}))&#13;&#10;&#9;panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x07, 0x00, 0xf7}))&#13;&#10;&#9;panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x07, 0x7f, 0xf7}))&#13;&#10;&#9;panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x07, 0x00, 0xf7}))&#13;&#10;&#9;panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x29, 0x7f, 0xf7}))&#13;&#10;&#9;panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x29, 0x00, 0xf7}))&#13;&#10;&#13;&#10;end&#13;&#10;"
+      <luaMethod luaMethodName="beforePanelCreated" luaMethodCode="--&#13;&#10;-- Called before a panel has loaded &#13;&#10;function beforePanelCreated()&#13;&#10;    panel_loaded = 0&#13;&#10;&#13;&#10;&#9;-- panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x21, 0x7f, 0xf7}))&#13;&#10;&#9;-- panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x21, 0x00, 0xf7}))&#13;&#10;&#9;-- panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x28, 0x7f, 0xf7}))&#13;&#10;&#9;-- panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x28, 0x00, 0xf7}))&#13;&#10;&#9;-- panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x25, 0x7f, 0xf7}))&#13;&#10;&#9;-- panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x25, 0x00, 0xf7}))&#13;&#10;&#9;-- panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x27, 0x7f, 0xf7}))&#13;&#10;&#9;-- panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x27, 0x00, 0xf7}))&#13;&#10;&#9;-- panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x0d, 0x7f, 0xf7}))&#13;&#10;&#9;-- panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x0d, 0x00, 0xf7}))&#13;&#10;&#9;-- panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x07, 0x7f, 0xf7}))&#13;&#10;&#9;-- panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x07, 0x00, 0xf7}))&#13;&#10;&#9;-- panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x07, 0x7f, 0xf7}))&#13;&#10;&#9;-- panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x07, 0x00, 0xf7}))&#13;&#10;&#9;-- panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x29, 0x7f, 0xf7}))&#13;&#10;&#9;-- panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x29, 0x00, 0xf7}))&#13;&#10;&#9;-- panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x21, 0x7f, 0xf7}))&#13;&#10;&#9;-- panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x21, 0x00, 0xf7}))&#13;&#10;&#9;-- panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x28, 0x7f, 0xf7}))&#13;&#10;&#9;-- panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x28, 0x00, 0xf7}))&#13;&#10;&#9;-- panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x25, 0x7f, 0xf7}))&#13;&#10;&#9;-- panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x25, 0x00, 0xf7}))&#13;&#10;&#9;-- panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x27, 0x7f, 0xf7}))&#13;&#10;&#9;-- panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x27, 0x00, 0xf7}))&#13;&#10;&#9;-- panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x0d, 0x7f, 0xf7}))&#13;&#10;&#9;-- panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x0d, 0x00, 0xf7}))&#13;&#10;&#9;-- panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x07, 0x7f, 0xf7}))&#13;&#10;&#9;-- panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x07, 0x00, 0xf7}))&#13;&#10;&#9;-- panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x07, 0x7f, 0xf7}))&#13;&#10;&#9;-- panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x07, 0x00, 0xf7}))&#13;&#10;&#9;-- panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x29, 0x7f, 0xf7}))&#13;&#10;&#9;-- panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x29, 0x00, 0xf7}))&#13;&#10;&#13;&#10;end&#13;&#10;"
                  luaMethodLinkedProperty="" luaMethodSource="0" uuid="332c7b3ae6be4134848098c9fcd098bc"
                  luaMethodValid="1"/>
     </luaManagerMethods>
   </luaManager>
   <panelResources>
-    <resource resourceHash="-8366588168866444372" resourceLoadedTime="1433504720283"
+    <resource resourceHash="-8366588168866444372" resourceLoadedTime="1433526881980"
               resourceSize="79711" resourceFile="tx7 background pic for ctrlr.jpg"
               resourceSourceFile="C:\Users\pcg\AppData\Roaming\Ctrlr\8.tNT1fBgye3J\tx7 background pic for ctrlr.jpg"
               resourceName="tx7 background pic for ctrlr" resourceType="Image"/>
-    <resource resourceHash="8207014186369548035" resourceLoadedTime="1433504720283"
+    <resource resourceHash="8207014186369548035" resourceLoadedTime="1433526881981"
               resourceSize="22620" resourceFile="tx7 logo 1.jpg" resourceSourceFile="C:\Users\pcg\AppData\Roaming\Ctrlr\8.tNT1fBgye3J\tx7 logo 1.jpg"
               resourceName="tx7 logo 1" resourceType="Image"/>
-    <resource resourceHash="3025651513611887522" resourceLoadedTime="1433504720288"
+    <resource resourceHash="3025651513611887522" resourceLoadedTime="1433526881986"
               resourceSize="62626" resourceFile="TX7 Logo LCD blank.jpeg" resourceSourceFile="C:\ctrlr\Panels\pascalc\TX7 Logo LCD blank.jpeg"
               resourceName="TX7 Logo LCD blank" resourceType="Image"/>
-    <resource resourceHash="9045947488238723586" resourceLoadedTime="1433504720292"
+    <resource resourceHash="9045947488238723586" resourceLoadedTime="1433526881990"
               resourceSize="54467" resourceFile="TX7 serial alt 1.jpeg" resourceSourceFile="C:\ctrlr\Panels\pascalc\TX7 serial alt 1.jpeg"
               resourceName="TX7 serial alt 1" resourceType="Image"/>
   </panelResources>
@@ -259,7 +259,7 @@
                  uiPanelMidiToolbarVisible="0" uiPanelTooltipBackgroundColour="0xffeeeebb"
                  uiPanelTooltipOutlineColour="0xff000000" uiPanelTooltipColour="0xff000000"
                  uiPanelTooltipCornerRound="1" uiPanelTooltipPlacement="2" uiPanelTooltipFont="&lt;Sans-Serif&gt;;15;1;0;0;0;1;3"
-                 uiPanelZoom="1" uiPanelPropertiesSize="462" uiPanelViewPortSize="713">
+                 uiPanelZoom="1" uiPanelPropertiesSize="237" uiPanelViewPortSize="949">
     <uiPanelCanvasLayer uiPanelCanvasLayerName="New layer" uiPanelCanvasLayerUid="107b39c8bf190000d422a6833d010000"
                         uiPanelCanvasLayerColour="0x000000" uiPanelCanvasLayerVisibility="1"
                         uiPanelCanvasLayerIndex="0"/>
@@ -274,7 +274,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp134"
-             modulatorMin="0" modulatorValue="2">
+             modulatorMin="0" modulatorValue="13">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 01 06 xx F7"/>
@@ -316,7 +316,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp135"
-             modulatorMin="0" modulatorValue="7">
+             modulatorMin="0" modulatorValue="5">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 01 07 xx F7"/>
@@ -1033,7 +1033,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp142"
-             modulatorMin="0" modulatorValue="0">
+             modulatorMin="0" modulatorValue="4">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 01 0E xx F7"/>
@@ -1120,7 +1120,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp137"
-             modulatorMin="0" modulatorValue="43">
+             modulatorMin="0" modulatorValue="5">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 01 09 xx F7"/>
@@ -1168,7 +1168,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp138"
-             modulatorMin="0" modulatorValue="0">
+             modulatorMin="0" modulatorValue="28">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 01 0A xx F7"/>
@@ -1264,7 +1264,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp140"
-             modulatorMin="0" modulatorValue="0">
+             modulatorMin="0" modulatorValue="80">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 01 0C xx F7"/>
@@ -2323,7 +2323,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp123"
-             modulatorMin="0" modulatorValue="1">
+             modulatorMin="0" modulatorValue="4">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 7B xx F7"/>
@@ -2399,7 +2399,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp116"
-             modulatorMin="0" modulatorValue="3">
+             modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 74 xx F7"/>
@@ -2438,7 +2438,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp117"
-             modulatorMin="0" modulatorValue="3">
+             modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 75 xx F7"/>
@@ -2477,7 +2477,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp113"
-             modulatorMin="0" modulatorValue="39">
+             modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 71 xx F7"/>
@@ -2621,7 +2621,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp118"
-             modulatorMin="0" modulatorValue="0">
+             modulatorMin="0" modulatorValue="3">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 76 xx F7"/>
@@ -2717,7 +2717,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp120"
-             modulatorMin="0" modulatorValue="0">
+             modulatorMin="0" modulatorValue="2">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 78 xx F7"/>
@@ -2793,7 +2793,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp106"
-             modulatorMin="0" modulatorValue="76">
+             modulatorMin="0" modulatorValue="47">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 6A xx F7"/>
@@ -2868,7 +2868,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp110"
-             modulatorMin="0" modulatorValue="88">
+             modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 6E xx F7"/>
@@ -2916,7 +2916,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp107"
-             modulatorMin="0" modulatorValue="99">
+             modulatorMin="0" modulatorValue="46">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 6B xx F7"/>
@@ -3012,7 +3012,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp111"
-             modulatorMin="0" modulatorValue="96">
+             modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 6F xx F7"/>
@@ -3060,7 +3060,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp108"
-             modulatorMin="0" modulatorValue="99">
+             modulatorMin="0" modulatorValue="39">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 6C xx F7"/>
@@ -3403,7 +3403,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp127"
-             modulatorMin="0" modulatorValue="98">
+             modulatorMin="0" modulatorValue="4">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 7F xx F7"/>
@@ -3451,7 +3451,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp128"
-             modulatorMin="0" modulatorValue="98">
+             modulatorMin="0" modulatorValue="19">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 01 00 xx F7"/>
@@ -3499,7 +3499,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp129"
-             modulatorMin="0" modulatorValue="98">
+             modulatorMin="0" modulatorValue="62">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 01 01 xx F7"/>
@@ -3841,7 +3841,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp102"
-             modulatorMin="0" modulatorValue="1">
+             modulatorMin="0" modulatorValue="22">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 66 xx F7"/>
@@ -3937,7 +3937,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp89"
-             modulatorMin="0" modulatorValue="72">
+             modulatorMin="0" modulatorValue="50">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 59 xx F7"/>
@@ -4012,7 +4012,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp90"
-             modulatorMin="0" modulatorValue="72">
+             modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 5A xx F7"/>
@@ -4108,7 +4108,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp85"
-             modulatorMin="0" modulatorValue="38">
+             modulatorMin="0" modulatorValue="77">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 55 xx F7"/>
@@ -4156,7 +4156,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp86"
-             modulatorMin="0" modulatorValue="25">
+             modulatorMin="0" modulatorValue="42">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 56 xx F7"/>
@@ -4204,7 +4204,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp87"
-             modulatorMin="0" modulatorValue="47">
+             modulatorMin="0" modulatorValue="30">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 57 xx F7"/>
@@ -4279,7 +4279,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp95"
-             modulatorMin="0" modulatorValue="3">
+             modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 5F xx F7"/>
@@ -4318,7 +4318,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp96"
-             modulatorMin="0" modulatorValue="3">
+             modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 60 xx F7"/>
@@ -4453,7 +4453,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp99"
-             modulatorMin="0" modulatorValue="0">
+             modulatorMin="0" modulatorValue="4">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 63 xx F7"/>
@@ -4501,7 +4501,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp92"
-             modulatorMin="0" modulatorValue="39">
+             modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 5C xx F7"/>
@@ -4673,7 +4673,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp79"
-             modulatorMin="0" modulatorValue="83">
+             modulatorMin="0" modulatorValue="99">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 4F xx F7"/>
@@ -4760,7 +4760,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp81"
-             modulatorMin="0" modulatorValue="1">
+             modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 51 xx F7"/>
@@ -4808,7 +4808,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp82"
-             modulatorMin="0" modulatorValue="0">
+             modulatorMin="0" modulatorValue="99">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 52 xx F7"/>
@@ -4856,7 +4856,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp83"
-             modulatorMin="-7" modulatorValue="0">
+             modulatorMin="-7" modulatorValue="-7">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 53 xx F7"/>
@@ -4980,7 +4980,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp68"
-             modulatorMin="0" modulatorValue="71">
+             modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 44 xx F7"/>
@@ -5028,7 +5028,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp69"
-             modulatorMin="0" modulatorValue="99">
+             modulatorMin="0" modulatorValue="16">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 45 xx F7"/>
@@ -5124,7 +5124,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp64"
-             modulatorMin="0" modulatorValue="39">
+             modulatorMin="0" modulatorValue="30">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 40 xx F7"/>
@@ -5172,7 +5172,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp65"
-             modulatorMin="0" modulatorValue="25">
+             modulatorMin="0" modulatorValue="50">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 41 xx F7"/>
@@ -5350,7 +5350,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp74"
-             modulatorMin="0" modulatorValue="3">
+             modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 4A xx F7"/>
@@ -5389,7 +5389,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp75"
-             modulatorMin="0" modulatorValue="3">
+             modulatorMin="0" modulatorValue="1">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 4B xx F7"/>
@@ -5428,7 +5428,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp76"
-             modulatorMin="0" modulatorValue="0">
+             modulatorMin="0" modulatorValue="3">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 4C xx F7"/>
@@ -5524,7 +5524,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp78"
-             modulatorMin="0" modulatorValue="0">
+             modulatorMin="0" modulatorValue="2">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 4E xx F7"/>
@@ -5572,7 +5572,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp71"
-             modulatorMin="0" modulatorValue="39">
+             modulatorMin="0" modulatorValue="15">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 47 xx F7"/>
@@ -5716,7 +5716,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp63"
-             modulatorMin="0" modulatorValue="99">
+             modulatorMin="0" modulatorValue="83">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 3F xx F7"/>
@@ -5764,7 +5764,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp126"
-             modulatorMin="0" modulatorValue="98">
+             modulatorMin="0" modulatorValue="9">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 7E xx F7"/>
@@ -5812,7 +5812,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp105"
-             modulatorMin="0" modulatorValue="99">
+             modulatorMin="0" modulatorValue="88">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 69 xx F7"/>
@@ -5860,7 +5860,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp84"
-             modulatorMin="0" modulatorValue="61">
+             modulatorMin="0" modulatorValue="99">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 54 xx F7"/>
@@ -5936,7 +5936,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp58"
-             modulatorMin="0" modulatorValue="99">
+             modulatorMin="0" modulatorValue="98">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 3A xx F7"/>
@@ -6023,7 +6023,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp60"
-             modulatorMin="0" modulatorValue="1">
+             modulatorMin="0" modulatorValue="2">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 3C xx F7"/>
@@ -6071,7 +6071,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp61"
-             modulatorMin="0" modulatorValue="0">
+             modulatorMin="0" modulatorValue="2">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 3D xx F7"/>
@@ -6119,7 +6119,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp62"
-             modulatorMin="-7" modulatorValue="7">
+             modulatorMin="-7" modulatorValue="3">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 3E xx F7"/>
@@ -6222,7 +6222,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp46"
-             modulatorMin="0" modulatorValue="99">
+             modulatorMin="0" modulatorValue="96">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 2E xx F7"/>
@@ -6270,7 +6270,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp47"
-             modulatorMin="0" modulatorValue="88">
+             modulatorMin="0" modulatorValue="27">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 2F xx F7"/>
@@ -6318,7 +6318,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp48"
-             modulatorMin="0" modulatorValue="96">
+             modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 30 xx F7"/>
@@ -6366,7 +6366,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp49"
-             modulatorMin="0" modulatorValue="0">
+             modulatorMin="0" modulatorValue="50">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 31 xx F7"/>
@@ -6414,7 +6414,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp42"
-             modulatorMin="0" modulatorValue="99">
+             modulatorMin="0" modulatorValue="90">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 2A xx F7"/>
@@ -6462,7 +6462,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp43"
-             modulatorMin="0" modulatorValue="76">
+             modulatorMin="0" modulatorValue="58">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 2B xx F7"/>
@@ -6510,7 +6510,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp44"
-             modulatorMin="0" modulatorValue="99">
+             modulatorMin="0" modulatorValue="50">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 2C xx F7"/>
@@ -6661,7 +6661,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp53"
-             modulatorMin="0" modulatorValue="3">
+             modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 35 xx F7"/>
@@ -6700,7 +6700,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp54"
-             modulatorMin="0" modulatorValue="3">
+             modulatorMin="0" modulatorValue="1">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 36 xx F7"/>
@@ -6739,7 +6739,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp55"
-             modulatorMin="0" modulatorValue="0">
+             modulatorMin="0" modulatorValue="6">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 37 xx F7"/>
@@ -6835,7 +6835,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp57"
-             modulatorMin="0" modulatorValue="0">
+             modulatorMin="0" modulatorValue="4">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 39 xx F7"/>
@@ -6883,7 +6883,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp50"
-             modulatorMin="0" modulatorValue="39">
+             modulatorMin="0" modulatorValue="15">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 32 xx F7"/>
@@ -7055,7 +7055,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp37"
-             modulatorMin="0" modulatorValue="78">
+             modulatorMin="0" modulatorValue="98">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 25 xx F7"/>
@@ -7142,7 +7142,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp39"
-             modulatorMin="0" modulatorValue="1">
+             modulatorMin="0" modulatorValue="2">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 27 xx F7"/>
@@ -7190,7 +7190,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp40"
-             modulatorMin="0" modulatorValue="0">
+             modulatorMin="0" modulatorValue="4">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 28 xx F7"/>
@@ -7238,7 +7238,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp41"
-             modulatorMin="-7" modulatorValue="7">
+             modulatorMin="-7" modulatorValue="-1">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 29 xx F7"/>
@@ -7341,7 +7341,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp25"
-             modulatorMin="0" modulatorValue="99">
+             modulatorMin="0" modulatorValue="87">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 19 xx F7"/>
@@ -7389,7 +7389,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp26"
-             modulatorMin="0" modulatorValue="71">
+             modulatorMin="0" modulatorValue="27">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 1A xx F7"/>
@@ -7437,7 +7437,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp27"
-             modulatorMin="0" modulatorValue="64">
+             modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 1B xx F7"/>
@@ -7485,7 +7485,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp28"
-             modulatorMin="0" modulatorValue="0">
+             modulatorMin="0" modulatorValue="34">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 1C xx F7"/>
@@ -7533,7 +7533,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp21"
-             modulatorMin="0" modulatorValue="99">
+             modulatorMin="0" modulatorValue="74">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 15 xx F7"/>
@@ -7581,7 +7581,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp22"
-             modulatorMin="0" modulatorValue="39">
+             modulatorMin="0" modulatorValue="87">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 16 xx F7"/>
@@ -7629,7 +7629,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp23"
-             modulatorMin="0" modulatorValue="25">
+             modulatorMin="0" modulatorValue="50">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 17 xx F7"/>
@@ -7677,7 +7677,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp24"
-             modulatorMin="0" modulatorValue="71">
+             modulatorMin="0" modulatorValue="41">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 18 xx F7"/>
@@ -7780,7 +7780,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp32"
-             modulatorMin="0" modulatorValue="3">
+             modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 20 xx F7"/>
@@ -7819,7 +7819,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp33"
-             modulatorMin="0" modulatorValue="3">
+             modulatorMin="0" modulatorValue="1">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 21 xx F7"/>
@@ -7858,7 +7858,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp34"
-             modulatorMin="0" modulatorValue="0">
+             modulatorMin="0" modulatorValue="7">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 22 xx F7"/>
@@ -7954,7 +7954,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp36"
-             modulatorMin="0" modulatorValue="0">
+             modulatorMin="0" modulatorValue="3">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 24 xx F7"/>
@@ -8002,7 +8002,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp29"
-             modulatorMin="0" modulatorValue="39">
+             modulatorMin="0" modulatorValue="15">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 1D xx F7"/>
@@ -8261,7 +8261,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp18"
-             modulatorMin="0" modulatorValue="1">
+             modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 12 xx F7"/>
@@ -8309,7 +8309,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp19"
-             modulatorMin="0" modulatorValue="0">
+             modulatorMin="0" modulatorValue="3">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 13 xx F7"/>
@@ -8357,7 +8357,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp20"
-             modulatorMin="-7" modulatorValue="7">
+             modulatorMin="-7" modulatorValue="1">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 14 xx F7"/>
@@ -8508,7 +8508,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp5"
-             modulatorMin="0" modulatorValue="72">
+             modulatorMin="0" modulatorValue="97">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 05 xx F7"/>
@@ -8556,7 +8556,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp6"
-             modulatorMin="0" modulatorValue="72">
+             modulatorMin="0" modulatorValue="59">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 06 xx F7"/>
@@ -8604,7 +8604,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp7"
-             modulatorMin="0" modulatorValue="0">
+             modulatorMin="0" modulatorValue="25">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 07 xx F7"/>
@@ -8652,7 +8652,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp0"
-             modulatorMin="0" modulatorValue="61">
+             modulatorMin="0" modulatorValue="56">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 00 xx F7"/>
@@ -8700,7 +8700,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp1"
-             modulatorMin="0" modulatorValue="38">
+             modulatorMin="0" modulatorValue="77">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 01 xx F7"/>
@@ -8748,7 +8748,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp2"
-             modulatorMin="0" modulatorValue="25">
+             modulatorMin="0" modulatorValue="50">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 02 xx F7"/>
@@ -8796,7 +8796,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp3"
-             modulatorMin="0" modulatorValue="32">
+             modulatorMin="0" modulatorValue="41">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 03 xx F7"/>
@@ -8899,7 +8899,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp11"
-             modulatorMin="0" modulatorValue="3">
+             modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 0B xx F7"/>
@@ -8938,7 +8938,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp12"
-             modulatorMin="0" modulatorValue="3">
+             modulatorMin="0" modulatorValue="1">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 0C xx F7"/>
@@ -8977,7 +8977,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp13"
-             modulatorMin="0" modulatorValue="0">
+             modulatorMin="0" modulatorValue="7">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 0D xx F7"/>
@@ -9073,7 +9073,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp15"
-             modulatorMin="0" modulatorValue="0">
+             modulatorMin="0" modulatorValue="3">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 0F xx F7"/>
@@ -9121,7 +9121,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="vp8"
-             modulatorMin="0" modulatorValue="39">
+             modulatorMin="0" modulatorValue="15">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 43 10 00 08 xx F7"/>
@@ -10069,7 +10069,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="vp145" modulatorMin="0" modulatorValue="83">
+             name="vp145" modulatorMin="0" modulatorValue="80">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula=""/>
@@ -10117,7 +10117,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="vp146" modulatorMin="0" modulatorValue="121">
+             name="vp146" modulatorMin="0" modulatorValue="101">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula=""/>
@@ -10165,7 +10165,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="vp147" modulatorMin="0" modulatorValue="110">
+             name="vp147" modulatorMin="0" modulatorValue="114">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula=""/>
@@ -10213,7 +10213,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="vp148" modulatorMin="0" modulatorValue="66">
+             name="vp148" modulatorMin="0" modulatorValue="99">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula=""/>
@@ -10261,7 +10261,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="vp149" modulatorMin="0" modulatorValue="114">
+             name="vp149" modulatorMin="0" modulatorValue="42">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula=""/>
@@ -10309,7 +10309,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="vp150" modulatorMin="0" modulatorValue="97">
+             name="vp150" modulatorMin="0" modulatorValue="66">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula=""/>
@@ -10357,7 +10357,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="vp151" modulatorMin="0" modulatorValue="115">
+             name="vp151" modulatorMin="0" modulatorValue="101">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula=""/>
@@ -10405,7 +10405,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="vp152" modulatorMin="0" modulatorValue="115">
+             name="vp152" modulatorMin="0" modulatorValue="108">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula=""/>
@@ -10453,7 +10453,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="vp153" modulatorMin="0" modulatorValue="32">
+             name="vp153" modulatorMin="0" modulatorValue="108">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula=""/>
@@ -10501,7 +10501,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="vp154" modulatorMin="0" modulatorValue="49">
+             name="vp154" modulatorMin="0" modulatorValue="115">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula=""/>
@@ -12017,7 +12017,7 @@
                componentLuaMouseDoubleClick="-- None" uiLabelBgColour="0x00000000"
                uiLabelTextColour="0xff000000" uiLabelOutline="0" uiLabelOutlineColour="0x00000000"
                uiLabelJustification="centred" uiLabelFitFont="0" uiLabelFont="&lt;Sans-Serif&gt;;14;0;0;0;0;1;3"
-               uiLabelText="SynBrass 1" uiLabelDisplaysAllValues="0" uiLabelDisplayFormat="%n(%N) = %v(%h)"
+               uiLabelText="Perc*Bells" uiLabelDisplaysAllValues="0" uiLabelDisplayFormat="%n(%N) = %v(%h)"
                uiLabelInputHighlightTextColour="0xffffffff" uiLabelInputHighlightColour="0xff0000ff"
                uiLabelEditOnSingleClick="0" uiLabelEditOnDoubleClick="0" uiLabelEditFocusDiscardsChanges="1"
                uiLabelInputAllowedChars="" uiLabelInputMaxLength="1024" uiLabelChangedCbk="-- None"
