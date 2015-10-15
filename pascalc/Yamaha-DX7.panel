@@ -42,7 +42,7 @@
        uiPanelModulatorListViewTree="0">
   <uiWindowManager>
     <uiChildWindow uiChildWindowName="LuaMethodEditor" uiChildWindowState="fs 0 0 800 500">
-      <uiChildWindowContentState luaMethodEditor="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#13;&#10;&#13;&#10;&lt;OPEN id=&quot;LUA&quot; scrollPos=&quot;0&quot;&gt;&#13;&#10;  &lt;OPEN id=&quot;Voice&quot;/&gt;&#13;&#10;  &lt;SELECTED id=&quot;/LUA/Voice/Voice_AssignValues&quot;/&gt;&#13;&#10;&lt;/OPEN&gt;&#13;&#10;;94d86ac7ca2e4a428456951a858f62f2:cdb194622d874353932180dbd1233905:0422598860a34531b2796f772587f8b2:101edde1365e48ab9c1ce92334272474:3d5d7c4c52544f12ade4f9d67210ca3c"/>
+      <uiChildWindowContentState luaMethodEditor="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#13;&#10;&#13;&#10;&lt;OPEN id=&quot;LUA&quot; scrollPos=&quot;0&quot;&gt;&#13;&#10;  &lt;OPEN id=&quot;Voice&quot;/&gt;&#13;&#10;  &lt;SELECTED id=&quot;/LUA/Voice/Voice_LoadMenu&quot;/&gt;&#13;&#10;&lt;/OPEN&gt;&#13;&#10;;98f8c18912904427b200ee37e2abbb39:cdb194622d874353932180dbd1233905"/>
     </uiChildWindow>
     <uiChildWindow uiChildWindowName="LuaConsole" uiChildWindowState="1384 325 175 499">
       <uiChildWindowContentState/>
@@ -138,9 +138,6 @@
         <luaMethod luaMethodName="Voice_WriteBank" luaMethodCode="function Voice_WriteBank()&#13;&#13;    -- This variable stops index issues during panel bootup&#13;    if panel:getRestoreState() == true or panel:getProgramState() == true then&#13;        return&#13;    end&#13;&#13;    if panel_loaded == 0 then&#13;        return&#13;    end&#13;&#13;    local ret = AlertWindow.showOkCancelBox(AlertWindow.InfoIcon, &quot;Overwrite bank?&quot;, &quot;This action will overwrite your the existing bank on your synth. Are you sure you want to continue?&quot;, &quot;OK&quot;, &quot;Cancel&quot;)&#13;    if ret == false then return end&#13;&#13;    local PatchDataCurrent = Voice_AssembleValues()&#13;&#13;    local patchSelectMod = panel:getModulatorByName(&quot;Voice_PatchSelectControl-7&quot;)&#13;&#13;    Voice_putPatch(PatchDataCurrent, patchSelectMod:getModulatorValue())&#13;&#13;&#9;panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x21, 0x7f, 0xf7}))&#13;&#9;panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x21, 0x00, 0xf7}))&#13;&#9;panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x28, 0x7f, 0xf7}))&#13;&#9;panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x28, 0x00, 0xf7}))&#13;&#9;panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x25, 0x7f, 0xf7}))&#13;&#9;panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x25, 0x00, 0xf7}))&#13;&#9;panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x27, 0x7f, 0xf7}))&#13;&#9;panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x27, 0x00, 0xf7}))&#13;&#9;panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x0d, 0x7f, 0xf7}))&#13;&#9;panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x0d, 0x00, 0xf7}))&#13;&#9;panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x07, 0x7f, 0xf7}))&#13;&#9;panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x07, 0x00, 0xf7}))&#13;&#9;panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x07, 0x7f, 0xf7}))&#13;&#9;panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x07, 0x00, 0xf7}))&#13;&#9;panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x29, 0x7f, 0xf7}))&#13;&#9;panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x29, 0x00, 0xf7}))&#13;&#9;panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x25, 0x7f, 0xf7}))&#13;&#9;panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x25, 0x00, 0xf7}))&#13;&#13;    panel:sendMidiMessageNow(CtrlrMidiMessage(VoiceBankData))&#13;end"
                    luaMethodLinkedProperty="" luaMethodSource="0" uuid="082c5a0a89db494c99b9b3a6d6472c7f"
                    luaMethodValid="1"/>
-        <luaMethod luaMethodName="Voice_HideInfoMsg" luaMethodCode="function Voice_HideInfoMsg()&#13;&#9;local info = panel:getModulatorByName(&quot;info-lbl-box&quot;)&#13;&#9;info:getComponent():setProperty(&quot;componentVisibility&quot;, 0, false)&#13;&#9;timer:stopTimer(34)&#13;end"
-                   luaMethodLinkedProperty="" luaMethodSource="0" uuid="83cdb205e4184060bc620f98c1f0db33"
-                   luaMethodValid="1"/>
         <luaMethod luaMethodName="Voice_ResetPatchSelector" luaMethodCode="function Voice_ResetPatchSelector()&#13;&#9;local pSelect = panel:getModulatorByName(&quot;Voice_PatchSelectControl-7&quot;)&#13;&#9;pSelect:setValue(0, false)&#13;&#9;timer:stopTimer(35)&#13;end"
                    luaMethodLinkedProperty="" luaMethodSource="0" uuid="0b565525a5fc41e4bca02fb0f33676d7"
                    luaMethodValid="1"/>
@@ -168,13 +165,13 @@
                    luaMethodLinkedProperty="" luaMethodSource="0" uuid="00000000000000000000000000000006"
                    luaMethodValid="1"/>
       </luaMethodGroup>
-      <luaMethod luaMethodName="midiReceived" luaMethodCode="--&#13;-- Called when a panel receives a midi message (does not need to match any modulator mask)&#13;-- @midi   http://ctrlr.org/api/class_ctrlr_midi_message.html&#13;midiReceived = function(midi)&#13;&#9;midiSize = midi:getData():getSize()&#13;&#13;&#9;if dump_send ~= 1 then&#13;&#9;&#9;if midiSize == 163 then&#13;&#9;&#9;&#9;local info = panel:getModulatorByName(&quot;info-lbl-box&quot;)&#13;&#9;&#9;&#9;info:getComponent():setProperty(&quot;componentVisibility&quot;, 0, false)&#13;&#9;&#9;end&#13;&#9;&#9;return&#13;&#9;end&#13;&#9;&#13;&#9;if midiSize == 163 then&#13;&#9;&#9;-------------------- process Voice patch data ----------------------------------------&#13;&#9;&#9;Voice_AssignValues(midi:getData(), false)&#13;&#9;end&#13;&#9;---------------------------------------------------------------------------------&#13;&#9;if midiSize == 102 then&#13;&#9;&#9;-------------------- process Performance patch data ----------------------------------------&#13;&#9;&#9;Performance_AssignValues(midi:getData(), false)&#13;&#9;end&#13;&#9;---------------------------------------------------------------------------------&#13;&#9;if midiSize == 4104 then&#13;&#9;&#9;-------------------- process Voice bank data ----------------------------------------&#13;&#9;&#9;Voice_AssignBank(midi:getData())&#13;        patchSelectMod:setValue(0, false)&#13;        patchSelectComp:setPropertyInt(&quot;componentDisabled&quot;, 0)&#13;&#9;end&#13;   &#9;dump_send = 0&#13;&#9;local info = panel:getModulatorByName(&quot;info-lbl-box&quot;)&#13;&#9;info:getComponent():setProperty(&quot;componentVisibility&quot;, 0, false)&#13;end&#13;"
+      <luaMethod luaMethodName="midiReceived" luaMethodCode="--&#13;-- Called when a panel receives a midi message (does not need to match any modulator mask)&#13;-- @midi   http://ctrlr.org/api/class_ctrlr_midi_message.html&#13;midiReceived = function(midi)&#13;&#9;midiSize = midi:getData():getSize()&#13;&#13;&#9;if dump_send ~= 1 then&#13;&#9;&#9;return&#13;&#9;end&#13;&#9;&#13;&#9;if midiSize == 163 then&#13;&#9;&#9;-------------------- process Voice patch data ----------------------------------------&#13;&#9;&#9;Voice_AssignValues(midi:getData(), false)&#13;&#9;end&#13;&#9;---------------------------------------------------------------------------------&#13;&#9;if midiSize == 102 then&#13;&#9;&#9;-------------------- process Performance patch data ----------------------------------------&#13;&#9;&#9;Performance_AssignValues(midi:getData(), false)&#13;&#9;end&#13;&#9;---------------------------------------------------------------------------------&#13;&#9;if midiSize == 4104 then&#13;&#9;&#9;-------------------- process Voice bank data ----------------------------------------&#13;&#9;&#9;Voice_AssignBank(midi:getData())&#13;        patchSelectMod:setValue(0, false)&#13;        patchSelectComp:setPropertyInt(&quot;componentDisabled&quot;, 0)&#13;&#9;end&#13;   &#9;dump_send = 0&#13;end&#13;"
                  luaMethodLinkedProperty="" luaMethodSource="0" uuid="101edde1365e48ab9c1ce92334272474"
                  luaMethodValid="1"/>
       <luaMethod luaMethodName="panelCreated" luaMethodCode="--&#13;-- Called when a panel loaded &#13;function panelCreated()&#13;    PerformanceBankData = nil&#13;    Performance_checksumEnd = 4101&#13;    Performance_checksumOffset = 4102&#13;    Performance_checksumStart = 6&#13;    Performance_dxSinglePackedSize = 64&#13;    Performance_dxSysexHeaderSize = 6&#13;    Performance_singleSize = 102&#13;    VoiceBankData = nil&#13;    Voice_offsets={[26]=7, [47]=7, [68]=7, [89]=7, [110]=7, [131]=7}&#13;    Voice_checksumEnd = 160&#13;    Voice_checksumOffset = 161&#13;    Voice_checksumStart = 6&#13;    Voice_dxSinglePackedSize = 128&#13;    Voice_dxSysexHeaderSize = 6&#13;    Voice_singleSize = 163&#13;    Voice_SelectedPatchIndex = 0&#13;&#13;    timer:setCallback (33, panelLoadedCallback)&#13;    timer:startTimer(33, 100)&#13;&#13;end&#13;&#13;"
                  luaMethodLinkedProperty="" luaMethodSource="0" uuid="89f5c7bc36f24726b5556a2551fa5cb4"
                  luaMethodValid="1"/>
-      <luaMethod luaMethodName="panelLoadedCallback" luaMethodCode="--&#13;-- Called when a panel loaded &#13;function panelLoadedCallback()&#13;&#13;    panel_loaded = 1&#13;    timer:stopTimer(33)&#13;&#13;&#9;local info = panel:getModulatorByName(&quot;info-lbl-box&quot;)&#13;&#9;info:getComponent():setProperty(&quot;componentVisibility&quot;, 0, false)&#13;&#9;panel:getModulatorByName(&quot;info-lbl&quot;):getComponent():setText(&quot;&quot;)&#13;end&#13;"
+      <luaMethod luaMethodName="panelLoadedCallback" luaMethodCode="--&#13;-- Called when a panel loaded &#13;function panelLoadedCallback()&#13;&#13;    panel_loaded = 1&#13;    timer:stopTimer(33)&#13;&#10;&#13;&#10;&#9;panel:getModulatorByName(&quot;Name10Char1&quot;):getComponent():setText(&quot;&quot;)&#13;&#13;end&#13;"
                  luaMethodLinkedProperty="" luaMethodSource="0" uuid="98f8c18912904427b200ee37e2abbb39"
                  luaMethodValid="1"/>
       <luaMethod luaMethodName="beforePanelCreated" luaMethodCode="--&#13;-- Called before a panel has loaded &#13;function beforePanelCreated()&#13;    panel_loaded = 0&#13;&#13;&#9;-- panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x21, 0x7f, 0xf7}))&#13;&#9;-- panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x21, 0x00, 0xf7}))&#13;&#9;-- panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x28, 0x7f, 0xf7}))&#13;&#9;-- panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x28, 0x00, 0xf7}))&#13;&#9;-- panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x25, 0x7f, 0xf7}))&#13;&#9;-- panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x25, 0x00, 0xf7}))&#13;&#9;-- panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x27, 0x7f, 0xf7}))&#13;&#9;-- panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x27, 0x00, 0xf7}))&#13;&#9;-- panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x0d, 0x7f, 0xf7}))&#13;&#9;-- panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x0d, 0x00, 0xf7}))&#13;&#9;-- panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x07, 0x7f, 0xf7}))&#13;&#9;-- panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x07, 0x00, 0xf7}))&#13;&#9;-- panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x07, 0x7f, 0xf7}))&#13;&#9;-- panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x07, 0x00, 0xf7}))&#13;&#9;-- panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x29, 0x7f, 0xf7}))&#13;&#9;-- panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x29, 0x00, 0xf7}))&#13;&#9;-- panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x21, 0x7f, 0xf7}))&#13;&#9;-- panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x21, 0x00, 0xf7}))&#13;&#9;-- panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x28, 0x7f, 0xf7}))&#13;&#9;-- panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x28, 0x00, 0xf7}))&#13;&#9;-- panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x25, 0x7f, 0xf7}))&#13;&#9;-- panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x25, 0x00, 0xf7}))&#13;&#9;-- panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x27, 0x7f, 0xf7}))&#13;&#9;-- panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x27, 0x00, 0xf7}))&#13;&#9;-- panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x0d, 0x7f, 0xf7}))&#13;&#9;-- panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x0d, 0x00, 0xf7}))&#13;&#9;-- panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x07, 0x7f, 0xf7}))&#13;&#9;-- panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x07, 0x00, 0xf7}))&#13;&#9;-- panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x07, 0x7f, 0xf7}))&#13;&#9;-- panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x07, 0x00, 0xf7}))&#13;&#9;-- panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x29, 0x7f, 0xf7}))&#13;&#9;-- panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x29, 0x00, 0xf7}))&#13;&#13;end&#13;"
@@ -183,33 +180,34 @@
     </luaManagerMethods>
   </luaManager>
   <panelResources>
-    <resource resourceHash="2946242406179892715" resourceLoadedTime="1444853215555"
+    <resource resourceHash="2946242406179892715" resourceLoadedTime="1444938963547"
               resourceSize="54848" resourceFile="DX7 Logo LCD blank 1 laag.jpeg"
               resourceSourceFile="c:\ctrlr\Panels\pascalc\DX7 Logo LCD blank 1 laag.jpg"
               resourceName="DX7 Logo LCD blank 1 laag" resourceType="Image"/>
-    <resource resourceHash="2304217294559162866" resourceLoadedTime="1444853215559"
+    <resource resourceHash="2304217294559162866" resourceLoadedTime="1444938963551"
               resourceSize="50896" resourceFile="DX7 serial.jpeg" resourceSourceFile="c:\ctrlr\Panels\pascalc\DX7 serial.jpg"
               resourceName="DX7 serial" resourceType="Image"/>
-    <resource resourceHash="-8366588168866444372" resourceLoadedTime="1444853215568"
+    <resource resourceHash="-8366588168866444372" resourceLoadedTime="1444938963561"
               resourceSize="79711" resourceFile="tx7 background pic for ctrlr.jpg"
               resourceSourceFile="C:\Users\pcg\AppData\Roaming\Ctrlr\8.tNT1fBgye3J\tx7 background pic for ctrlr.jpg"
               resourceName="tx7 background pic for ctrlr" resourceType="Image"/>
-    <resource resourceHash="8207014186369548035" resourceLoadedTime="1444853215569"
+    <resource resourceHash="8207014186369548035" resourceLoadedTime="1444938963561"
               resourceSize="22620" resourceFile="tx7 logo 1.jpg" resourceSourceFile="C:\Users\pcg\AppData\Roaming\Ctrlr\8.tNT1fBgye3J\tx7 logo 1.jpg"
               resourceName="tx7 logo 1" resourceType="Image"/>
-    <resource resourceHash="-2344375022198359699" resourceLoadedTime="1444853215659"
+    <resource resourceHash="-2344375022198359699" resourceLoadedTime="1444938963650"
               resourceSize="1503262" resourceFile="TX7 Logo LCD blank.jpg"
               resourceSourceFile="C:\Users\pcg\AppData\Roaming\Ctrlr\8.tNT1fBgye3J\TX7 Logo LCD blank.jpeg"
               resourceName="TX7 Logo LCD blank" resourceType="Image"/>
-    <resource resourceHash="1368052477294886614" resourceLoadedTime="1444853215681"
+    <resource resourceHash="1368052477294886614" resourceLoadedTime="1444938963672"
               resourceSize="296476" resourceFile="TX7 serial alt 1.jpg" resourceSourceFile="C:\Users\pcg\AppData\Roaming\Ctrlr\8.tNT1fBgye3J\TX7 serial alt 1.jpeg"
               resourceName="TX7 serial alt 1" resourceType="Image"/>
   </panelResources>
   <uiPanelEditor uiPanelCanvasRectangle="0 0 1181 714" uiPanelSnapSize="8" uiPanelBackgroundColour="ffc12a2a"
                  uiPanelBackgroundColour1="ff000000" uiPanelBackgroundColour2="ff000000"
                  uiPanelBackgroundGradientType="2" uiPanelImageResource="-- None"
-                 uiPanelEditMode="0" uiPanelLock="0" uiPanelDisabledOnEdit="0"
-                 uiPanelWidth="900" uiPanelHeight="1200" name="Yamaha DX7" uiPanelImageAlpha="255"
+                 uiPanelEditMode="0" uiPanelViewPortSize="1274" uiPanelPropertiesSize="318"
+                 uiPanelLock="0" uiPanelDisabledOnEdit="0" uiPanelWidth="900"
+                 uiPanelHeight="1200" name="Yamaha DX7" uiPanelImageAlpha="255"
                  uiPanelImageLayout="64" uiPanelSnapActive="1" uiPanelPropertiesOnRight="0"
                  luaPanelPaintBackground="" luaPanelResized="" luaPanelFileDragDropHandler="-- None"
                  luaPanelFileDragEnterHandler="-- None" luaPanelFileDragExitHandler="-- None"
@@ -217,7 +215,7 @@
                  uiPanelTooltipBackgroundColour="0xffeeeebb" uiPanelTooltipOutlineColour="0xff000000"
                  uiPanelTooltipColour="0xff000000" uiPanelTooltipCornerRound="1"
                  uiPanelTooltipPlacement="2" uiPanelTooltipFont="&lt;Sans-Serif&gt;;15;1;0;0;0;0;3"
-                 uiPanelZoom="1" uiPanelViewPortSize="1274" uiPanelPropertiesSize="318">
+                 uiPanelZoom="1">
     <uiPanelCanvasLayer uiPanelCanvasLayerName="New layer" uiPanelCanvasLayerUid="107b39c8bf190000d422a6833d010000"
                         uiPanelCanvasLayerColour="0x000000" uiPanelCanvasLayerVisibility="1"
                         uiPanelCanvasLayerIndex="0"/>
@@ -981,7 +979,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="5" vstIndex="432" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="432" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -2347,7 +2345,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="3" vstIndex="459" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="459" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -2386,7 +2384,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="3" vstIndex="460" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="460" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -4227,7 +4225,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="3" vstIndex="493" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="493" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -4266,7 +4264,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="3" vstIndex="494" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="494" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -5298,7 +5296,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="3" vstIndex="513" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="513" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -5337,7 +5335,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="3" vstIndex="514" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="514" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -6609,7 +6607,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="3" vstIndex="538" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="538" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -6648,7 +6646,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="3" vstIndex="539" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="539" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -7728,7 +7726,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="3" vstIndex="559" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="559" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -7767,7 +7765,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="3" vstIndex="560" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="560" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -8847,7 +8845,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="3" vstIndex="580" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="580" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -8886,7 +8884,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="3" vstIndex="581" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="581" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -9745,7 +9743,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="0" vstIndex="" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression=""
              modulatorValueExpressionReverse="" modulatorControllerExpression="value"
@@ -9811,7 +9809,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="0" vstIndex="" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -9843,7 +9841,7 @@
                uiComboMenuFont="&lt;Sans-Serif&gt;;14;0;0;0;0;1;3" uiComboButtonColour="ff00ff79"
                uiComboBgColour="ff89a798" uiComboMenuBackgroundColour="ffb9c8c0"
                uiComboMenuFontColour="0xff000000" uiComboMenuHighlightColour="ffadd8e6"
-               uiComboMenuFontHighlightedColour="0xff232323" uiComboContent="from DX7&#13;from file"
+               uiComboMenuFontHighlightedColour="0xff232323" uiComboContent="from DX7&#13;&#10;from file"
                uiComboMenuBackgroundRibbed="1" uiComboButtonGradient="1" uiComboButtonGradientColour1="ff00ff68"
                uiComboButtonGradientColour2="ff00ff68" uiComboButtonWidthOverride="1"
                uiComboButtonWidth="16" uiComboDynamicContent="0" uiComboSelectedId="-1"
@@ -9898,7 +9896,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="0" vstIndex="" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -9929,7 +9927,7 @@
                uiComboMenuFont="&lt;Sans-Serif&gt;;14;0;0;0;0;1;3" uiComboButtonColour="ff00ff79"
                uiComboBgColour="ff89a798" uiComboMenuBackgroundColour="ffb9c8c0"
                uiComboMenuFontColour="0xff000000" uiComboMenuHighlightColour="ffadd8e6"
-               uiComboMenuFontHighlightedColour="0xff232323" uiComboContent="to DX7&#13;to file"
+               uiComboMenuFontHighlightedColour="0xff232323" uiComboContent="to DX7&#13;&#10;to file"
                uiComboMenuBackgroundRibbed="1" uiComboButtonGradient="1" uiComboButtonGradientColour1="ff00ff68"
                uiComboButtonGradientColour2="ff00ff68" uiComboButtonWidthOverride="1"
                uiComboButtonWidth="16" uiComboDynamicContent="0" uiComboSelectedId="-1"
@@ -10464,50 +10462,6 @@
                uiLabelEditOnSingleClick="0" uiLabelEditOnDoubleClick="1" uiLabelEditFocusDiscardsChanges="1"
                uiLabelInputAllowedChars="" uiLabelInputMaxLength="1024" uiLabelChangedCbk="Voice_SetPatchName"
                uiType="uiLabel" componentRectangle="40 56 175 24" componentLayerUid="107b39c8bf190000d422a6833d010000"/>
-  </modulator>
-  <modulator modulatorCustomIndex="0" modulatorCustomIndexGroup="0" modulatorIsStatic="1"
-             name="info-lbl-box" modulatorVstExported="0" modulatorValue="0">
-    <component componentLabelPosition="top" componentLabelJustification="centred"
-               componentLabelHeight="14" componentLabelWidth="0" componentLabelVisible="0"
-               componentLabelAlwaysOnTop="0" componentSentBack="0" componentLabelColour="0xff000000"
-               componentLabelFont="&lt;Sans-Serif&gt;;12;0;0;0;0;1;3" componentVisibleName="modulator-2"
-               componentMouseCursor="2" componentGroupName="" componentGroupped="0"
-               componentSnapSize="0" componentIsLocked="0" componentDisabled="0"
-               componentRadioGroupId="0" componentRadioGroupNotifyMidi="1" componentVisibility="0"
-               componentEffect="0" componentEffectRadius="1" componentEffectColour="0xff000000"
-               componentEffectOffsetX="0" componentEffectOffsetY="0" componentExcludedFromLabelDisplay="0"
-               componentValueDecimalPlaces="0" componentLuaMouseMoved="-- None"
-               componentLuaMouseDown="-- None" componentLuaMouseDrag="-- None"
-               componentLuaMouseDoubleClick="-- None" uiGroupText="" uiGroupTextColour="0xff000000"
-               uiGroupOutlineColour1="0xffa3a3a3" uiGroupOutlineColour2="0xffffffff"
-               uiGroupBackgroundColour1="0" uiGroupBackgroundColour2="0" uiGroupOutlineGradientType="Vertical"
-               uiGroupBackgroundGradientType="1" uiGroupBackgroundImage="" componentRectangle="457 230 288 128"
-               uiGroupBackgroundImageLayout="36" uiGroupBackgroundImageAlpha="0"
-               uiGroupTextPlacement="top" uiGroupTextFont="&lt;Sans-Serif&gt;;14;0;0;0;0;1;3"
-               uiGroupOutlineThickness="2" uiGroupOutlineRoundAngle="8" uiGroupTextMargin="0"
-               uiType="uiGroup" componentLayerUid="107b39c8bf190000d422a6833d010000"/>
-  </modulator>
-  <modulator modulatorCustomIndex="0" modulatorCustomIndexGroup="0" modulatorIsStatic="1"
-             name="info-lbl" modulatorVstExported="0" modulatorValue="0">
-    <component componentLabelPosition="top" componentLabelJustification="centred"
-               componentLabelHeight="14" componentLabelWidth="0" componentLabelVisible="0"
-               componentLabelAlwaysOnTop="1" componentSentBack="0" componentLabelColour="0xff000000"
-               componentLabelFont="&lt;Sans-Serif&gt;;12;0;0;0;0;1;3" componentVisibleName="modulator-2"
-               componentMouseCursor="2" componentGroupName="info-lbl-box" componentGroupped="1"
-               componentSnapSize="0" componentIsLocked="0" componentDisabled="0"
-               componentRadioGroupId="0" componentRadioGroupNotifyMidi="1" componentVisibility="1"
-               componentEffect="0" componentEffectRadius="1" componentEffectColour="0xff000000"
-               componentEffectOffsetX="0" componentEffectOffsetY="0" componentExcludedFromLabelDisplay="0"
-               componentValueDecimalPlaces="0" componentLuaMouseMoved="-- None"
-               componentLuaMouseDown="-- None" componentLuaMouseDrag="-- None"
-               componentLuaMouseDoubleClick="-- None" uiLabelBgColour="0x00000000"
-               uiLabelTextColour="ffffffff" uiLabelOutline="0" uiLabelOutlineColour="0x00000000"
-               uiLabelJustification="centred" uiLabelFitFont="0" uiLabelFont="&lt;Sans-Serif&gt;;34;0;0;0;0;1;3"
-               uiLabelText="" uiLabelDisplaysAllValues="0" uiLabelDisplayFormat="%n(%N) = %v(%h)"
-               uiLabelInputHighlightTextColour="0xffffffff" uiLabelInputHighlightColour="0xff0000ff"
-               uiLabelEditOnSingleClick="0" uiLabelEditOnDoubleClick="0" uiLabelEditFocusDiscardsChanges="1"
-               uiLabelInputAllowedChars="" uiLabelInputMaxLength="1024" uiLabelChangedCbk="-- None"
-               uiType="uiLabel" componentRectangle="30 32 217 71" componentLayerUid="107b39c8bf190000d422a6833d010000"/>
   </modulator>
   <panelCustomData/>
 </panel>
