@@ -214,7 +214,7 @@
               resourceSize="296476" resourceFile="TX7 serial alt 1.jpg" resourceSourceFile="C:\Users\pcg\AppData\Roaming\Ctrlr\8.tNT1fBgye3J\TX7 serial alt 1.jpeg"
               resourceName="TX7 serial alt 1" resourceType="Image"/>
   </panelResources>
-  <uiPanelEditor uiPanelCanvasRectangle="0 0 1181 713" uiPanelSnapSize="8" uiPanelBackgroundColour="ffc12a2a"
+  <uiPanelEditor uiPanelCanvasRectangle="0 0 1181 711" uiPanelSnapSize="8" uiPanelBackgroundColour="ffc12a2a"
                  uiPanelBackgroundColour1="ff000000" uiPanelBackgroundColour2="ff000000"
                  uiPanelBackgroundGradientType="2" uiPanelImageResource="-- None"
                  uiPanelEditMode="0" uiPanelLock="0" uiPanelDisabledOnEdit="0"
@@ -226,7 +226,7 @@
                  uiPanelTooltipBackgroundColour="0xffeeeebb" uiPanelTooltipOutlineColour="0xff000000"
                  uiPanelTooltipColour="0xff000000" uiPanelTooltipCornerRound="1"
                  uiPanelTooltipPlacement="2" uiPanelTooltipFont="&lt;Sans-Serif&gt;;15;1;0;0;0;0;3"
-                 uiPanelZoom="1" uiPanelPropertiesSize="296" uiPanelViewPortSize="966">
+                 uiPanelZoom="1" uiPanelPropertiesSize="296" uiPanelViewPortSize="1010">
     <uiPanelCanvasLayer uiPanelCanvasLayerName="New layer" uiPanelCanvasLayerUid="107b39c8bf190000d422a6833d010000"
                         uiPanelCanvasLayerColour="0x000000" uiPanelCanvasLayerVisibility="1"
                         uiPanelCanvasLayerIndex="0"/>
@@ -9742,7 +9742,7 @@
                componentBubbleRoundAngle="10" componentBubbleValueColour="0xff000000"
                componentBubbleValueFont="&lt;Sans-Serif&gt;;14;0;0;0;0;1;3"
                componentBubbleValueJustification="centred" componentLayerUid="107b39c8bf190000d422a6833d010000"
-               componentRectangle="7 7 234 122" uiType="uiImage"/>
+               componentRectangle="6 8 234 122" uiType="uiImage"/>
   </modulator>
   <modulator modulatorCustomIndex="0" modulatorCustomIndexGroup="0" modulatorIsStatic="1"
              name="modulator-3" modulatorVstExported="0" modulatorValue="0">

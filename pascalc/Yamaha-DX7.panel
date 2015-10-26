@@ -208,10 +208,10 @@
               resourceSize="296476" resourceFile="TX7 serial alt 1.jpg" resourceSourceFile="C:\Users\pcg\AppData\Roaming\Ctrlr\8.tNT1fBgye3J\TX7 serial alt 1.jpeg"
               resourceName="TX7 serial alt 1" resourceType="Image"/>
   </panelResources>
-  <uiPanelEditor uiPanelCanvasRectangle="0 0 1172 709" uiPanelSnapSize="8" uiPanelBackgroundColour="ffc12a2a"
+  <uiPanelEditor uiPanelCanvasRectangle="0 0 1172 711" uiPanelSnapSize="8" uiPanelBackgroundColour="ffc12a2a"
                  uiPanelBackgroundColour1="ff000000" uiPanelBackgroundColour2="ff000000"
                  uiPanelBackgroundGradientType="2" uiPanelImageResource="-- None"
-                 uiPanelEditMode="0" uiPanelViewPortSize="1274" uiPanelPropertiesSize="318"
+                 uiPanelEditMode="0" uiPanelViewPortSize="1010" uiPanelPropertiesSize="252"
                  uiPanelLock="0" uiPanelDisabledOnEdit="0" uiPanelWidth="900"
                  uiPanelHeight="1200" name="Yamaha DX7" uiPanelImageAlpha="255"
                  uiPanelImageLayout="64" uiPanelSnapActive="1" uiPanelPropertiesOnRight="0"
@@ -9935,7 +9935,7 @@
                componentLabelAlwaysOnTop="1" componentSentBack="0" componentLabelColour="ffff8fd8"
                componentLabelFont="Arial;12;0;0;0;0;1;0" componentVisibleName="load voice from bank"
                componentMouseCursor="2" componentGroupName="main_grp1-2" componentGroupped="1"
-               componentSnapSize="0" componentIsLocked="0" componentDisabled="0"
+               componentSnapSize="0" componentIsLocked="0" componentDisabled="1"
                componentRadioGroupId="0" componentRadioGroupNotifyMidi="1" componentVisibility="1"
                componentEffect="0" componentEffectRadius="0.5" componentEffectColour="0xff000000"
                componentEffectOffsetX="0" componentEffectOffsetY="0" componentExcludedFromLabelDisplay="0"
@@ -10525,7 +10525,7 @@
                uiLabelInputHighlightTextColour="0xffffffff" uiLabelInputHighlightColour="0xff0000ff"
                uiLabelEditOnSingleClick="0" uiLabelEditOnDoubleClick="1" uiLabelEditFocusDiscardsChanges="1"
                uiLabelInputAllowedChars="" uiLabelInputMaxLength="1024" uiLabelChangedCbk="Voice_SetPatchName"
-               componentLayerUid="107b39c8bf190000d422a6833d010000" componentRectangle="40 56 175 24"
+               componentLayerUid="107b39c8bf190000d422a6833d010000" componentRectangle="38 61 175 24"
                uiType="uiLabel"/>
   </modulator>
   <modulator modulatorCustomIndex="0" modulatorCustomIndexGroup="0" modulatorIsStatic="1"
@@ -10534,7 +10534,7 @@
                componentLabelHeight="14" componentLabelWidth="0" componentLabelVisible="0"
                componentLabelAlwaysOnTop="0" componentSentBack="0" componentLabelColour="0xff000000"
                componentLabelFont="&lt;Sans-Serif&gt;;12;0;0;0;0;1;3" componentVisibleName="modulator-2"
-               componentMouseCursor="2" componentGroupName="" componentGroupped="0"
+               componentMouseCursor="2" componentGroupName="main_grp7-1" componentGroupped="1"
                componentSnapSize="0" componentIsLocked="0" componentDisabled="0"
                componentRadioGroupId="0" componentRadioGroupNotifyMidi="1" componentVisibility="0"
                componentEffect="0" componentEffectRadius="1" componentEffectColour="0xff000000"
@@ -10542,12 +10542,12 @@
                componentValueDecimalPlaces="0" componentLuaMouseMoved="-- None"
                componentLuaMouseDown="-- None" componentLuaMouseDrag="-- None"
                componentLuaMouseDoubleClick="-- None" uiGroupText="" uiGroupTextColour="0xff000000"
-               uiGroupOutlineColour1="0xffa3a3a3" uiGroupOutlineColour2="0xffffffff"
+               uiGroupOutlineColour1="ffffff" uiGroupOutlineColour2="ffffff"
                uiGroupBackgroundColour1="0" uiGroupBackgroundColour2="0" uiGroupOutlineGradientType="Vertical"
-               uiGroupBackgroundGradientType="1" uiGroupBackgroundImage="" componentRectangle="520 518 288 128"
+               uiGroupBackgroundGradientType="1" uiGroupBackgroundImage="" componentRectangle="38 61 175 24"
                uiGroupBackgroundImageLayout="36" uiGroupBackgroundImageAlpha="0"
-               uiGroupTextPlacement="top" uiGroupTextFont="&lt;Sans-Serif&gt;;14;0;0;0;0;1;3"
-               uiGroupOutlineThickness="2" uiGroupOutlineRoundAngle="8" uiGroupTextMargin="0"
+               uiGroupTextPlacement="centred" uiGroupTextFont="&lt;Sans-Serif&gt;;14;0;0;0;0;1;3"
+               uiGroupOutlineThickness="0" uiGroupOutlineRoundAngle="0" uiGroupTextMargin="0"
                componentLayerUid="107b39c8bf190000d422a6833d010000" uiType="uiGroup"/>
   </modulator>
   <modulator modulatorCustomIndex="0" modulatorCustomIndexGroup="0" modulatorIsStatic="1"
