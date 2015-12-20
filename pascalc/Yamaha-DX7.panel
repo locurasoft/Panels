@@ -9675,7 +9675,7 @@
                componentRectangle="160 75 100 42" uiType="uiCombo"/>
   </modulator>
   <modulator modulatorCustomIndex="0" modulatorCustomIndexGroup="0" modulatorIsStatic="1"
-             name="main_grp7-1" modulatorVstExported="0" vstIndex="167" modulatorValue="0">
+             name="main_grp7-1" modulatorVstExported="0" vstIndex="" modulatorValue="0">
     <component componentLabelPosition="top" componentLabelJustification="centred"
                componentLabelHeight="14" componentLabelWidth="0" componentLabelVisible="0"
                componentLabelAlwaysOnTop="1" componentSentBack="0" componentLabelColour="0xff000000"
@@ -9747,7 +9747,7 @@
                componentBubbleValueJustification="centred" componentLayerUid="107b39c8bf190000d422a6833d010000"
                componentRectangle="248 13 234 110" uiType="uiImage"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="116" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
