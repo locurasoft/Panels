@@ -230,7 +230,7 @@
                         uiPanelCanvasLayerColour="0x000000" uiPanelCanvasLayerVisibility="1"
                         uiPanelCanvasLayerIndex="0"/>
   </uiPanelEditor>
-  <modulator modulatorVstExported="1" modulatorMax="31" vstIndex="414" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="31" vstIndex="22" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -272,7 +272,7 @@
                componentBubbleValueJustification="centred" componentLayerUid="107b39c8bf190000d422a6833d010000"
                componentRectangle="40 10 108 36" uiType="uiCombo"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="7" vstIndex="415" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="7" vstIndex="23" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -320,7 +320,7 @@
                componentBubbleValueJustification="centred" componentLayerUid="107b39c8bf190000d422a6833d010000"
                componentRectangle="184 11 42 117" uiType="uiSlider" uiComboFont="Arial;12;1;0;0;0;1;0"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="416" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="24" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="setGlobal (0, setBit (global.k0, 4, modulatorValue))"
              modulatorValueExpressionReverse="" modulatorControllerExpression="value"
@@ -361,7 +361,7 @@
                componentBubbleValueJustification="centred" componentLayerUid="107b39c8bf190000d422a6833d010000"
                uiType="uiButton"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="417" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="25" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -400,7 +400,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="418" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="26" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="setGlobal (0, setBit (global.k0, 5, modulatorValue))"
              modulatorValueExpressionReverse="" modulatorControllerExpression="value"
@@ -441,7 +441,7 @@
                componentBubbleValueJustification="centred" componentLayerUid="107b39c8bf190000d422a6833d010000"
                uiType="uiButton"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="419" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="27" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="setGlobal (0, setBit (global.k0, 3, modulatorValue))"
              modulatorValueExpressionReverse="" modulatorControllerExpression="value"
@@ -482,7 +482,7 @@
                componentBubbleValueJustification="centred" componentLayerUid="107b39c8bf190000d422a6833d010000"
                uiType="uiButton"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="420" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="28" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="setGlobal (0, setBit (global.k0, 2, modulatorValue))"
              modulatorValueExpressionReverse="" modulatorControllerExpression="value"
@@ -523,7 +523,7 @@
                componentBubbleValueJustification="centred" componentLayerUid="107b39c8bf190000d422a6833d010000"
                uiType="uiButton"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="421" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="29" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="setGlobal (0, setBit (global.k0, 1, modulatorValue))"
              modulatorValueExpressionReverse="" modulatorControllerExpression="value"
@@ -564,7 +564,7 @@
                componentBubbleValueJustification="centred" componentLayerUid="107b39c8bf190000d422a6833d010000"
                uiType="uiButton"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="422" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="30" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="setGlobal (0, setBit (global.k0, 0, modulatorValue))"
              modulatorValueExpressionReverse="" modulatorControllerExpression="value"
@@ -605,7 +605,7 @@
                componentBubbleValueJustification="centred" componentLayerUid="107b39c8bf190000d422a6833d010000"
                uiType="uiButton"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="423" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="31" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -644,7 +644,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="424" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="32" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -683,7 +683,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="425" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="33" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression=""
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -724,7 +724,7 @@
                componentBubbleValueJustification="centred" componentLayerUid="107b39c8bf190000d422a6833d010000"
                uiType="uiButton"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="48" vstIndex="426" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="48" vstIndex="34" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -773,7 +773,7 @@
                componentRectangle="225 11 42 117" uiComboFont="Arial;12;1;0;0;0;1;0"
                uiType="uiSlider"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="12" vstIndex="427" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="12" vstIndex="35" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -821,7 +821,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="12" vstIndex="428" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="12" vstIndex="36" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -869,7 +869,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="429" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="37" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -917,7 +917,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="7" vstIndex="430" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="7" vstIndex="38" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -965,7 +965,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="431" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="39" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression=""
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -1004,7 +1004,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="432" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="40" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -1043,7 +1043,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="7" vstIndex="433" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="7" vstIndex="41" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -1091,7 +1091,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="434" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="42" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -1139,7 +1139,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="435" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="43" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -1187,7 +1187,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="436" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="44" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -1235,7 +1235,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="437" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="45" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -1283,7 +1283,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="438" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="46" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="setGlobal (1, setBit (global.k1, 0, modulatorValue))"
              modulatorValueExpressionReverse="isBitSet (midiValue, 0)" modulatorControllerExpression="value"
@@ -1322,7 +1322,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="439" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="47" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="setGlobal (1, setBit (global.k1, 1, modulatorValue))"
              modulatorValueExpressionReverse="isBitSet (midiValue, 1)" modulatorControllerExpression="value"
@@ -1361,7 +1361,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="440" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="48" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="setGlobal (1, setBit (global.k1, 2, modulatorValue))"
              modulatorValueExpressionReverse="isBitSet (midiValue, 2)" modulatorControllerExpression="value"
@@ -1400,7 +1400,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="15" vstIndex="441" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="15" vstIndex="49" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -1448,7 +1448,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="442" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="50" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="setGlobal (2, setBit (global.k2, 0, modulatorValue))"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -1487,7 +1487,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="443" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="51" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="setGlobal (2, setBit (global.k2, 1, modulatorValue))"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -1526,7 +1526,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="444" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="52" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="setGlobal (2, setBit (global.k2, 2, modulatorValue))"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -1565,7 +1565,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="15" vstIndex="445" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="15" vstIndex="53" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -1613,7 +1613,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="446" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="54" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="setGlobal (3, setBit (global.k3, 0, modulatorValue))"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -1652,7 +1652,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="447" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="55" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="setGlobal (3, setBit (global.k3, 1, modulatorValue))"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -1691,7 +1691,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="448" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="56" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="setGlobal (3, setBit (global.k3, 2, modulatorValue))"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -1730,7 +1730,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="15" vstIndex="449" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="15" vstIndex="57" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -1778,7 +1778,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="450" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="58" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="setGlobal (4, setBit (global.k4, 0, modulatorValue))"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -1817,7 +1817,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="451" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="59" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="setGlobal (4, setBit (global.k4, 1, modulatorValue))"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -1856,7 +1856,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="452" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="60" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="setGlobal (4, setBit (global.k4, 2, modulatorValue))"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -1895,7 +1895,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="15" vstIndex="453" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="15" vstIndex="61" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -2083,7 +2083,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="454" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="62" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -2159,7 +2159,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="455" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="63" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -2207,7 +2207,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="7" vstIndex="456" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="7" vstIndex="64" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue + 7"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -2255,7 +2255,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="457" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="65" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -2294,7 +2294,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="31" vstIndex="458" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="31" vstIndex="66" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -2370,7 +2370,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="459" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="67" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -2409,7 +2409,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="460" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="68" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -2448,7 +2448,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="461" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="69" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue - 21"
              modulatorValueExpressionReverse="midiValue + 21" modulatorControllerExpression="value"
@@ -2496,7 +2496,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="462" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="70" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -2544,7 +2544,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="463" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="71" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -2592,7 +2592,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="7" vstIndex="464" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="7" vstIndex="72" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -2640,7 +2640,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="3" vstIndex="465" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="3" vstIndex="73" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -2688,7 +2688,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="7" vstIndex="466" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="7" vstIndex="74" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -2764,7 +2764,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="467" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="75" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -2839,7 +2839,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="468" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="76" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -2887,7 +2887,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="469" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="77" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -2935,7 +2935,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="470" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="78" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -2983,7 +2983,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="471" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="79" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -3031,7 +3031,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="472" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="80" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -3079,7 +3079,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="473" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="81" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -3182,7 +3182,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="474" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="82" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -3230,7 +3230,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="475" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="83" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -3278,7 +3278,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="476" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="84" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -3326,7 +3326,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="477" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="85" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -3374,7 +3374,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="478" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="86" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -3422,7 +3422,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="479" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="87" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -3470,7 +3470,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="480" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="88" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -3629,7 +3629,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="481" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="89" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -3677,7 +3677,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="482" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="90" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -3716,7 +3716,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="483" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="91" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -3764,7 +3764,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="7" vstIndex="484" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="7" vstIndex="92" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue + 7"
              modulatorValueExpressionReverse="midiValue - 7" modulatorControllerExpression="value"
@@ -3812,7 +3812,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="31" vstIndex="485" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="31" vstIndex="93" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -3860,7 +3860,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="486" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="94" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -3908,7 +3908,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="487" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="95" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -3983,7 +3983,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="488" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="96" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -4031,7 +4031,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="489" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="97" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -4079,7 +4079,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="490" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="98" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -4127,7 +4127,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="491" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="99" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -4175,7 +4175,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="492" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="100" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -4250,7 +4250,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="493" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="101" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -4289,7 +4289,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="494" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="102" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -4328,7 +4328,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="7" vstIndex="495" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="7" vstIndex="103" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -4376,7 +4376,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="3" vstIndex="496" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="3" vstIndex="104" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -4424,7 +4424,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="7" vstIndex="497" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="7" vstIndex="105" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -4472,7 +4472,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="498" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="106" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue - 21"
              modulatorValueExpressionReverse="midiValue + 21" modulatorControllerExpression="value"
@@ -4520,7 +4520,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="499" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="107" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -4568,7 +4568,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="500" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="108" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -4644,7 +4644,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="501" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="109" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -4692,7 +4692,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="502" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="110" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -4731,7 +4731,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="31" vstIndex="503" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="31" vstIndex="111" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -4779,7 +4779,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="504" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="112" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -4827,7 +4827,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="7" vstIndex="505" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="7" vstIndex="113" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue + 7"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -4903,7 +4903,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="506" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="114" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -4951,7 +4951,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="507" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="115" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -4999,7 +4999,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="508" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="116" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -5047,7 +5047,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="509" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="117" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -5095,7 +5095,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="510" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="118" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -5143,7 +5143,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="511" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="119" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -5191,7 +5191,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="512" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="120" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -5321,7 +5321,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="513" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="121" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -5360,7 +5360,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="514" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="122" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -5399,7 +5399,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="7" vstIndex="515" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="7" vstIndex="123" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -5447,7 +5447,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="3" vstIndex="516" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="3" vstIndex="124" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -5495,7 +5495,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="7" vstIndex="517" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="7" vstIndex="125" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -5543,7 +5543,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="518" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="126" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue - 21"
              modulatorValueExpressionReverse="midiValue + 21" modulatorControllerExpression="value"
@@ -5591,7 +5591,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="519" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="127" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -5639,7 +5639,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="520" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="128" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -5687,7 +5687,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="521" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="129" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -5735,7 +5735,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="522" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="130" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -5783,7 +5783,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="523" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="131" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -5831,7 +5831,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="524" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="132" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -5908,7 +5908,7 @@
                componentBubbleValueJustification="centred" componentLayerUid="107b39c8bf190000d422a6833d010000"
                uiType="uiGroup"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="525" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="133" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -5956,7 +5956,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="526" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="134" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -5995,7 +5995,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="31" vstIndex="527" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="31" vstIndex="135" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -6043,7 +6043,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="528" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="136" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -6091,7 +6091,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="7" vstIndex="529" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="7" vstIndex="137" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue + 7"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -6194,7 +6194,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="530" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="138" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -6242,7 +6242,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="531" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="139" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -6290,7 +6290,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="532" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="140" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -6338,7 +6338,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="533" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="141" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -6386,7 +6386,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="534" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="142" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -6434,7 +6434,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="535" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="143" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -6482,7 +6482,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="536" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="144" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -6530,7 +6530,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="537" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="145" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -6633,7 +6633,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="538" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="146" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -6672,7 +6672,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="539" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="147" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -6711,7 +6711,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="7" vstIndex="540" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="7" vstIndex="148" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -6759,7 +6759,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="3" vstIndex="541" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="3" vstIndex="149" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -6807,7 +6807,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="7" vstIndex="542" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="7" vstIndex="150" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -6855,7 +6855,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="543" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="151" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue - 21"
              modulatorValueExpressionReverse="midiValue + 21" modulatorControllerExpression="value"
@@ -6903,7 +6903,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="544" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="152" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -6951,7 +6951,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="545" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="153" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -7027,7 +7027,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="546" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="154" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -7075,7 +7075,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="547" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="155" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -7114,7 +7114,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="31" vstIndex="548" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="31" vstIndex="156" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -7162,7 +7162,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="549" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="157" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -7210,7 +7210,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="7" vstIndex="550" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="7" vstIndex="158" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue + 7"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -7313,7 +7313,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="551" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="159" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -7361,7 +7361,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="552" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="160" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -7409,7 +7409,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="553" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="161" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -7457,7 +7457,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="554" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="162" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -7505,7 +7505,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="555" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="163" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -7553,7 +7553,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="556" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="164" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -7601,7 +7601,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="557" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="165" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -7649,7 +7649,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="558" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="166" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -7752,7 +7752,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="559" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="167" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -7791,7 +7791,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="560" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="168" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -7830,7 +7830,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="7" vstIndex="561" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="7" vstIndex="169" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -7878,7 +7878,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="3" vstIndex="562" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="3" vstIndex="170" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -7926,7 +7926,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="7" vstIndex="563" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="7" vstIndex="171" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -7974,7 +7974,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="564" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="172" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue - 21"
              modulatorValueExpressionReverse="midiValue + 21" modulatorControllerExpression="value"
@@ -8022,7 +8022,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="565" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="173" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -8070,7 +8070,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="566" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="174" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -8146,7 +8146,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="567" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="175" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -8194,7 +8194,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="568" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="176" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -8233,7 +8233,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="31" vstIndex="569" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="31" vstIndex="177" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -8281,7 +8281,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="570" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="178" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -8329,7 +8329,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="7" vstIndex="571" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="7" vstIndex="179" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue + 7"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -8432,7 +8432,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="572" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="180" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -8480,7 +8480,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="573" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="181" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -8528,7 +8528,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="574" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="182" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -8576,7 +8576,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="575" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="183" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -8624,7 +8624,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="576" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="184" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -8672,7 +8672,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="577" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="185" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -8720,7 +8720,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="578" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="186" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -8768,7 +8768,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="579" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="187" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -8871,7 +8871,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="580" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="188" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -8910,7 +8910,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="581" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="189" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -8949,7 +8949,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="7" vstIndex="582" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="7" vstIndex="190" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -8997,7 +8997,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="3" vstIndex="583" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="3" vstIndex="191" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -9045,7 +9045,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="7" vstIndex="584" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="7" vstIndex="192" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -9093,7 +9093,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="585" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="193" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue - 21"
              modulatorValueExpressionReverse="midiValue + 21" modulatorControllerExpression="value"
@@ -9141,7 +9141,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="586" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="194" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -9189,7 +9189,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="587" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="99" vstIndex="195" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -9292,7 +9292,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="63" vstIndex="588" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="63" vstIndex="196" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue + 64"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -9340,7 +9340,7 @@
                componentBubbleBackgroundGradientType="1" componentBubbleBackgroundColour2="0xbab9b9b9"
                componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="127" vstIndex="589" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="127" vstIndex="197" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -9388,7 +9388,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="127" vstIndex="590" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="127" vstIndex="198" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -9436,7 +9436,7 @@
                componentBubbleValueJustification="centred" componentLayerUid="107b39c8bf190000d422a6833d010000"
                componentRectangle="56 8 48 117" uiType="uiSlider"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="591" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="199" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression=""
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -9476,7 +9476,7 @@
                componentBubbleValueJustification="centred" componentLayerUid="107b39c8bf190000d422a6833d010000"
                uiType="uiButton"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="592" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="200" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression=""
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -9545,7 +9545,7 @@
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
   <modulator modulatorCustomIndex="0" modulatorCustomIndexGroup="0" modulatorIsStatic="1"
-             name="main_grp1-1" modulatorVstExported="0" vstIndex="594" modulatorValue="0">
+             name="main_grp1-1" modulatorVstExported="0" vstIndex="202" modulatorValue="0">
     <component componentLabelPosition="top" componentLabelJustification="centred"
                componentLabelHeight="14" componentLabelWidth="0" componentLabelVisible="0"
                componentLabelAlwaysOnTop="1" componentSentBack="0" componentLabelColour="0xff000000"
@@ -9572,7 +9572,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="-1" vstIndex="607" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="-1" vstIndex="215" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -9615,7 +9615,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="609" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="217" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -9659,7 +9659,7 @@
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
   <modulator modulatorCustomIndex="0" modulatorCustomIndexGroup="0" modulatorIsStatic="1"
-             name="main_grp7-1" modulatorVstExported="0" vstIndex="559" modulatorValue="0">
+             name="main_grp7-1" modulatorVstExported="0" vstIndex="167" modulatorValue="0">
     <component componentLabelPosition="top" componentLabelJustification="centred"
                componentLabelHeight="14" componentLabelWidth="0" componentLabelVisible="0"
                componentLabelAlwaysOnTop="1" componentSentBack="0" componentLabelColour="0xff000000"
@@ -9729,7 +9729,7 @@
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="508" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="116" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -9853,7 +9853,7 @@
                uiType="uiButton"/>
   </modulator>
   <modulator modulatorCustomIndex="0" modulatorCustomIndexGroup="0" modulatorIsStatic="1"
-             name="main_grp1-2" modulatorVstExported="0" vstIndex="508" modulatorValue="0">
+             name="main_grp1-2" modulatorVstExported="0" vstIndex="" modulatorValue="0">
     <component componentLabelPosition="top" componentLabelJustification="centred"
                componentLabelHeight="14" componentLabelWidth="0" componentLabelVisible="0"
                componentLabelAlwaysOnTop="1" componentSentBack="0" componentLabelColour="0xff000000"
