@@ -30,7 +30,7 @@
        panelModulatorListColumns="&lt;TABLELAYOUT sortedCol=&quot;491&quot; sortForwards=&quot;1&quot;&gt;&lt;COLUMN id=&quot;544&quot; visible=&quot;1&quot; width=&quot;142&quot;/&gt;&lt;COLUMN id=&quot;1&quot; visible=&quot;1&quot; width=&quot;149&quot;/&gt;&lt;COLUMN id=&quot;543&quot; visible=&quot;1&quot; width=&quot;110&quot;/&gt;&lt;COLUMN id=&quot;545&quot; visible=&quot;1&quot; width=&quot;137&quot;/&gt;&lt;COLUMN id=&quot;98&quot; visible=&quot;1&quot; width=&quot;155&quot;/&gt;&lt;COLUMN id=&quot;102&quot; visible=&quot;1&quot; width=&quot;106&quot;/&gt;&lt;COLUMN id=&quot;103&quot; visible=&quot;1&quot; width=&quot;106&quot;/&gt;&lt;COLUMN id=&quot;109&quot; visible=&quot;1&quot; width=&quot;106&quot;/&gt;&lt;COLUMN id=&quot;490&quot; visible=&quot;1&quot; width=&quot;106&quot;/&gt;&lt;COLUMN id=&quot;487&quot; visible=&quot;1&quot; width=&quot;106&quot;/&gt;&lt;COLUMN id=&quot;491&quot; visible=&quot;1&quot; width=&quot;168&quot;/&gt;&lt;COLUMN id=&quot;16&quot; visible=&quot;1&quot; width=&quot;91&quot;/&gt;&lt;COLUMN id=&quot;17&quot; visible=&quot;1&quot; width=&quot;91&quot;/&gt;&lt;/TABLELAYOUT&gt;"
        panelModulatorListCsvDelimiter="," panelModulatorListXmlRoot="ctrlrModulatorList"
        panelModulatorListXmlModulator="ctrlrModulator" panelModulatorListSortOption="1"
-       panelGlobalVariables="0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0"
+       panelGlobalVariables="0:7:0:0:7:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0"
        panelResources="" panelPropertyDisplayIDs="0" ctrlrMenuItemBackgroundColour="ffffffff"
        ctrlrMenuItemTextColour="ff000000" ctrlrMenuItemHighlightedTextColour="ffffffff"
        ctrlrMenuItemHighlightColour="ff4364ff" ctrlrMenuItemFont="&lt;Sans-Serif&gt;;13;0;0;0;0;1;3"
@@ -225,7 +225,7 @@
                  uiPanelTooltipBackgroundColour="0xffeeeebb" uiPanelTooltipOutlineColour="0xff000000"
                  uiPanelTooltipColour="0xff000000" uiPanelTooltipCornerRound="1"
                  uiPanelTooltipPlacement="2" uiPanelTooltipFont="&lt;Sans-Serif&gt;;15;1;0;0;0;0;3"
-                 uiPanelZoom="1" uiPanelViewPortSize="935" uiPanelPropertiesSize="233"
+                 uiPanelZoom="0.90000000000000002" uiPanelViewPortSize="935" uiPanelPropertiesSize="233"
                  uiPanelMidiToolbarVisible="0">
     <uiPanelCanvasLayer uiPanelCanvasLayerName="New layer" uiPanelCanvasLayerUid="107b39c8bf190000d422a6833d010000"
                         uiPanelCanvasLayerColour="0x000000" uiPanelCanvasLayerVisibility="1"
@@ -1291,10 +1291,10 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="pp10" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="pp10"
-             modulatorMin="0" modulatorValue="0">
+             modulatorMin="0" modulatorValue="1">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
-          midiMessageSysExFormula="F0 43 10 08 46 xx F7"/>
+          midiMessageSysExFormula="F0 43 10 08 47 xx F7"/>
     <component componentLabelPosition="top" componentLabelJustification="centred"
                componentLabelHeight="24" componentLabelWidth="0" componentLabelVisible="1"
                componentLabelAlwaysOnTop="1" componentSentBack="0" componentLabelColour="ffff8fd8"
@@ -1331,10 +1331,10 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="pp10" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="pp10"
-             modulatorMin="0">
+             modulatorMin="0" modulatorValue="1">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
-          midiMessageSysExFormula="F0 43 10 08 0A xx F7"/>
+          midiMessageSysExFormula="F0 43 10 08 47 xx F7"/>
     <component componentLabelPosition="top" componentLabelJustification="centred"
                componentLabelHeight="24" componentLabelWidth="0" componentLabelVisible="1"
                componentLabelAlwaysOnTop="1" componentSentBack="0" componentLabelColour="ffff8fd8"
@@ -1371,10 +1371,10 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="pp10" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="pp10"
-             modulatorMin="0">
+             modulatorMin="0" modulatorValue="1">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
-          midiMessageSysExFormula="F0 43 10 08 0A xx F7"/>
+          midiMessageSysExFormula="F0 43 10 08 47 xx F7"/>
     <component componentLabelPosition="top" componentLabelJustification="centred"
                componentLabelHeight="24" componentLabelWidth="0" componentLabelVisible="1"
                componentLabelAlwaysOnTop="1" componentSentBack="0" componentLabelColour="ffff8fd8"
@@ -1462,7 +1462,7 @@
              modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
-          midiMessageSysExFormula="F0 43 10 08 0C xx F7"/>
+          midiMessageSysExFormula="F0 43 10 08 49 xx F7"/>
     <component componentLabelPosition="top" componentLabelJustification="centred"
                componentLabelHeight="24" componentLabelWidth="0" componentLabelVisible="1"
                componentLabelAlwaysOnTop="1" componentSentBack="0" componentLabelColour="ffff8fd8"
@@ -1502,7 +1502,7 @@
              modulatorMin="0">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
-          midiMessageSysExFormula="F0 43 10 08 0C xx F7"/>
+          midiMessageSysExFormula="F0 43 10 08 49 xx F7"/>
     <component componentLabelPosition="top" componentLabelJustification="centred"
                componentLabelHeight="24" componentLabelWidth="0" componentLabelVisible="1"
                componentLabelAlwaysOnTop="1" componentSentBack="0" componentLabelColour="ffff8fd8"
@@ -1542,7 +1542,7 @@
              modulatorMin="0">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
-          midiMessageSysExFormula="F0 43 10 08 0C xx F7"/>
+          midiMessageSysExFormula="F0 43 10 08 49 xx F7"/>
     <component componentLabelPosition="top" componentLabelJustification="centred"
                componentLabelHeight="24" componentLabelWidth="0" componentLabelVisible="1"
                componentLabelAlwaysOnTop="1" componentSentBack="0" componentLabelColour="ffff8fd8"
@@ -1630,7 +1630,7 @@
              modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
-          midiMessageSysExFormula="F0 43 10 08 0E xx F7"/>
+          midiMessageSysExFormula="F0 43 10 08 4D xx F7"/>
     <component componentLabelPosition="top" componentLabelJustification="centred"
                componentLabelHeight="24" componentLabelWidth="0" componentLabelVisible="1"
                componentLabelAlwaysOnTop="1" componentSentBack="0" componentLabelColour="ffff8fd8"
@@ -1670,7 +1670,7 @@
              modulatorMin="0">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
-          midiMessageSysExFormula="F0 43 10 08 0E xx F7"/>
+          midiMessageSysExFormula="F0 43 10 08 4D xx F7"/>
     <component componentLabelPosition="top" componentLabelJustification="centred"
                componentLabelHeight="24" componentLabelWidth="0" componentLabelVisible="1"
                componentLabelAlwaysOnTop="1" componentSentBack="0" componentLabelColour="ffff8fd8"
@@ -1710,7 +1710,7 @@
              modulatorMin="0">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
-          midiMessageSysExFormula="F0 43 10 08 0E xx F7"/>
+          midiMessageSysExFormula="F0 43 10 08 4D xx F7"/>
     <component componentLabelPosition="top" componentLabelJustification="centred"
                componentLabelHeight="24" componentLabelWidth="0" componentLabelVisible="1"
                componentLabelAlwaysOnTop="1" componentSentBack="0" componentLabelColour="ffff8fd8"
@@ -1795,10 +1795,10 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="pp16" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="pp16"
-             modulatorMin="0" modulatorValue="0">
+             modulatorMin="0" modulatorValue="1">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
-          midiMessageSysExFormula="F0 43 10 08 10 xx F7"/>
+          midiMessageSysExFormula="F0 43 10 08 4B xx F7"/>
     <component componentLabelPosition="top" componentLabelJustification="centred"
                componentLabelHeight="24" componentLabelWidth="0" componentLabelVisible="1"
                componentLabelAlwaysOnTop="1" componentSentBack="0" componentLabelColour="ffff8fd8"
@@ -1835,10 +1835,10 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="pp16" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="pp16"
-             modulatorMin="0">
+             modulatorMin="0" modulatorValue="1">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
-          midiMessageSysExFormula="F0 43 10 08 10 xx F7"/>
+          midiMessageSysExFormula="F0 43 10 08 4B xx F7"/>
     <component componentLabelPosition="top" componentLabelJustification="centred"
                componentLabelHeight="24" componentLabelWidth="0" componentLabelVisible="1"
                componentLabelAlwaysOnTop="1" componentSentBack="0" componentLabelColour="ffff8fd8"
@@ -1875,10 +1875,10 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="pp16" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="" name="pp16"
-             modulatorMin="0">
+             modulatorMin="0" modulatorValue="1">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
-          midiMessageSysExFormula="F0 43 10 08 10 xx F7"/>
+          midiMessageSysExFormula="F0 43 10 08 4B xx F7"/>
     <component componentLabelPosition="top" componentLabelJustification="centred"
                componentLabelHeight="24" componentLabelWidth="0" componentLabelVisible="1"
                componentLabelAlwaysOnTop="1" componentSentBack="0" componentLabelColour="ffff8fd8"
