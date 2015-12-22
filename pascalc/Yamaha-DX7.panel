@@ -1401,7 +1401,7 @@
                componentBubbleValueJustification="centred" componentLayerUid="107b39c8bf190000d422a6833d010000"
                uiType="uiButton"/>
   </modulator>
-  <modulator modulatorVstExported="0" modulatorMax="15" vstIndex="" modulatorIsStatic="0"
+  <modulator modulatorVstExported="0" modulatorMax="99" vstIndex="" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -1414,7 +1414,7 @@
              modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
-          midiMessageSysExFormula="F0 43 10 08 47 xx F7"/>
+          midiMessageSysExFormula="F0 43 10 08 46 xx F7"/>
     <component componentLabelPosition="top" componentLabelJustification="centred"
                componentLabelHeight="20" componentLabelWidth="0" componentLabelVisible="1"
                componentLabelAlwaysOnTop="1" componentSentBack="0" componentLabelColour="ff0070ff"
@@ -1427,7 +1427,7 @@
                componentValueDecimalPlaces="0" componentLuaMouseMoved="-- None"
                componentLuaMouseDown="-- None" componentLuaMouseDrag="-- None"
                componentLuaMouseDoubleClick="-- None" uiSliderStyle="LinearVertical"
-               uiSliderMin="0" uiSliderMax="15" uiSliderInterval="1" uiSliderDoubleClickEnabled="1"
+               uiSliderMin="0" uiSliderMax="99" uiSliderInterval="1" uiSliderDoubleClickEnabled="1"
                uiSliderDoubleClickValue="0" uiSliderValuePosition="4" uiSliderValueHeight="10"
                uiSliderValueWidth="22" uiSliderTrackCornerSize="0" uiSliderThumbCornerSize="0"
                uiSliderThumbWidth="12" uiSliderThumbHeight="3" uiSliderThumbFlatOnLeft="1"
@@ -1569,7 +1569,7 @@
                componentBubbleValueJustification="centred" componentLayerUid="107b39c8bf190000d422a6833d010000"
                uiType="uiButton"/>
   </modulator>
-  <modulator modulatorVstExported="0" modulatorMax="15" vstIndex="" modulatorIsStatic="0"
+  <modulator modulatorVstExported="0" modulatorMax="99" vstIndex="" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -1582,7 +1582,7 @@
              modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
-          midiMessageSysExFormula="F0 43 10 08 0B xx F7"/>
+          midiMessageSysExFormula="F0 43 10 08 48 xx F7"/>
     <component componentLabelPosition="top" componentLabelJustification="centred"
                componentLabelHeight="20" componentLabelWidth="0" componentLabelVisible="1"
                componentLabelAlwaysOnTop="1" componentSentBack="0" componentLabelColour="ff0070ff"
@@ -1595,7 +1595,7 @@
                componentValueDecimalPlaces="0" componentLuaMouseMoved="-- None"
                componentLuaMouseDown="-- None" componentLuaMouseDrag="-- None"
                componentLuaMouseDoubleClick="-- None" uiSliderStyle="LinearVertical"
-               uiSliderMin="0" uiSliderMax="15" uiSliderInterval="1" uiSliderDoubleClickEnabled="1"
+               uiSliderMin="0" uiSliderMax="99" uiSliderInterval="1" uiSliderDoubleClickEnabled="1"
                uiSliderDoubleClickValue="0" uiSliderValuePosition="4" uiSliderValueHeight="10"
                uiSliderValueWidth="22" uiSliderTrackCornerSize="0" uiSliderThumbCornerSize="0"
                uiSliderThumbWidth="12" uiSliderThumbHeight="3" uiSliderThumbFlatOnLeft="1"
@@ -1737,7 +1737,7 @@
                componentBubbleValueJustification="centred" componentLayerUid="107b39c8bf190000d422a6833d010000"
                uiType="uiButton"/>
   </modulator>
-  <modulator modulatorVstExported="0" modulatorMax="15" vstIndex="" modulatorIsStatic="0"
+  <modulator modulatorVstExported="0" modulatorMax="99" vstIndex="" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -1750,7 +1750,7 @@
              modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
-          midiMessageSysExFormula="F0 43 10 08 0D xx F7"/>
+          midiMessageSysExFormula="F0 43 10 08 4C xx F7"/>
     <component componentLabelPosition="top" componentLabelJustification="centred"
                componentLabelHeight="20" componentLabelWidth="0" componentLabelVisible="1"
                componentLabelAlwaysOnTop="1" componentSentBack="0" componentLabelColour="ff0070ff"
@@ -1763,7 +1763,7 @@
                componentValueDecimalPlaces="0" componentLuaMouseMoved="-- None"
                componentLuaMouseDown="-- None" componentLuaMouseDrag="-- None"
                componentLuaMouseDoubleClick="-- None" uiSliderStyle="LinearVertical"
-               uiSliderMin="0" uiSliderMax="15" uiSliderInterval="1" uiSliderDoubleClickEnabled="1"
+               uiSliderMin="0" uiSliderMax="99" uiSliderInterval="1" uiSliderDoubleClickEnabled="1"
                uiSliderDoubleClickValue="0" uiSliderValuePosition="4" uiSliderValueHeight="10"
                uiSliderValueWidth="22" uiSliderTrackCornerSize="0" uiSliderThumbCornerSize="0"
                uiSliderThumbWidth="12" uiSliderThumbHeight="3" uiSliderThumbFlatOnLeft="1"
@@ -1905,7 +1905,7 @@
                componentBubbleValueJustification="centred" componentLayerUid="107b39c8bf190000d422a6833d010000"
                uiType="uiButton"/>
   </modulator>
-  <modulator modulatorVstExported="0" modulatorMax="15" vstIndex="" modulatorIsStatic="0"
+  <modulator modulatorVstExported="0" modulatorMax="99" vstIndex="" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
              modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -1918,7 +1918,7 @@
              modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
-          midiMessageSysExFormula="F0 43 10 08 0F xx F7"/>
+          midiMessageSysExFormula="F0 43 10 08 4A xx F7"/>
     <component componentLabelPosition="top" componentLabelJustification="centred"
                componentLabelHeight="20" componentLabelWidth="0" componentLabelVisible="1"
                componentLabelAlwaysOnTop="1" componentSentBack="0" componentLabelColour="ff0070ff"
@@ -1931,7 +1931,7 @@
                componentValueDecimalPlaces="0" componentLuaMouseMoved="-- None"
                componentLuaMouseDown="-- None" componentLuaMouseDrag="-- None"
                componentLuaMouseDoubleClick="-- None" uiSliderStyle="LinearVertical"
-               uiSliderMin="0" uiSliderMax="15" uiSliderInterval="1" uiSliderDoubleClickEnabled="1"
+               uiSliderMin="0" uiSliderMax="99" uiSliderInterval="1" uiSliderDoubleClickEnabled="1"
                uiSliderDoubleClickValue="0" uiSliderValuePosition="4" uiSliderValueHeight="10"
                uiSliderValueWidth="22" uiSliderTrackCornerSize="0" uiSliderThumbCornerSize="0"
                uiSliderThumbWidth="12" uiSliderThumbHeight="3" uiSliderThumbFlatOnLeft="1"
