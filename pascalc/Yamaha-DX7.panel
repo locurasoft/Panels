@@ -2,7 +2,7 @@
 
 <panel name="Yamaha DX7" panelShowDialogs="1" panelMessageTime="10000"
        panelAuthorName="Sjoerd Bijleveld, Torsten Tittmann, Pascal Collberg"
-       panelAuthorEmail="swbijleveld@xs4all.nl" panelAuthorUrl="" panelAuthorDesc=""
+       panelAuthorEmail="swbijleveld@xs4all.nl" panelAuthorUrl="" panelAuthorDesc="To be able to access all controls from a VST host set the &quot;Max exported VST params&quot; value to 200 in the Ctrlr preferences"
        panelVersionMajor="1" panelVersionMinor="1" panelVersionName="Prototype"
        panelVendor="Yamaha" panelDevice="DX7" panelMidiSnapshotAfterLoad="0"
        panelMidiSnapshotAfterProgramChange="0" panelMidiSnapshotDelay="50"
