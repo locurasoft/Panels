@@ -16,7 +16,7 @@
        panelMidiThruD2H="0" panelMidiThruD2HChannelize="0" panelMidiRealtimeIgnore="1"
        panelMidiInputThreadPriority="7" panelMidiProgram="0" panelMidiBankLsb="0"
        panelMidiBankMsb="0" panelMidiSendProgramChangeOnLoad="0" panelMidiProgramCalloutOnprogramChange="0"
-       panelMidiMatchCacheSize="32" panelMidiGlobalDelay="50" panelMidiPauseOut="0"
+       panelMidiMatchCacheSize="32" panelMidiGlobalDelay="0" panelMidiPauseOut="0"
        panelMidiPauseIn="0" panelOSCEnabled="0" panelOSCPort="7770"
        panelOSCProtocol="0" luaPanelMidiChannelChanged="-- None" luaPanelMidiReceived="-- None"
        luaPanelLoaded="panelCreated" luaPanelBeforeLoad="beforePanelCreated"
@@ -160,17 +160,17 @@
   <uiPanelEditor uiPanelCanvasRectangle="0 0 891 844" uiPanelSnapSize="8" uiPanelBackgroundColour="0xffffffff"
                  uiPanelBackgroundColour1="0xffffffff" uiPanelBackgroundColour2="0xffffffff"
                  uiPanelBackgroundGradientType="1" uiPanelImageResource="-- None"
-                 uiPanelEditMode="0" uiPanelViewPortSize="957" uiPanelPropertiesSize="239"
-                 uiPanelLock="0" uiPanelDisabledOnEdit="0" uiPanelMenuBarVisible="1"
-                 uiPanelWidth="400" uiPanelHeight="400" name="Emu - Proteus 2"
-                 uiPanelImageAlpha="255" uiPanelImageLayout="64" uiPanelSnapActive="1"
-                 uiPanelPropertiesOnRight="0" luaPanelPaintBackground="-- None"
+                 uiPanelEditMode="0" uiPanelLock="0" uiPanelDisabledOnEdit="0"
+                 uiPanelMenuBarVisible="1" uiPanelWidth="400" uiPanelHeight="400"
+                 name="Emu - Proteus 2" uiPanelImageAlpha="255" uiPanelImageLayout="64"
+                 uiPanelSnapActive="1" uiPanelPropertiesOnRight="0" luaPanelPaintBackground="-- None"
                  luaPanelResized="-- None" luaPanelFileDragDropHandler="-- None"
                  luaPanelFileDragEnterHandler="-- None" luaPanelFileDragExitHandler="-- None"
                  uiPanelInvisibleComponentAlpha="0.5" uiPanelTooltipBackgroundColour="0xffeeeebb"
                  uiPanelTooltipOutlineColour="0xff000000" uiPanelTooltipColour="0xff000000"
                  uiPanelTooltipCornerRound="1" uiPanelTooltipPlacement="2" uiPanelTooltipFont="&lt;Sans-Serif&gt;;15;1;0;0;0;0;3"
-                 uiPanelZoom="0.8" uiPanelMidiToolbarVisible="0">
+                 uiPanelZoom="0.8" uiPanelMidiToolbarVisible="0" uiPanelPropertiesSize="228"
+                 uiPanelViewPortSize="914">
     <uiPanelCanvasLayer uiPanelCanvasLayerName="New layer" uiPanelCanvasLayerUid="6fafe60984010000f0f63200a8000000"
                         uiPanelCanvasLayerColour="0x000000" uiPanelCanvasLayerVisibility="1"
                         uiPanelCanvasLayerIndex="0"/>
@@ -465,7 +465,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice55" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="Voice55" modulatorMin="0" modulatorValue="19">
+             name="priSmplStartOffs" modulatorMin="0" modulatorValue="19">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 18 04 00 03 18 00 LS MS F7"/>
@@ -513,7 +513,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice57" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="Voice57" modulatorMin="-36" modulatorValue="4">
+             name="priTuningCoarse" modulatorMin="-36" modulatorValue="4">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 18 04 00 03 19 00 LS MS F7"/>
@@ -561,7 +561,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice59" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="Voice59" modulatorMin="-64" modulatorValue="0">
+             name="priTuningFine" modulatorMin="-64" modulatorValue="0">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 18 04 00 03 1A 00 LS MS F7"/>
@@ -609,7 +609,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice61" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="Voice61" modulatorMin="0" modulatorValue="93">
+             name="priVolume" modulatorMin="0" modulatorValue="93">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 18 04 00 03 1B 00 LS MS F7"/>
@@ -657,7 +657,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice63" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="Voice63" modulatorMin="-7" modulatorValue="0">
+             name="priPan" modulatorMin="-7" modulatorValue="0">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 18 04 00 03 1C 00 LS MS F7"/>
@@ -705,7 +705,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice67" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="Voice67" modulatorMin="0" modulatorValue="36">
+             name="priLowKey" modulatorMin="0" modulatorValue="36">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 18 04 00 03 1E 00 LS MS F7"/>
@@ -749,7 +749,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice69" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="Voice69" modulatorMin="0" modulatorValue="74">
+             name="priHighKey" modulatorMin="0" modulatorValue="74">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 18 04 00 03 1F 00 LS MS F7"/>
@@ -794,7 +794,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice83" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="Voice83" modulatorMin="0" modulatorValue="0">
+             name="priSolo" modulatorMin="0" modulatorValue="1">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 18 04 00 03 26 00 LS MS F7"/>
@@ -834,7 +834,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice87" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="Voice87" modulatorMin="0" modulatorValue="1">
+             name="priReverse" modulatorMin="0" modulatorValue="1">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 18 04 00 03 28 00 LS MS F7"/>
@@ -874,7 +874,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice65" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="Voice65" modulatorMin="0" modulatorValue="16">
+             name="priEnvDelay" modulatorMin="0" modulatorValue="16">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 18 04 00 03 1D 00 LS MS F7"/>
@@ -922,7 +922,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice71" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="Voice71" modulatorMin="0" modulatorValue="29">
+             name="priEnvAttack" modulatorMin="0" modulatorValue="29">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 18 04 00 03 20 00 LS MS F7"/>
@@ -970,7 +970,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice73" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="Voice73" modulatorMin="0" modulatorValue="25">
+             name="priEnvHold" modulatorMin="0" modulatorValue="25">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 18 04 00 03 21 00 LS MS F7"/>
@@ -1018,7 +1018,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice75" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="Voice75" modulatorMin="0" modulatorValue="47">
+             name="priEnvDecay" modulatorMin="0" modulatorValue="47">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 18 04 00 03 22 00 LS MS F7"/>
@@ -1066,7 +1066,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice77" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="Voice77" modulatorMin="0" modulatorValue="56">
+             name="priEnvSustain" modulatorMin="0" modulatorValue="56">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 18 04 00 03 23 00 LS MS F7"/>
@@ -1114,7 +1114,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice79" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="Voice79" modulatorMin="0" modulatorValue="25">
+             name="priEnvRelease" modulatorMin="0" modulatorValue="25">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 18 04 00 03 24 00 LS MS F7"/>
@@ -1162,7 +1162,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice85" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="Voice85" modulatorMin="0" modulatorValue="0">
+             name="priChorus" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 18 04 00 03 27 00 LS MS F7"/>
@@ -1210,7 +1210,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice81" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="Voice81" modulatorMin="0" modulatorValue="0">
+             name="priEnvelope" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 18 04 00 03 25 00 LS MS F7"/>
@@ -1287,7 +1287,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice251" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="Voice251" modulatorMin="-128" modulatorValue="16">
+             name="pressure" modulatorMin="-128" modulatorValue="16">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 18 04 00 03 7A 00 LS MS F7"/>
@@ -1336,7 +1336,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice255" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="Voice255" modulatorMin="0" modulatorValue="5">
+             name="curve" modulatorMin="0" modulatorValue="5">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 18 04 00 03 7C 00 LS MS F7"/>
@@ -1378,7 +1378,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice259" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="Voice259" modulatorMin="0" modulatorValue="0">
+             name="submix" modulatorMin="0" modulatorValue="1">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 18 04 00 03 7E 00 LS MS F7"/>
@@ -1455,7 +1455,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice135" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="Voice135" modulatorMin="0" modulatorValue="1">
+             name="lfo1Shape" modulatorMin="0" modulatorValue="2">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 18 04 00 03 40 00 LS MS F7"/>
@@ -1495,7 +1495,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice137" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="Voice137" modulatorMin="0" modulatorValue="60">
+             name="lfo1Frequency" modulatorMin="0" modulatorValue="60">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 18 04 00 03 41 00 LS MS F7"/>
@@ -1543,7 +1543,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice139" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="Voice139" modulatorMin="0" modulatorValue="0">
+             name="lfo1Delay" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 18 04 00 03 42 00 LS MS F7"/>
@@ -1591,7 +1591,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice141" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="Voice141" modulatorMin="0" modulatorValue="0">
+             name="lfo1Variation" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 18 04 00 03 43 00 LS MS F7"/>
@@ -1639,7 +1639,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice143" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="Voice143" modulatorMin="-128" modulatorValue="0">
+             name="lfo1Amount" modulatorMin="-128" modulatorValue="0">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 18 04 00 03 44 00 00 7F F7"/>
@@ -1687,7 +1687,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice145" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="Voice145" modulatorMin="0" modulatorValue="1">
+             name="lfo2Shape" modulatorMin="0" modulatorValue="3">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 18 04 00 03 45 00 LS MS F7"/>
@@ -1727,7 +1727,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice147" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="Voice147" modulatorMin="0" modulatorValue="60">
+             name="lfo2Frequency" modulatorMin="0" modulatorValue="60">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 18 04 00 03 46 00 LS MS F7"/>
@@ -1775,7 +1775,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice149" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="Voice149" modulatorMin="0" modulatorValue="0">
+             name="lfo2Delay" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 18 04 00 03 47 00 LS MS F7"/>
@@ -1823,7 +1823,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice151" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="Voice151" modulatorMin="0" modulatorValue="0">
+             name="lfo2Variation" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 18 04 00 03 48 00 LS MS F7"/>
@@ -1871,7 +1871,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice153" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="Voice153" modulatorMin="-128" modulatorValue="0">
+             name="lfo2Amount" modulatorMin="-128" modulatorValue="0">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 18 04 00 03 49 00 00 7F F7"/>
@@ -2000,7 +2000,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice91" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="Voice91" modulatorMin="0" modulatorValue="29">
+             name="secSmplStartOffs" modulatorMin="0" modulatorValue="29">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 18 04 00 03 2A 00 LS MS F7"/>
@@ -2048,7 +2048,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice93" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="Voice93" modulatorMin="-36" modulatorValue="-3">
+             name="secTuningCoarse" modulatorMin="-36" modulatorValue="-3">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 18 04 00 03 2B 00 LS MS F7"/>
@@ -2096,7 +2096,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice95" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="Voice95" modulatorMin="-64" modulatorValue="0">
+             name="secTuningFine" modulatorMin="-64" modulatorValue="0">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 18 04 00 03 2C 00 LS MS F7"/>
@@ -2144,7 +2144,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice97" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="Voice97" modulatorMin="0" modulatorValue="120">
+             name="secVolume" modulatorMin="0" modulatorValue="120">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 18 04 00 03 2D 00 LS MS F7"/>
@@ -2192,7 +2192,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice99" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="Voice99" modulatorMin="-7" modulatorValue="0">
+             name="secPan" modulatorMin="-7" modulatorValue="0">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 18 04 00 03 2E 00 LS MS F7"/>
@@ -2218,7 +2218,7 @@
                uiSliderThumbColour="0xffff0000" uiSliderValueHighlightColour="0xff0000ff"
                uiSliderValueOutlineColour="0xffffffff" uiSliderTrackColour="0xff0f0f0f"
                uiSliderIncDecButtonColour="0xff0000ff" uiSliderIncDecTextColour="0xffffffff"
-               uiSliderValueFont="&lt;Sans-Serif&gt;;12;1;0;0;0;1;3" uiSliderValueTextJustification="centred"
+               uiSliderValueFont="&lt;Sans-Serif&gt;;12;1;0;0;0;0;3" uiSliderValueTextJustification="centred"
                uiSliderVelocitySensitivity="1" uiSliderVelocityThreshold="1"
                uiSliderVelocityOffset="0" uiSliderVelocityMode="0" uiSliderVelocityModeKeyTrigger="1"
                uiSliderSpringMode="0" uiSliderSpringValue="0" uiSliderMouseWheelInterval="1"
@@ -2240,7 +2240,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice103" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="Voice103" modulatorMin="0" modulatorValue="0">
+             name="secLowKey" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 18 04 00 03 30 00 LS MS F7"/>
@@ -2284,7 +2284,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice105" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="Voice105" modulatorMin="0" modulatorValue="127">
+             name="secHighKey" modulatorMin="0" modulatorValue="127">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 18 04 00 03 31 00 LS MS F7"/>
@@ -2328,7 +2328,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice119" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="Voice119" modulatorMin="0" modulatorValue="1">
+             name="secSolo" modulatorMin="0" modulatorValue="1">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 18 04 00 03 38 00 LS MS F7"/>
@@ -2368,7 +2368,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice123" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="Voice123" modulatorMin="0" modulatorValue="1">
+             name="secReverse" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 18 04 00 03 3A 00 LS MS F7"/>
@@ -2408,7 +2408,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice101" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="Voice101" modulatorMin="0" modulatorValue="0">
+             name="secEnvDelay" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 18 04 00 03 2F 00 LS MS F7"/>
@@ -2456,7 +2456,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice107" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="Voice107" modulatorMin="0" modulatorValue="0">
+             name="secEnvAttack" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 18 04 00 03 32 00 LS MS F7"/>
@@ -2504,7 +2504,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice109" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="Voice109" modulatorMin="0" modulatorValue="0">
+             name="secEnvHold" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 18 04 00 03 33 00 LS MS F7"/>
@@ -2552,7 +2552,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice111" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="Voice111" modulatorMin="0" modulatorValue="2">
+             name="secEnvDecay" modulatorMin="0" modulatorValue="2">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 18 04 00 03 34 00 LS MS F7"/>
@@ -2600,7 +2600,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice113" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="Voice113" modulatorMin="0" modulatorValue="99">
+             name="secEnvSustain" modulatorMin="0" modulatorValue="99">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 18 04 00 03 35 00 LS MS F7"/>
@@ -2648,7 +2648,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice115" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="Voice115" modulatorMin="0" modulatorValue="15">
+             name="secEnvRelease" modulatorMin="0" modulatorValue="15">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 18 04 00 03 36 00 LS MS F7"/>
@@ -2696,7 +2696,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice121" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="Voice121" modulatorMin="0" modulatorValue="0">
+             name="secChorus" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 18 04 00 03 39 00 LS MS F7"/>
@@ -2744,7 +2744,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice117" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="Voice117" modulatorMin="0" modulatorValue="1">
+             name="secEnvelope" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 18 04 00 03 37 00 LS MS F7"/>
@@ -3354,7 +3354,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice125" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="Voice125" modulatorMin="0" modulatorValue="0">
+             name="xFadeMode" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 18 04 00 03 3B 00 LS MS F7"/>
@@ -3394,7 +3394,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice127" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="Voice127" modulatorMin="0" modulatorValue="0">
+             name="xFadeDirection" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 18 04 00 03 3C 00 LS MS F7"/>
@@ -3435,7 +3435,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice129" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="Voice129" modulatorMin="0" modulatorValue="0">
+             name="xFadeBalance" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 18 04 00 03 3D 00 LS MS F7"/>
@@ -3483,7 +3483,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice131" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="Voice131" modulatorMin="0" modulatorValue="247">
+             name="xFadeAmount" modulatorMin="0" modulatorValue="247">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 18 04 00 03 3E 00 LS MS F7"/>
@@ -3531,7 +3531,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice133" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="Voice133" modulatorMin="0" modulatorValue="64">
+             name="xFadeSwitchPoint" modulatorMin="0" modulatorValue="64">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 18 04 00 03 3F 00 LS MS F7"/>
@@ -3611,7 +3611,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice155" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="Voice155" modulatorMin="0" modulatorValue="0">
+             name="auxEnvDelay" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 18 04 00 03 4A 00 LS MS F7"/>
@@ -3659,7 +3659,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice157" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="Voice157" modulatorMin="0" modulatorValue="0">
+             name="auxEnvAttack" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 18 04 00 03 4B 00 LS MS F7"/>
@@ -3707,7 +3707,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice159" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="Voice159" modulatorMin="0" modulatorValue="0">
+             name="auxEnvHold" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 18 04 00 03 4C 00 LS MS F7"/>
@@ -3755,7 +3755,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice161" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="Voice161" modulatorMin="0" modulatorValue="0">
+             name="auxEnvDecay" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 18 04 00 03 4D 00 LS MS F7"/>
@@ -3803,7 +3803,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice163" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="Voice163" modulatorMin="0" modulatorValue="99">
+             name="auxEnvSustain" modulatorMin="0" modulatorValue="99">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 18 04 00 03 4E 00 LS MS F7"/>
@@ -3851,7 +3851,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice165" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="Voice165" modulatorMin="0" modulatorValue="20">
+             name="auxEnvRelease" modulatorMin="0" modulatorValue="20">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 18 04 00 03 4F 00 LS MS F7"/>
@@ -3899,7 +3899,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice167" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="Voice167" modulatorMin="0" modulatorValue="0">
+             name="auxEnvAmount" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 18 04 00 03 50 00 LS MS F7"/>
@@ -6443,7 +6443,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice253" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="Voice253" modulatorMin="-128" modulatorValue="13">
+             name="pitchBendRange" modulatorMin="-128" modulatorValue="13">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 18 04 00 03 7B 00 LS MS F7"/>
@@ -6492,7 +6492,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice257" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="Voice257" modulatorMin="-128" modulatorValue="55">
+             name="kdbCenter" modulatorMin="-128" modulatorValue="55">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 18 04 00 03 7D 00 LS MS F7"/>
@@ -6541,7 +6541,7 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice261" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="Voice261" modulatorMin="-128" modulatorValue="0">
+             name="kbdTuning" modulatorMin="-128" modulatorValue="0">
     <midi midiMessageType="5" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula="F0 18 04 00 03 7F 00 LS MS F7"/>
@@ -7168,4 +7168,5 @@
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"
                componentBubbleRoundAngle="10"/>
   </modulator>
+  <panelCustomData/>
 </panel>

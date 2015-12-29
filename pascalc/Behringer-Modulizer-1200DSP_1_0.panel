@@ -39,8 +39,8 @@
        ctrlrMenuBarHighlightColour="ff4364ff" ctrlrMenuBarFont="&lt;Sans-Serif&gt;;18;0;0;0;0;1;3"
        ctrlrUseEditorWrapper="0" panelIndex="0">
   <uiWindowManager>
-    <uiChildWindow uiChildWindowName="LuaMethodEditor" uiChildWindowState="fs 400 180 800 500">
-      <uiChildWindowContentState luaMethodEditor="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#13;&#10;&#13;&#10;&lt;OPEN id=&quot;LUA&quot; scrollPos=&quot;0&quot;&gt;&#13;&#10;  &lt;SELECTED id=&quot;/LUA/onEffectChange&quot;/&gt;&#13;&#10;&lt;/OPEN&gt;&#13;&#10;;39a55ca91dca4675ae49441cd2b10421"/>
+    <uiChildWindow uiChildWindowName="LuaMethodEditor" uiChildWindowState="fs 0 0 800 500">
+      <uiChildWindowContentState luaMethodEditor="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#13;&#10;&#13;&#10;&lt;OPEN id=&quot;LUA&quot; scrollPos=&quot;0&quot;&gt;&#13;&#10;  &lt;SELECTED id=&quot;/LUA/setComponentProperties&quot;/&gt;&#13;&#10;&lt;/OPEN&gt;&#13;&#10;;39a55ca91dca4675ae49441cd2b10421:f7614659799a49a596c524c178419c11:23fae31ed3e54bd9862aa960412b4c89"/>
     </uiChildWindow>
   </uiWindowManager>
   <midiLibrary uuid="0be2a0eac8d8463bb8e2f110b7f6e2da" luaTransInfo="-- None"
@@ -75,8 +75,14 @@
                    luaMethodLinkedProperty="" luaMethodSource="0" uuid="00000000000000000000000000000006"
                    luaMethodValid="1"/>
       </luaMethodGroup>
-      <luaMethod luaMethodName="onEffectChange" luaMethodCode="--&#10;-- Called when a modulator value changes&#10;-- @mod   http://ctrlr.org/api/class_ctrlr_modulator.html&#10;-- @value    new numeric value of the modulator&#10;--&#10;function onEffectChange(mod, value)&#13;&#10;&#13;&#10;&#9;console(string.format(&quot;[onEffectChange] %d&quot;, value))&#13;&#10;&#9;local variations = { &quot;LFO Speed&quot;, &quot;LFO Speed&quot;, &quot;HP Shape&quot;, &quot;Mode (LFO, Auto 12/24 dB)&quot;, &#13;&#10;&#9;&#9;&quot;Mode (LFO, Auto 12/24 dB)&quot;, &quot;Mode (LFO, Auto 12/24 dB)&quot;, &#13;&#10;&#9;&#9;&quot;LFO Speed&quot;, &quot;LFO Speed&quot;, &quot;LFO Speed&quot;, &quot;Xover Freq.&quot;, &quot;In / Out&quot;, &quot;Gate Thresh.&quot;, &#13;&#10;&#9;&#9;&quot;Pre Delay&quot;, &quot;Bass Freq.&quot;, &quot;Ratio&quot;, &quot;Ratio&quot;, &quot;Threshold&quot;, &quot;Mode (LFO, Auto, RND)&quot;, &quot;Clicks Level&quot;, &#13;&#10;&#9;&#9;&quot;Tube Type&quot;, &quot;Type&quot;, &quot;Speaker Type&quot;, &quot;Frequency&quot;, &quot;Mode (LFO, Auto, RND)&quot; }&#13;&#10;&#9;local editA = { &quot;Intensity&quot;, &quot;Intensity&quot;, &quot;Tune&quot;, &quot;Frequency&quot;, &quot;Frequency&quot;, &quot;Frequency&quot;, &#13;&#10;&#9;&#9;&quot;Delay&quot;, &quot;Delay&quot;, &quot;Delay&quot;, &quot;Gain&quot;, &quot;Gain&quot;, &quot;Gate Hold&quot;, &quot;Size&quot;, &quot;Gain&quot;, &quot;Threshold&quot;, &#13;&#10;&#9;&#9;&quot;Threshold&quot;, &quot;Hold&quot;, &quot;Carrier Freq.&quot;, &quot;Noise Level&quot;, &quot;In Gain&quot;, &quot;In Gain&quot;, &quot;Peak Freq.&quot;, &#13;&#10;&#9;&#9;&quot;Density&quot;, &quot;Frequency&quot; }&#13;&#10;&#9;local editB = { &quot;Depth&quot;, &quot;Depth&quot;, &quot;Harmonics&quot;, &quot;Resonance&quot;, &quot;Resonance&quot;, &quot;Resonance&quot;, &quot;Depth&quot;, &#13;&#10;&#9;&#9;&quot;Depth&quot;, &quot;Depth&quot;, &quot;Spread&quot;, &quot;Spread&quot;, &quot;Gate Rel.&quot;, &quot;Wall Damp&quot;, &quot;Bass Pan.&quot;, &quot;Out Gain&quot;, &#13;&#10;&#9;&#9;&quot;Out Gain&quot;, &quot;Range&quot;, &quot;LFO / Speed&quot;, &quot;Noise BP.&quot;, &quot;Low Cut&quot;, &quot;Drive&quot;, &quot;Peak Q&quot;, &quot;Ratio&quot;, &#13;&#10;&#9;&#9;&quot;LFO / Speed&quot; }&#13;&#10;&#9;local editC = { &quot;Feedback&quot;, &quot;Feedback&quot;, &quot;&quot;, &quot;Mod. Depth&quot;, &quot;Mod. Depth&quot;, &quot;Mod. Depth&quot;, &quot;Feedback&quot;, &#13;&#10;&#9;&#9;&quot;Feedback&quot;, &quot;Stereo Width&quot;, &quot;Mono Pan.&quot;, &quot;Xover Freq.&quot;, &quot;LP Freq.&quot;, &quot;Stereo Width&quot;, &#13;&#10;&#9;&#9;&quot;Treble Pan.&quot;, &quot;Attack&quot;, &quot;Attack&quot;, &quot;Attack&quot;, &quot;Mod. Depth&quot;, &quot;Buzz Level&quot;, &quot;High Cut&quot;, &#13;&#10;&#9;&#9;&quot;Presence&quot;, &quot;Peak Gain&quot;, &quot;Bass Level&quot;, &quot;Mod. Depth&quot;,  }&#13;&#10;&#9;local editD = { &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;Env. / LFO Speed&quot;, &quot;Env. / LFO Speed&quot;, &quot;Env. / LFO Speed&quot;, &#13;&#10;&#9;&#9;&quot;Band Limit&quot;, &quot;Band Limit&quot;, &quot;Wideness&quot;, &quot;St. Center&quot;, &quot;&quot;, &quot;LP Depth&quot;, &quot;Reflections&quot;, &#13;&#10;&#9;&#9;&quot;&quot;, &quot;Release&quot;, &quot;Release&quot;, &quot;Release&quot;, &quot;Band Limit&quot;, &quot;Signal BP.&quot;, &quot;Band Limit&quot;, &quot;Speaker&quot;, &#13;&#10;&#9;&#9;&quot;HF Cut&quot;, &quot;&quot;, &quot;Feedback&quot; }&#13;&#10;&#13;&#10;&#9;local varComp = panel:getModulatorByName(&quot;variation&quot;):getComponent()&#13;&#10;&#9;local editAComp = panel:getModulatorByName(&quot;editA&quot;):getComponent()&#13;&#10;&#9;local editBComp = panel:getModulatorByName(&quot;editB&quot;):getComponent()&#13;&#10;&#9;local editCComp = panel:getModulatorByName(&quot;editC&quot;):getComponent()&#13;&#10;&#9;local editDComp = panel:getModulatorByName(&quot;editD&quot;):getComponent()&#13;&#10;&#13;&#10;&#9;varComp:setProperty(&quot;componentVisibleName&quot;, variations[value + 1], false)&#13;&#10;&#9;editAComp:setProperty(&quot;componentVisibleName&quot;, editA[value + 1], false)&#13;&#10;&#9;editBComp:setProperty(&quot;componentVisibleName&quot;, editB[value + 1], false)&#13;&#10;&#13;&#10;&#9;editCComp:setProperty(&quot;componentVisibleName&quot;, editC[value + 1], false)&#13;&#10;&#9;editCComp:setProperty(&quot;componentDisabled&quot;, 0, false)&#13;&#10;&#9;if editC[value + 1] == &quot;&quot; then&#13;&#10;&#9;&#9;editCComp:setProperty(&quot;componentDisabled&quot;, 1, false)&#13;&#10;&#9;end&#13;&#10;&#13;&#10;&#9;editDComp:setProperty(&quot;componentVisibleName&quot;, editD[value + 1], false)&#13;&#10;&#9;editDComp:setProperty(&quot;componentDisabled&quot;, 0, false)&#13;&#10;&#9;if editD[value + 1] == &quot;&quot; then&#13;&#10;&#9;&#9;editDComp:setProperty(&quot;componentDisabled&quot;, 1, false)&#13;&#10;&#9;end&#10;end"
+      <luaMethod luaMethodName="onEffectChange" luaMethodCode="--&#13;&#10;-- Called when a modulator value changes&#13;&#10;-- @mod   http://ctrlr.org/api/class_ctrlr_modulator.html&#13;&#10;-- @value    new numeric value of the modulator&#13;&#10;--&#13;&#10;function onEffectChange(mod, value)&#13;&#10;&#13;&#10;&#9;console(string.format(&quot;[onEffectChange] %d&quot;, value))&#13;&#10;&#9;-- name:increment:min:max:offset&#13;&#10;&#9;local variations = { &quot;LFO Speed::::*&quot;, &quot;LFO Speed::::*&quot;, &quot;HP Shape::::&quot;,&#13;&#10;&#9;&#9;&quot;Mode:L1,L2,A1,A2&quot;, &quot;Mode:L1,L2,A1,A2&quot;, &quot;Mode:L1,L2,A1,A2&quot;, &#13;&#10;&#9;&#9;&quot;LFO Speed::::*&quot;, &quot;LFO Speed::::*&quot;, &quot;LFO Speed::::&quot;, &quot;Xover Freq.::::&quot;, &#13;&#10;&#9;&#9;&quot;In / Out::1:2:-1&quot;, &quot;Gate Thresh.::::&quot;, &quot;Pre Delay::::&quot;, &#13;&#10;&#9;&#9;&quot;Bass Freq.::::&quot;, &quot;Ratio:::24:&quot;, &quot;Ratio:::24:&quot;, &quot;Threshold::::&quot;, &#13;&#10;&#9;&#9;&quot;Mode:L,E,R0,R1,R2,R3,R4,R5,R6,R7,S0,S1,S2,S3,S4,S5,S6,S7&quot;,&#13;&#10;&#9;&#9;&quot;Clicks Level::::&quot;, &quot;Tube Type::1:3:-1&quot;, &quot;Type::1:3:-1&quot;, &#13;&#10;&#9;&#9;&quot;Speaker Type::1:3:-1&quot;, &quot;Frequency::::&quot;,&#13;&#10;&#9;&#9;&quot;Mode:L,E,R0,R1,R2,R3,R4,R5,R6,R7&quot; }&#13;&#10;&#13;&#10;&#9;local editA = { &quot;Intensity::1:8:&quot;, &quot;Intensity::1:8:&quot;, &quot;Tune::::&quot;, &#13;&#10;&#9;&#9;&quot;Frequency::::&quot;, &quot;Frequency::::&quot;, &quot;Frequency::::&quot;, &quot;Delay::1:128:-1&quot;, &#13;&#10;&#9;&#9;&quot;Delay::1:128:-1&quot;, &quot;Delay::1:128:-1&quot;, &quot;Gain::-6:6:6&quot;, &quot;Gain::-6:6:6&quot;,&#13;&#10;&#9;&#9;&quot;Gate Hold::::&quot;, &quot;Size::::&quot;, &quot;Gain::-6:6:6&quot;, &quot;Threshold::-60:0:60&quot;, &#13;&#10;&#9;&#9;&quot;Threshold::-60:0:60&quot;, &quot;Hold::::&quot;, &quot;Carrier Freq.::::&quot;, &quot;Noise Level::::&quot;,&#13;&#10;&#9;&#9;&quot;In Gain::::&quot;, &quot;In Gain::::&quot;, &quot;Peak Freq.::::&quot;, &quot;Density::::&quot;, &quot;Frequency::::&quot; }&#13;&#10;&#13;&#10;&#9;local editB = { &quot;Depth::::&quot;, &quot;Depth::::&quot;, &quot;Harmonics::::&quot;, &quot;Resonance::::&quot;, &#13;&#10;&#9;&#9;&quot;Resonance::::&quot;, &quot;Resonance::::&quot;, &quot;Depth::::&quot;, &quot;Depth::::&quot;, &quot;Depth::::&quot;,&#13;&#10;&#9;&#9;&quot;Spread::::&quot;, &quot;Spread::::&quot;, &quot;Gate Rel.::::&quot;, &quot;Wall Damp::::&quot;,&#13;&#10;&#9;&#9;&quot;Bass Pan.:2:-100:100:50&quot;, &quot;Out Gain::-24:24:24&quot;, &quot;Out Gain::-24:24:24&quot;,&#13;&#10;&#9;&#9;&quot;Range::::&quot;, &quot;LFO / Speed::::*&quot;, &quot;Noise BP.::::&quot;, &quot;Low Cut::::&quot;, &quot;Drive::::&quot;,&#13;&#10;&#9;&#9;&quot;Peak Q:0.1:1:10:&quot;, &quot;Ratio:::6:&quot;, &quot;LFO / Speed::::*&quot; }&#13;&#10;&#13;&#10;&#9;local editC = { &quot;Feedback::::&quot;, &quot;Feedback::::&quot;, &quot;::::&quot;, &quot;Mod. Depth::::&quot;, &quot;Mod. Depth::::&quot;,&#13;&#10;&#9;&#9;&quot;Mod. Depth::::&quot;, &quot;Feedback:2:-100:100:50&quot;, &quot;Feedback:2:-100:100:50&quot;, &quot;Stereo Width::::&quot;,&#13;&#10;&#9;&#9;&quot;Mono Pan.:2:-100:100:50&quot;, &quot;Xover Freq.::::&quot;, &quot;LP Freq.::::&quot;, &quot;Stereo Width::::&quot;, &#13;&#10;&#9;&#9;&quot;Treble Pan.:2:-100:100:50&quot;, &quot;Attack::::&quot;, &quot;Attack::::&quot;, &quot;Attack::::&quot;,&#13;&#10;&#9;&#9;&quot;Mod. Depth::::&quot;, &quot;Buzz Level::::&quot;, &quot;High Cut::::&quot;,&#9;&quot;Presence::::&quot;,&#13;&#10;&#9;&#9;&quot;Peak Gain::-12:12:12&quot;, &quot;Bass Level::::&quot;, &quot;Mod. Depth::::&quot;,  }&#13;&#10;&#13;&#10;&#9;local editD = { &quot;::::&quot;, &quot;::::&quot;, &quot;::::&quot;, &quot;Env. / LFO Speed::::*&quot;, &quot;Env. / LFO Speed::::*&quot;,&#13;&#10;&#9;&#9;&quot;Env. / LFO Speed::::*&quot;, &quot;Band Limit::::&quot;, &quot;Band Limit::::&quot;, &quot;Wideness::::&quot;,&#13;&#10;&#9;&#9;&quot;St. Center:2:-100:100:50&quot;, &quot;::::&quot;, &quot;LP Depth::::&quot;, &quot;Reflections::1:15:-1&quot;, &#13;&#10;&#9;&#9;&quot;::::&quot;, &quot;Release::::&quot;, &quot;Release::::&quot;, &quot;Release::::&quot;, &quot;Band Limit::::&quot;,&#13;&#10;&#9;&#9;&quot;Signal BP.::::&quot;, &quot;Band Limit::::&quot;, &quot;Speaker::1:3:-1&quot;, &quot;HF Cut::::&quot;, &quot;::::&quot;, &#13;&#10;&#9;&#9;&quot;Feedback:2:-100:100:50&quot; }&#13;&#10;&#13;&#10;&#9;local varMod = panel:getModulatorByName(&quot;variation&quot;)&#13;&#10;&#9;local editAMod = panel:getModulatorByName(&quot;editA&quot;)&#13;&#10;&#9;local editBMod = panel:getModulatorByName(&quot;editB&quot;)&#13;&#10;&#9;local editCMod = panel:getModulatorByName(&quot;editC&quot;)&#13;&#10;&#9;local editDMod = panel:getModulatorByName(&quot;editD&quot;)&#13;&#10;&#13;&#10;&#9;setComponentProperties(varMod, variations[value + 1])&#13;&#10;&#9;setComponentProperties(editAMod, editA[value + 1])&#13;&#10;&#9;setComponentProperties(editBMod, editB[value + 1])&#13;&#10;&#9;setComponentProperties(editCMod, editC[value + 1])&#13;&#10;&#9;setComponentProperties(editDMod, editD[value + 1])&#13;&#10;end&#13;&#10;"
                  luaMethodLinkedProperty="" luaMethodSource="0" uuid="39a55ca91dca4675ae49441cd2b10421"
+                 luaMethodValid="1"/>
+      <luaMethod luaMethodName="split" luaMethodCode="function split(text)&#10;&#9;local delimiter = &quot;:&quot;&#10;&#9;local list = {}&#10;&#9;local pos = 1&#10;&#9;if string.find(&quot;&quot;, delimiter, 1) then -- this would result in endless loops&#10;&#9;&#9;error(&quot;delimiter matches empty string!&quot;)&#10;&#9;end&#10;&#9;while 1 do&#10;&#9;&#9;local first, last = string.find(text, delimiter, pos)&#10;&#9;&#9;if first then -- found?&#10;&#9;&#9;&#9;table.insert(list, string.sub(text, pos, first-1))&#10;&#9;&#9;&#9;pos = last+1&#10;&#9;&#9;else&#10;&#9;&#9;&#9;table.insert(list, string.sub(text, pos))&#10;&#9;&#9;&#9;break&#10;&#9;&#9;end&#10;&#9;end&#10;&#9;return list&#10;end&#13;&#10;"
+                 luaMethodLinkedProperty="" luaMethodSource="0" uuid="f7614659799a49a596c524c178419c11"
+                 luaMethodValid="1"/>
+      <luaMethod luaMethodName="setComponentProperties" luaMethodCode="function setComponentProperties(mod, dataString)&#13;&#10;&#13;&#10;&#9;local comp = mod:getComponent()&#13;&#10;&#9;local splitData = split(dataString)&#13;&#10;&#9;&#13;&#10;&#9;local splitLength = table.getn(splitData)&#13;&#10;&#9;if splitLength ~= 2 and splitLength ~= 5 then&#13;&#10;&#9;&#9;error(string.format(&quot;Invalid data string: '%s'&quot;, dataString))&#13;&#10;&#9;&#9;return&#13;&#10;&#9;end&#13;&#10;&#13;&#10;&#9;local name = splitData[1]&#13;&#10;&#13;&#10;&#9;comp:setProperty(&quot;componentVisibleName&quot;, name, false)&#13;&#10;&#9;comp:setProperty(&quot;componentDisabled&quot;, 0, false)&#13;&#10;&#9;if name == &quot;&quot; then&#13;&#10;&#9;&#9;comp:setProperty(&quot;componentDisabled&quot;, 1, false)&#13;&#10;&#9;end&#10;&#9;&#13;&#10;&#9;if splitLength == 2 then&#13;&#10;&#13;&#10;&#9;else&#13;&#10;&#9;&#9;local increment = 1&#13;&#10;&#9;&#9;if splitData[2] ~= &quot;&quot; then&#13;&#10;&#9;&#9;&#9;increment = splitData[2]&#13;&#10;&#9;&#9;end&#13;&#10;&#9;&#9;comp:setProperty(&quot;uiSliderInterval&quot;, increment, false)&#13;&#10;&#9;&#13;&#10;&#9;&#9;local min = 0&#13;&#10;&#9;&#9;if splitData[3] ~= &quot;&quot; then&#13;&#10;&#9;&#9;&#9;min = splitData[3]&#13;&#10;&#9;&#9;end&#13;&#10;&#9;&#9;comp:setProperty(&quot;uiSliderMin&quot;, min, false)&#13;&#10;&#9;&#13;&#10;&#9;&#9;local max = 127&#13;&#10;&#9;&#9;if splitData[4] ~= &quot;&quot; then&#13;&#10;&#9;&#9;&#9;max = splitData[4]&#13;&#10;&#9;&#9;end&#13;&#10;&#9;&#9;comp:setProperty(&quot;uiSliderMax&quot;, max, false)&#13;&#10;&#9;&#13;&#10;&#9;&#9;local offset = 0&#13;&#10;&#9;&#9;if splitData[5] == &quot;*&quot; then&#13;&#10;&#9;&#9;elseif splitData[5] == &quot;&quot; then&#13;&#10;&#9;&#9;&#9;mod:setProperty(&quot;modulatorValueExpression&quot;, &quot;modulatorValue&quot;, false)&#13;&#10;&#9;&#9;&#9;mod:setProperty(&quot;modulatorValueExpressionReverse&quot;, &quot;midiValue&quot;, false)&#13;&#10;&#9;&#9;else&#13;&#10;&#9;&#9;&#9;console(string.format(&quot;splitData[5] = %s&quot;, splitData[5]))&#13;&#10;&#9;&#9;&#9;offset = tonumber(splitData[5])&#13;&#10;&#9;&#9;&#9;if offset &lt; 0 then&#13;&#10;&#9;&#9;&#9;&#9;offset = offset * -1&#13;&#10;&#9;&#9;&#9;&#9;mod:setProperty(&quot;modulatorValueExpression&quot;, string.format(&quot;modulatorValue - %d&quot;, offset), false)&#13;&#10;&#9;&#9;&#9;&#9;mod:setProperty(&quot;modulatorValueExpressionReverse&quot;, string.format(&quot;midiValue + %d&quot;, offset), false)&#13;&#10;&#9;&#9;&#9;else&#13;&#10;&#9;&#9;&#9;&#9;mod:setProperty(&quot;modulatorValueExpression&quot;, string.format(&quot;modulatorValue + %d&quot;, offset), false)&#13;&#10;&#9;&#9;&#9;&#9;mod:setProperty(&quot;modulatorValueExpressionReverse&quot;, string.format(&quot;midiValue - %d&quot;, offset), false)&#13;&#10;&#9;&#9;&#9;end&#13;&#10;&#9;&#9;end&#13;&#10;&#9;end&#13;&#10;&#9;&#10;end"
+                 luaMethodLinkedProperty="" luaMethodSource="0" uuid="23fae31ed3e54bd9862aa960412b4c89"
                  luaMethodValid="1"/>
     </luaManagerMethods>
   </luaManager>
@@ -84,10 +90,11 @@
   <uiPanelEditor uiPanelCanvasRectangle="0 0 436 154" uiPanelSnapSize="8" uiPanelBackgroundColour="0xffffffff"
                  uiPanelBackgroundColour1="0xffffffff" uiPanelBackgroundColour2="0xffffffff"
                  uiPanelBackgroundGradientType="1" uiPanelImageResource="-- None"
-                 uiPanelEditMode="0" uiPanelLock="0" uiPanelDisabledOnEdit="0"
-                 uiPanelMenuBarVisible="1" uiPanelWidth="400" uiPanelHeight="400"
-                 name="Behringer Modulizer 1200DSP" uiPanelImageAlpha="255" uiPanelImageLayout="64"
-                 uiPanelSnapActive="1" uiPanelPropertiesOnRight="0" luaPanelPaintBackground="-- None"
+                 uiPanelEditMode="0" uiPanelViewPortSize="914" uiPanelPropertiesSize="228"
+                 uiPanelLock="0" uiPanelDisabledOnEdit="0" uiPanelMenuBarVisible="1"
+                 uiPanelWidth="400" uiPanelHeight="400" name="Behringer Modulizer 1200DSP"
+                 uiPanelImageAlpha="255" uiPanelImageLayout="64" uiPanelSnapActive="1"
+                 uiPanelPropertiesOnRight="0" luaPanelPaintBackground="-- None"
                  luaPanelResized="-- None" luaPanelFileDragDropHandler="-- None"
                  luaPanelFileDragEnterHandler="-- None" luaPanelFileDragExitHandler="-- None"
                  uiPanelInvisibleComponentAlpha="0.5" uiPanelTooltipBackgroundColour="0xffeeeebb"
@@ -108,7 +115,7 @@
              modulatorLinkedToComponent="Modulator" modulatorBaseValue="0"
              modulatorCustomIndex="0" modulatorCustomName="" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="onEffectChange"
-             name="effect" modulatorMin="0" modulatorValue="0">
+             name="effect" modulatorMin="0" modulatorValue="6">
     <midi midiMessageType="0" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="50" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula=""/>
@@ -146,14 +153,14 @@
              modulatorLinkedToComponent="Modulator" modulatorBaseValue="0"
              modulatorCustomIndex="0" modulatorCustomName="" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="variation" modulatorMin="0">
+             name="variation" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="0" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="51" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="top" componentLabelJustification="centred"
                componentLabelHeight="14" componentLabelWidth="0" componentLabelVisible="1"
                componentLabelAlwaysOnTop="1" componentSentBack="0" componentLabelColour="0xff000000"
-               componentLabelFont="&lt;Sans-Serif&gt;;12;0;0;0;0;1;3" componentVisibleName="Variation"
+               componentLabelFont="&lt;Sans-Serif&gt;;12;0;0;0;0;1;3" componentVisibleName="LFO Speed"
                componentMouseCursor="2" componentGroupName="" componentGroupped="0"
                componentSnapSize="0" componentIsLocked="0" componentDisabled="0"
                componentRadioGroupId="0" componentRadioGroupNotifyMidi="1" componentVisibility="1"
@@ -179,24 +186,24 @@
                uiSliderPopupBubble="0" uiType="uiSlider" componentRectangle="96 8 64 64"
                componentLayerUid="682175e0eb060000a800000020196608"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="127" vstIndex="3" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="128" vstIndex="3" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
-             modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
-             modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
+             modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue - 1"
+             modulatorValueExpressionReverse="midiValue + 1" modulatorControllerExpression="value"
              luaModulatorGetValueForMIDI="-- None" luaModulatorGetValueFromMIDI="-- None"
              modulatorLinkedToPanelProperty="-- None" modulatorLinkedToModulatorProperty="-- None"
              modulatorLinkedToModulator="-- None" modulatorLinkedToModulatorSource="1"
              modulatorLinkedToComponent="Modulator" modulatorBaseValue="0"
              modulatorCustomIndex="0" modulatorCustomName="" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="editA" modulatorMin="0">
+             name="editA" modulatorMin="1" modulatorValue="1">
     <midi midiMessageType="0" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="52" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="top" componentLabelJustification="centred"
                componentLabelHeight="14" componentLabelWidth="0" componentLabelVisible="1"
                componentLabelAlwaysOnTop="1" componentSentBack="0" componentLabelColour="0xff000000"
-               componentLabelFont="&lt;Sans-Serif&gt;;12;0;0;0;0;1;3" componentVisibleName="Edit A"
+               componentLabelFont="&lt;Sans-Serif&gt;;12;0;0;0;0;1;3" componentVisibleName="Delay"
                componentMouseCursor="2" componentGroupName="" componentGroupped="0"
                componentSnapSize="0" componentIsLocked="0" componentDisabled="0"
                componentRadioGroupId="0" componentRadioGroupNotifyMidi="1" componentVisibility="1"
@@ -205,7 +212,7 @@
                componentValueDecimalPlaces="0" componentLuaMouseMoved="-- None"
                componentLuaMouseDown="-- None" componentLuaMouseDrag="-- None"
                componentLuaMouseDoubleClick="-- None" uiSliderStyle="RotaryVerticalDrag"
-               uiSliderMin="0" uiSliderMax="127" uiSliderInterval="1" uiSliderDoubleClickEnabled="1"
+               uiSliderMin="1" uiSliderMax="128" uiSliderInterval="1" uiSliderDoubleClickEnabled="1"
                uiSliderDoubleClickValue="0" uiSliderValuePosition="4" uiSliderValueHeight="12"
                uiSliderValueWidth="64" uiSliderTrackCornerSize="5" uiSliderThumbCornerSize="3"
                uiSliderThumbWidth="0" uiSliderThumbHeight="0" uiSliderThumbFlatOnLeft="0"
@@ -232,14 +239,14 @@
              modulatorLinkedToComponent="Modulator" modulatorBaseValue="0"
              modulatorCustomIndex="0" modulatorCustomName="" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="editB" modulatorMin="0">
+             name="editB" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="0" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="53" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="top" componentLabelJustification="centred"
                componentLabelHeight="14" componentLabelWidth="0" componentLabelVisible="1"
                componentLabelAlwaysOnTop="1" componentSentBack="0" componentLabelColour="0xff000000"
-               componentLabelFont="&lt;Sans-Serif&gt;;12;0;0;0;0;1;3" componentVisibleName="Edit B"
+               componentLabelFont="&lt;Sans-Serif&gt;;12;0;0;0;0;1;3" componentVisibleName="Depth"
                componentMouseCursor="2" componentGroupName="" componentGroupped="0"
                componentSnapSize="0" componentIsLocked="0" componentDisabled="0"
                componentRadioGroupId="0" componentRadioGroupNotifyMidi="1" componentVisibility="1"
@@ -265,24 +272,24 @@
                uiSliderPopupBubble="0" componentLayerUid="682175e0eb060000a800000020196608"
                componentRectangle="243 8 64 64" uiType="uiSlider"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="127" vstIndex="5" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="100" vstIndex="5" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
-             modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
-             modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
+             modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue + 50"
+             modulatorValueExpressionReverse="midiValue - 50" modulatorControllerExpression="value"
              luaModulatorGetValueForMIDI="-- None" luaModulatorGetValueFromMIDI="-- None"
              modulatorLinkedToPanelProperty="-- None" modulatorLinkedToModulatorProperty="-- None"
              modulatorLinkedToModulator="-- None" modulatorLinkedToModulatorSource="1"
              modulatorLinkedToComponent="Modulator" modulatorBaseValue="0"
              modulatorCustomIndex="0" modulatorCustomName="" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="editC" modulatorMin="0">
+             name="editC" modulatorMin="-100" modulatorValue="0">
     <midi midiMessageType="0" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="54" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="top" componentLabelJustification="centred"
                componentLabelHeight="14" componentLabelWidth="0" componentLabelVisible="1"
                componentLabelAlwaysOnTop="1" componentSentBack="0" componentLabelColour="0xff000000"
-               componentLabelFont="&lt;Sans-Serif&gt;;12;0;0;0;0;1;3" componentVisibleName="Edit C"
+               componentLabelFont="&lt;Sans-Serif&gt;;12;0;0;0;0;1;3" componentVisibleName="Feedback"
                componentMouseCursor="2" componentGroupName="" componentGroupped="0"
                componentSnapSize="0" componentIsLocked="0" componentDisabled="0"
                componentRadioGroupId="0" componentRadioGroupNotifyMidi="1" componentVisibility="1"
@@ -291,7 +298,7 @@
                componentValueDecimalPlaces="0" componentLuaMouseMoved="-- None"
                componentLuaMouseDown="-- None" componentLuaMouseDrag="-- None"
                componentLuaMouseDoubleClick="-- None" uiSliderStyle="RotaryVerticalDrag"
-               uiSliderMin="0" uiSliderMax="127" uiSliderInterval="1" uiSliderDoubleClickEnabled="1"
+               uiSliderMin="-100" uiSliderMax="100" uiSliderInterval="2" uiSliderDoubleClickEnabled="1"
                uiSliderDoubleClickValue="0" uiSliderValuePosition="4" uiSliderValueHeight="12"
                uiSliderValueWidth="64" uiSliderTrackCornerSize="5" uiSliderThumbCornerSize="3"
                uiSliderThumbWidth="0" uiSliderThumbHeight="0" uiSliderThumbFlatOnLeft="0"
@@ -325,7 +332,7 @@
     <component componentLabelPosition="top" componentLabelJustification="centred"
                componentLabelHeight="14" componentLabelWidth="0" componentLabelVisible="1"
                componentLabelAlwaysOnTop="1" componentSentBack="0" componentLabelColour="0xff000000"
-               componentLabelFont="&lt;Sans-Serif&gt;;12;0;0;0;0;1;3" componentVisibleName="Edit D"
+               componentLabelFont="&lt;Sans-Serif&gt;;12;0;0;0;0;1;3" componentVisibleName="Band Limit"
                componentMouseCursor="2" componentGroupName="" componentGroupped="0"
                componentSnapSize="0" componentIsLocked="0" componentDisabled="0"
                componentRadioGroupId="0" componentRadioGroupNotifyMidi="1" componentVisibility="1"
@@ -361,7 +368,7 @@
              modulatorLinkedToComponent="Modulator" modulatorBaseValue="0"
              modulatorCustomIndex="0" modulatorCustomName="" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="modCtrlr" modulatorMin="0">
+             name="modCtrlr" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="0" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="56" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula=""/>
@@ -404,7 +411,7 @@
              modulatorLinkedToComponent="Modulator" modulatorBaseValue="0"
              modulatorCustomIndex="0" modulatorCustomName="" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="eqLow" modulatorMin="-16">
+             name="eqLow" modulatorMin="-16" modulatorValue="0">
     <midi midiMessageType="0" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="57" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula=""/>
@@ -447,7 +454,7 @@
              modulatorLinkedToComponent="Modulator" modulatorBaseValue="0"
              modulatorCustomIndex="0" modulatorCustomName="" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="eqHigh" modulatorMin="-16">
+             name="eqHigh" modulatorMin="-16" modulatorValue="0">
     <midi midiMessageType="0" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="58" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula=""/>
@@ -490,7 +497,7 @@
              modulatorLinkedToComponent="Modulator" modulatorBaseValue="0"
              modulatorCustomIndex="0" modulatorCustomName="" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="mix" modulatorMin="0">
+             name="mix" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="0" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="59" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula=""/>
