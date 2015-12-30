@@ -40,7 +40,7 @@
        ctrlrUseEditorWrapper="0" panelIndex="0">
   <uiWindowManager>
     <uiChildWindow uiChildWindowName="LuaMethodEditor" uiChildWindowState="fs 0 0 800 500">
-      <uiChildWindowContentState luaMethodEditor="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#13;&#10;&#13;&#10;&lt;OPEN id=&quot;LUA&quot; scrollPos=&quot;0&quot;&gt;&#13;&#10;  &lt;SELECTED id=&quot;/LUA/setComponentProperties&quot;/&gt;&#13;&#10;&lt;/OPEN&gt;&#13;&#10;;39a55ca91dca4675ae49441cd2b10421:f7614659799a49a596c524c178419c11:23fae31ed3e54bd9862aa960412b4c89"/>
+      <uiChildWindowContentState luaMethodEditor="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#13;&#10;&#13;&#10;&lt;OPEN id=&quot;LUA&quot; scrollPos=&quot;0&quot;&gt;&#13;&#10;  &lt;SELECTED id=&quot;/LUA/saveVoice&quot;/&gt;&#13;&#10;&lt;/OPEN&gt;&#13;&#10;;39a55ca91dca4675ae49441cd2b10421:f7614659799a49a596c524c178419c11:23fae31ed3e54bd9862aa960412b4c89:d7c9d41353164d48bf00826ecd13d9c2:414809e9b57d45c5b5d949dcc9355ed2"/>
     </uiChildWindow>
   </uiWindowManager>
   <midiLibrary uuid="0be2a0eac8d8463bb8e2f110b7f6e2da" luaTransInfo="-- None"
@@ -75,32 +75,37 @@
                    luaMethodLinkedProperty="" luaMethodSource="0" uuid="00000000000000000000000000000006"
                    luaMethodValid="1"/>
       </luaMethodGroup>
-      <luaMethod luaMethodName="onEffectChange" luaMethodCode="--&#13;&#10;-- Called when a modulator value changes&#13;&#10;-- @mod   http://ctrlr.org/api/class_ctrlr_modulator.html&#13;&#10;-- @value    new numeric value of the modulator&#13;&#10;--&#13;&#10;function onEffectChange(mod, value)&#13;&#10;&#13;&#10;&#9;console(string.format(&quot;[onEffectChange] %d&quot;, value))&#13;&#10;&#9;-- name:increment:min:max:offset&#13;&#10;&#9;local variations = { &quot;LFO Speed::::*&quot;, &quot;LFO Speed::::*&quot;, &quot;HP Shape::::&quot;,&#13;&#10;&#9;&#9;&quot;Mode:L1,L2,A1,A2&quot;, &quot;Mode:L1,L2,A1,A2&quot;, &quot;Mode:L1,L2,A1,A2&quot;, &#13;&#10;&#9;&#9;&quot;LFO Speed::::*&quot;, &quot;LFO Speed::::*&quot;, &quot;LFO Speed::::&quot;, &quot;Xover Freq.::::&quot;, &#13;&#10;&#9;&#9;&quot;In / Out::1:2:-1&quot;, &quot;Gate Thresh.::::&quot;, &quot;Pre Delay::::&quot;, &#13;&#10;&#9;&#9;&quot;Bass Freq.::::&quot;, &quot;Ratio:::24:&quot;, &quot;Ratio:::24:&quot;, &quot;Threshold::::&quot;, &#13;&#10;&#9;&#9;&quot;Mode:L,E,R0,R1,R2,R3,R4,R5,R6,R7,S0,S1,S2,S3,S4,S5,S6,S7&quot;,&#13;&#10;&#9;&#9;&quot;Clicks Level::::&quot;, &quot;Tube Type::1:3:-1&quot;, &quot;Type::1:3:-1&quot;, &#13;&#10;&#9;&#9;&quot;Speaker Type::1:3:-1&quot;, &quot;Frequency::::&quot;,&#13;&#10;&#9;&#9;&quot;Mode:L,E,R0,R1,R2,R3,R4,R5,R6,R7&quot; }&#13;&#10;&#13;&#10;&#9;local editA = { &quot;Intensity::1:8:&quot;, &quot;Intensity::1:8:&quot;, &quot;Tune::::&quot;, &#13;&#10;&#9;&#9;&quot;Frequency::::&quot;, &quot;Frequency::::&quot;, &quot;Frequency::::&quot;, &quot;Delay::1:128:-1&quot;, &#13;&#10;&#9;&#9;&quot;Delay::1:128:-1&quot;, &quot;Delay::1:128:-1&quot;, &quot;Gain::-6:6:6&quot;, &quot;Gain::-6:6:6&quot;,&#13;&#10;&#9;&#9;&quot;Gate Hold::::&quot;, &quot;Size::::&quot;, &quot;Gain::-6:6:6&quot;, &quot;Threshold::-60:0:60&quot;, &#13;&#10;&#9;&#9;&quot;Threshold::-60:0:60&quot;, &quot;Hold::::&quot;, &quot;Carrier Freq.::::&quot;, &quot;Noise Level::::&quot;,&#13;&#10;&#9;&#9;&quot;In Gain::::&quot;, &quot;In Gain::::&quot;, &quot;Peak Freq.::::&quot;, &quot;Density::::&quot;, &quot;Frequency::::&quot; }&#13;&#10;&#13;&#10;&#9;local editB = { &quot;Depth::::&quot;, &quot;Depth::::&quot;, &quot;Harmonics::::&quot;, &quot;Resonance::::&quot;, &#13;&#10;&#9;&#9;&quot;Resonance::::&quot;, &quot;Resonance::::&quot;, &quot;Depth::::&quot;, &quot;Depth::::&quot;, &quot;Depth::::&quot;,&#13;&#10;&#9;&#9;&quot;Spread::::&quot;, &quot;Spread::::&quot;, &quot;Gate Rel.::::&quot;, &quot;Wall Damp::::&quot;,&#13;&#10;&#9;&#9;&quot;Bass Pan.:2:-100:100:50&quot;, &quot;Out Gain::-24:24:24&quot;, &quot;Out Gain::-24:24:24&quot;,&#13;&#10;&#9;&#9;&quot;Range::::&quot;, &quot;LFO / Speed::::*&quot;, &quot;Noise BP.::::&quot;, &quot;Low Cut::::&quot;, &quot;Drive::::&quot;,&#13;&#10;&#9;&#9;&quot;Peak Q:0.1:1:10:&quot;, &quot;Ratio:::6:&quot;, &quot;LFO / Speed::::*&quot; }&#13;&#10;&#13;&#10;&#9;local editC = { &quot;Feedback::::&quot;, &quot;Feedback::::&quot;, &quot;::::&quot;, &quot;Mod. Depth::::&quot;, &quot;Mod. Depth::::&quot;,&#13;&#10;&#9;&#9;&quot;Mod. Depth::::&quot;, &quot;Feedback:2:-100:100:50&quot;, &quot;Feedback:2:-100:100:50&quot;, &quot;Stereo Width::::&quot;,&#13;&#10;&#9;&#9;&quot;Mono Pan.:2:-100:100:50&quot;, &quot;Xover Freq.::::&quot;, &quot;LP Freq.::::&quot;, &quot;Stereo Width::::&quot;, &#13;&#10;&#9;&#9;&quot;Treble Pan.:2:-100:100:50&quot;, &quot;Attack::::&quot;, &quot;Attack::::&quot;, &quot;Attack::::&quot;,&#13;&#10;&#9;&#9;&quot;Mod. Depth::::&quot;, &quot;Buzz Level::::&quot;, &quot;High Cut::::&quot;,&#9;&quot;Presence::::&quot;,&#13;&#10;&#9;&#9;&quot;Peak Gain::-12:12:12&quot;, &quot;Bass Level::::&quot;, &quot;Mod. Depth::::&quot;,  }&#13;&#10;&#13;&#10;&#9;local editD = { &quot;::::&quot;, &quot;::::&quot;, &quot;::::&quot;, &quot;Env. / LFO Speed::::*&quot;, &quot;Env. / LFO Speed::::*&quot;,&#13;&#10;&#9;&#9;&quot;Env. / LFO Speed::::*&quot;, &quot;Band Limit::::&quot;, &quot;Band Limit::::&quot;, &quot;Wideness::::&quot;,&#13;&#10;&#9;&#9;&quot;St. Center:2:-100:100:50&quot;, &quot;::::&quot;, &quot;LP Depth::::&quot;, &quot;Reflections::1:15:-1&quot;, &#13;&#10;&#9;&#9;&quot;::::&quot;, &quot;Release::::&quot;, &quot;Release::::&quot;, &quot;Release::::&quot;, &quot;Band Limit::::&quot;,&#13;&#10;&#9;&#9;&quot;Signal BP.::::&quot;, &quot;Band Limit::::&quot;, &quot;Speaker::1:3:-1&quot;, &quot;HF Cut::::&quot;, &quot;::::&quot;, &#13;&#10;&#9;&#9;&quot;Feedback:2:-100:100:50&quot; }&#13;&#10;&#13;&#10;&#9;local varMod = panel:getModulatorByName(&quot;variation&quot;)&#13;&#10;&#9;local editAMod = panel:getModulatorByName(&quot;editA&quot;)&#13;&#10;&#9;local editBMod = panel:getModulatorByName(&quot;editB&quot;)&#13;&#10;&#9;local editCMod = panel:getModulatorByName(&quot;editC&quot;)&#13;&#10;&#9;local editDMod = panel:getModulatorByName(&quot;editD&quot;)&#13;&#10;&#13;&#10;&#9;setComponentProperties(varMod, variations[value + 1])&#13;&#10;&#9;setComponentProperties(editAMod, editA[value + 1])&#13;&#10;&#9;setComponentProperties(editBMod, editB[value + 1])&#13;&#10;&#9;setComponentProperties(editCMod, editC[value + 1])&#13;&#10;&#9;setComponentProperties(editDMod, editD[value + 1])&#13;&#10;end&#13;&#10;"
+      <luaMethod luaMethodName="onEffectChange" luaMethodCode="--&#13;&#10;-- Called when a modulator value changes&#13;&#10;-- @mod   http://ctrlr.org/api/class_ctrlr_modulator.html&#13;&#10;-- @value    new numeric value of the modulator&#13;&#10;--&#13;&#10;function onEffectChange(mod, value)&#13;&#10;&#13;&#10;&#9;console(string.format(&quot;[onEffectChange] %d&quot;, value))&#13;&#10;&#9;-- name:increment:min:max:offset&#13;&#10;&#9;local variations = { &quot;LFO Speed::::*&quot;, &quot;LFO Speed::::*&quot;, &quot;HP Shape::::&quot;,&#13;&#10;&#9;&#9;&quot;Mode:L1,L2,A1,A2&quot;, &quot;Mode:L1,L2,A1,A2&quot;, &quot;Mode:L1,L2,A1,A2&quot;, &#13;&#10;&#9;&#9;&quot;LFO Speed::::*&quot;, &quot;LFO Speed::::*&quot;, &quot;LFO Speed::::&quot;, &quot;Xover Freq.::::&quot;, &#13;&#10;&#9;&#9;&quot;In / Out::1:2:-1&quot;, &quot;Gate Thresh.::::&quot;, &quot;Pre Delay::::&quot;, &#13;&#10;&#9;&#9;&quot;Bass Freq.::::&quot;, &quot;Ratio:::24:&quot;, &quot;Ratio:::24:&quot;, &quot;Threshold::::&quot;, &#13;&#10;&#9;&#9;&quot;Mode:L,E,R0,R1,R2,R3,R4,R5,R6,R7,S0,S1,S2,S3,S4,S5,S6,S7&quot;,&#13;&#10;&#9;&#9;&quot;Clicks Level::::&quot;, &quot;Tube Type::1:3:-1&quot;, &quot;Type::1:3:-1&quot;, &#13;&#10;&#9;&#9;&quot;Speaker Type::1:3:-1&quot;, &quot;Frequency::::&quot;,&#13;&#10;&#9;&#9;&quot;Mode:L,E,R0,R1,R2,R3,R4,R5,R6,R7&quot; }&#13;&#10;&#13;&#10;&#9;local editA = { &quot;Intensity::1:8:&quot;, &quot;Intensity::1:8:&quot;, &quot;Tune::::&quot;, &#13;&#10;&#9;&#9;&quot;Frequency::::&quot;, &quot;Frequency::::&quot;, &quot;Frequency::::&quot;, &quot;Delay::1:128:-1&quot;, &#13;&#10;&#9;&#9;&quot;Delay::1:128:-1&quot;, &quot;Delay::1:128:-1&quot;, &quot;Gain::-6:6:6&quot;, &quot;Gain::-6:6:6&quot;,&#13;&#10;&#9;&#9;&quot;Gate Hold::::&quot;, &quot;Size::::&quot;, &quot;Gain::-6:6:6&quot;, &quot;Threshold::-60:0:60&quot;, &#13;&#10;&#9;&#9;&quot;Threshold::-60:0:60&quot;, &quot;Hold::::&quot;, &quot;Carrier Freq.::::&quot;, &quot;Noise Level::::&quot;,&#13;&#10;&#9;&#9;&quot;In Gain::::&quot;, &quot;In Gain::::&quot;, &quot;Peak Freq.::::&quot;, &quot;Density::::&quot;, &quot;Frequency::::&quot; }&#13;&#10;&#13;&#10;&#9;local editB = { &quot;Depth::::&quot;, &quot;Depth::::&quot;, &quot;Harmonics::::&quot;, &quot;Resonance::::&quot;, &#13;&#10;&#9;&#9;&quot;Resonance::::&quot;, &quot;Resonance::::&quot;, &quot;Depth::::&quot;, &quot;Depth::::&quot;, &quot;Depth::::&quot;,&#13;&#10;&#9;&#9;&quot;Spread::::&quot;, &quot;Spread::::&quot;, &quot;Gate Rel.::::&quot;, &quot;Wall Damp::::&quot;,&#13;&#10;&#9;&#9;&quot;Bass Pan.:2:-100:100:50&quot;, &quot;Out Gain::-24:24:24&quot;, &quot;Out Gain::-24:24:24&quot;,&#13;&#10;&#9;&#9;&quot;Range::::&quot;, &quot;LFO / Speed::::*&quot;, &quot;Noise BP.::::&quot;, &quot;Low Cut::::&quot;, &quot;Drive::::&quot;,&#13;&#10;&#9;&#9;&quot;Peak Q:::100:&quot;, &quot;Ratio:::6:&quot;, &quot;LFO / Speed::::*&quot; }&#13;&#10;&#13;&#10;&#9;local editC = { &quot;Feedback::::&quot;, &quot;Feedback::::&quot;, &quot;::::&quot;, &quot;Mod. Depth::::&quot;, &quot;Mod. Depth::::&quot;,&#13;&#10;&#9;&#9;&quot;Mod. Depth::::&quot;, &quot;Feedback:2:-100:100:50&quot;, &quot;Feedback:2:-100:100:50&quot;, &quot;Stereo Width::::&quot;,&#13;&#10;&#9;&#9;&quot;Mono Pan.:2:-100:100:50&quot;, &quot;Xover Freq.::::&quot;, &quot;LP Freq.::::&quot;, &quot;Stereo Width::::&quot;, &#13;&#10;&#9;&#9;&quot;Treble Pan.:2:-100:100:50&quot;, &quot;Attack::::&quot;, &quot;Attack::::&quot;, &quot;Attack::::&quot;,&#13;&#10;&#9;&#9;&quot;Mod. Depth::::&quot;, &quot;Buzz Level::::&quot;, &quot;High Cut::::&quot;,&#9;&quot;Presence::::&quot;,&#13;&#10;&#9;&#9;&quot;Peak Gain::-12:12:12&quot;, &quot;Bass Level::::&quot;, &quot;Mod. Depth::::&quot;,  }&#13;&#10;&#13;&#10;&#9;local editD = { &quot;::::&quot;, &quot;::::&quot;, &quot;::::&quot;, &quot;Env. / LFO Speed::::*&quot;, &quot;Env. / LFO Speed::::*&quot;,&#13;&#10;&#9;&#9;&quot;Env. / LFO Speed::::*&quot;, &quot;Band Limit::::&quot;, &quot;Band Limit::::&quot;, &quot;Wideness::::&quot;,&#13;&#10;&#9;&#9;&quot;St. Center:2:-100:100:50&quot;, &quot;::::&quot;, &quot;LP Depth::::&quot;, &quot;Reflections::1:15:-1&quot;, &#13;&#10;&#9;&#9;&quot;::::&quot;, &quot;Release::::&quot;, &quot;Release::::&quot;, &quot;Release::::&quot;, &quot;Band Limit::::&quot;,&#13;&#10;&#9;&#9;&quot;Signal BP.::::&quot;, &quot;Band Limit::::&quot;, &quot;Speaker::1:3:-1&quot;, &quot;HF Cut::::&quot;, &quot;::::&quot;, &#13;&#10;&#9;&#9;&quot;Feedback:2:-100:100:50&quot; }&#13;&#10;&#13;&#10;&#9;local varMod = panel:getModulatorByName(&quot;variation&quot;)&#13;&#10;&#9;local editAMod = panel:getModulatorByName(&quot;editA&quot;)&#13;&#10;&#9;local editBMod = panel:getModulatorByName(&quot;editB&quot;)&#13;&#10;&#9;local editCMod = panel:getModulatorByName(&quot;editC&quot;)&#13;&#10;&#9;local editDMod = panel:getModulatorByName(&quot;editD&quot;)&#13;&#10;&#13;&#10;&#9;setComponentProperties(varMod, variations[value + 1])&#13;&#10;&#9;setComponentProperties(editAMod, editA[value + 1])&#13;&#10;&#9;setComponentProperties(editBMod, editB[value + 1])&#13;&#10;&#9;setComponentProperties(editCMod, editC[value + 1])&#13;&#10;&#9;setComponentProperties(editDMod, editD[value + 1])&#13;&#10;end&#13;&#10;"
                  luaMethodLinkedProperty="" luaMethodSource="0" uuid="39a55ca91dca4675ae49441cd2b10421"
                  luaMethodValid="1"/>
-      <luaMethod luaMethodName="split" luaMethodCode="function split(text)&#10;&#9;local delimiter = &quot;:&quot;&#10;&#9;local list = {}&#10;&#9;local pos = 1&#10;&#9;if string.find(&quot;&quot;, delimiter, 1) then -- this would result in endless loops&#10;&#9;&#9;error(&quot;delimiter matches empty string!&quot;)&#10;&#9;end&#10;&#9;while 1 do&#10;&#9;&#9;local first, last = string.find(text, delimiter, pos)&#10;&#9;&#9;if first then -- found?&#10;&#9;&#9;&#9;table.insert(list, string.sub(text, pos, first-1))&#10;&#9;&#9;&#9;pos = last+1&#10;&#9;&#9;else&#10;&#9;&#9;&#9;table.insert(list, string.sub(text, pos))&#10;&#9;&#9;&#9;break&#10;&#9;&#9;end&#10;&#9;end&#10;&#9;return list&#10;end&#13;&#10;"
+      <luaMethod luaMethodName="split" luaMethodCode="function split(text, delimiter)&#10;&#9;local list = {}&#10;&#9;local pos = 1&#10;&#9;if string.find(&quot;&quot;, delimiter, 1) then -- this would result in endless loops&#10;&#9;&#9;error(&quot;delimiter matches empty string!&quot;)&#10;&#9;end&#10;&#9;while 1 do&#10;&#9;&#9;local first, last = string.find(text, delimiter, pos)&#10;&#9;&#9;if first then -- found?&#10;&#9;&#9;&#9;table.insert(list, string.sub(text, pos, first-1))&#10;&#9;&#9;&#9;pos = last+1&#10;&#9;&#9;else&#10;&#9;&#9;&#9;table.insert(list, string.sub(text, pos))&#10;&#9;&#9;&#9;break&#10;&#9;&#9;end&#10;&#9;end&#10;&#9;return list&#10;end&#13;&#10;"
                  luaMethodLinkedProperty="" luaMethodSource="0" uuid="f7614659799a49a596c524c178419c11"
                  luaMethodValid="1"/>
-      <luaMethod luaMethodName="setComponentProperties" luaMethodCode="function setComponentProperties(mod, dataString)&#13;&#10;&#13;&#10;&#9;local comp = mod:getComponent()&#13;&#10;&#9;local splitData = split(dataString)&#13;&#10;&#9;&#13;&#10;&#9;local splitLength = table.getn(splitData)&#13;&#10;&#9;if splitLength ~= 2 and splitLength ~= 5 then&#13;&#10;&#9;&#9;error(string.format(&quot;Invalid data string: '%s'&quot;, dataString))&#13;&#10;&#9;&#9;return&#13;&#10;&#9;end&#13;&#10;&#13;&#10;&#9;local name = splitData[1]&#13;&#10;&#13;&#10;&#9;comp:setProperty(&quot;componentVisibleName&quot;, name, false)&#13;&#10;&#9;comp:setProperty(&quot;componentDisabled&quot;, 0, false)&#13;&#10;&#9;if name == &quot;&quot; then&#13;&#10;&#9;&#9;comp:setProperty(&quot;componentDisabled&quot;, 1, false)&#13;&#10;&#9;end&#10;&#9;&#13;&#10;&#9;if splitLength == 2 then&#13;&#10;&#13;&#10;&#9;else&#13;&#10;&#9;&#9;local increment = 1&#13;&#10;&#9;&#9;if splitData[2] ~= &quot;&quot; then&#13;&#10;&#9;&#9;&#9;increment = splitData[2]&#13;&#10;&#9;&#9;end&#13;&#10;&#9;&#9;comp:setProperty(&quot;uiSliderInterval&quot;, increment, false)&#13;&#10;&#9;&#13;&#10;&#9;&#9;local min = 0&#13;&#10;&#9;&#9;if splitData[3] ~= &quot;&quot; then&#13;&#10;&#9;&#9;&#9;min = splitData[3]&#13;&#10;&#9;&#9;end&#13;&#10;&#9;&#9;comp:setProperty(&quot;uiSliderMin&quot;, min, false)&#13;&#10;&#9;&#13;&#10;&#9;&#9;local max = 127&#13;&#10;&#9;&#9;if splitData[4] ~= &quot;&quot; then&#13;&#10;&#9;&#9;&#9;max = splitData[4]&#13;&#10;&#9;&#9;end&#13;&#10;&#9;&#9;comp:setProperty(&quot;uiSliderMax&quot;, max, false)&#13;&#10;&#9;&#13;&#10;&#9;&#9;local offset = 0&#13;&#10;&#9;&#9;if splitData[5] == &quot;*&quot; then&#13;&#10;&#9;&#9;elseif splitData[5] == &quot;&quot; then&#13;&#10;&#9;&#9;&#9;mod:setProperty(&quot;modulatorValueExpression&quot;, &quot;modulatorValue&quot;, false)&#13;&#10;&#9;&#9;&#9;mod:setProperty(&quot;modulatorValueExpressionReverse&quot;, &quot;midiValue&quot;, false)&#13;&#10;&#9;&#9;else&#13;&#10;&#9;&#9;&#9;console(string.format(&quot;splitData[5] = %s&quot;, splitData[5]))&#13;&#10;&#9;&#9;&#9;offset = tonumber(splitData[5])&#13;&#10;&#9;&#9;&#9;if offset &lt; 0 then&#13;&#10;&#9;&#9;&#9;&#9;offset = offset * -1&#13;&#10;&#9;&#9;&#9;&#9;mod:setProperty(&quot;modulatorValueExpression&quot;, string.format(&quot;modulatorValue - %d&quot;, offset), false)&#13;&#10;&#9;&#9;&#9;&#9;mod:setProperty(&quot;modulatorValueExpressionReverse&quot;, string.format(&quot;midiValue + %d&quot;, offset), false)&#13;&#10;&#9;&#9;&#9;else&#13;&#10;&#9;&#9;&#9;&#9;mod:setProperty(&quot;modulatorValueExpression&quot;, string.format(&quot;modulatorValue + %d&quot;, offset), false)&#13;&#10;&#9;&#9;&#9;&#9;mod:setProperty(&quot;modulatorValueExpressionReverse&quot;, string.format(&quot;midiValue - %d&quot;, offset), false)&#13;&#10;&#9;&#9;&#9;end&#13;&#10;&#9;&#9;end&#13;&#10;&#9;end&#13;&#10;&#9;&#10;end"
+      <luaMethod luaMethodName="setComponentProperties" luaMethodCode="function setComponentProperties(mod, dataString)&#13;&#10;&#13;&#10;&#9;local comp = mod:getComponent()&#13;&#10;&#9;local splitData = split(dataString, &quot;:&quot;)&#13;&#10;&#9;&#13;&#10;&#9;local variationBtnGrp = panel:getModulatorByName(&quot;variationBtnGrp&quot;):getComponent()&#13;&#10;&#9;local variationGrp = panel:getModulatorByName(&quot;variationGrp&quot;):getComponent()&#13;&#10;&#9;local splitLength = table.getn(splitData)&#13;&#10;&#9;if splitLength == 2 then&#13;&#10;&#9;&#9;variationGrp:setProperty(&quot;componentVisibility&quot;, 0, false)&#13;&#10;&#9;&#9;variationBtnGrp:setProperty(&quot;componentVisibility&quot;, 1, false)&#13;&#10;&#9;&#9;comp = panel:getModulatorByName(&quot;variationBtn&quot;):getComponent()&#13;&#10;&#9;elseif splitLength == 5 and mod:getProperty(&quot;name&quot;) == &quot;variation&quot; then&#13;&#10;&#9;&#9;variationBtnGrp:setProperty(&quot;componentVisibility&quot;, 0, false)&#13;&#10;&#9;&#9;variationGrp:setProperty(&quot;componentVisibility&quot;, 1, false)&#13;&#10;&#9;elseif splitLength ~= 5 then&#13;&#10;&#9;&#9;error(string.format(&quot;Invalid data string: '%s'&quot;, dataString))&#13;&#10;&#9;&#9;return&#13;&#10;&#9;end&#13;&#10;&#13;&#10;&#9;local name = splitData[1]&#13;&#10;&#13;&#10;&#9;comp:setProperty(&quot;componentVisibleName&quot;, name, false)&#13;&#10;&#9;comp:setProperty(&quot;componentDisabled&quot;, 0, false)&#13;&#10;&#9;if name == &quot;&quot; then&#13;&#10;&#9;&#9;comp:setProperty(&quot;componentDisabled&quot;, 1, false)&#13;&#10;&#9;end&#10;&#9;&#9;&#13;&#10;&#9;local increment = 1&#13;&#10;&#9;local min = 0&#13;&#10;&#9;local max = 127&#13;&#10;&#9;if splitLength == 2 then&#13;&#10;&#9;&#9;local values = split(splitData[2], &quot;,&quot;)&#13;&#10;&#9;&#9;local valuesLength = table.getn(values)&#13;&#10;&#9;&#9;local valueStr = values[1]&#13;&#10;&#9;&#9;for i = 2, valuesLength do&#13;&#10;&#9;&#9;&#9;valueStr = string.format(&quot;%s\n%s&quot;, valueStr, values[i])&#13;&#10;&#9;&#9;end&#13;&#10;&#9;&#9;comp:setProperty(&quot;uiButtonContent&quot;, valueStr, false)&#13;&#10;&#9;else&#13;&#10;&#9;&#9;if splitData[2] ~= &quot;&quot; then&#13;&#10;&#9;&#9;&#9;increment = splitData[2]&#13;&#10;&#9;&#9;end&#13;&#10;&#9;&#9;comp:setProperty(&quot;uiSliderInterval&quot;, increment, false)&#13;&#10;&#9;&#13;&#10;&#9;&#9;if splitData[3] ~= &quot;&quot; then&#13;&#10;&#9;&#9;&#9;min = splitData[3]&#13;&#10;&#9;&#9;end&#13;&#10;&#9;&#9;comp:setProperty(&quot;uiSliderMin&quot;, min, false)&#13;&#10;&#9;&#13;&#10;&#9;&#9;if splitData[4] ~= &quot;&quot; then&#13;&#10;&#9;&#9;&#9;max = splitData[4]&#13;&#10;&#9;&#9;end&#13;&#10;&#9;&#9;comp:setProperty(&quot;uiSliderMax&quot;, max, false)&#13;&#10;&#13;&#10;&#9;&#9;if splitData[5] == &quot;*&quot; then&#13;&#10;&#9;&#9;else&#13;&#10;&#9;&#9;&#9;local exprSuffix = &quot;&quot;&#13;&#10;&#9;&#9;&#9;local exprRevSuffix = &quot;&quot;&#13;&#10;&#9;&#9;&#9;local exprSign = &quot;+&quot;&#13;&#10;&#9;&#9;&#9;local exprRevSign = &quot;-&quot;&#13;&#10;&#9;&#9;&#9;if increment ~= 1 then&#13;&#10;&#9;&#9;&#9;&#9;exprSuffix = string.format(&quot; / %d&quot;, increment)&#13;&#10;&#9;&#9;&#9;&#9;exprRevSuffix = string.format(&quot; * %d&quot;, increment)&#13;&#10;&#9;&#9;&#9;end&#13;&#10;&#13;&#10;&#9;&#9;&#9;if splitData[5] ~= &quot;&quot; then&#13;&#10;&#9;&#9;&#9;&#9;local offset = tonumber(splitData[5])&#13;&#10;&#9;&#9;&#9;&#9;if offset &lt; 0 then&#13;&#10;&#9;&#9;&#9;&#9;&#9;offset = offset * -1&#13;&#10;&#9;&#9;&#9;&#9;&#9;exprSuffix = string.format(&quot;%s - %d&quot;, exprSuffix, offset)&#13;&#10;&#9;&#9;&#9;&#9;&#9;exprRevSuffix = string.format(&quot;%s + %d&quot;, exprRevSuffix, offset)&#13;&#10;&#9;&#9;&#9;&#9;else&#13;&#10;&#9;&#9;&#9;&#9;&#9;exprSuffix = string.format(&quot;%s + %d&quot;, exprSuffix, offset)&#13;&#10;&#9;&#9;&#9;&#9;&#9;exprRevSuffix = string.format(&quot;%s - %d&quot;, exprRevSuffix, offset)&#13;&#10;&#9;&#9;&#9;&#9;end&#13;&#10;&#9;&#9;&#9;end&#13;&#10;&#9;&#9;&#9;mod:setProperty(&quot;modulatorValueExpression&quot;, string.format(&quot;modulatorValue%s&quot;, exprSuffix), false)&#13;&#10;&#9;&#9;&#9;mod:setProperty(&quot;modulatorValueExpressionReverse&quot;, string.format(&quot;midiValue%s&quot;, exprRevSuffix), false)&#13;&#10;&#9;&#9;end&#13;&#10;&#9;&#13;&#10;&#9;end&#13;&#10;&#9;&#10;end"
                  luaMethodLinkedProperty="" luaMethodSource="0" uuid="23fae31ed3e54bd9862aa960412b4c89"
+                 luaMethodValid="1"/>
+      <luaMethod luaMethodName="loadVoice" luaMethodCode="function loadVoice()&#10;&#9;local file = utils.openFileWindow (&quot;Open Bank&quot;, File(&quot;&quot;), &quot;*.syx&quot;, true)&#13;&#10;&#9;if file:existsAsFile() then&#13;&#10;&#9;&#9;local data = MemoryBlock()&#13;&#10;&#9;&#9;file:loadFileAsData(data)&#13;&#10;&#9;&#9;if data:getSize() ~= 10 then&#13;&#10;&#9;&#9;&#9;error(&quot;The loaded file does not contain a Behringer Modulizer patch&quot;)&#13;&#10;&#9;&#9;end&#13;&#10;&#13;&#10;&#9;&#9;-- Assign values&#13;&#10;&#9;&#9;panel:getModulatorByName(&quot;variation&quot;):setModulatorValue(data:getByte(0), false, true, false)&#13;&#10;&#9;&#9;panel:getModulatorByName(&quot;editA&quot;):setModulatorValue(data:getByte(1), false, true, false)&#13;&#10;&#9;&#9;panel:getModulatorByName(&quot;editB&quot;):setModulatorValue(data:getByte(2), false, true, false)&#13;&#10;&#9;&#9;panel:getModulatorByName(&quot;editC&quot;):setModulatorValue(data:getByte(3), false, true, false)&#13;&#10;&#9;&#9;panel:getModulatorByName(&quot;editD&quot;):setModulatorValue(data:getByte(4), false, true, false)&#13;&#10;&#9;&#9;panel:getModulatorByName(&quot;effect&quot;):setModulatorValue(data:getByte(5), false, true, false)&#13;&#10;&#9;&#9;panel:getModulatorByName(&quot;eqLow&quot;):setModulatorValue(data:getByte(6), false, true, false)&#13;&#10;&#9;&#9;panel:getModulatorByName(&quot;eqHigh&quot;):setModulatorValue(data:getByte(7), false, true, false)&#13;&#10;&#9;&#9;panel:getModulatorByName(&quot;mix&quot;):setModulatorValue(data:getByte(8), false, true, false)&#13;&#10;&#9;&#9;panel:getModulatorByName(&quot;inOut&quot;):setModulatorValue(data:getByte(9), false, true, false)&#13;&#10;&#13;&#10;&#9;end&#10;end"
+                 luaMethodLinkedProperty="" luaMethodSource="0" uuid="d7c9d41353164d48bf00826ecd13d9c2"
+                 luaMethodValid="1"/>
+      <luaMethod luaMethodName="saveVoice" luaMethodCode="function saveVoice()&#10;    local f = utils.saveFileWindow (&quot;Save patch&quot;, File(&quot;&quot;), &quot;*.syx&quot;, true)&#13;&#10;    if f:isValid() == false then&#13;&#10;        return&#13;&#10;    end&#13;&#10;    f:create()&#13;&#10;    if f:existsAsFile() then&#13;&#10;&#9;&#9;-- Fetch values&#13;&#10;&#9;&#9;local data = MemoryBlock(10, true)&#13;&#10;&#9;&#9;data:setByte(0, panel:getModulatorByName(&quot;variation&quot;):getValue())&#13;&#10;&#9;&#9;data:setByte(1, panel:getModulatorByName(&quot;editA&quot;):getValue())&#13;&#10;&#9;&#9;data:setByte(2, panel:getModulatorByName(&quot;editB&quot;):getValue())&#13;&#10;&#9;&#9;data:setByte(3, panel:getModulatorByName(&quot;editC&quot;):getValue())&#13;&#10;&#9;&#9;data:setByte(4, panel:getModulatorByName(&quot;editD&quot;):getValue())&#13;&#10;&#9;&#9;data:setByte(5, panel:getModulatorByName(&quot;effect&quot;):getValue())&#13;&#10;&#9;&#9;data:setByte(6, panel:getModulatorByName(&quot;eqLow&quot;):getValue())&#13;&#10;&#9;&#9;data:setByte(7, panel:getModulatorByName(&quot;eqHigh&quot;):getValue())&#13;&#10;&#9;&#9;data:setByte(8, panel:getModulatorByName(&quot;mix&quot;):getValue())&#13;&#10;&#9;&#9;data:setByte(9, panel:getModulatorByName(&quot;inOut&quot;):getValue())&#13;&#10;&#13;&#10;        -- Check if the file exists&#13;&#10;        if f:existsAsFile() == false then&#13;&#10;            -- If file does not exist, then create it&#13;&#10;            if f:create() == false then&#13;&#10;                -- If file cannot be created, then fail here&#13;&#10;                utils.warnWindow (&quot;\n\nSorry, the Editor failed to\nsave the patch to disk!&quot;, &quot;The file does not exist.&quot;)&#13;&#10;                return&#13;&#10;            end&#13;&#10;        end&#13;&#10;        -- If we reached this point, we have a valid file we can try to write to&#13;&#10;        if f:replaceWithData (data) == false then&#13;&#10;            utils.warnWindow (&quot;File write&quot;, &quot;Sorry, the Editor failed to\nwrite the data to file!&quot;)&#13;&#10;        end&#13;&#10;        console (&quot;File save complete, Editor patch saved to disk&quot;)&#13;&#10;    end&#13;&#10;end&#13;&#10;"
+                 luaMethodLinkedProperty="" luaMethodSource="0" uuid="414809e9b57d45c5b5d949dcc9355ed2"
                  luaMethodValid="1"/>
     </luaManagerMethods>
   </luaManager>
   <panelResources/>
-  <uiPanelEditor uiPanelCanvasRectangle="0 0 436 154" uiPanelSnapSize="8" uiPanelBackgroundColour="0xffffffff"
+  <uiPanelEditor uiPanelCanvasRectangle="0 0 446 148" uiPanelSnapSize="8" uiPanelBackgroundColour="0xffffffff"
                  uiPanelBackgroundColour1="0xffffffff" uiPanelBackgroundColour2="0xffffffff"
                  uiPanelBackgroundGradientType="1" uiPanelImageResource="-- None"
-                 uiPanelEditMode="0" uiPanelViewPortSize="914" uiPanelPropertiesSize="228"
-                 uiPanelLock="0" uiPanelDisabledOnEdit="0" uiPanelMenuBarVisible="1"
-                 uiPanelWidth="400" uiPanelHeight="400" name="Behringer Modulizer 1200DSP"
-                 uiPanelImageAlpha="255" uiPanelImageLayout="64" uiPanelSnapActive="1"
-                 uiPanelPropertiesOnRight="0" luaPanelPaintBackground="-- None"
+                 uiPanelEditMode="0" uiPanelLock="0" uiPanelDisabledOnEdit="0"
+                 uiPanelMenuBarVisible="1" uiPanelWidth="400" uiPanelHeight="400"
+                 name="Behringer Modulizer 1200DSP" uiPanelImageAlpha="255" uiPanelImageLayout="64"
+                 uiPanelSnapActive="1" uiPanelPropertiesOnRight="0" luaPanelPaintBackground="-- None"
                  luaPanelResized="-- None" luaPanelFileDragDropHandler="-- None"
                  luaPanelFileDragEnterHandler="-- None" luaPanelFileDragExitHandler="-- None"
                  uiPanelInvisibleComponentAlpha="0.5" uiPanelTooltipBackgroundColour="0xffeeeebb"
                  uiPanelTooltipOutlineColour="0xff000000" uiPanelTooltipColour="0xff000000"
                  uiPanelTooltipCornerRound="1" uiPanelTooltipPlacement="2" uiPanelTooltipFont="&lt;Sans-Serif&gt;;15;1;0;0;0;1;3"
-                 uiPanelZoom="1">
+                 uiPanelZoom="1" uiPanelPropertiesSize="416" uiPanelViewPortSize="726">
     <uiPanelCanvasLayer uiPanelCanvasLayerName="New layer" uiPanelCanvasLayerUid="682175e0eb060000a800000020196608"
                         uiPanelCanvasLayerColour="0x000000" uiPanelCanvasLayerVisibility="1"
                         uiPanelCanvasLayerIndex="0"/>
@@ -115,7 +120,7 @@
              modulatorLinkedToComponent="Modulator" modulatorBaseValue="0"
              modulatorCustomIndex="0" modulatorCustomName="" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="onEffectChange"
-             name="effect" modulatorMin="0" modulatorValue="6">
+             name="effect" modulatorMin="0" modulatorValue="16">
     <midi midiMessageType="0" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="50" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula=""/>
@@ -140,8 +145,8 @@
                uiComboMenuBackgroundRibbed="1" uiComboButtonGradient="0" uiComboButtonGradientColour1="ff0000ff"
                uiComboButtonGradientColour2="ff00008b" uiComboButtonWidthOverride="0"
                uiComboButtonWidth="16" uiComboDynamicContent="0" uiComboSelectedId="-1"
-               uiComboSelectedIndex="-1" uiType="uiCombo" componentRectangle="3 8 88 32"
-               componentLayerUid="682175e0eb060000a800000020196608"/>
+               uiComboSelectedIndex="-1" componentLayerUid="682175e0eb060000a800000020196608"
+               componentRectangle="81 6 88 32" uiType="uiCombo"/>
   </modulator>
   <modulator modulatorVstExported="1" modulatorMax="127" vstIndex="2" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
@@ -153,14 +158,58 @@
              modulatorLinkedToComponent="Modulator" modulatorBaseValue="0"
              modulatorCustomIndex="0" modulatorCustomName="" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="variation" modulatorMin="0" modulatorValue="0">
+             name="variation" modulatorMin="0" modulatorValue="77">
     <midi midiMessageType="0" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="51" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="top" componentLabelJustification="centred"
                componentLabelHeight="14" componentLabelWidth="0" componentLabelVisible="1"
                componentLabelAlwaysOnTop="1" componentSentBack="0" componentLabelColour="0xff000000"
-               componentLabelFont="&lt;Sans-Serif&gt;;12;0;0;0;0;1;3" componentVisibleName="LFO Speed"
+               componentLabelFont="&lt;Sans-Serif&gt;;12;0;0;0;0;1;3" componentVisibleName="Threshold"
+               componentMouseCursor="2" componentGroupName="variationGrp" componentGroupped="1"
+               componentSnapSize="0" componentIsLocked="0" componentDisabled="0"
+               componentRadioGroupId="0" componentRadioGroupNotifyMidi="1" componentVisibility="1"
+               componentEffect="0" componentEffectRadius="1" componentEffectColour="0xff000000"
+               componentEffectOffsetX="0" componentEffectOffsetY="0" componentExcludedFromLabelDisplay="0"
+               componentValueDecimalPlaces="0" componentLuaMouseMoved="-- None"
+               componentLuaMouseDown="-- None" componentLuaMouseDrag="-- None"
+               componentLuaMouseDoubleClick="-- None" uiSliderStyle="RotaryVerticalDrag"
+               uiSliderMin="0" uiSliderMax="127" uiSliderInterval="1" uiSliderDoubleClickEnabled="1"
+               uiSliderDoubleClickValue="0" uiSliderValuePosition="4" uiSliderValueHeight="12"
+               uiSliderValueWidth="64" uiSliderTrackCornerSize="5" uiSliderThumbCornerSize="3"
+               uiSliderThumbWidth="0" uiSliderThumbHeight="0" uiSliderThumbFlatOnLeft="0"
+               uiSliderThumbFlatOnRight="0" uiSliderThumbFlatOnTop="0" uiSliderThumbFlatOnBottom="0"
+               uiSliderValueTextColour="0xff000000" uiSliderValueBgColour="0xffffffff"
+               uiSliderRotaryOutlineColour="0xff0000ff" uiSliderRotaryFillColour="0xff0000ff"
+               uiSliderThumbColour="0xffff0000" uiSliderValueHighlightColour="0xff0000ff"
+               uiSliderValueOutlineColour="0xffffffff" uiSliderTrackColour="0xff0f0f0f"
+               uiSliderIncDecButtonColour="0xff0000ff" uiSliderIncDecTextColour="0xffffffff"
+               uiSliderValueFont="&lt;Sans-Serif&gt;;12;0;0;0;0;1;3" uiSliderValueTextJustification="centred"
+               uiSliderVelocitySensitivity="1" uiSliderVelocityThreshold="1"
+               uiSliderVelocityOffset="0" uiSliderVelocityMode="0" uiSliderVelocityModeKeyTrigger="1"
+               uiSliderSpringMode="0" uiSliderSpringValue="0" uiSliderMouseWheelInterval="1"
+               uiSliderPopupBubble="0" uiButtonContent="L1&amp;#10;L2&amp;#10;A1&amp;#10;A2"
+               componentLayerUid="682175e0eb060000a800000020196608" componentRectangle="0 0 64 64"
+               uiType="uiSlider"/>
+  </modulator>
+  <modulator modulatorVstExported="1" modulatorMax="127" vstIndex="3" modulatorIsStatic="0"
+             modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
+             modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
+             modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
+             luaModulatorGetValueForMIDI="-- None" luaModulatorGetValueFromMIDI="-- None"
+             modulatorLinkedToPanelProperty="-- None" modulatorLinkedToModulatorProperty="-- None"
+             modulatorLinkedToModulator="-- None" modulatorLinkedToModulatorSource="1"
+             modulatorLinkedToComponent="Modulator" modulatorBaseValue="0"
+             modulatorCustomIndex="0" modulatorCustomName="" modulatorCustomIndexGroup="0"
+             modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
+             name="editA" modulatorMin="0" modulatorValue="0">
+    <midi midiMessageType="0" midiMessageChannelOverride="0" midiMessageChannel="1"
+          midiMessageCtrlrNumber="52" midiMessageCtrlrValue="0" midiMessageMultiList=""
+          midiMessageSysExFormula=""/>
+    <component componentLabelPosition="top" componentLabelJustification="centred"
+               componentLabelHeight="14" componentLabelWidth="0" componentLabelVisible="1"
+               componentLabelAlwaysOnTop="1" componentSentBack="0" componentLabelColour="0xff000000"
+               componentLabelFont="&lt;Sans-Serif&gt;;12;0;0;0;0;1;3" componentVisibleName="Hold"
                componentMouseCursor="2" componentGroupName="" componentGroupped="0"
                componentSnapSize="0" componentIsLocked="0" componentDisabled="0"
                componentRadioGroupId="0" componentRadioGroupNotifyMidi="1" componentVisibility="1"
@@ -183,51 +232,8 @@
                uiSliderVelocitySensitivity="1" uiSliderVelocityThreshold="1"
                uiSliderVelocityOffset="0" uiSliderVelocityMode="0" uiSliderVelocityModeKeyTrigger="1"
                uiSliderSpringMode="0" uiSliderSpringValue="0" uiSliderMouseWheelInterval="1"
-               uiSliderPopupBubble="0" uiType="uiSlider" componentRectangle="96 8 64 64"
-               componentLayerUid="682175e0eb060000a800000020196608"/>
-  </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="128" vstIndex="3" modulatorIsStatic="0"
-             modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
-             modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue - 1"
-             modulatorValueExpressionReverse="midiValue + 1" modulatorControllerExpression="value"
-             luaModulatorGetValueForMIDI="-- None" luaModulatorGetValueFromMIDI="-- None"
-             modulatorLinkedToPanelProperty="-- None" modulatorLinkedToModulatorProperty="-- None"
-             modulatorLinkedToModulator="-- None" modulatorLinkedToModulatorSource="1"
-             modulatorLinkedToComponent="Modulator" modulatorBaseValue="0"
-             modulatorCustomIndex="0" modulatorCustomName="" modulatorCustomIndexGroup="0"
-             modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="editA" modulatorMin="1" modulatorValue="1">
-    <midi midiMessageType="0" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="52" midiMessageCtrlrValue="0" midiMessageMultiList=""
-          midiMessageSysExFormula=""/>
-    <component componentLabelPosition="top" componentLabelJustification="centred"
-               componentLabelHeight="14" componentLabelWidth="0" componentLabelVisible="1"
-               componentLabelAlwaysOnTop="1" componentSentBack="0" componentLabelColour="0xff000000"
-               componentLabelFont="&lt;Sans-Serif&gt;;12;0;0;0;0;1;3" componentVisibleName="Delay"
-               componentMouseCursor="2" componentGroupName="" componentGroupped="0"
-               componentSnapSize="0" componentIsLocked="0" componentDisabled="0"
-               componentRadioGroupId="0" componentRadioGroupNotifyMidi="1" componentVisibility="1"
-               componentEffect="0" componentEffectRadius="1" componentEffectColour="0xff000000"
-               componentEffectOffsetX="0" componentEffectOffsetY="0" componentExcludedFromLabelDisplay="0"
-               componentValueDecimalPlaces="0" componentLuaMouseMoved="-- None"
-               componentLuaMouseDown="-- None" componentLuaMouseDrag="-- None"
-               componentLuaMouseDoubleClick="-- None" uiSliderStyle="RotaryVerticalDrag"
-               uiSliderMin="1" uiSliderMax="128" uiSliderInterval="1" uiSliderDoubleClickEnabled="1"
-               uiSliderDoubleClickValue="0" uiSliderValuePosition="4" uiSliderValueHeight="12"
-               uiSliderValueWidth="64" uiSliderTrackCornerSize="5" uiSliderThumbCornerSize="3"
-               uiSliderThumbWidth="0" uiSliderThumbHeight="0" uiSliderThumbFlatOnLeft="0"
-               uiSliderThumbFlatOnRight="0" uiSliderThumbFlatOnTop="0" uiSliderThumbFlatOnBottom="0"
-               uiSliderValueTextColour="0xff000000" uiSliderValueBgColour="0xffffffff"
-               uiSliderRotaryOutlineColour="0xff0000ff" uiSliderRotaryFillColour="0xff0000ff"
-               uiSliderThumbColour="0xffff0000" uiSliderValueHighlightColour="0xff0000ff"
-               uiSliderValueOutlineColour="0xffffffff" uiSliderTrackColour="0xff0f0f0f"
-               uiSliderIncDecButtonColour="0xff0000ff" uiSliderIncDecTextColour="0xffffffff"
-               uiSliderValueFont="&lt;Sans-Serif&gt;;12;0;0;0;0;1;3" uiSliderValueTextJustification="centred"
-               uiSliderVelocitySensitivity="1" uiSliderVelocityThreshold="1"
-               uiSliderVelocityOffset="0" uiSliderVelocityMode="0" uiSliderVelocityModeKeyTrigger="1"
-               uiSliderSpringMode="0" uiSliderSpringValue="0" uiSliderMouseWheelInterval="1"
-               uiSliderPopupBubble="0" uiType="uiSlider" componentRectangle="168 8 64 64"
-               componentLayerUid="682175e0eb060000a800000020196608"/>
+               uiSliderPopupBubble="0" componentLayerUid="682175e0eb060000a800000020196608"
+               componentRectangle="171 76 64 64" uiType="uiSlider"/>
   </modulator>
   <modulator modulatorVstExported="1" modulatorMax="127" vstIndex="4" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
@@ -239,14 +245,14 @@
              modulatorLinkedToComponent="Modulator" modulatorBaseValue="0"
              modulatorCustomIndex="0" modulatorCustomName="" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="editB" modulatorMin="0" modulatorValue="0">
+             name="editB" modulatorMin="0" modulatorValue="127">
     <midi midiMessageType="0" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="53" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="top" componentLabelJustification="centred"
                componentLabelHeight="14" componentLabelWidth="0" componentLabelVisible="1"
                componentLabelAlwaysOnTop="1" componentSentBack="0" componentLabelColour="0xff000000"
-               componentLabelFont="&lt;Sans-Serif&gt;;12;0;0;0;0;1;3" componentVisibleName="Depth"
+               componentLabelFont="&lt;Sans-Serif&gt;;12;0;0;0;0;1;3" componentVisibleName="Range"
                componentMouseCursor="2" componentGroupName="" componentGroupped="0"
                componentSnapSize="0" componentIsLocked="0" componentDisabled="0"
                componentRadioGroupId="0" componentRadioGroupNotifyMidi="1" componentVisibility="1"
@@ -269,27 +275,27 @@
                uiSliderVelocitySensitivity="1" uiSliderVelocityThreshold="1"
                uiSliderVelocityOffset="0" uiSliderVelocityMode="0" uiSliderVelocityModeKeyTrigger="1"
                uiSliderSpringMode="0" uiSliderSpringValue="0" uiSliderMouseWheelInterval="1"
-               uiSliderPopupBubble="0" componentLayerUid="682175e0eb060000a800000020196608"
-               componentRectangle="243 8 64 64" uiType="uiSlider"/>
+               uiSliderPopupBubble="0" uiType="uiSlider" componentRectangle="239 76 64 64"
+               componentLayerUid="682175e0eb060000a800000020196608"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="100" vstIndex="5" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="127" vstIndex="5" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
-             modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue + 50"
-             modulatorValueExpressionReverse="midiValue - 50" modulatorControllerExpression="value"
+             modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
+             modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
              luaModulatorGetValueForMIDI="-- None" luaModulatorGetValueFromMIDI="-- None"
              modulatorLinkedToPanelProperty="-- None" modulatorLinkedToModulatorProperty="-- None"
              modulatorLinkedToModulator="-- None" modulatorLinkedToModulatorSource="1"
              modulatorLinkedToComponent="Modulator" modulatorBaseValue="0"
              modulatorCustomIndex="0" modulatorCustomName="" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="editC" modulatorMin="-100" modulatorValue="0">
+             name="editC" modulatorMin="0" modulatorValue="55">
     <midi midiMessageType="0" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="54" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="top" componentLabelJustification="centred"
                componentLabelHeight="14" componentLabelWidth="0" componentLabelVisible="1"
                componentLabelAlwaysOnTop="1" componentSentBack="0" componentLabelColour="0xff000000"
-               componentLabelFont="&lt;Sans-Serif&gt;;12;0;0;0;0;1;3" componentVisibleName="Feedback"
+               componentLabelFont="&lt;Sans-Serif&gt;;12;0;0;0;0;1;3" componentVisibleName="Attack"
                componentMouseCursor="2" componentGroupName="" componentGroupped="0"
                componentSnapSize="0" componentIsLocked="0" componentDisabled="0"
                componentRadioGroupId="0" componentRadioGroupNotifyMidi="1" componentVisibility="1"
@@ -298,7 +304,7 @@
                componentValueDecimalPlaces="0" componentLuaMouseMoved="-- None"
                componentLuaMouseDown="-- None" componentLuaMouseDrag="-- None"
                componentLuaMouseDoubleClick="-- None" uiSliderStyle="RotaryVerticalDrag"
-               uiSliderMin="-100" uiSliderMax="100" uiSliderInterval="2" uiSliderDoubleClickEnabled="1"
+               uiSliderMin="0" uiSliderMax="127" uiSliderInterval="1" uiSliderDoubleClickEnabled="1"
                uiSliderDoubleClickValue="0" uiSliderValuePosition="4" uiSliderValueHeight="12"
                uiSliderValueWidth="64" uiSliderTrackCornerSize="5" uiSliderThumbCornerSize="3"
                uiSliderThumbWidth="0" uiSliderThumbHeight="0" uiSliderThumbFlatOnLeft="0"
@@ -312,8 +318,8 @@
                uiSliderVelocitySensitivity="1" uiSliderVelocityThreshold="1"
                uiSliderVelocityOffset="0" uiSliderVelocityMode="0" uiSliderVelocityModeKeyTrigger="1"
                uiSliderSpringMode="0" uiSliderSpringValue="0" uiSliderMouseWheelInterval="1"
-               uiSliderPopupBubble="0" componentLayerUid="682175e0eb060000a800000020196608"
-               componentRectangle="304 8 64 64" uiType="uiSlider"/>
+               uiSliderPopupBubble="0" uiType="uiSlider" componentRectangle="307 76 64 64"
+               componentLayerUid="682175e0eb060000a800000020196608"/>
   </modulator>
   <modulator modulatorVstExported="1" modulatorMax="127" vstIndex="6" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
@@ -325,14 +331,14 @@
              modulatorLinkedToComponent="Modulator" modulatorBaseValue="0"
              modulatorCustomIndex="0" modulatorCustomName="" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="editD" modulatorMin="0" modulatorValue="0">
+             name="editD" modulatorMin="0" modulatorValue="124">
     <midi midiMessageType="0" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="55" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="top" componentLabelJustification="centred"
                componentLabelHeight="14" componentLabelWidth="0" componentLabelVisible="1"
                componentLabelAlwaysOnTop="1" componentSentBack="0" componentLabelColour="0xff000000"
-               componentLabelFont="&lt;Sans-Serif&gt;;12;0;0;0;0;1;3" componentVisibleName="Band Limit"
+               componentLabelFont="&lt;Sans-Serif&gt;;12;0;0;0;0;1;3" componentVisibleName="Release"
                componentMouseCursor="2" componentGroupName="" componentGroupped="0"
                componentSnapSize="0" componentIsLocked="0" componentDisabled="0"
                componentRadioGroupId="0" componentRadioGroupNotifyMidi="1" componentVisibility="1"
@@ -355,50 +361,7 @@
                uiSliderVelocitySensitivity="1" uiSliderVelocityThreshold="1"
                uiSliderVelocityOffset="0" uiSliderVelocityMode="0" uiSliderVelocityModeKeyTrigger="1"
                uiSliderSpringMode="0" uiSliderSpringValue="0" uiSliderMouseWheelInterval="1"
-               uiSliderPopupBubble="0" componentLayerUid="682175e0eb060000a800000020196608"
-               componentRectangle="368 8 64 64" uiType="uiSlider"/>
-  </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="127" vstIndex="7" modulatorIsStatic="0"
-             modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
-             modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
-             modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
-             luaModulatorGetValueForMIDI="-- None" luaModulatorGetValueFromMIDI="-- None"
-             modulatorLinkedToPanelProperty="-- None" modulatorLinkedToModulatorProperty="-- None"
-             modulatorLinkedToModulator="-- None" modulatorLinkedToModulatorSource="1"
-             modulatorLinkedToComponent="Modulator" modulatorBaseValue="0"
-             modulatorCustomIndex="0" modulatorCustomName="" modulatorCustomIndexGroup="0"
-             modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="modCtrlr" modulatorMin="0" modulatorValue="0">
-    <midi midiMessageType="0" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="56" midiMessageCtrlrValue="0" midiMessageMultiList=""
-          midiMessageSysExFormula=""/>
-    <component componentLabelPosition="top" componentLabelJustification="centred"
-               componentLabelHeight="30" componentLabelWidth="0" componentLabelVisible="1"
-               componentLabelAlwaysOnTop="1" componentSentBack="0" componentLabelColour="0xff000000"
-               componentLabelFont="&lt;Sans-Serif&gt;;12;0;0;0;0;1;3" componentVisibleName="Modulation&#10;Controller"
-               componentMouseCursor="2" componentGroupName="" componentGroupped="0"
-               componentSnapSize="0" componentIsLocked="0" componentDisabled="0"
-               componentRadioGroupId="0" componentRadioGroupNotifyMidi="1" componentVisibility="1"
-               componentEffect="0" componentEffectRadius="1" componentEffectColour="0xff000000"
-               componentEffectOffsetX="0" componentEffectOffsetY="0" componentExcludedFromLabelDisplay="0"
-               componentValueDecimalPlaces="0" componentLuaMouseMoved="-- None"
-               componentLuaMouseDown="-- None" componentLuaMouseDrag="-- None"
-               componentLuaMouseDoubleClick="-- None" uiSliderStyle="RotaryVerticalDrag"
-               uiSliderMin="0" uiSliderMax="127" uiSliderInterval="1" uiSliderDoubleClickEnabled="1"
-               uiSliderDoubleClickValue="0" uiSliderValuePosition="4" uiSliderValueHeight="12"
-               uiSliderValueWidth="64" uiSliderTrackCornerSize="5" uiSliderThumbCornerSize="3"
-               uiSliderThumbWidth="0" uiSliderThumbHeight="0" uiSliderThumbFlatOnLeft="0"
-               uiSliderThumbFlatOnRight="0" uiSliderThumbFlatOnTop="0" uiSliderThumbFlatOnBottom="0"
-               uiSliderValueTextColour="0xff000000" uiSliderValueBgColour="0xffffffff"
-               uiSliderRotaryOutlineColour="0xff0000ff" uiSliderRotaryFillColour="0xff0000ff"
-               uiSliderThumbColour="0xffff0000" uiSliderValueHighlightColour="0xff0000ff"
-               uiSliderValueOutlineColour="0xffffffff" uiSliderTrackColour="0xff0f0f0f"
-               uiSliderIncDecButtonColour="0xff0000ff" uiSliderIncDecTextColour="0xffffffff"
-               uiSliderValueFont="&lt;Sans-Serif&gt;;12;0;0;0;0;1;3" uiSliderValueTextJustification="centred"
-               uiSliderVelocitySensitivity="1" uiSliderVelocityThreshold="1"
-               uiSliderVelocityOffset="0" uiSliderVelocityMode="0" uiSliderVelocityModeKeyTrigger="1"
-               uiSliderSpringMode="0" uiSliderSpringValue="0" uiSliderMouseWheelInterval="1"
-               uiSliderPopupBubble="0" uiType="uiSlider" componentRectangle="8 60 77 84"
+               uiSliderPopupBubble="0" uiType="uiSlider" componentRectangle="377 76 64 64"
                componentLayerUid="682175e0eb060000a800000020196608"/>
   </modulator>
   <modulator modulatorVstExported="1" modulatorMax="16" vstIndex="8" modulatorIsStatic="0"
@@ -411,7 +374,7 @@
              modulatorLinkedToComponent="Modulator" modulatorBaseValue="0"
              modulatorCustomIndex="0" modulatorCustomName="" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="eqLow" modulatorMin="-16" modulatorValue="0">
+             name="eqLow" modulatorMin="-16" modulatorValue="250">
     <midi midiMessageType="0" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="57" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula=""/>
@@ -441,8 +404,8 @@
                uiSliderVelocitySensitivity="1" uiSliderVelocityThreshold="1"
                uiSliderVelocityOffset="0" uiSliderVelocityMode="0" uiSliderVelocityModeKeyTrigger="1"
                uiSliderSpringMode="0" uiSliderSpringValue="0" uiSliderMouseWheelInterval="1"
-               uiSliderPopupBubble="0" uiType="uiSlider" componentRectangle="96 80 64 64"
-               componentLayerUid="682175e0eb060000a800000020196608"/>
+               uiSliderPopupBubble="0" componentLayerUid="682175e0eb060000a800000020196608"
+               componentRectangle="169 6 64 64" uiType="uiSlider"/>
   </modulator>
   <modulator modulatorVstExported="1" modulatorMax="16" vstIndex="9" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
@@ -454,7 +417,7 @@
              modulatorLinkedToComponent="Modulator" modulatorBaseValue="0"
              modulatorCustomIndex="0" modulatorCustomName="" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="eqHigh" modulatorMin="-16" modulatorValue="0">
+             name="eqHigh" modulatorMin="-16" modulatorValue="5">
     <midi midiMessageType="0" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="58" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula=""/>
@@ -469,7 +432,7 @@
                componentEffectOffsetX="0" componentEffectOffsetY="0" componentExcludedFromLabelDisplay="0"
                componentValueDecimalPlaces="0" componentLuaMouseMoved="-- None"
                componentLuaMouseDown="-- None" componentLuaMouseDrag="-- None"
-               componentLuaMouseDoubleClick="-- None" uiSliderStyle="RotaryHorizontalDrag"
+               componentLuaMouseDoubleClick="-- None" uiSliderStyle="RotaryVerticalDrag"
                uiSliderMin="-16" uiSliderMax="16" uiSliderInterval="1" uiSliderDoubleClickEnabled="1"
                uiSliderDoubleClickValue="0" uiSliderValuePosition="4" uiSliderValueHeight="12"
                uiSliderValueWidth="64" uiSliderTrackCornerSize="5" uiSliderThumbCornerSize="3"
@@ -484,8 +447,8 @@
                uiSliderVelocitySensitivity="1" uiSliderVelocityThreshold="1"
                uiSliderVelocityOffset="0" uiSliderVelocityMode="0" uiSliderVelocityModeKeyTrigger="1"
                uiSliderSpringMode="0" uiSliderSpringValue="0" uiSliderMouseWheelInterval="1"
-               uiSliderPopupBubble="0" uiType="uiSlider" componentRectangle="168 80 64 64"
-               componentLayerUid="682175e0eb060000a800000020196608"/>
+               uiSliderPopupBubble="0" componentLayerUid="682175e0eb060000a800000020196608"
+               componentRectangle="239 6 64 64" uiType="uiSlider"/>
   </modulator>
   <modulator modulatorVstExported="1" modulatorMax="100" vstIndex="10" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
@@ -497,7 +460,7 @@
              modulatorLinkedToComponent="Modulator" modulatorBaseValue="0"
              modulatorCustomIndex="0" modulatorCustomName="" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="mix" modulatorMin="0" modulatorValue="0">
+             name="mix" modulatorMin="0" modulatorValue="57">
     <midi midiMessageType="0" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="59" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula=""/>
@@ -527,8 +490,8 @@
                uiSliderVelocitySensitivity="1" uiSliderVelocityThreshold="1"
                uiSliderVelocityOffset="0" uiSliderVelocityMode="0" uiSliderVelocityModeKeyTrigger="1"
                uiSliderSpringMode="0" uiSliderSpringValue="0" uiSliderMouseWheelInterval="1"
-               uiSliderPopupBubble="0" uiType="uiSlider" componentRectangle="243 80 64 64"
-               componentLayerUid="682175e0eb060000a800000020196608"/>
+               uiSliderPopupBubble="0" componentLayerUid="682175e0eb060000a800000020196608"
+               componentRectangle="307 6 64 64" uiType="uiSlider"/>
   </modulator>
   <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="11" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
@@ -540,7 +503,7 @@
              modulatorLinkedToComponent="Modulator" modulatorBaseValue="0"
              modulatorCustomIndex="0" modulatorCustomName="" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="inOut" modulatorMin="0" modulatorValue="0">
+             name="inOut" modulatorMin="0" modulatorValue="1">
     <midi midiMessageType="0" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="61" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula=""/>
@@ -562,7 +525,156 @@
                uiButtonConnectedLeft="0" uiButtonConnectedRight="0" uiButtonConnectedTop="0"
                uiButtonConnectedBottom="0" uiButtonRepeat="0" uiButtonRepeatRate="100"
                uiButtonTriggerOnMouseDown="0" componentInternalFunction="-- None"
-               componentRectangle="312 96 50 32" uiType="uiButton" componentLayerUid="682175e0eb060000a800000020196608"/>
+               componentRectangle="385 20 50 32" componentLayerUid="682175e0eb060000a800000020196608"
+               uiType="uiButton"/>
+  </modulator>
+  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="12" modulatorIsStatic="0"
+             modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
+             modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
+             modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
+             luaModulatorGetValueForMIDI="-- None" luaModulatorGetValueFromMIDI="-- None"
+             modulatorLinkedToPanelProperty="-- None" modulatorLinkedToModulatorProperty="-- None"
+             modulatorLinkedToModulator="-- None" modulatorLinkedToModulatorSource="1"
+             modulatorLinkedToComponent="Modulator" modulatorBaseValue="0"
+             modulatorCustomIndex="0" modulatorCustomName="variationBtn" modulatorCustomIndexGroup="0"
+             modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
+             name="variationBtn" modulatorMin="0" modulatorValue="0">
+    <midi midiMessageType="0" midiMessageChannelOverride="0" midiMessageChannel="1"
+          midiMessageCtrlrNumber="51" midiMessageCtrlrValue="0" midiMessageMultiList=""
+          midiMessageSysExFormula=""/>
+    <component componentLabelPosition="top" componentLabelJustification="centred"
+               componentLabelHeight="14" componentLabelWidth="0" componentLabelVisible="1"
+               componentLabelAlwaysOnTop="1" componentSentBack="1" componentLabelColour="0xff000000"
+               componentLabelFont="&lt;Sans-Serif&gt;;12;0;0;0;0;1;3" componentVisibleName="Mode"
+               componentMouseCursor="2" componentGroupName="variationBtnGrp"
+               componentGroupped="1" componentSnapSize="0" componentIsLocked="0"
+               componentDisabled="0" componentRadioGroupId="0" componentRadioGroupNotifyMidi="1"
+               componentVisibility="1" componentEffect="0" componentEffectRadius="1"
+               componentEffectColour="0xff000000" componentEffectOffsetX="0"
+               componentEffectOffsetY="0" componentExcludedFromLabelDisplay="0"
+               componentValueDecimalPlaces="0" componentLuaMouseMoved="-- None"
+               componentLuaMouseDown="-- None" componentLuaMouseDrag="-- None"
+               componentLuaMouseDoubleClick="-- None" uiButtonTrueValue="1"
+               uiButtonFalseValue="0" uiButtonIsToggle="0" uiButtonColourOn="0xff0000ff"
+               uiButtonColourOff="0xff4364ff" uiButtonTextColourOn="0xff000000"
+               uiButtonTextColourOff="0xff454545" uiButtonContent="L1&#10;L2&#10;A1&#10;A2"
+               uiButtonConnectedLeft="0" uiButtonConnectedRight="0" uiButtonConnectedTop="0"
+               uiButtonConnectedBottom="0" uiButtonRepeat="0" uiButtonRepeatRate="100"
+               uiButtonTriggerOnMouseDown="0" componentInternalFunction="-- None"
+               componentRectangle="0 0 64 40" componentLayerUid="682175e0eb060000a800000020196608"
+               uiType="uiButton"/>
+  </modulator>
+  <modulator modulatorCustomIndex="0" modulatorCustomIndexGroup="0" modulatorIsStatic="1"
+             name="variationGrp" modulatorVstExported="0" modulatorValue="0">
+    <component componentLabelPosition="top" componentLabelJustification="centred"
+               componentLabelHeight="14" componentLabelWidth="0" componentLabelVisible="0"
+               componentLabelAlwaysOnTop="0" componentSentBack="0" componentLabelColour="0xff000000"
+               componentLabelFont="&lt;Sans-Serif&gt;;12;0;0;0;0;1;3" componentVisibleName=""
+               componentMouseCursor="2" componentGroupName="" componentGroupped="0"
+               componentSnapSize="0" componentIsLocked="0" componentDisabled="0"
+               componentRadioGroupId="0" componentRadioGroupNotifyMidi="1" componentVisibility="1"
+               componentEffect="0" componentEffectRadius="1" componentEffectColour="0xff000000"
+               componentEffectOffsetX="0" componentEffectOffsetY="0" componentExcludedFromLabelDisplay="0"
+               componentValueDecimalPlaces="0" componentLuaMouseMoved="-- None"
+               componentLuaMouseDown="-- None" componentLuaMouseDrag="-- None"
+               componentLuaMouseDoubleClick="-- None" uiGroupText="" uiGroupTextColour="0"
+               uiGroupOutlineColour1="0" uiGroupOutlineColour2="0" uiGroupBackgroundColour1="0"
+               uiGroupBackgroundColour2="0" uiGroupOutlineGradientType="Vertical"
+               uiGroupBackgroundGradientType="1" uiGroupBackgroundImage="" componentRectangle="95 76 64 64"
+               uiGroupBackgroundImageLayout="36" uiGroupBackgroundImageAlpha="255"
+               uiGroupTextPlacement="top" uiGroupTextFont="&lt;Sans-Serif&gt;;14;0;0;0;0;1;3"
+               uiGroupOutlineThickness="2" uiGroupOutlineRoundAngle="8" uiGroupTextMargin="0"
+               componentLayerUid="682175e0eb060000a800000020196608" uiType="uiGroup"/>
+  </modulator>
+  <modulator modulatorCustomIndex="0" modulatorCustomIndexGroup="0" modulatorIsStatic="1"
+             name="variationBtnGrp" modulatorVstExported="0" modulatorValue="0">
+    <component componentLabelPosition="top" componentLabelJustification="centred"
+               componentLabelHeight="14" componentLabelWidth="0" componentLabelVisible="0"
+               componentLabelAlwaysOnTop="1" componentSentBack="0" componentLabelColour="0xff000000"
+               componentLabelFont="&lt;Sans-Serif&gt;;12;0;0;0;0;1;3" componentVisibleName="variationBtnGrp"
+               componentMouseCursor="2" componentGroupName="" componentGroupped="0"
+               componentSnapSize="0" componentIsLocked="0" componentDisabled="0"
+               componentRadioGroupId="0" componentRadioGroupNotifyMidi="1" componentVisibility="0"
+               componentEffect="0" componentEffectRadius="1" componentEffectColour="0xff000000"
+               componentEffectOffsetX="0" componentEffectOffsetY="0" componentExcludedFromLabelDisplay="0"
+               componentValueDecimalPlaces="0" componentLuaMouseMoved="-- None"
+               componentLuaMouseDown="-- None" componentLuaMouseDrag="-- None"
+               componentLuaMouseDoubleClick="-- None" uiGroupText="" uiGroupTextColour="0"
+               uiGroupOutlineColour1="0" uiGroupOutlineColour2="0" uiGroupBackgroundColour1="0"
+               uiGroupBackgroundColour2="0" uiGroupOutlineGradientType="Vertical"
+               uiGroupBackgroundGradientType="1" uiGroupBackgroundImage="" componentRectangle="95 76 64 64"
+               uiGroupBackgroundImageLayout="36" uiGroupBackgroundImageAlpha="255"
+               uiGroupTextPlacement="top" uiGroupTextFont="&lt;Sans-Serif&gt;;14;0;0;0;0;1;3"
+               uiGroupOutlineThickness="2" uiGroupOutlineRoundAngle="8" uiGroupTextMargin="0"
+               componentLayerUid="682175e0eb060000a800000020196608" uiType="uiGroup"/>
+  </modulator>
+  <modulator modulatorVstExported="0" modulatorMax="0" vstIndex="13" modulatorIsStatic="0"
+             modulatorGlobalVariable="-1" modulatorMuteOnStart="1" modulatorMute="1"
+             modulatorExcludeFromSnapshot="1" modulatorValueExpression="modulatorValue"
+             modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
+             luaModulatorGetValueForMIDI="-- None" luaModulatorGetValueFromMIDI="-- None"
+             modulatorLinkedToPanelProperty="-- None" modulatorLinkedToModulatorProperty="-- None"
+             modulatorLinkedToModulator="-- None" modulatorLinkedToModulatorSource="1"
+             modulatorLinkedToComponent="Modulator" modulatorBaseValue="0"
+             modulatorCustomIndex="0" modulatorCustomName="" modulatorCustomIndexGroup="0"
+             modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="loadVoice"
+             name="load" modulatorMin="0" modulatorValue="0">
+    <midi midiMessageType="9" midiMessageChannelOverride="0" midiMessageChannel="1"
+          midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
+          midiMessageSysExFormula=""/>
+    <component componentLabelPosition="top" componentLabelJustification="centred"
+               componentLabelHeight="14" componentLabelWidth="0" componentLabelVisible="0"
+               componentLabelAlwaysOnTop="1" componentSentBack="0" componentLabelColour="0xff000000"
+               componentLabelFont="&lt;Sans-Serif&gt;;12;0;0;0;0;1;3" componentVisibleName="modulator-1"
+               componentMouseCursor="2" componentGroupName="" componentGroupped="0"
+               componentSnapSize="0" componentIsLocked="0" componentDisabled="0"
+               componentRadioGroupId="0" componentRadioGroupNotifyMidi="1" componentVisibility="1"
+               componentEffect="0" componentEffectRadius="1" componentEffectColour="0xff000000"
+               componentEffectOffsetX="0" componentEffectOffsetY="0" componentExcludedFromLabelDisplay="0"
+               componentValueDecimalPlaces="0" componentLuaMouseMoved="-- None"
+               componentLuaMouseDown="-- None" componentLuaMouseDrag="-- None"
+               componentLuaMouseDoubleClick="-- None" uiButtonTrueValue="1"
+               uiButtonFalseValue="0" uiButtonIsToggle="0" uiButtonColourOn="0xff0000ff"
+               uiButtonColourOff="0xff4364ff" uiButtonTextColourOn="0xff000000"
+               uiButtonTextColourOff="0xff454545" uiButtonContent="LOAD" uiButtonConnectedLeft="0"
+               uiButtonConnectedRight="0" uiButtonConnectedTop="0" uiButtonConnectedBottom="0"
+               uiButtonRepeat="0" uiButtonRepeatRate="100" uiButtonTriggerOnMouseDown="0"
+               componentInternalFunction="-- None" componentRectangle="8 13 64 50"
+               uiType="uiButton" componentLayerUid="682175e0eb060000a800000020196608"/>
+  </modulator>
+  <modulator modulatorVstExported="1" modulatorMax="0" vstIndex="13" modulatorIsStatic="0"
+             modulatorGlobalVariable="-1" modulatorMuteOnStart="1" modulatorMute="1"
+             modulatorExcludeFromSnapshot="1" modulatorValueExpression="modulatorValue"
+             modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
+             luaModulatorGetValueForMIDI="-- None" luaModulatorGetValueFromMIDI="-- None"
+             modulatorLinkedToPanelProperty="-- None" modulatorLinkedToModulatorProperty="-- None"
+             modulatorLinkedToModulator="-- None" modulatorLinkedToModulatorSource="1"
+             modulatorLinkedToComponent="Modulator" modulatorBaseValue="0"
+             modulatorCustomIndex="0" modulatorCustomName="" modulatorCustomIndexGroup="0"
+             modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="saveVoice"
+             name="save" modulatorMin="0" modulatorValue="0">
+    <midi midiMessageType="9" midiMessageChannelOverride="0" midiMessageChannel="1"
+          midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
+          midiMessageSysExFormula=""/>
+    <component componentLabelPosition="top" componentLabelJustification="centred"
+               componentLabelHeight="14" componentLabelWidth="0" componentLabelVisible="0"
+               componentLabelAlwaysOnTop="1" componentSentBack="0" componentLabelColour="0xff000000"
+               componentLabelFont="&lt;Sans-Serif&gt;;12;0;0;0;0;1;3" componentVisibleName="modulator-1"
+               componentMouseCursor="2" componentGroupName="" componentGroupped="0"
+               componentSnapSize="0" componentIsLocked="0" componentDisabled="0"
+               componentRadioGroupId="0" componentRadioGroupNotifyMidi="1" componentVisibility="1"
+               componentEffect="0" componentEffectRadius="1" componentEffectColour="0xff000000"
+               componentEffectOffsetX="0" componentEffectOffsetY="0" componentExcludedFromLabelDisplay="0"
+               componentValueDecimalPlaces="0" componentLuaMouseMoved="-- None"
+               componentLuaMouseDown="-- None" componentLuaMouseDrag="-- None"
+               componentLuaMouseDoubleClick="-- None" uiButtonTrueValue="1"
+               uiButtonFalseValue="0" uiButtonIsToggle="0" uiButtonColourOn="0xff0000ff"
+               uiButtonColourOff="0xff4364ff" uiButtonTextColourOn="0xff000000"
+               uiButtonTextColourOff="0xff454545" uiButtonContent="SAVE" uiButtonConnectedLeft="0"
+               uiButtonConnectedRight="0" uiButtonConnectedTop="0" uiButtonConnectedBottom="0"
+               uiButtonRepeat="0" uiButtonRepeatRate="100" uiButtonTriggerOnMouseDown="0"
+               componentInternalFunction="-- None" componentRectangle="8 83 64 50"
+               componentLayerUid="682175e0eb060000a800000020196608" uiType="uiButton"/>
   </modulator>
   <panelCustomData/>
 </panel>
