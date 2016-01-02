@@ -29,7 +29,7 @@
        panelUID="8.Y5DlGNj.j1C" panelInstanceUID="iizs" panelInstanceManufacturerID="2trQ"
        panelModulatorListColumns="-- None" panelModulatorListCsvDelimiter=","
        panelModulatorListXmlRoot="ctrlrModulatorList" panelModulatorListXmlModulator="ctrlrModulator"
-       panelModulatorListSortOption="1" panelGlobalVariables="-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1"
+       panelModulatorListSortOption="1" panelGlobalVariables="0:0:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1:-1"
        panelResources="-- None" panelPropertyDisplayIDs="0" ctrlrMenuItemBackgroundColour="ffffffff"
        ctrlrMenuItemTextColour="ff000000" ctrlrMenuItemHighlightedTextColour="ffffffff"
        ctrlrMenuItemHighlightColour="ff4364ff" ctrlrMenuItemFont="&lt;Sans-Serif&gt;;18;0;0;0;0;1;3"
@@ -84,10 +84,10 @@
       <luaMethod luaMethodName="setComponentProperties" luaMethodCode="function setComponentProperties(mod, dataString)&#13;&#10;&#13;&#10;&#9;local comp = mod:getComponent()&#13;&#10;&#9;local splitData = split(dataString, &quot;:&quot;)&#13;&#10;&#9;&#13;&#10;&#9;local variationBtnGrp = panel:getModulatorByName(&quot;variationBtnGrp&quot;):getComponent()&#13;&#10;&#9;local variationGrp = panel:getModulatorByName(&quot;variationGrp&quot;):getComponent()&#13;&#10;&#9;local splitLength = table.getn(splitData)&#13;&#10;&#9;if splitLength == 2 then&#13;&#10;&#9;&#9;variationGrp:setProperty(&quot;componentVisibility&quot;, 0, false)&#13;&#10;&#9;&#9;variationBtnGrp:setProperty(&quot;componentVisibility&quot;, 1, false)&#13;&#10;&#9;&#9;comp = panel:getModulatorByName(&quot;variationBtn&quot;):getComponent()&#13;&#10;&#9;elseif splitLength == 5 and mod:getProperty(&quot;name&quot;) == &quot;variation&quot; then&#13;&#10;&#9;&#9;variationBtnGrp:setProperty(&quot;componentVisibility&quot;, 0, false)&#13;&#10;&#9;&#9;variationGrp:setProperty(&quot;componentVisibility&quot;, 1, false)&#13;&#10;&#9;elseif splitLength ~= 5 then&#13;&#10;&#9;&#9;error(string.format(&quot;Invalid data string: '%s'&quot;, dataString))&#13;&#10;&#9;&#9;return&#13;&#10;&#9;end&#13;&#10;&#13;&#10;&#9;local name = splitData[1]&#13;&#10;&#13;&#10;&#9;comp:setProperty(&quot;componentVisibleName&quot;, name, false)&#13;&#10;&#9;comp:setProperty(&quot;componentDisabled&quot;, 0, false)&#13;&#10;&#9;if name == &quot;&quot; then&#13;&#10;&#9;&#9;comp:setProperty(&quot;componentDisabled&quot;, 1, false)&#13;&#10;&#9;end&#10;&#9;&#9;&#13;&#10;&#9;local increment = 1&#13;&#10;&#9;local min = 0&#13;&#10;&#9;local max = 127&#13;&#10;&#9;if splitLength == 2 then&#13;&#10;&#9;&#9;local values = split(splitData[2], &quot;,&quot;)&#13;&#10;&#9;&#9;local valuesLength = table.getn(values)&#13;&#10;&#9;&#9;local valueStr = values[1]&#13;&#10;&#9;&#9;for i = 2, valuesLength do&#13;&#10;&#9;&#9;&#9;valueStr = string.format(&quot;%s\n%s&quot;, valueStr, values[i])&#13;&#10;&#9;&#9;end&#13;&#10;&#9;&#9;comp:setProperty(&quot;uiButtonContent&quot;, valueStr, false)&#13;&#10;&#9;else&#13;&#10;&#9;&#9;if splitData[2] ~= &quot;&quot; then&#13;&#10;&#9;&#9;&#9;increment = splitData[2]&#13;&#10;&#9;&#9;end&#13;&#10;&#9;&#9;comp:setProperty(&quot;uiSliderInterval&quot;, increment, false)&#13;&#10;&#9;&#13;&#10;&#9;&#9;if splitData[3] ~= &quot;&quot; then&#13;&#10;&#9;&#9;&#9;min = splitData[3]&#13;&#10;&#9;&#9;end&#13;&#10;&#9;&#9;comp:setProperty(&quot;uiSliderMin&quot;, min, false)&#13;&#10;&#9;&#13;&#10;&#9;&#9;if splitData[4] ~= &quot;&quot; then&#13;&#10;&#9;&#9;&#9;max = splitData[4]&#13;&#10;&#9;&#9;end&#13;&#10;&#9;&#9;comp:setProperty(&quot;uiSliderMax&quot;, max, false)&#13;&#10;&#13;&#10;&#9;&#9;if splitData[5] == &quot;*&quot; then&#13;&#10;&#9;&#9;else&#13;&#10;&#9;&#9;&#9;local exprSuffix = &quot;&quot;&#13;&#10;&#9;&#9;&#9;local exprRevSuffix = &quot;&quot;&#13;&#10;&#9;&#9;&#9;local exprSign = &quot;+&quot;&#13;&#10;&#9;&#9;&#9;local exprRevSign = &quot;-&quot;&#13;&#10;&#9;&#9;&#9;if increment ~= 1 then&#13;&#10;&#9;&#9;&#9;&#9;exprSuffix = string.format(&quot; / %d&quot;, increment)&#13;&#10;&#9;&#9;&#9;&#9;exprRevSuffix = string.format(&quot; * %d&quot;, increment)&#13;&#10;&#9;&#9;&#9;end&#13;&#10;&#13;&#10;&#9;&#9;&#9;if splitData[5] ~= &quot;&quot; then&#13;&#10;&#9;&#9;&#9;&#9;local offset = tonumber(splitData[5])&#13;&#10;&#9;&#9;&#9;&#9;if offset &lt; 0 then&#13;&#10;&#9;&#9;&#9;&#9;&#9;offset = offset * -1&#13;&#10;&#9;&#9;&#9;&#9;&#9;exprSuffix = string.format(&quot;%s - %d&quot;, exprSuffix, offset)&#13;&#10;&#9;&#9;&#9;&#9;&#9;exprRevSuffix = string.format(&quot;%s + %d&quot;, exprRevSuffix, offset)&#13;&#10;&#9;&#9;&#9;&#9;else&#13;&#10;&#9;&#9;&#9;&#9;&#9;exprSuffix = string.format(&quot;%s + %d&quot;, exprSuffix, offset)&#13;&#10;&#9;&#9;&#9;&#9;&#9;exprRevSuffix = string.format(&quot;%s - %d&quot;, exprRevSuffix, offset)&#13;&#10;&#9;&#9;&#9;&#9;end&#13;&#10;&#9;&#9;&#9;end&#13;&#10;&#9;&#9;&#9;mod:setProperty(&quot;modulatorValueExpression&quot;, string.format(&quot;modulatorValue%s&quot;, exprSuffix), false)&#13;&#10;&#9;&#9;&#9;mod:setProperty(&quot;modulatorValueExpressionReverse&quot;, string.format(&quot;midiValue%s&quot;, exprRevSuffix), false)&#13;&#10;&#9;&#9;end&#13;&#10;&#9;&#13;&#10;&#9;end&#13;&#10;&#9;&#10;end"
                  luaMethodLinkedProperty="" luaMethodSource="0" uuid="23fae31ed3e54bd9862aa960412b4c89"
                  luaMethodValid="1"/>
-      <luaMethod luaMethodName="loadVoice" luaMethodCode="function loadVoice()&#10;&#9;local file = utils.openFileWindow (&quot;Open Bank&quot;, File(&quot;&quot;), &quot;*.syx&quot;, true)&#13;&#10;&#9;if file:existsAsFile() then&#13;&#10;&#9;&#9;local data = MemoryBlock()&#13;&#10;&#9;&#9;file:loadFileAsData(data)&#13;&#10;&#9;&#9;if data:getSize() ~= 10 then&#13;&#10;&#9;&#9;&#9;error(&quot;The loaded file does not contain a Behringer Modulizer patch&quot;)&#13;&#10;&#9;&#9;end&#13;&#10;&#13;&#10;&#9;&#9;-- Assign values&#13;&#10;&#9;&#9;panel:getModulatorByName(&quot;variation&quot;):setModulatorValue(data:getByte(0), false, true, false)&#13;&#10;&#9;&#9;panel:getModulatorByName(&quot;editA&quot;):setModulatorValue(data:getByte(1), false, true, false)&#13;&#10;&#9;&#9;panel:getModulatorByName(&quot;editB&quot;):setModulatorValue(data:getByte(2), false, true, false)&#13;&#10;&#9;&#9;panel:getModulatorByName(&quot;editC&quot;):setModulatorValue(data:getByte(3), false, true, false)&#13;&#10;&#9;&#9;panel:getModulatorByName(&quot;editD&quot;):setModulatorValue(data:getByte(4), false, true, false)&#13;&#10;&#9;&#9;panel:getModulatorByName(&quot;effect&quot;):setModulatorValue(data:getByte(5), false, true, false)&#13;&#10;&#9;&#9;panel:getModulatorByName(&quot;eqLow&quot;):setModulatorValue(data:getByte(6), false, true, false)&#13;&#10;&#9;&#9;panel:getModulatorByName(&quot;eqHigh&quot;):setModulatorValue(data:getByte(7), false, true, false)&#13;&#10;&#9;&#9;panel:getModulatorByName(&quot;mix&quot;):setModulatorValue(data:getByte(8), false, true, false)&#13;&#10;&#9;&#9;panel:getModulatorByName(&quot;inOut&quot;):setModulatorValue(data:getByte(9), false, true, false)&#13;&#10;&#13;&#10;&#9;end&#10;end"
+      <luaMethod luaMethodName="loadVoice" luaMethodCode="function loadVoice()&#13;&#10;    -- This variable stops index issues during panel bootup&#13;    if panel:getRestoreState() == true or panel:getProgramState() == true then&#13;&#9;&#9;return&#13;    end&#13;&#10;&#9;local file = utils.openFileWindow (&quot;Open Patch&quot;, File(&quot;&quot;), &quot;*.syx&quot;, true)&#13;&#10;&#9;if file:existsAsFile() then&#13;&#10;&#9;&#9;local data = MemoryBlock()&#13;&#10;&#9;&#9;file:loadFileAsData(data)&#13;&#10;&#9;&#9;if data:getSize() ~= 10 then&#13;&#10;&#9;&#9;&#9;error(&quot;The loaded file does not contain a Behringer Modulizer patch&quot;)&#13;&#10;&#9;&#9;end&#13;&#10;&#13;&#10;&#9;&#9;-- Assign values&#13;&#10;&#9;&#9;panel:getModulatorByName(&quot;variation&quot;):setModulatorValue(data:getByte(0), false, true, false)&#13;&#10;&#9;&#9;panel:getModulatorByName(&quot;editA&quot;):setModulatorValue(data:getByte(1), false, true, false)&#13;&#10;&#9;&#9;panel:getModulatorByName(&quot;editB&quot;):setModulatorValue(data:getByte(2), false, true, false)&#13;&#10;&#9;&#9;panel:getModulatorByName(&quot;editC&quot;):setModulatorValue(data:getByte(3), false, true, false)&#13;&#10;&#9;&#9;panel:getModulatorByName(&quot;editD&quot;):setModulatorValue(data:getByte(4), false, true, false)&#13;&#10;&#9;&#9;panel:getModulatorByName(&quot;effect&quot;):setModulatorValue(data:getByte(5), false, true, false)&#13;&#10;&#9;&#9;panel:getModulatorByName(&quot;eqLow&quot;):setModulatorValue(data:getByte(6), false, true, false)&#13;&#10;&#9;&#9;panel:getModulatorByName(&quot;eqHigh&quot;):setModulatorValue(data:getByte(7), false, true, false)&#13;&#10;&#9;&#9;panel:getModulatorByName(&quot;mix&quot;):setModulatorValue(data:getByte(8), false, true, false)&#13;&#10;&#9;&#9;panel:getModulatorByName(&quot;inOut&quot;):setModulatorValue(data:getByte(9), false, true, false)&#13;&#10;&#13;&#10;&#9;end&#10;end"
                  luaMethodLinkedProperty="" luaMethodSource="0" uuid="d7c9d41353164d48bf00826ecd13d9c2"
                  luaMethodValid="1"/>
-      <luaMethod luaMethodName="saveVoice" luaMethodCode="function saveVoice()&#10;    local f = utils.saveFileWindow (&quot;Save patch&quot;, File(&quot;&quot;), &quot;*.syx&quot;, true)&#13;&#10;    if f:isValid() == false then&#13;&#10;        return&#13;&#10;    end&#13;&#10;    f:create()&#13;&#10;    if f:existsAsFile() then&#13;&#10;&#9;&#9;-- Fetch values&#13;&#10;&#9;&#9;local data = MemoryBlock(10, true)&#13;&#10;&#9;&#9;data:setByte(0, panel:getModulatorByName(&quot;variation&quot;):getValue())&#13;&#10;&#9;&#9;data:setByte(1, panel:getModulatorByName(&quot;editA&quot;):getValue())&#13;&#10;&#9;&#9;data:setByte(2, panel:getModulatorByName(&quot;editB&quot;):getValue())&#13;&#10;&#9;&#9;data:setByte(3, panel:getModulatorByName(&quot;editC&quot;):getValue())&#13;&#10;&#9;&#9;data:setByte(4, panel:getModulatorByName(&quot;editD&quot;):getValue())&#13;&#10;&#9;&#9;data:setByte(5, panel:getModulatorByName(&quot;effect&quot;):getValue())&#13;&#10;&#9;&#9;data:setByte(6, panel:getModulatorByName(&quot;eqLow&quot;):getValue())&#13;&#10;&#9;&#9;data:setByte(7, panel:getModulatorByName(&quot;eqHigh&quot;):getValue())&#13;&#10;&#9;&#9;data:setByte(8, panel:getModulatorByName(&quot;mix&quot;):getValue())&#13;&#10;&#9;&#9;data:setByte(9, panel:getModulatorByName(&quot;inOut&quot;):getValue())&#13;&#10;&#13;&#10;        -- Check if the file exists&#13;&#10;        if f:existsAsFile() == false then&#13;&#10;            -- If file does not exist, then create it&#13;&#10;            if f:create() == false then&#13;&#10;                -- If file cannot be created, then fail here&#13;&#10;                utils.warnWindow (&quot;\n\nSorry, the Editor failed to\nsave the patch to disk!&quot;, &quot;The file does not exist.&quot;)&#13;&#10;                return&#13;&#10;            end&#13;&#10;        end&#13;&#10;        -- If we reached this point, we have a valid file we can try to write to&#13;&#10;        if f:replaceWithData (data) == false then&#13;&#10;            utils.warnWindow (&quot;File write&quot;, &quot;Sorry, the Editor failed to\nwrite the data to file!&quot;)&#13;&#10;        end&#13;&#10;        console (&quot;File save complete, Editor patch saved to disk&quot;)&#13;&#10;    end&#13;&#10;end&#13;&#10;"
+      <luaMethod luaMethodName="saveVoice" luaMethodCode="function saveVoice()&#13;&#10;    -- This variable stops index issues during panel bootup&#13;    if panel:getRestoreState() == true or panel:getProgramState() == true then&#13;&#9;&#9;return&#13;    end&#13;&#10;&#13;&#10;    local f = utils.saveFileWindow (&quot;Save patch&quot;, File(&quot;&quot;), &quot;*.syx&quot;, true)&#13;&#10;    if f:isValid() == false then&#13;&#10;        return&#13;&#10;    end&#13;&#10;    f:create()&#13;&#10;    if f:existsAsFile() then&#13;&#10;&#9;&#9;-- Fetch values&#13;&#10;&#9;&#9;local data = MemoryBlock(10, true)&#13;&#10;&#9;&#9;data:setByte(0, panel:getModulatorByName(&quot;variation&quot;):getValue())&#13;&#10;&#9;&#9;data:setByte(1, panel:getModulatorByName(&quot;editA&quot;):getValue())&#13;&#10;&#9;&#9;data:setByte(2, panel:getModulatorByName(&quot;editB&quot;):getValue())&#13;&#10;&#9;&#9;data:setByte(3, panel:getModulatorByName(&quot;editC&quot;):getValue())&#13;&#10;&#9;&#9;data:setByte(4, panel:getModulatorByName(&quot;editD&quot;):getValue())&#13;&#10;&#9;&#9;data:setByte(5, panel:getModulatorByName(&quot;effect&quot;):getValue())&#13;&#10;&#9;&#9;data:setByte(6, panel:getModulatorByName(&quot;eqLow&quot;):getValue())&#13;&#10;&#9;&#9;data:setByte(7, panel:getModulatorByName(&quot;eqHigh&quot;):getValue())&#13;&#10;&#9;&#9;data:setByte(8, panel:getModulatorByName(&quot;mix&quot;):getValue())&#13;&#10;&#9;&#9;data:setByte(9, panel:getModulatorByName(&quot;inOut&quot;):getValue())&#13;&#10;&#13;&#10;        -- Check if the file exists&#13;&#10;        if f:existsAsFile() == false then&#13;&#10;            -- If file does not exist, then create it&#13;&#10;            if f:create() == false then&#13;&#10;                -- If file cannot be created, then fail here&#13;&#10;                utils.warnWindow (&quot;\n\nSorry, the Editor failed to\nsave the patch to disk!&quot;, &quot;The file does not exist.&quot;)&#13;&#10;                return&#13;&#10;            end&#13;&#10;        end&#13;&#10;        -- If we reached this point, we have a valid file we can try to write to&#13;&#10;        if f:replaceWithData (data) == false then&#13;&#10;            utils.warnWindow (&quot;File write&quot;, &quot;Sorry, the Editor failed to\nwrite the data to file!&quot;)&#13;&#10;        end&#13;&#10;        console (&quot;File save complete, Editor patch saved to disk&quot;)&#13;&#10;    end&#13;&#10;end&#13;&#10;"
                  luaMethodLinkedProperty="" luaMethodSource="0" uuid="414809e9b57d45c5b5d949dcc9355ed2"
                  luaMethodValid="1"/>
     </luaManagerMethods>
@@ -105,7 +105,7 @@
                  uiPanelInvisibleComponentAlpha="0.5" uiPanelTooltipBackgroundColour="0xffeeeebb"
                  uiPanelTooltipOutlineColour="0xff000000" uiPanelTooltipColour="0xff000000"
                  uiPanelTooltipCornerRound="1" uiPanelTooltipPlacement="2" uiPanelTooltipFont="&lt;Sans-Serif&gt;;15;1;0;0;0;1;3"
-                 uiPanelZoom="1" uiPanelPropertiesSize="416" uiPanelViewPortSize="726">
+                 uiPanelZoom="1" uiPanelPropertiesSize="318" uiPanelViewPortSize="1274">
     <uiPanelCanvasLayer uiPanelCanvasLayerName="New layer" uiPanelCanvasLayerUid="682175e0eb060000a800000020196608"
                         uiPanelCanvasLayerColour="0x000000" uiPanelCanvasLayerVisibility="1"
                         uiPanelCanvasLayerIndex="0"/>
@@ -288,7 +288,7 @@
              modulatorLinkedToComponent="Modulator" modulatorBaseValue="0"
              modulatorCustomIndex="0" modulatorCustomName="" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="editC" modulatorMin="0" modulatorValue="55">
+             name="editC" modulatorMin="0" modulatorValue="127">
     <midi midiMessageType="0" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="54" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula=""/>
@@ -374,7 +374,7 @@
              modulatorLinkedToComponent="Modulator" modulatorBaseValue="0"
              modulatorCustomIndex="0" modulatorCustomName="" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="eqLow" modulatorMin="-16" modulatorValue="250">
+             name="eqLow" modulatorMin="-16" modulatorValue="-6">
     <midi midiMessageType="0" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="57" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula=""/>
@@ -417,7 +417,7 @@
              modulatorLinkedToComponent="Modulator" modulatorBaseValue="0"
              modulatorCustomIndex="0" modulatorCustomName="" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="eqHigh" modulatorMin="-16" modulatorValue="5">
+             name="eqHigh" modulatorMin="-16" modulatorValue="-16">
     <midi midiMessageType="0" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="58" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula=""/>
@@ -460,7 +460,7 @@
              modulatorLinkedToComponent="Modulator" modulatorBaseValue="0"
              modulatorCustomIndex="0" modulatorCustomName="" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="mix" modulatorMin="0" modulatorValue="57">
+             name="mix" modulatorMin="0" modulatorValue="21">
     <midi midiMessageType="0" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="59" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula=""/>
@@ -503,7 +503,7 @@
              modulatorLinkedToComponent="Modulator" modulatorBaseValue="0"
              modulatorCustomIndex="0" modulatorCustomName="" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="inOut" modulatorMin="0" modulatorValue="1">
+             name="inOut" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="0" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="61" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula=""/>
@@ -608,7 +608,7 @@
                uiGroupOutlineThickness="2" uiGroupOutlineRoundAngle="8" uiGroupTextMargin="0"
                componentLayerUid="682175e0eb060000a800000020196608" uiType="uiGroup"/>
   </modulator>
-  <modulator modulatorVstExported="0" modulatorMax="0" vstIndex="13" modulatorIsStatic="0"
+  <modulator modulatorVstExported="0" modulatorMax="1" vstIndex="" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="1" modulatorMute="1"
              modulatorExcludeFromSnapshot="1" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -642,7 +642,7 @@
                componentInternalFunction="-- None" componentRectangle="8 13 64 50"
                uiType="uiButton" componentLayerUid="682175e0eb060000a800000020196608"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="0" vstIndex="13" modulatorIsStatic="0"
+  <modulator modulatorVstExported="0" modulatorMax="1" vstIndex="13" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="1" modulatorMute="1"
              modulatorExcludeFromSnapshot="1" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -676,5 +676,4 @@
                componentInternalFunction="-- None" componentRectangle="8 83 64 50"
                componentLayerUid="682175e0eb060000a800000020196608" uiType="uiButton"/>
   </modulator>
-  <panelCustomData/>
 </panel>
