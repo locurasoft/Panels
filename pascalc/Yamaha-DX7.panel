@@ -30,7 +30,7 @@
        panelModulatorListColumns="&lt;TABLELAYOUT sortedCol=&quot;491&quot; sortForwards=&quot;1&quot;&gt;&lt;COLUMN id=&quot;544&quot; visible=&quot;1&quot; width=&quot;142&quot;/&gt;&lt;COLUMN id=&quot;1&quot; visible=&quot;1&quot; width=&quot;149&quot;/&gt;&lt;COLUMN id=&quot;543&quot; visible=&quot;1&quot; width=&quot;110&quot;/&gt;&lt;COLUMN id=&quot;545&quot; visible=&quot;1&quot; width=&quot;137&quot;/&gt;&lt;COLUMN id=&quot;98&quot; visible=&quot;1&quot; width=&quot;155&quot;/&gt;&lt;COLUMN id=&quot;102&quot; visible=&quot;1&quot; width=&quot;106&quot;/&gt;&lt;COLUMN id=&quot;103&quot; visible=&quot;1&quot; width=&quot;106&quot;/&gt;&lt;COLUMN id=&quot;109&quot; visible=&quot;1&quot; width=&quot;106&quot;/&gt;&lt;COLUMN id=&quot;490&quot; visible=&quot;1&quot; width=&quot;106&quot;/&gt;&lt;COLUMN id=&quot;487&quot; visible=&quot;1&quot; width=&quot;106&quot;/&gt;&lt;COLUMN id=&quot;491&quot; visible=&quot;1&quot; width=&quot;168&quot;/&gt;&lt;COLUMN id=&quot;16&quot; visible=&quot;1&quot; width=&quot;91&quot;/&gt;&lt;COLUMN id=&quot;17&quot; visible=&quot;1&quot; width=&quot;91&quot;/&gt;&lt;/TABLELAYOUT&gt;"
        panelModulatorListCsvDelimiter="," panelModulatorListXmlRoot="ctrlrModulatorList"
        panelModulatorListXmlModulator="ctrlrModulator" panelModulatorListSortOption="1"
-       panelGlobalVariables="0:6:0:0:6:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0"
+       panelGlobalVariables="61:6:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0"
        panelResources="" panelPropertyDisplayIDs="0" ctrlrMenuItemBackgroundColour="ffffffff"
        ctrlrMenuItemTextColour="ff000000" ctrlrMenuItemHighlightedTextColour="ffffffff"
        ctrlrMenuItemHighlightColour="ff4364ff" ctrlrMenuItemFont="&lt;Sans-Serif&gt;;13;0;0;0;0;1;3"
@@ -44,7 +44,7 @@
        uiPanelModulatorListViewTree="0">
   <uiWindowManager>
     <uiChildWindow uiChildWindowName="LuaMethodEditor" uiChildWindowState="fs 0 0 800 500">
-      <uiChildWindowContentState luaMethodEditor="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#13;&#10;&#13;&#10;&lt;OPEN id=&quot;LUA&quot; scrollPos=&quot;0&quot;&gt;&#13;&#10;  &lt;OPEN id=&quot;Voice&quot;/&gt;&#13;&#10;  &lt;SELECTED id=&quot;/LUA/Voice/SendPatch&quot;/&gt;&#13;&#10;&lt;/OPEN&gt;&#13;&#10;;353210fae7ea42f0b61865e883b9bb0f:dc116588351d4e5392ea606857a05acc:0422598860a34531b2796f772587f8b2:94d86ac7ca2e4a428456951a858f62f2:3d5d7c4c52544f12ade4f9d67210ca3c:80851337f68342d799ba02ec4b0e5045:b12911176e4d432b81893920e80ff798"/>
+      <uiChildWindowContentState luaMethodEditor="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#13;&#10;&#13;&#10;&lt;OPEN id=&quot;LUA&quot; scrollPos=&quot;0&quot;&gt;&#13;&#10;  &lt;OPEN id=&quot;Voice&quot;/&gt;&#13;&#10;  &lt;SELECTED id=&quot;/LUA/Voice/SendPatch&quot;/&gt;&#13;&#10;&lt;/OPEN&gt;&#13;&#10;;"/>
     </uiChildWindow>
     <uiChildWindow uiChildWindowName="LuaConsole" uiChildWindowState="1384 325 175 499">
       <uiChildWindowContentState/>
@@ -155,7 +155,7 @@
         <luaMethod luaMethodName="DisableMemoryProtect" luaMethodCode="function DisableMemoryProtect()&#10;    if panel:getRestoreState() == true or panel:getProgramState() == true then&#10;        return&#10;    end&#10;    if panel_loaded == 0 then&#10;        return&#10;    end&#10;&#10;&#9;panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x21, 0x7f, 0xf7}))&#10;&#9;panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x21, 0x00, 0xf7}))&#10;&#9;panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x28, 0x7f, 0xf7}))&#10;&#9;panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x28, 0x00, 0xf7}))&#10;&#9;panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x25, 0x7f, 0xf7}))&#10;&#9;panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x25, 0x00, 0xf7}))&#10;&#10;&#9;panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x27, 0x7f, 0xf7}))&#10;&#9;panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x27, 0x00, 0xf7}))&#10;&#9;panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x0d, 0x7f, 0xf7}))&#10;&#9;panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x0d, 0x00, 0xf7}))&#10;&#9;panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x07, 0x7f, 0xf7}))&#10;&#9;panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x07, 0x00, 0xf7}))&#10;&#9;panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x07, 0x7f, 0xf7}))&#10;&#9;panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x07, 0x00, 0xf7}))&#10;&#9;panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x29, 0x7f, 0xf7}))&#10;&#9;panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x29, 0x00, 0xf7}))&#10;&#9;-- panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x25, 0x7f, 0xf7}))&#10;&#9;-- panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x25, 0x00, 0xf7}))&#10;&#9;-- panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x00, 0x7f, 0xf7}))&#10;&#9;-- panel:sendMidiMessageNow(CtrlrMidiMessage({0xf0, 0x43, 0x10, 0x08, 0x00, 0x00, 0xf7}))&#10;&#10;&#9;DisableMemoryProtect = true&#10;end"
                    luaMethodLinkedProperty="" luaMethodSource="0" uuid="5b5897fe8a8f4f16b7c4963b1e17c28d"
                    luaMethodValid="1"/>
-        <luaMethod luaMethodName="SendPatch" luaMethodCode="function SendPatch()&#10;&#9;local data = Voice_AssembleValues()&#13;&#10;&#9;panel:sendMidiMessageNow(CtrlrMidiMessage(data))&#10;end"
+        <luaMethod luaMethodName="SendPatch" luaMethodCode="function SendPatch()&#10;    -- This variable stops index issues during panel bootup&#13;&#10;    if panel:getRestoreState() == true or panel:getProgramState() == true then&#13;&#10;        return&#13;&#10;    end&#13;&#10;&#13;&#10;&#9;local data = Voice_AssembleValues()&#13;&#10;&#9;panel:sendMidiMessageNow(CtrlrMidiMessage(data))&#10;end"
                    luaMethodLinkedProperty="" luaMethodSource="0" uuid="b12911176e4d432b81893920e80ff798"
                    luaMethodValid="1"/>
       </luaMethodGroup>
@@ -194,42 +194,41 @@
     </luaManagerMethods>
   </luaManager>
   <panelResources>
-    <resource resourceHash="2946242406179892715" resourceLoadedTime="1452538954470"
+    <resource resourceHash="2946242406179892715" resourceLoadedTime="1452898823159"
               resourceSize="54848" resourceFile="DX7 Logo LCD blank 1 laag.jpeg"
               resourceSourceFile="C:\Users\pcg\AppData\Roaming\Ctrlr\8.tNT1fBgye3J\DX7 Logo LCD blank 1 laag.jpeg"
               resourceName="DX7 Logo LCD blank 1 laag" resourceType="Image"/>
-    <resource resourceHash="2304217294559162866" resourceLoadedTime="1452538954477"
+    <resource resourceHash="2304217294559162866" resourceLoadedTime="1452898823163"
               resourceSize="50896" resourceFile="DX7 serial.jpeg" resourceSourceFile="C:\Users\pcg\AppData\Roaming\Ctrlr\8.tNT1fBgye3J\DX7 serial.jpeg"
               resourceName="DX7 serial" resourceType="Image"/>
-    <resource resourceHash="-8366588168866444372" resourceLoadedTime="1452538954489"
+    <resource resourceHash="-8366588168866444372" resourceLoadedTime="1452898823172"
               resourceSize="79711" resourceFile="tx7 background pic for ctrlr.jpg"
               resourceSourceFile="C:\Users\pcg\AppData\Roaming\Ctrlr\8.tNT1fBgye3J\tx7 background pic for ctrlr.jpg"
               resourceName="tx7 background pic for ctrlr" resourceType="Image"/>
-    <resource resourceHash="8207014186369548035" resourceLoadedTime="1452538954492"
+    <resource resourceHash="8207014186369548035" resourceLoadedTime="1452898823173"
               resourceSize="22620" resourceFile="tx7 logo 1.jpg" resourceSourceFile="C:\Users\pcg\AppData\Roaming\Ctrlr\8.tNT1fBgye3J\tx7 logo 1.jpg"
               resourceName="tx7 logo 1" resourceType="Image"/>
-    <resource resourceHash="-2344375022198359699" resourceLoadedTime="1452538954593"
+    <resource resourceHash="-2344375022198359699" resourceLoadedTime="1452898823264"
               resourceSize="1503262" resourceFile="TX7 Logo LCD blank.jpg"
               resourceSourceFile="C:\Users\pcg\AppData\Roaming\Ctrlr\8.tNT1fBgye3J\TX7 Logo LCD blank.jpg"
               resourceName="TX7 Logo LCD blank" resourceType="Image"/>
-    <resource resourceHash="1368052477294886614" resourceLoadedTime="1452538954619"
+    <resource resourceHash="1368052477294886614" resourceLoadedTime="1452898823286"
               resourceSize="296476" resourceFile="TX7 serial alt 1.jpg" resourceSourceFile="C:\Users\pcg\AppData\Roaming\Ctrlr\8.tNT1fBgye3J\TX7 serial alt 1.jpg"
               resourceName="TX7 serial alt 1" resourceType="Image"/>
   </panelResources>
   <uiPanelEditor uiPanelCanvasRectangle="0 0 1172 711" uiPanelSnapSize="8" uiPanelBackgroundColour="ffc12a2a"
                  uiPanelBackgroundColour1="ff000000" uiPanelBackgroundColour2="ff000000"
                  uiPanelBackgroundGradientType="2" uiPanelImageResource="-- None"
-                 uiPanelEditMode="0" uiPanelLock="0" uiPanelDisabledOnEdit="0"
-                 uiPanelMenuBarVisible="1" uiPanelWidth="900" uiPanelHeight="1200"
-                 name="Yamaha DX7" uiPanelImageAlpha="255" uiPanelImageLayout="64"
-                 uiPanelSnapActive="1" uiPanelPropertiesOnRight="0" luaPanelPaintBackground=""
-                 luaPanelResized="" luaPanelFileDragDropHandler="-- None" luaPanelFileDragEnterHandler="-- None"
-                 luaPanelFileDragExitHandler="-- None" uiPanelInvisibleComponentAlpha="0.5"
-                 uiPanelTooltipBackgroundColour="0xffeeeebb" uiPanelTooltipOutlineColour="0xff000000"
-                 uiPanelTooltipColour="0xff000000" uiPanelTooltipCornerRound="1"
-                 uiPanelTooltipPlacement="2" uiPanelTooltipFont="&lt;Sans-Serif&gt;;15;1;0;0;0;0;3"
-                 uiPanelZoom="1" uiPanelViewPortSize="1274" uiPanelPropertiesSize="318"
-                 uiPanelMidiToolbarVisible="0">
+                 uiPanelEditMode="0" uiPanelViewPortSize="1274" uiPanelPropertiesSize="318"
+                 uiPanelLock="0" uiPanelDisabledOnEdit="0" uiPanelMenuBarVisible="1"
+                 uiPanelWidth="900" uiPanelHeight="1200" name="Yamaha DX7" uiPanelImageAlpha="255"
+                 uiPanelImageLayout="64" uiPanelSnapActive="1" uiPanelPropertiesOnRight="0"
+                 luaPanelPaintBackground="" luaPanelResized="" luaPanelFileDragDropHandler="-- None"
+                 luaPanelFileDragEnterHandler="-- None" luaPanelFileDragExitHandler="-- None"
+                 uiPanelInvisibleComponentAlpha="0.5" uiPanelTooltipBackgroundColour="0xffeeeebb"
+                 uiPanelTooltipOutlineColour="0xff000000" uiPanelTooltipColour="0xff000000"
+                 uiPanelTooltipCornerRound="1" uiPanelTooltipPlacement="2" uiPanelTooltipFont="&lt;Sans-Serif&gt;;15;1;0;0;0;0;3"
+                 uiPanelZoom="1" uiPanelMidiToolbarVisible="0">
     <uiPanelCanvasLayer uiPanelCanvasLayerName="New layer" uiPanelCanvasLayerUid="107b39c8bf190000d422a6833d010000"
                         uiPanelCanvasLayerColour="0x000000" uiPanelCanvasLayerVisibility="1"
                         uiPanelCanvasLayerIndex="0"/>
@@ -986,7 +985,7 @@
                uiButtonConnectedLeft="0" uiButtonConnectedRight="0" uiButtonConnectedTop="0"
                uiButtonConnectedBottom="0" uiButtonRepeat="0" uiButtonRepeatRate="100"
                uiButtonTriggerOnMouseDown="0" componentInternalFunction="-- None"
-               componentRectangle="18 19 39 32" uiType="uiButton" componentLayerUid="107b39c8bf190000d422a6833d010000"
+               componentRectangle="21 21 39 32" uiType="uiButton" componentLayerUid="107b39c8bf190000d422a6833d010000"
                componentBubbleValueJustification="centred" componentBubbleValueFont="&lt;Sans-Serif&gt;;14;0;0;0;0;1;3"
                componentBubbleValueColour="0xff000000" componentBubbleRoundAngle="10"
                componentBubbleNameJustification="centred" componentBubbleNameFont="&lt;Sans-Serif&gt;;14;0;0;0;0;1;3"
@@ -1025,7 +1024,7 @@
                uiButtonConnectedLeft="0" uiButtonConnectedRight="0" uiButtonConnectedTop="0"
                uiButtonConnectedBottom="0" uiButtonRepeat="0" uiButtonRepeatRate="100"
                uiButtonTriggerOnMouseDown="0" componentInternalFunction="-- None"
-               componentRectangle="14 80 58 32" uiType="uiButton" componentLayerUid="107b39c8bf190000d422a6833d010000"
+               componentRectangle="14 71 58 32" uiType="uiButton" componentLayerUid="107b39c8bf190000d422a6833d010000"
                componentBubbleValueJustification="centred" componentBubbleValueFont="&lt;Sans-Serif&gt;;14;0;0;0;0;1;3"
                componentBubbleValueColour="0xff000000" componentBubbleRoundAngle="10"
                componentBubbleNameJustification="centred" componentBubbleNameFont="&lt;Sans-Serif&gt;;14;0;0;0;0;1;3"
@@ -9456,7 +9455,7 @@
                componentBubbleNameJustification="centred" componentBubbleRoundAngle="10"
                componentBubbleValueColour="0xff000000" componentBubbleValueFont="&lt;Sans-Serif&gt;;14;0;0;0;0;1;3"
                componentBubbleValueJustification="centred" componentLayerUid="107b39c8bf190000d422a6833d010000"
-               componentRectangle="47 8 48 117" uiType="uiSlider"/>
+               componentRectangle="53 8 48 117" uiType="uiSlider"/>
   </modulator>
   <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="182" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="1" modulatorMute="0"
@@ -9490,14 +9489,14 @@
                uiButtonConnectedLeft="0" uiButtonConnectedRight="0" uiButtonConnectedTop="0"
                uiButtonConnectedBottom="0" uiButtonRepeat="0" uiButtonRepeatRate="100"
                uiButtonTriggerOnMouseDown="0" componentInternalFunction="-- None"
-               componentRectangle="97 28 39 32" uiType="uiButton" componentLayerUid="107b39c8bf190000d422a6833d010000"
+               componentRectangle="97 49 39 32" uiType="uiButton" componentLayerUid="107b39c8bf190000d422a6833d010000"
                componentBubbleValueJustification="centred" componentBubbleValueFont="&lt;Sans-Serif&gt;;14;0;0;0;0;1;3"
                componentBubbleValueColour="0xff000000" componentBubbleRoundAngle="10"
                componentBubbleNameJustification="centred" componentBubbleNameFont="&lt;Sans-Serif&gt;;14;0;0;0;0;1;3"
                componentBubbleNameColour="0xff000000" componentBubbleBackgroundGradientType="1"
                componentBubbleBackgroundColour2="0xbab9b9b9" componentBubbleBackgroundColour1="0x9cffffff"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="0" vstIndex="" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="1" modulatorMute="0"
              modulatorExcludeFromSnapshot="1" modulatorValueExpression=""
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -9525,7 +9524,7 @@
                componentLuaMouseDoubleClick="-- None" uiButtonTrueValue="1"
                uiButtonFalseValue="0" uiButtonIsToggle="0" uiButtonColourOn="ff00ff68"
                uiButtonColourOff="ff00ff68" uiButtonTextColourOn="0xff000000"
-               uiButtonTextColourOff="0xff454545" uiButtonContent="DISABLE MEMORY PROTECT"
+               uiButtonTextColourOff="0xff454545" uiButtonContent="disable memory protect"
                uiButtonConnectedLeft="0" uiButtonConnectedRight="0" uiButtonConnectedTop="0"
                uiButtonConnectedBottom="0" uiButtonRepeat="0" uiButtonRepeatRate="100"
                uiButtonTriggerOnMouseDown="0" componentInternalFunction="-- None"
@@ -10467,7 +10466,7 @@
                componentLuaMouseDoubleClick="-- None" uiButtonTrueValue="1"
                uiButtonFalseValue="0" uiButtonIsToggle="0" uiButtonColourOn="ff00ff68"
                uiButtonColourOff="ff00ff68" uiButtonTextColourOn="0xff000000"
-               uiButtonTextColourOff="0xff454545" uiButtonContent="SEND PATCH"
+               uiButtonTextColourOff="0xff454545" uiButtonContent="send patch"
                uiButtonConnectedLeft="0" uiButtonConnectedRight="0" uiButtonConnectedTop="0"
                uiButtonConnectedBottom="0" uiButtonRepeat="0" uiButtonRepeatRate="100"
                uiButtonTriggerOnMouseDown="0" componentInternalFunction="-- None"
@@ -10479,5 +10478,4 @@
                componentBubbleValueJustification="centred" componentLayerUid="107b39c8bf190000d422a6833d010000"
                uiType="uiButton"/>
   </modulator>
-  <panelCustomData/>
 </panel>
