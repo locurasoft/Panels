@@ -1,47 +1,61 @@
+require("AbstractController")
+require("Logger")
+
 local log = Logger("DrumMapController")
 
 local markGroup = function(groupName, error)
-	local color = "FF7A7269"
-	if error then
-		color = "FFEA402A"
-		retval = false
-	end
-	
-	panel:getComponent(groupName):setProperty("uiGroupOutlineColour1", color, false)
+  local color = "FF7A7269"
+  if error then
+    color = "FFEA402A"
+    retval = false
+  end
+  
+  panel:getComponent(groupName):setProperty("uiGroupOutlineColour1", color, false)
 end
 
 local disablePad = function(comp)
-	comp:setProperty("uiButtonColourOff", "ff93b4ff", false)
-	comp:setProperty("uiButtonColourOn", "ff93b4ff", false)
+  comp:setProperty("uiButtonColourOff", "ff93b4ff", false)
+  comp:setProperty("uiButtonColourOn", "ff93b4ff", false)
 end
 
 local enablePad = function(comp)
-	comp:setProperty("uiButtonColourOff", "0xff0000ff", false)
-	comp:setProperty("uiButtonColourOn", "0xff0000ff", false)
+  comp:setProperty("uiButtonColourOff", "0xff0000ff", false)
+  comp:setProperty("uiButtonColourOn", "0xff0000ff", false)
 end
 
 local setPadValue = function(padName, value)
-	local pad = panel:getComponent(padName)
+  local pad = panel:getComponent(padName)
 
-	if value == nil or value == "" then
-		pad:setProperty("componentVisibleName", "", true)	
-		pad:setProperty("componentLabelVisible", 0, true)
-	else
-		pad:setProperty("componentLabelVisible", 1, true)
-		pad:setProperty("componentVisibleName", value, true)
-	end
+  if value == nil or value == "" then
+    pad:setProperty("componentVisibleName", "", true) 
+    pad:setProperty("componentLabelVisible", 0, true)
+  else
+    pad:setProperty("componentLabelVisible", 1, true)
+    pad:setProperty("componentVisibleName", value, true)
+  end
 end
 
-__DrumMapController = AbstractController()
+DrumMapController = {}
+DrumMapController.__index = DrumMapController
 
-function __DrumMapController:setDrumMap(drumMap)	
-	local drumMapListener = function(dm)
-		self:updateDrumMap(dm)
-	end
-	drumMap:addListener(drumMapListener)
+setmetatable(DrumMapController, {
+  __index = AbstractController, -- this is what makes the inheritance work
+  __call = function (cls, ...)
+    local self = setmetatable({}, cls)
+    self:_init(...)
+    return self
+  end,
+})
+
+function DrumMapController:_init()
+  AbstractController._init(self)
 end
 
-function __DrumMapController:updateDrumMap(drumMap)	
+function DrumMapController:setDrumMap(drumMap)	
+	drumMap:addListener(self, "updateDrumMap")
+end
+
+function DrumMapController:updateDrumMap(drumMap)
 	--
 	-- Update pads
 	--
@@ -111,18 +125,18 @@ function __DrumMapController:updateDrumMap(drumMap)
 	end
 end
 
-function __DrumMapController:updateStatus(message)
+function DrumMapController:updateStatus(message)
 	panel:getComponent("lcdLabel"):setText(message)
 end
 
-function __DrumMapController:getKeyGroupName(comp)
+function DrumMapController:getKeyGroupName(comp)
 	local grpName = comp:getProperty("componentGroupName")
 	local kgIndex = string.sub(grpName, 9, string.find(grpName, "-grp") - 1)
 	--log:fine("Found %s", kgIndex)
 	return string.format("KeyGroup %s", kgIndex)
 end
 
-function __DrumMapController:verifyTransferSettings()
+function DrumMapController:verifyTransferSettings()
 	local retval = true
 	
 	markGroup("s2kDiePathGroup", not s2kDieSrvc:getS2kDiePath():exists())
@@ -147,8 +161,4 @@ function __DrumMapController:verifyTransferSettings()
 		markGroup("transferMethodGroup", true)
 	end
 	return retval
-end
-
-function DrumMapController()
-	return __DrumMapController:new()
 end

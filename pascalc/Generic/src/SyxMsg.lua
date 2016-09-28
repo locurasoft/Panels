@@ -1,21 +1,34 @@
-__SyxMsg = Object()
+require("LuaObject")
 
-function __SyxMsg:toMidiMessage()
+SyxMsg = {}
+SyxMsg.__index = SyxMsg
+
+setmetatable(SyxMsg, {
+  __index = LuaObject, -- this is what makes the inheritance work
+  __call = function (cls, ...)
+    local self = setmetatable({}, cls)
+    self:_init(...)
+    return self
+  end,
+})
+
+function SyxMsg:_init()
+  LuaObject._init(self)
+  self.data = nil
+end
+
+function SyxMsg:toMidiMessage()
 	return CtrlrMidiMessage(self.data)
 end
 
-function __SyxMsg:toString()
+function SyxMsg:toString()
 	return self.data:toHexString(1)
 end
 
-function __SyxMsg:toJson()
+function SyxMsg:toJson()
 	return string.gsub(
 		json.encode(self), 
 		"^{", 
 		string.format("{data = \"%s\",", self.data:toHexString(1)), 
 		1)
-end
-
-function SyxMsg()
-	return __SyxMsg:new{ data = nil }
 end

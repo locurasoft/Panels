@@ -1,12 +1,29 @@
+require("LuaObject")
+require("Logger")
+
 local log = Logger("ProgramService")
 
-__ProgramService = Object()
+ProgramService = {}
+ProgramService.__index = ProgramService
 
-function __ProgramService:setProgramList(programList)
+setmetatable(ProgramService, {
+  __index = LuaObject, -- this is what makes the inheritance work
+  __call = function (cls, ...)
+    local self = setmetatable({}, cls)
+    self:_init(...)
+    return self
+  end,
+})
+
+function ProgramService:_init()
+  LuaObject._init(self)
+end
+
+function ProgramService:setProgramList(programList)
 	self.programList = programList
 end
 
-function __ProgramService:storeProgParamEdit(phead)
+function ProgramService:storeProgParamEdit(phead)
 	local program = self.programList:getActiveProgram()
 	if program == nil then
 		return
@@ -15,7 +32,7 @@ function __ProgramService:storeProgParamEdit(phead)
 	program:storeParamEdit(phead)
 end
 
-function __ProgramService:storeKgParamEdit(khead)
+function ProgramService:storeKgParamEdit(khead)
 	local program = self.programList:getActiveProgram()
 	if program == nil then
 		return
@@ -24,24 +41,24 @@ function __ProgramService:storeKgParamEdit(khead)
 	keyGroup:storeParamEdit(khead)
 end
 
-function __ProgramService:getActiveKeyGroupMessage()
+function ProgramService:getActiveKeyGroupMessage()
 	local pIndex = self.programList:getActiveProgram()
 	local kIndex = self.programList:getActiveKeyGroup()
 	return self:getKeyGroupMessage(pIndex, kIndex)
 end
 
-function __ProgramService:getKeyGroupMessage(pIndex, kIndex)
+function ProgramService:getKeyGroupMessage(pIndex, kIndex)
 	local program = self.programList[pIndex]
 	local keyGroup = program:getKeyGroup(kIndex)
 	return keyGroup:getKdata()
 end
 
-function __ProgramService:getActiveProgramMessagesList()
+function ProgramService:getActiveProgramMessagesList()
 	local pIndex = self.programList:getActiveProgram()
 	return self:getProgramMessagesList(pIndex)
 end
 
-function __ProgramService:getProgramMessagesList(pIndex)
+function ProgramService:getProgramMessagesList(pIndex)
 	pIndex = pIndex or self.programList:getActiveProgram()
 	local msgs = {}
 	local program = self.programList[pIndex]
@@ -55,7 +72,7 @@ function __ProgramService:getProgramMessagesList(pIndex)
 	return msgs
 end
 
-function __ProgramService:loadProgramFromFile(filePath)
+function ProgramService:loadProgramFromFile(filePath)
 	local file = assert(io.open(filePath, "rb"))
 	local data = file:read("*all")
 	assert(file:close())
@@ -84,7 +101,7 @@ function __ProgramService:loadProgramFromFile(filePath)
 	end
 end
 
-function __ProgramService:saveProgramToFolder(folderPath, pIndex)
+function ProgramService:saveProgramToFolder(folderPath, pIndex)
 	local msgs = self:getProgramMessagesList(pIndex)
 	local program = self.programList:getProgram(pIndex)
 	local progName = program:getName()
@@ -96,7 +113,7 @@ function __ProgramService:saveProgramToFolder(folderPath, pIndex)
 	assert(file:close())
 end
 
-function __ProgramService:saveProgramsToFolder(folderPath)
+function ProgramService:saveProgramsToFolder(folderPath)
 	local numPrograms = self.programList:getNumPrograms()
 	if i < 1 then
 		return "There are no programs to store..."
@@ -107,7 +124,7 @@ function __ProgramService:saveProgramsToFolder(folderPath)
 	end
 end
 
-function __ProgramService:newProgram(programName, keyGroups)
+function ProgramService:newProgram(programName, keyGroups)
 	local prog = Program()
 	prog:setName(programName)
 	for k,v in pairs(keyGroups) do
@@ -116,11 +133,11 @@ function __ProgramService:newProgram(programName, keyGroups)
 	return prog
 end
 
-function __ProgramService:storParamEdit(indexGroup, headerOffs, values)
+function ProgramService:storParamEdit(indexGroup, headerOffs, values)
 	local activeProg = self.programList:getActiveProgram()
 	if activeProg ~= nil then
 		if indexGroup == 0 then
-			-- __Program param
+			-- Program param
 			activeProg:setPdataByte(mod:getModulatorName(), values[1])
 		else
 			-- Key Group param
@@ -130,13 +147,9 @@ function __ProgramService:storParamEdit(indexGroup, headerOffs, values)
 	end
 end
 
-function __ProgramService:toJson(programList)
+function ProgramService:toJson(programList)
 	local numProgs = programList:getNumPrograms()
 	for i = 1, numProgs do
 		local prog = programList:getProgram(i)
 	end
-end
-
-function ProgramService()
-	return __ProgramService:new()
 end

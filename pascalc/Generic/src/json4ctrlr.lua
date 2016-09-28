@@ -56,6 +56,8 @@ local isEncodable
 local isEncodable
 local getNativeName
 
+local LUA_CONSTRUCTOR_NAME = "LUA_CLASS_NAME"
+
 -----------------------------------------------------------------------------
 -- PUBLIC FUNCTIONS
 -----------------------------------------------------------------------------
@@ -270,14 +272,16 @@ function decode_scanObject(s,startPos)
     local curChar = string.sub(s,startPos,startPos)
     if (curChar=='}') then
       -- pascalc edit start
-      if object[LUA_CLASS_NAME] ~= nil then
-        local temp = _G[object[LUA_CLASS_NAME]]()
-        for k,v in pairs(object)do
+      if object[LUA_CONSTRUCTOR_NAME] == nil then
+        base.console(string.format("MISS"))
+        return object,startPos+1
+      else
+		base.console(string.format("Creating - %s", object[LUA_CONSTRUCTOR_NAME]))
+        local temp = base[object[LUA_CONSTRUCTOR_NAME]]()
+        for k,v in base.pairs(object)do
           temp[k] = v
         end
         return temp,startPos+1
-      else
-        return object,startPos+1
       end
       -- pascalc edit end
     end

@@ -1,118 +1,128 @@
+require("LuaObject")
+require("Logger")
+
 local log = Logger("Process")
 
-__Process = Object()
+Process = {}
+Process.__index = Process
 
-function __Process:getLogFilePath()
-	local logFileName = string.format("scriptLauncher.%s.log", self.suffix)
-	return self:getFullPath(logFileName)
+setmetatable(Process, {
+  __index = LuaObject, -- this is what makes the inheritance work
+  __call = function (cls, ...)
+    local self = setmetatable({}, cls)
+    self:_init(...)
+    return self
+  end,
+})
+
+function Process:_init()
+  LuaObject._init(self)
+  -- Get random transferId
+  math.randomseed( os.time() )
+  math.random(); math.random(); math.random()
+
+  self.midiCallback = nil
+  self.midiSender = nil
+  self.interval = 0
+  self.scriptName = nil
+  self.launchGenerators = {}
+  self.abortGenerators = {}
+  self.launchVariables = {}
+  self.scriptPath = workFolder:getFullPathName()
+  self.abortScriptPath = nil
+  self.id = math.random(100000)
+
+  self.suffix = "bat"
+  if operatingSystem == "mac" then
+    self.suffix = "sh"
+  end
 end
 
-function __Process:getFullPath(scriptName)
-	return string.format("%s%s%s", self.scriptPath, pathseparator, scriptName)
+function Process:getLogFilePath()
+  local logFileName = string.format("scriptLauncher.%s.log", self.suffix)
+  return self:getFullPath(logFileName)
 end
 
-function __Process:getScriptPath()
-	console(string.format("[s2kProcess:getScriptPath()] %s", self.scriptPath))
-	return self.scriptPath
+function Process:getFullPath(scriptName)
+  return string.format("%s%s%s", self.scriptPath, pathseparator, scriptName)
 end
 
-function __Process:hasLauncher()
-	return table.getn(self.launchGenerators) > 0
+function Process:getScriptPath()
+  console(string.format("[s2kProcess:getScriptPath()] %s", self.scriptPath))
+  return self.scriptPath
 end
 
-function __Process:hasAborter()
-	return table.getn(self.abortGenerators) > 0
+function Process:hasLauncher()
+  return table.getn(self.launchGenerators) > 0
 end
 
-function __Process:getLaunchName()
-	return self.launchVariables["scriptName"]
+function Process:hasAborter()
+  return table.getn(self.abortGenerators) > 0
 end
 
-function __Process:getAbortName()
-	return self.abortScriptName
+function Process:getLaunchName()
+  return self.launchVariables["scriptName"]
 end
 
-function __Process:build()
-	local scriptName = string.format("scriptLauncher.%s", self.suffix)
-	self.launchVariables["scriptIndex"] = self.id
-	self.launchVariables["scriptName"] = scriptName
-	self.launchVariables["scriptPath"] = self:getFullPath(scriptName)
-	self.launchVariables["scriptDir"]  = self.scriptPath
-	os.remove(self.launchVariables["scriptPath"])
-	console(string.format("Building process %d %s in %s",
-		self.launchVariables["scriptIndex"], self.launchVariables["scriptName"],
-		self.launchVariables["scriptDir"]))
-
-	for key,launchGenerator in pairs(self.launchGenerators) do
-		launchGenerator(self.launchVariables)
-	end
-
-	self.abortScriptName = string.format("scriptAborter.%s", self.suffix)
-	local abortScriptPath = self:getFullPath(self.abortScriptName)
-	os.remove(abortScriptPath)
-	for key,abortGenerator in pairs(self.abortGenerators) do
-		abortGenerator(abortScriptPath)
-	end
+function Process:getAbortName()
+  return self.abortScriptName
 end
 
-function __Process:withLaunchVariable(key, value)
-	self.launchVariables[key] = value
-	return self
+function Process:build()
+  local scriptName = string.format("scriptLauncher.%s", self.suffix)
+  self.launchVariables["scriptIndex"] = self.id
+  self.launchVariables["scriptName"] = scriptName
+  self.launchVariables["scriptPath"] = self:getFullPath(scriptName)
+  self.launchVariables["scriptDir"]  = self.scriptPath
+  os.remove(self.launchVariables["scriptPath"])
+  console(string.format("Building process %d %s in %s",
+    self.launchVariables["scriptIndex"], self.launchVariables["scriptName"],
+    self.launchVariables["scriptDir"]))
+
+  for key,launchGenerator in pairs(self.launchGenerators) do
+    launchGenerator(self.launchVariables)
+  end
+
+  self.abortScriptName = string.format("scriptAborter.%s", self.suffix)
+  local abortScriptPath = self:getFullPath(self.abortScriptName)
+  os.remove(abortScriptPath)
+  for key,abortGenerator in pairs(self.abortGenerators) do
+    abortGenerator(abortScriptPath)
+  end
 end
 
-function __Process:withLaunchGenerator(value)
-	table.insert(self.launchGenerators, value)
-	return self
+function Process:withLaunchVariable(key, value)
+  self.launchVariables[key] = value
+  return self
 end
 
-function __Process:withAbortGenerator(value)
-	table.insert(self.abortGenerators, value)
-	return self
+function Process:withLaunchGenerator(value)
+  table.insert(self.launchGenerators, value)
+  return self
 end
 
-function __Process:withSuffix(value)
-	self.suffix = value
-	return self
+function Process:withAbortGenerator(value)
+  table.insert(self.abortGenerators, value)
+  return self
 end
 
-function __Process:withPath(value)
-	self.scriptPath = value
-	return self
+function Process:withSuffix(value)
+  self.suffix = value
+  return self
 end
 
-function __Process:withMidiCallback(newval)
-	self.midiCallback = newval
-	return self
+function Process:withPath(value)
+  self.scriptPath = value
+  return self
 end
 
-function __Process:withMidiSender(newval, newInterval)
-	self.midiSender = newval
-	self.interval = newInterval
-	return self
+function Process:withMidiCallback(newval)
+  self.midiCallback = newval
+  return self
 end
 
-function Process()
-	-- Get random transferId
-	math.randomseed( os.time() )
-	math.random(); math.random(); math.random()
-
-	local o = {
-		midiCallback = nil,
-		midiSender = nil,
-		interval = 0,
-		scriptName = nil,
-		launchGenerators = {},
-		abortGenerators = {},
-		launchVariables = {},
-		scriptPath = workFolder:getFullPathName(),
-		abortScriptPath = nil,
-		id = math.random(100000)
-	}
-	
-	o.suffix = "bat"
-	if operatingSystem == "mac" then
-		o.suffix = "sh"
-	end
-
-	return __Process:new(o)
+function Process:withMidiSender(newval, newInterval)
+  self.midiSender = newval
+  self.interval = newInterval
+  return self
 end

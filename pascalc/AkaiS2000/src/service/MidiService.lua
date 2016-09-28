@@ -1,63 +1,85 @@
+require("LuaObject")
+require("Logger")
+
 SAMPLE_NAME_LENG  = 12
 PROGRAM_NAME_LENG = 12
 PROGRAM_HEADER_SIZE = 70
 KEY_GROUP_HEADER_SIZE = 148
 local AKAI_ALPHABET = {'0','1','2','3','4','5','6','7','8','9',' ','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','#','+','-','.'}
 
-local POSITIVE_NUMBERS = {	
-	"00 00 00 00", "02 00 00 00", "05 00 00 00", "07 00 00 00", "0A 00 00 00", "0C 00 00 00", "0F 00 00 00", "02 01 00 00", "04 01 00 00", "07 01 00 00", "09 01 00 00", "0C 01 00 00", 
-	"0E 01 00 00", "01 02 00 00", "03 02 00 00", "06 02 00 00", "09 02 00 00", "0B 02 00 00", "0E 02 00 00", "00 03 00 00", "03 03 00 00", "05 03 00 00", "08 03 00 00", "0B 03 00 00", 
-	"0D 03 00 00", "00 04 00 00", "02 04 00 00", "05 04 00 00", "07 04 00 00", "0A 04 00 00", "0C 04 00 00", "0F 04 00 00", "02 05 00 00", "04 05 00 00", "07 05 00 00", "09 05 00 00", 
-	"0C 05 00 00", "0E 05 00 00", "01 06 00 00", "03 06 00 00", "06 06 00 00", "09 06 00 00", "0B 06 00 00", "0E 06 00 00", "00 07 00 00", "03 07 00 00", "05 07 00 00", "08 07 00 00", 
-	"0B 07 00 00", "0D 07 00 00", "00 08 00 00", "02 08 00 00", "05 08 00 00", "07 08 00 00", "0A 08 00 00", "0C 08 00 00", "0F 08 00 00", "02 09 00 00", "04 09 00 00", "07 09 00 00", 
-	"09 09 00 00", "0C 09 00 00", "0E 09 00 00", "01 0A 00 00", "03 0A 00 00", "06 0A 00 00", "09 0A 00 00", "0B 0A 00 00", "0E 0A 00 00", "00 0B 00 00", "03 0B 00 00", "05 0B 00 00", 
-	"08 0B 00 00", "0B 0B 00 00", "0D 0B 00 00", "00 0C 00 00", "02 0C 00 00", "05 0C 00 00", "07 0C 00 00", "0A 0C 00 00", "0C 0C 00 00", "0F 0C 00 00", "02 0D 00 00", "04 0D 00 00", 
-	"07 0D 00 00", "09 0D 00 00", "0C 0D 00 00", "0E 0D 00 00", "01 0E 00 00", "03 0E 00 00", "06 0E 00 00", "09 0E 00 00", "0B 0E 00 00", "0E 0E 00 00", "00 0F 00 00", "03 0F 00 00", 
-	"05 0F 00 00", "08 0F 00 00", "0B 0F 00 00", "0D 0F 00 00"
+local POSITIVE_NUMBERS = {  
+  "00 00 00 00", "02 00 00 00", "05 00 00 00", "07 00 00 00", "0A 00 00 00", "0C 00 00 00", "0F 00 00 00", "02 01 00 00", "04 01 00 00", "07 01 00 00", "09 01 00 00", "0C 01 00 00", 
+  "0E 01 00 00", "01 02 00 00", "03 02 00 00", "06 02 00 00", "09 02 00 00", "0B 02 00 00", "0E 02 00 00", "00 03 00 00", "03 03 00 00", "05 03 00 00", "08 03 00 00", "0B 03 00 00", 
+  "0D 03 00 00", "00 04 00 00", "02 04 00 00", "05 04 00 00", "07 04 00 00", "0A 04 00 00", "0C 04 00 00", "0F 04 00 00", "02 05 00 00", "04 05 00 00", "07 05 00 00", "09 05 00 00", 
+  "0C 05 00 00", "0E 05 00 00", "01 06 00 00", "03 06 00 00", "06 06 00 00", "09 06 00 00", "0B 06 00 00", "0E 06 00 00", "00 07 00 00", "03 07 00 00", "05 07 00 00", "08 07 00 00", 
+  "0B 07 00 00", "0D 07 00 00", "00 08 00 00", "02 08 00 00", "05 08 00 00", "07 08 00 00", "0A 08 00 00", "0C 08 00 00", "0F 08 00 00", "02 09 00 00", "04 09 00 00", "07 09 00 00", 
+  "09 09 00 00", "0C 09 00 00", "0E 09 00 00", "01 0A 00 00", "03 0A 00 00", "06 0A 00 00", "09 0A 00 00", "0B 0A 00 00", "0E 0A 00 00", "00 0B 00 00", "03 0B 00 00", "05 0B 00 00", 
+  "08 0B 00 00", "0B 0B 00 00", "0D 0B 00 00", "00 0C 00 00", "02 0C 00 00", "05 0C 00 00", "07 0C 00 00", "0A 0C 00 00", "0C 0C 00 00", "0F 0C 00 00", "02 0D 00 00", "04 0D 00 00", 
+  "07 0D 00 00", "09 0D 00 00", "0C 0D 00 00", "0E 0D 00 00", "01 0E 00 00", "03 0E 00 00", "06 0E 00 00", "09 0E 00 00", "0B 0E 00 00", "0E 0E 00 00", "00 0F 00 00", "03 0F 00 00", 
+  "05 0F 00 00", "08 0F 00 00", "0B 0F 00 00", "0D 0F 00 00"
 }
 
 local NEGATIVE_NUMBERS = {
-	"00 00 0F 0F", "0E 0F 0F 0F", "0B 0F 0F 0F", "09 0F 0F 0F", "06 0F 0F 0F", "04 0F 0F 0F", "01 0F 0F 0F", "0E 0E 0F 0F", "0C 0E 0F 0F", "09 0E 0F 0F", "07 0E 0F 0F", "04 0E 0F 0F", 
-	"02 0E 0F 0F", "0F 0D 0F 0F", "0D 0D 0F 0F", "0A 0D 0F 0F", "07 0D 0F 0F", "05 0D 0F 0F", "02 0D 0F 0F", "00 0D 0F 0F", "0D 0C 0F 0F", "0B 0C 0F 0F", "08 0C 0F 0F", "05 0C 0F 0F", 
-	"03 0C 0F 0F", "00 0C 0F 0F", "0E 0B 0F 0F", "0B 0B 0F 0F", "09 0B 0F 0F", "06 0B 0F 0F", "04 0B 0F 0F", "01 0B 0F 0F", "0E 0A 0F 0F", "0C 0A 0F 0F", "09 0A 0F 0F", "07 0A 0F 0F", 
-	"04 0A 0F 0F", "02 0A 0F 0F", "0F 09 0F 0F", "0D 09 0F 0F", "0A 09 0F 0F", "07 09 0F 0F", "05 09 0F 0F", "02 09 0F 0F", "00 09 0F 0F", "0D 08 0F 0F", "0B 08 0F 0F", "08 08 0F 0F", 
-	"05 08 0F 0F", "03 08 0F 0F", "00 08 0F 0F", "0E 07 0F 0F", "0B 07 0F 0F", "09 07 0F 0F", "06 07 0F 0F", "04 07 0F 0F", "01 07 0F 0F", "0E 06 0F 0F", "0C 06 0F 0F", "09 06 0F 0F", 
-	"07 06 0F 0F", "04 06 0F 0F", "02 06 0F 0F", "0F 05 0F 0F", "0D 05 0F 0F", "0A 05 0F 0F", "07 05 0F 0F", "05 05 0F 0F", "02 05 0F 0F", "00 05 0F 0F", "0D 04 0F 0F", "0B 04 0F 0F", 
-	"08 04 0F 0F", "05 04 0F 0F", "03 04 0F 0F", "00 04 0F 0F", "0E 03 0F 0F", "0B 03 0F 0F", "09 03 0F 0F", "06 03 0F 0F", "04 03 0F 0F", "01 03 0F 0F", "0E 02 0F 0F", "0C 02 0F 0F", 
-	"09 02 0F 0F", "07 02 0F 0F", "04 02 0F 0F", "02 02 0F 0F", "0F 01 0F 0F", "0D 01 0F 0F", "0A 01 0F 0F", "07 01 0F 0F", "05 01 0F 0F", "02 01 0F 0F", "00 01 0F 0F", "0D 00 0F 0F", 
-	"0B 00 0F 0F", "08 00 0F 0F", "05 00 0F 0F", "03 00 0F 0F"
+  "00 00 0F 0F", "0E 0F 0F 0F", "0B 0F 0F 0F", "09 0F 0F 0F", "06 0F 0F 0F", "04 0F 0F 0F", "01 0F 0F 0F", "0E 0E 0F 0F", "0C 0E 0F 0F", "09 0E 0F 0F", "07 0E 0F 0F", "04 0E 0F 0F", 
+  "02 0E 0F 0F", "0F 0D 0F 0F", "0D 0D 0F 0F", "0A 0D 0F 0F", "07 0D 0F 0F", "05 0D 0F 0F", "02 0D 0F 0F", "00 0D 0F 0F", "0D 0C 0F 0F", "0B 0C 0F 0F", "08 0C 0F 0F", "05 0C 0F 0F", 
+  "03 0C 0F 0F", "00 0C 0F 0F", "0E 0B 0F 0F", "0B 0B 0F 0F", "09 0B 0F 0F", "06 0B 0F 0F", "04 0B 0F 0F", "01 0B 0F 0F", "0E 0A 0F 0F", "0C 0A 0F 0F", "09 0A 0F 0F", "07 0A 0F 0F", 
+  "04 0A 0F 0F", "02 0A 0F 0F", "0F 09 0F 0F", "0D 09 0F 0F", "0A 09 0F 0F", "07 09 0F 0F", "05 09 0F 0F", "02 09 0F 0F", "00 09 0F 0F", "0D 08 0F 0F", "0B 08 0F 0F", "08 08 0F 0F", 
+  "05 08 0F 0F", "03 08 0F 0F", "00 08 0F 0F", "0E 07 0F 0F", "0B 07 0F 0F", "09 07 0F 0F", "06 07 0F 0F", "04 07 0F 0F", "01 07 0F 0F", "0E 06 0F 0F", "0C 06 0F 0F", "09 06 0F 0F", 
+  "07 06 0F 0F", "04 06 0F 0F", "02 06 0F 0F", "0F 05 0F 0F", "0D 05 0F 0F", "0A 05 0F 0F", "07 05 0F 0F", "05 05 0F 0F", "02 05 0F 0F", "00 05 0F 0F", "0D 04 0F 0F", "0B 04 0F 0F", 
+  "08 04 0F 0F", "05 04 0F 0F", "03 04 0F 0F", "00 04 0F 0F", "0E 03 0F 0F", "0B 03 0F 0F", "09 03 0F 0F", "06 03 0F 0F", "04 03 0F 0F", "01 03 0F 0F", "0E 02 0F 0F", "0C 02 0F 0F", 
+  "09 02 0F 0F", "07 02 0F 0F", "04 02 0F 0F", "02 02 0F 0F", "0F 01 0F 0F", "0D 01 0F 0F", "0A 01 0F 0F", "07 01 0F 0F", "05 01 0F 0F", "02 01 0F 0F", "00 01 0F 0F", "0D 00 0F 0F", 
+  "0B 00 0F 0F", "08 00 0F 0F", "05 00 0F 0F", "03 00 0F 0F"
 }
 
+local log = Logger("MidiService")
 
 local flip = function(t)
-		local r = { }
-		for k, v in pairs(t) do
-  			r[v] = k -- overrides duplicate values if any
-	end
-	return r
+    local r = { }
+    for k, v in pairs(t) do
+        r[v] = k -- overrides duplicate values if any
+  end
+  return r
 end
 
 local getFourBytes = function(buffer, offset)
-	local block = MemoryBlock(4, true)
-	buffer:copyTo(block, offset, 4)
-	return block
+  local block = MemoryBlock(4, true)
+  buffer:copyTo(block, offset, 4)
+  return block
 end
+
+MidiService = {}
+MidiService.index = MidiService
+
+setmetatable(MidiService, {
+  __index = LuaObject, -- this is what makes the inheritance work
+  __call = function (cls, ...)
+    local self = setmetatable({}, cls)
+    self:_init(...)
+    return self
+  end,
+})
 
 ---
 --@module __MidiService 
-__MidiService = Object()
+function MidiService:_init()
+  LuaObject._init(self)
+      self.messageQueue = {}
+    self.on_midi_received_func = nil
+    self.alphabet = AKAI_ALPHABET
+    self.flipAlphabet = flip(AKAI_ALPHABET)
+end
 
 ---
--- @function [parent=#__MidiService] sendMidiMessage
+-- @function [parent=#MidiService] sendMidiMessage
 -- 
-function __MidiService:sendMidiMessage(syxMsg)
+function MidiService:sendMidiMessage(syxMsg)
 	panel:sendMidiMessageNow(syxMsg:toMidiMessage())
 end
 
 ---
--- @function [parent=#__MidiService] sendMidiMessages
+-- @function [parent=#MidiService] sendMidiMessages
 -- 
-function __MidiService:sendMidiMessages(msgs)
+function MidiService:sendMidiMessages(msgs)
 	for k, v in pairs(msgs) do
 		table.insert(self.messageQueue, v)
 	end
@@ -67,19 +89,19 @@ function __MidiService:sendMidiMessages(msgs)
 	end
 end
 
-function __MidiService:clearMidiReceived()
+function MidiService:clearMidiReceived()
 	self.on_midi_received_func = nil
 end
 
-function __MidiService:setMidiReceived(midiCallback)
+function MidiService:setMidiReceived(midiCallback)
 	self.on_midi_received_func = midiCallback
 end
 
-function __MidiService:dispatchMidi(midi)
+function MidiService:dispatchMidi(midi)
 	local data = midi:getData()
-	self.log:fine("[onMidiReceived] %d", data:getSize())
+	log:fine("[onMidiReceived] %d", data:getSize())
 	if data:getByte(0) ~= 0xF0 or data:getByte(1) ~= 0x47 then
-		self.log:info("Invalid S2K Sysex received!")
+		log:info("Invalid S2K Sysex received!")
 		return
 	end
 	if self.on_midi_received_func ~= nil then
@@ -92,7 +114,7 @@ function __MidiService:dispatchMidi(midi)
 	end
 end
 
-function __MidiService:float2nibbles(value)
+function MidiService:float2nibbles(value)
 	local nibbles = MemoryBlock(4, true)
 	local n = math.floor(math.abs(value) * 256 + 0.13)
 	n = value < 0 and 0x10000 - n or n
@@ -103,7 +125,7 @@ function __MidiService:float2nibbles(value)
 	return nibbles
 end
 
-function __MidiService:nibbles2float(memBlock, offset)
+function MidiService:nibbles2float(memBlock, offset)
 	local bi = BigInteger(0)
 	bi:setBitRangeAsInt(0, 4, memBlock:getByte(offset))
 	bi:setBitRangeAsInt(4, 4, memBlock:getByte(offset + 1))
@@ -117,7 +139,7 @@ function __MidiService:nibbles2float(memBlock, offset)
 	return memBlock:getByte(offset + 3) >= 0x8 and n - 256 or n
 end
 
-function __MidiService:toTuneBytes(value)
+function MidiService:toTuneBytes(value)
 	local mm = math.floor(value / 100)
 	if value < 0 then
 		mm = math.ceil(value / 100)
@@ -126,25 +148,25 @@ function __MidiService:toTuneBytes(value)
 	return ll, mm
 end
 
-function __MidiService:toTuneBlock(value)
+function MidiService:toTuneBlock(value)
 	local retval = self:float2nibbles(value / 100)
-	self.log:info("toTuneBlock %d => %s", value, getFourBytes(retval, 0):toHexString(1))
+	log:info("toTuneBlock %d => %s", value, getFourBytes(retval, 0):toHexString(1))
 	return retval
 end
 
 ---
--- @function [parent=#__MidiService] fromTuneBlock
+-- @function [parent=#MidiService] fromTuneBlock
 -- 
-function __MidiService:fromTuneBlock(block, offset)
+function MidiService:fromTuneBlock(block, offset)
 	local retval = self:nibbles2float(block, offset)
-	self.log:info("fromTuneBlock %s => %d", getFourBytes(block, offset):toHexString(1), retval)
+	log:info("fromTuneBlock %s => %d", getFourBytes(block, offset):toHexString(1), retval)
 	return retval * 100
 end
 
 ---
--- @function [parent=#__MidiService] toVssBlock
+-- @function [parent=#MidiService] toVssBlock
 -- 
-function __MidiService:toVssBlock(value)
+function MidiService:toVssBlock(value)
 	local retval = MemoryBlock(4, true)
 	local bigInt = BigInteger(value)
 	if value < 0 then
@@ -163,9 +185,9 @@ function __MidiService:toVssBlock(value)
 end
 
 ---
--- @function [parent=#__MidiService] fromVssBlock
+-- @function [parent=#MidiService] fromVssBlock
 -- 
-function __MidiService:fromVssBlock(buffer, offset)
+function MidiService:fromVssBlock(buffer, offset)
 	local bigInt = BigInteger(0)
 	bigInt:setBitRangeAsInt(0, 8, buffer:getByte(offset))
 	bigInt:setBitRangeAsInt(4, 8, buffer:getByte(offset + 1))
@@ -176,45 +198,45 @@ function __MidiService:fromVssBlock(buffer, offset)
 		local invInt = bit.bnot(retval) + 1
 		retval = (65536 + invInt) * -1
 	end
-	--self.log:info("fromVssBlock %s => %d", getFourBytes(buffer, offset):toHexString(1), retval)
+	--log:info("fromVssBlock %s => %d", getFourBytes(buffer, offset):toHexString(1), retval)
 
 	return retval
 end
 
 ---
--- @function [parent=#__MidiService] toStringBlock
+-- @function [parent=#MidiService] toStringBlock
 -- 
-function __MidiService:toStringBlock(value)
+function MidiService:toStringBlock(value)
 	return self:toAkaiString(value)
 end
 
 ---
--- @function [parent=#__MidiService] fromStringBlock
+-- @function [parent=#MidiService] fromStringBlock
 -- 
-function __MidiService:fromStringBlock(buffer, offset)
+function MidiService:fromStringBlock(buffer, offset)
 	local temp = MemoryBlock(12, true)
 	buffer:copyTo(temp, offset, 12)
 	return self:fromAkaiString(temp)
 end
 
 ---
--- @function [parent=#__MidiService] toDefaultBlock
+-- @function [parent=#MidiService] toDefaultBlock
 -- 
-function __MidiService:toDefaultBlock(value)
+function MidiService:toDefaultBlock(value)
 	return self:toNibbles(value)
 end
 
 ---
--- @function [parent=#__MidiService] fromDefaultBlock
+-- @function [parent=#MidiService] fromDefaultBlock
 -- 
-function __MidiService:fromDefaultBlock(buffer, offset)
+function MidiService:fromDefaultBlock(buffer, offset)
 	return self:fromNibbles(buffer:getByte(offset), buffer:getByte(offset + 1))
 end
 
 ---
--- @function [parent=#__MidiService] fromNibbles
+-- @function [parent=#MidiService] fromNibbles
 -- 
-function __MidiService:fromNibbles(ls, ms)
+function MidiService:fromNibbles(ls, ms)
 	local bi = BigInteger(0)
 	bi:setBitRangeAsInt(0, 4, ls)
 	bi:setBitRangeAsInt(4, 7, ms)
@@ -222,9 +244,9 @@ function __MidiService:fromNibbles(ls, ms)
 end
 
 ---
--- @function [parent=#__MidiService] toNibbles
+-- @function [parent=#MidiService] toNibbles
 -- 
-function __MidiService:toNibbles(x)
+function MidiService:toNibbles(x)
 	local nibbles = MemoryBlock(2, true)
 
 	local internalX = x
@@ -242,9 +264,9 @@ function __MidiService:toNibbles(x)
 end
 
 ---
--- @function [parent=#__MidiService] arrayToNibbles
+-- @function [parent=#MidiService] arrayToNibbles
 -- 
-function __MidiService:arrayToNibbles(values)
+function MidiService:arrayToNibbles(values)
 	-- calculate the akai-splitted parameter value,returns table named split with two values
 	local memBlock = MemoryBlock(#values * 2, true)
 	for i = 0, (#values - 1) do
@@ -256,9 +278,9 @@ end
 
 ---
 -- Returns a LUA string representation of an Akai sysex string
--- @function [parent=#__MidiService] fromAkaiString
+-- @function [parent=#MidiService] fromAkaiString
 -- 
-function __MidiService:fromAkaiString(bytes)
+function MidiService:fromAkaiString(bytes)
 	local result = ""
 
 	for i = 0, (bytes:getSize() - 1) do
@@ -268,9 +290,9 @@ function __MidiService:fromAkaiString(bytes)
 end
 
 ---
--- @function [parent=#__MidiService] toAkaiString
+-- @function [parent=#MidiService] toAkaiString
 -- 
-function __MidiService:toAkaiString(name)
+function MidiService:toAkaiString(name)
 	local memBlock = MemoryBlock(SAMPLE_NAME_LENG, true)
 
 	for i = 1, SAMPLE_NAME_LENG do
@@ -287,25 +309,15 @@ function __MidiService:toAkaiString(name)
 end
 
 ---
--- @function [parent=#__MidiService] splitBytes
+-- @function [parent=#MidiService] splitBytes
 -- 
-function __MidiService:splitBytes(value)
+function MidiService:splitBytes(value)
 	local split = {}
-	--self.log:info("splitBytes %d", value)
+	--log:info("splitBytes %d", value)
 	local bi = BigInteger(value)
 	local LS = bi:getBitRangeAsInt(0, 7)
 	local MS = bi:getBitRangeAsInt(8, 7)
 	table.insert(split, 1, LS)
 	table.insert(split, 2, MS)
 	return (split)
-end
-
-function MidiService()
-	return __MidiService:new {
-		messageQueue = {},
-		on_midi_received_func = nil,
-		log = Logger("MidiService"),
-		alphabet = AKAI_ALPHABET,
-		flipAlphabet = flip(AKAI_ALPHABET)
-	}
 end

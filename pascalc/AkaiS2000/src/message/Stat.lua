@@ -1,24 +1,36 @@
-__StatMsg = SyxMsg()
+require("SyxMsg")
 
-function __StatMsg:getSwVersion()
-	return string.format("%d.%d", self.data:getByte(6), self.data:getByte(5))
+StatMsg = {}
+StatMsg.__index = StatMsg
+
+setmetatable(StatMsg, {
+  __index = SyxMsg, -- this is what makes the inheritance work
+  __call = function (cls, ...)
+    local self = setmetatable({}, cls)
+    self:_init(...)
+    return self
+  end,
+})
+
+function StatMsg:_init(bytes)
+  SyxMsg._init(self)
+  if bytes:getSize() == 21 and bytes:getByte(3) == 0x01 then
+    self.data = bytes
+  else
+    console("MIDI is not a stat message")
+    console(bytes:toHexString(1))
+  end
 end
 
-function __StatMsg:getNumFreeWords()
-	local result = 0
-	for i = 15,18 do
-		local offset = 128 ^ (i - 15)
-		result = result + self.data:getByte(i) * offset
-	end
-	return result
+function StatMsg:getSwVersion()
+  return string.format("%d.%d", self.data:getByte(6), self.data:getByte(5))
 end
 
-function Stat(bytes)
-	if bytes:getSize() == 21 and bytes:getByte(3) == 0x01 then
-		return __StatMsg:new{ data = bytes }
-	else
-		console("MIDI is not a stat message")
-		console(data:toHexString(1))
-		return nil
-	end
+function StatMsg:getNumFreeWords()
+  local result = 0
+  for i = 15,18 do
+    local offset = 128 ^ (i - 15)
+    result = result + self.data:getByte(i) * offset
+  end
+  return result
 end

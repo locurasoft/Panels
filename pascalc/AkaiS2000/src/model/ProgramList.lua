@@ -1,59 +1,71 @@
+require("Dispatcher")
+require("Logger")
+
 local log = Logger("ProgramList")
 
-__ProgramList = Dispatcher()
+ProgramList = {}
+ProgramList.__index = ProgramList
 
-function __ProgramList:getNumPrograms()
-	return table.getn(self.list)
+setmetatable(ProgramList, {
+  __index = Dispatcher, -- this is what makes the inheritance work
+  __call = function (cls, ...)
+    local self = setmetatable({}, cls)
+    self:_init(...)
+    return self
+  end,
+})
+
+function ProgramList:_init()
+  Dispatcher._init(self)
+  self.activeProgram = -1
+  self.list = {}
+  self[LUA_CONTRUCTOR_NAME] = "ProgramList"
 end
 
-function __ProgramList:getProgram(index)
-	return self.list[index]
+function ProgramList:getNumPrograms()
+  return table.getn(self.list)
 end
 
-function __ProgramList:addProgram(program)
-	table.insert(self.list, program)
-	self:notifyListeners()
+function ProgramList:getProgram(index)
+  return self.list[index]
 end
 
-function __ProgramList:removeProgram(index)
-	table.remove(self.list, index)
-	self:notifyListeners()
+function ProgramList:addProgram(program)
+  table.insert(self.list, program)
+  self:notifyListeners()
 end
 
-function __ProgramList:activateProgram(index)
-	self.activeProgram = index
-	self:notifyListeners()
+function ProgramList:removeProgram(index)
+  table.remove(self.list, index)
+  self:notifyListeners()
 end
 
-function __ProgramList:getActiveProgram()
-	log:fine("[getActiveProgram] Active program %d", self.activeProgram)
-	if self.activeProgram <= 0 then
-		return nil
-	else
-		return self.list[self.activeProgram]
-	end
+function ProgramList:activateProgram(index)
+  self.activeProgram = index
+  self:notifyListeners()
 end
 
-function __ProgramList:setActiveProgram(activeProgNum)
-	--log:fine("Active program before %d", self.activeProgram)
-	self.activeProgram = activeProgNum
-	--log:fine("Active program after %d", self.activeProgram)
-	self:notifyListeners()
+function ProgramList:getActiveProgram()
+  log:fine("[getActiveProgram] Active program %d", self.activeProgram)
+  if self.activeProgram <= 0 then
+    return nil
+  else
+    return self.list[self.activeProgram]
+  end
 end
 
-function __ProgramList:hasProgram(programName)
-	for k,program in pairs(self.list) do
-		if program:getName() == programName then
-			return true
-		end
-	end
-	return false
+function ProgramList:setActiveProgram(activeProgNum)
+  --log:fine("Active program before %d", self.activeProgram)
+  self.activeProgram = activeProgNum
+  --log:fine("Active program after %d", self.activeProgram)
+  self:notifyListeners()
 end
 
-function ProgramList(data)
-	return __ProgramList:new {
-		activeProgram = -1,
-		list = {},
-		[LUA_CLASS_NAME] = "ProgramList"
-	}
+function ProgramList:hasProgram(programName)
+  for k,program in pairs(self.list) do
+    if program:getName() == programName then
+      return true
+    end
+  end
+  return false
 end

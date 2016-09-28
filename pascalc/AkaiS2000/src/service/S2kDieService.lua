@@ -1,4 +1,24 @@
-__S2kDieService = Object()
+require("LuaObject")
+require("Logger")
+
+S2kDieService = {}
+S2kDieService.__index = S2kDieService
+
+setmetatable(S2kDieService, {
+  __index = LuaObject, -- this is what makes the inheritance work
+  __call = function (cls, ...)
+    local self = setmetatable({}, cls)
+    self:_init(...)
+    return self
+  end,
+})
+
+function S2kDieService:_init(s2kDieP, setfdprmP)
+  LuaObject._init(self)
+  self.s2kDiePath = s2kDieP
+  self.setfdprmPath = setfdprmP
+  self.log = Logger("S2kDieService")
+end
 
 function getFilePath(fileDir, fileName)
 	return string.format("%s%s%s", fileDir, pathseparator, fileName)
@@ -13,19 +33,19 @@ function getScriptName(index)
 	return string.format("script-%d.s2k", index)
 end
 
-function __S2kDieService:getS2kDiePath()
+function S2kDieService:getS2kDiePath()
 	return self.s2kDiePath
 end
 
-function __S2kDieService:setS2kDiePath(s2kDiePath)
+function S2kDieService:setS2kDiePath(s2kDiePath)
 	self.s2kDiePath = s2kDiePath
 end
 
-function __S2kDieService:setFdprmPath(setfdprmPath)
+function S2kDieService:setFdprmPath(setfdprmPath)
 	self.setfdprmPath = setfdprmPath
 end
 
-function __S2kDieService:getNumGeneratedSamples(logFilePath)
+function S2kDieService:getNumGeneratedSamples(logFilePath)
 	self.log:info("%s", logFilePath)
 	local logFile = io.open(logFilePath, "rb")
 	local highestValue = -1
@@ -46,7 +66,7 @@ function __S2kDieService:getNumGeneratedSamples(logFilePath)
 	return highestValue
 end
 
-function __S2kDieService:s2kDieLauncher()
+function S2kDieService:s2kDieLauncher()
 	local s2kDieRoot = self.s2kDiePath
 	local launcher = function(variables)
 		self.log:info("Generating scripts...")
@@ -93,12 +113,4 @@ function __S2kDieService:s2kDieLauncher()
 		script:close()
 	end
 	return launcher
-end
-
-function S2kDieService(s2kDieP, setfdprmP)
-	return __S2kDieService:new {
-		s2kDiePath = s2kDieP, 
-		setfdprmPath = setfdprmP,
-		log = Logger("S2kDieService")
-	}
 end

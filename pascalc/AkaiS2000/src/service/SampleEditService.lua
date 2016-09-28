@@ -1,35 +1,48 @@
-__SampleEditService = Object()
+require("LuaObject")
+require("Logger")
 
-function __SampleEditService:trimSample(sample)
+SampleEditService = {}
+SampleEditService.__index = SampleEditService
+
+setmetatable(SampleEditService, {
+  __index = LuaObject, -- this is what makes the inheritance work
+  __call = function (cls, ...)
+    local self = setmetatable({}, cls)
+    self:_init(...)
+    return self
+  end,
+})
+
+function SampleEditService:_init()
+  LuaObject._init(self)
 end
 
-function __SampleEditService:loopSample(sample)
+function SampleEditService:trimSample(sample)
 end
 
-function __SampleEditService:timestretchSample(sample)
+function SampleEditService:loopSample(sample)
 end
 
-function __SampleEditService:resampleSample(sample)
+function SampleEditService:timestretchSample(sample)
 end
 
-function __SampleEditService:copySample(sample)
+function SampleEditService:resampleSample(sample)
 end
 
-function __SampleEditService:renameSample(sample)
+function SampleEditService:copySample(sample)
 end
 
-function __SampleEditService:deleteSample(sample)
+function SampleEditService:renameSample(sample)
 end
 
-function __SampleEditService:normaliseSample(sample)
+function SampleEditService:deleteSample(sample)
 end
 
-function __SampleEditService:reverseSample(sample)
+function SampleEditService:normaliseSample(sample)
 end
 
-function __SampleEditService:pitchSample(sample)
+function SampleEditService:reverseSample(sample)
 end
 
-function SampleEditService()
-	__SampleEditService:new()
+function SampleEditService:pitchSample(sample)
 end

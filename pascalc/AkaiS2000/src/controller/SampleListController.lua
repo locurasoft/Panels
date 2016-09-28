@@ -1,15 +1,29 @@
+require("AbstractController")
+require("Logger")
+
 local log = Logger("SampleListController")
 
-__SampleListController = AbstractController()
+SampleListController = {}
+SampleListController.__index = SampleListController
 
-function __SampleListController:setSampleList(sampleList)
-	local sampleListListener = function(sl)
-		self:updateSampleLists(sl)
-	end
-	sampleList:addListener(sampleListListener)
+setmetatable(SampleListController, {
+  __index = AbstractController, -- this is what makes the inheritance work
+  __call = function (cls, ...)
+    local self = setmetatable({}, cls)
+    self:_init(...)
+    return self
+  end,
+})
+
+function SampleListController:_init()
+  AbstractController._init(self)
 end
 
-function __SampleListController:updateSampleLists(sampleList)
+function SampleListController:setSampleList(sampleList)
+	sampleList:addListener(self, "updateSampleLists")
+end
+
+function SampleListController:updateSampleLists(sampleList)
 	local sampleNames = sampleList:getSampleNames()
 	self:toggleVisibility("noSamplesLabel", sampleNames == "")
 	self:toggleVisibility("noSamplesLabel-1", sampleNames == "")
@@ -21,8 +35,4 @@ function __SampleListController:updateSampleLists(sampleList)
 	self:setComboBoxContents("zone2Selector", sampleNames)
 	self:setComboBoxContents("zone3Selector", sampleNames)
 	self:setComboBoxContents("zone4Selector", sampleNames)
-end
-
-function SampleListController()
-	return newInstance(sampleList)
 end

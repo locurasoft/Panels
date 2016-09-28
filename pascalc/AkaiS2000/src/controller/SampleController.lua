@@ -1,3 +1,5 @@
+require("AbstractController")
+require("Logger")
 
 local rotate = function(compName, rot)
 	local timesPi = 0
@@ -14,16 +16,27 @@ local rotate = function(compName, rot)
 	end
 end
 
-__SampleController = AbstractController()
+SampleController = {}
+SampleController.__index = SampleController
 
-function __SampleController:setSampleList(sampleList)
-	local sampleListListener = function(sl)
-		self:updateSampleLists(sl)
-	end
-	sampleList:addListener(sampleListListener)
+setmetatable(SampleController, {
+  __index = AbstractController, -- this is what makes the inheritance work
+  __call = function (cls, ...)
+    local self = setmetatable({}, cls)
+    self:_init(...)
+    return self
+  end,
+})
+
+function SampleController:_init()
+  AbstractController._init(self)
 end
 
-function __SampleController:updateSampleEdit(sample, updateKnobs)
+function SampleController:setSampleList(sampleList)
+	sampleList:addListener(self, "updateSampleLists")
+end
+
+function SampleController:updateSampleEdit(sample, updateKnobs)
 
 	-- Avoid infinite loops
 	updateKnobs = updateKnobs or false
@@ -107,8 +120,4 @@ function __SampleController:updateSampleEdit(sample, updateKnobs)
 	if updateKnobs then
 		sample:setUpdating(false)
 	end
-end
-
-function SampleController()
-	return __SampleController:new()
 end

@@ -16,9 +16,14 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>Generic</name>
+			<name>Generic-src</name>
 			<type>2</type>
 			<location>C:/ctrlr/Panels/pascalc/Generic/src</location>
+		</link>
+		<link>
+			<name>Generic-test</name>
+			<type>2</type>
+			<location>C:/ctrlr/Panels/pascalc/Generic/test</location>
 		</link>
 	</linkedResources>
 </projectDescription>

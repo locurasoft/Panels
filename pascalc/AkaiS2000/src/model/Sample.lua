@@ -1,186 +1,198 @@
+require("Dispatcher")
+require("Logger")
+
 local log = Logger("Sample")
 
-__Sample = Dispatcher()
+Sample = {}
+Sample.__index = Sample
 
-function __Sample:setUpdating(updating)
-	self.updating = updating
+setmetatable(Sample, {
+  __index = Dispatcher, -- this is what makes the inheritance work
+  __call = function (cls, ...)
+    local self = setmetatable({}, cls)
+    self:_init(...)
+    return self
+  end,
+})
+
+function Sample:_init()
+  Dispatcher._init(self)
+  self.    name = sampleName
+  self[LUA_CONTRUCTOR_NAME] = "Sample"
 end
 
-function __Sample:isUpdating()
-	return self.updating
+function Sample:setUpdating(updating)
+  self.updating = updating
 end
 
-function __Sample:setName(name)
-	self.name = name
+function Sample:isUpdating()
+  return self.updating
 end
 
-function __Sample:getName()
-	return self.name
+function Sample:setName(name)
+  self.name = name
 end
 
-function __Sample:setWaveform(waveform)
-	self.waveform = waveform
+function Sample:getName()
+  return self.name
 end
 
-function __Sample:getWaveform()
-	return self.waveform
+function Sample:setWaveform(waveform)
+  self.waveform = waveform
 end
 
-function __Sample:setTrimStart(trimStart)
-	self.trimStart = trimStart
+function Sample:getWaveform()
+  return self.waveform
 end
 
-function __Sample:getTrimStart()
-	return self.trimStart
+function Sample:setTrimStart(trimStart)
+  self.trimStart = trimStart
 end
 
-function __Sample:setTrimEnd(trimEnd)
-	self.trimEnd = trimEnd
+function Sample:getTrimStart()
+  return self.trimStart
 end
 
-function __Sample:getTrimEnd()
-	return self.trimEnd
+function Sample:setTrimEnd(trimEnd)
+  self.trimEnd = trimEnd
 end
 
-function __Sample:setLoopType(loopType)
-	self.loopType = loopType
+function Sample:getTrimEnd()
+  return self.trimEnd
 end
 
-function __Sample:getLoopType()
-	return self.loopType
+function Sample:setLoopType(loopType)
+  self.loopType = loopType
 end
 
-function __Sample:setLoopTune(loopTune)
-	self.loopTune = loopTune
+function Sample:getLoopType()
+  return self.loopType
 end
 
-function __Sample:getLoopTune()
-	return self.loopTune
+function Sample:setLoopTune(loopTune)
+  self.loopTune = loopTune
 end
 
-function __Sample:setLoopHold(loopHold)
-	self.loopHold = loopHold
+function Sample:getLoopTune()
+  return self.loopTune
 end
 
-function __Sample:getLoopHold()
-	return self.loopHold
+function Sample:setLoopHold(loopHold)
+  self.loopHold = loopHold
 end
 
-function __Sample:setLoopStart(loopStart)
-	self.loopStart = loopStart
+function Sample:getLoopHold()
+  return self.loopHold
 end
 
-function __Sample:getLoopStart()
-	return self.loopStart
+function Sample:setLoopStart(loopStart)
+  self.loopStart = loopStart
 end
 
-function __Sample:setLoopLength(loopLength)
-	self.loopLength = loopLength
+function Sample:getLoopStart()
+  return self.loopStart
 end
 
-function __Sample:getLoopLength()
-	return self.loopLength
+function Sample:setLoopLength(loopLength)
+  self.loopLength = loopLength
 end
 
-function __Sample:setLoopCrossfade(loopCrossfade)
-	self.loopCrossfade = loopCrossfade
+function Sample:getLoopLength()
+  return self.loopLength
 end
 
-function __Sample:getLoopCrossfade()
-	return self.loopCrossfade
+function Sample:setLoopCrossfade(loopCrossfade)
+  self.loopCrossfade = loopCrossfade
 end
 
-function __Sample:setTimestretch(timestretch)
-	self.timestretch = timestretch
+function Sample:getLoopCrossfade()
+  return self.loopCrossfade
 end
 
-function __Sample:getTimestretch()
-	return self.timestretch
+function Sample:setTimestretch(timestretch)
+  self.timestretch = timestretch
 end
 
-function __Sample:setTimestretchCycleMode(timestretchCycleMode)
-	self.timestretchCycleMode = timestretchCycleMode
+function Sample:getTimestretch()
+  return self.timestretch
 end
 
-function __Sample:getTimestretchCycleMode()
-	return self.timestretchCycleMode
+function Sample:setTimestretchCycleMode(timestretchCycleMode)
+  self.timestretchCycleMode = timestretchCycleMode
 end
 
-function __Sample:setTimestretchCycleTime(timestretchCycleTime)
-	self.timestretchCycleTime = timestretchCycleTime
+function Sample:getTimestretchCycleMode()
+  return self.timestretchCycleMode
 end
 
-function __Sample:getTimestretchCycleTime()
-	return self.timestretchCycleTime
+function Sample:setTimestretchCycleTime(timestretchCycleTime)
+  self.timestretchCycleTime = timestretchCycleTime
 end
 
-function __Sample:setTimestretchType(timestretchType)
-	self.timestretchType = timestretchType
+function Sample:getTimestretchCycleTime()
+  return self.timestretchCycleTime
 end
 
-function __Sample:getTimestretchType()
-	return self.timestretchType
+function Sample:setTimestretchType(timestretchType)
+  self.timestretchType = timestretchType
 end
 
-function __Sample:setTimestretchQuality(timestretchQuality)
-	self.timestretchQuality = timestretchQuality
+function Sample:getTimestretchType()
+  return self.timestretchType
 end
 
-function __Sample:getTimestretchQuality()
-	return self.timestretchQuality
+function Sample:setTimestretchQuality(timestretchQuality)
+  self.timestretchQuality = timestretchQuality
 end
 
-function __Sample:setTimestretchCrossfade(timestretchCrossfade)
-	self.timestretchCrossfade = timestretchCrossfade
+function Sample:getTimestretchQuality()
+  return self.timestretchQuality
 end
 
-function __Sample:getTimestretchCrossfade()
-	return self.timestretchCrossfade
+function Sample:setTimestretchCrossfade(timestretchCrossfade)
+  self.timestretchCrossfade = timestretchCrossfade
 end
 
-function __Sample:setResampleQuality(resampleQuality)
-	self.resampleQuality = resampleQuality
+function Sample:getTimestretchCrossfade()
+  return self.timestretchCrossfade
 end
 
-function __Sample:getResampleQuality()
-	return self.resampleQuality
+function Sample:setResampleQuality(resampleQuality)
+  self.resampleQuality = resampleQuality
 end
 
-function __Sample:setResampleBandwidth(resampleBandwidth)
-	self.resampleBandwidth = resampleBandwidth
+function Sample:getResampleQuality()
+  return self.resampleQuality
 end
 
-function __Sample:getResampleBandwidth()
-	return self.resampleBandwidth
+function Sample:setResampleBandwidth(resampleBandwidth)
+  self.resampleBandwidth = resampleBandwidth
 end
 
-function __Sample:setReverse(reverse)
-	self.reverse = reverse
+function Sample:getResampleBandwidth()
+  return self.resampleBandwidth
 end
 
-function __Sample:getReverse()
-	return self.reverse
+function Sample:setReverse(reverse)
+  self.reverse = reverse
 end
 
-function __Sample:setNormalize(normalize)
-	self.normalize = normalize
+function Sample:getReverse()
+  return self.reverse
 end
 
-function __Sample:getNormalize()
-	return self.normalize
+function Sample:setNormalize(normalize)
+  self.normalize = normalize
 end
 
-function __Sample:setPitch(pitch)
-	self.pitch = pitch
+function Sample:getNormalize()
+  return self.normalize
 end
 
-function __Sample:getPitch()
-	return self.pitch
+function Sample:setPitch(pitch)
+  self.pitch = pitch
 end
 
-function Sample(sampleName)
-	return __Sample:new{ 
-		name = sampleName,
-		[LUA_CLASS_NAME] = "Sample"
-	}
+function Sample:getPitch()
+  return self.pitch
 end

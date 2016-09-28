@@ -1,0 +1,103 @@
+-----------------------------------------------------------------------------
+-- cutils: Ctrlr Utils module
+-- cutils Module.
+-- Author: Pascal Collberg
+-- This module is released under the MIT License (MIT).
+--
+-----------------------------------------------------------------------------
+
+-----------------------------------------------------------------------------
+-- Imports and dependencies
+-----------------------------------------------------------------------------
+local math = require('math')
+local string = require("string")
+local table = require("table")
+local package = require("package")
+
+local base = _G
+
+-----------------------------------------------------------------------------
+-- Module declaration
+-----------------------------------------------------------------------------
+module("cutils")
+
+-- Private functions
+
+
+-----------------------------------------------------------------------------
+-- PUBLIC FUNCTIONS
+-----------------------------------------------------------------------------
+
+function getPathSeparator()
+  return package.config:sub(1,1)
+end
+
+--- Returns the opertaing system name as string.
+-- @return the opertaing system name as string
+function getOsName()
+  local osName = "win"
+  if getPathSeparator() == "/" then
+    local osName = "mac"
+  end
+  return osName
+end
+
+---
+-- @return the eol character based on os
+function getEolChar()
+  if getOsName() == "win" then 
+    return "\r\n"
+  else
+    return "\n"
+  end
+end
+
+function getUserHome()
+  if getOsName() == "win" then 
+    return os.getenv("USERPROFILE")
+  else
+    return os.getenv("HOME")
+  end
+end
+
+function getFileSize(file)
+  local wavFile = io.open(file:getFullPathName(), "r")
+  local size = wavFile:seek("end")    -- get file size
+  wavFile:close()
+  return size
+end
+
+function getFileContents(filepath)
+  local f = io.open(filepath, "rb")
+  local content = ""
+  if f ~= nil then
+    content = f:read("*all")
+    f:close()
+  end
+  
+  return content
+end
+
+function toFilePath(fileDir, fileName)
+  return string.format("%s%s%s", fileDir, pathseparator, fileName)
+end
+
+function getFileName(filePath)
+  local lastSlash = string.find(filePath, string.format("%s[^%s]*$", pathseparator, pathseparator))
+  return string.sub(filePath, lastSlash + 1)
+end
+
+
+function getRotationTransform(angle, x, y, w, h)
+  local timesPi = angle / 180
+  local xRot = x + w / 2
+  local yRot = y + h / 2
+  transform = AffineTransform.rotation(timesPi * 3.1415926536, xRot, yRot)
+    
+  if transform:isSingularity() ~= true then
+    return transform
+  else
+    return nil
+  end
+end
+

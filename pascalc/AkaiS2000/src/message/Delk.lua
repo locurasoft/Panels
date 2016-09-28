@@ -1,7 +1,19 @@
-__DelkMsg = SyxMsg()
+require("SyxMsg")
 
-function Delk(programNumber, kgNumber)
-	local pb = midiSrvc:splitBytes(programNumber)
-	local bytes = {0xf0, 0x47, 0x00, 0x13, 0x48, pb[1], pb[2], kgNumber, 0xf7}
-	return __DelkMsg:new{ data = bytes }
+DelkMsg = {}
+DelkMsg.__index = DelkMsg
+
+setmetatable(DelkMsg, {
+  __index = SyxMsg, -- this is what makes the inheritance work
+  __call = function (cls, ...)
+    local self = setmetatable({}, cls)
+    self:_init(...)
+    return self
+  end,
+})
+
+function DelkMsg:_init(programNumber, kgNumber)
+  SyxMsg._init(self)
+  local pb = midiSrvc:splitBytes(programNumber)
+  self.data = {0xf0, 0x47, 0x00, 0x13, 0x48, pb[1], pb[2], kgNumber, 0xf7}
 end
