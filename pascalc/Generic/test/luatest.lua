@@ -1,17 +1,17 @@
-require("ctest")
+require("ctrlrTestUtils")
 require 'test/lunity'
 module( 'TEST_RUNTIME', lunity )
 
 
 function setup()
   -- code here will be run before each test
-  console("setup")
+  --console("setup")
 
 end
 
 function teardown()
   -- code here will be run after each test
-  console("teardown")
+  --console("teardown")
 end
 
 function test1_foo()

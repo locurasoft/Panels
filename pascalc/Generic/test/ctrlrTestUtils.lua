@@ -1,3 +1,5 @@
+require("ctrlr")
+
 LUA_CONTRUCTOR_NAME = "LUA_CLASS_NAME"
 
 function console(var)

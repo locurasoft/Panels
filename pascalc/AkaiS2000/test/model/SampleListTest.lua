@@ -1,15 +1,15 @@
-require("akaiS2kTest")
+require("akaiS2kTestUtils")
 require("model.SampleList")
 require 'lunity'
 require 'lemock'
-module( 'TEST_RUNTIME', lunity )
+module( 'SampleListTest', lunity )
 
-local mySample = "MYSAMPLE  "
+local mySample  = "MYSAMPLE  "
 local mySample2 = "MYSAMPLE2 "
 
 function setup()
   -- code here will be run before each test
-  console("setup")
+  --console("setup")
   underTest = SampleList()
   mc = lemock.controller()
   listener = mc:mock()
@@ -18,7 +18,7 @@ end
 
 function teardown()
   -- code here will be run after each test
-  console("teardown")
+  --console("teardown")
 end
 
 function numSamples(list)
@@ -30,7 +30,6 @@ function numSamples(list)
 end
 
 function testAddSample()
-  
   listener2:notify(underTest);mc:times(1)
   mc:replay()
 

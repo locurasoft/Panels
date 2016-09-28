@@ -1,3 +1,4 @@
+if SampleList ~= nil then return end
 require("Dispatcher")
 require("Logger")
 

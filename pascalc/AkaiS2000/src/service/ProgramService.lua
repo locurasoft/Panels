@@ -142,7 +142,7 @@ function ProgramService:storParamEdit(indexGroup, headerOffs, values)
 		else
 			-- Key Group param
 			local activeKg = activeProg:getActiveKeyGroup()
-			activeKg:storeNibbles(mod:getModulatorName(), midiSrvc:toNibbles(values[1]))
+			activeKg:storeNibbles(mod:getModulatorName(), midiService:toNibbles(values[1]))
 		end
 	end
 end

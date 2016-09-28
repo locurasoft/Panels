@@ -1,9 +1,9 @@
 require("SyxMsg")
 
-DelsMsg = {}
-DelsMsg.__index = DelsMsg
+DelpMsg = {}
+DelpMsg.__index = DelpMsg
 
-setmetatable(DelsMsg, {
+setmetatable(DelpMsg, {
   __index = SyxMsg, -- this is what makes the inheritance work
   __call = function (cls, ...)
     local self = setmetatable({}, cls)
@@ -12,8 +12,8 @@ setmetatable(DelsMsg, {
   end,
 })
 
-function DelsMsg:_init(sampleNumber)
+function DelpMsg:_init(programNumber)
   SyxMsg._init(self)
-  local sb = midiSrvc:splitBytes(sampleNumber)
-  self.data = {0xf0, 0x47, 0x00, 0x14, 0x48, sb[1], sb[2], 0xf7}
+  local pb = midiService:splitBytes(programNumber)
+  self.data = {0xf0, 0x47, 0x00, 0x12, 0x48, pb[1], pb[2], 0xf7}
 end

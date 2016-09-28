@@ -1,8 +1,8 @@
-require("ctest")
+require("ctrlrTestUtils")
 require("lutils")
-require 'test/lunity'
+require 'lunity'
 require 'lemock'
-module( 'TEST_RUNTIME', lunity )
+module( 'lutilsTest', lunity )
 
 function testFlipTable()
   local t1 = { "a", "b", "c", "d", "e", "f" }

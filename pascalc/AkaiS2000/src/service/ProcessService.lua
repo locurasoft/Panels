@@ -62,7 +62,7 @@ function ProcessService:execute(proc)
     log:info("Execute")
     if proc.midiCallback ~= nil then
       log:info("Adding midiCallback")
-      midiSrvc:setMidiReceived(proc.midiCallback)
+      midiService:setMidiReceived(proc.midiCallback)
     end
 
     if proc.midiSender ~= nil then
@@ -101,7 +101,7 @@ function ProcessService:abort()
     log:info("No active process to abort!")
   else
     timer:stopTimer(MIDI_POLL_THREAD_ID)
-    midiSrvc:clearMidiReceived()
+    midiService:clearMidiReceived()
 
     if self.curr_transfer_proc:hasAborter() then
       local scriptPath = self.curr_transfer_proc:getScriptPath()

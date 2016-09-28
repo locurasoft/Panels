@@ -28,7 +28,7 @@ function PdataMsg:_init(bytes)
 
     self.data = bytes
     self[LUA_CONTRUCTOR_NAME] = "Pdata"
-    self:storeNibbles("PTUNO", midiSrvc:toTuneBlock(5000))
+    self:storeNibbles("PTUNO", midiService:toTuneBlock(5000))
     self:setName("EMPTYPROGRAM")
     self:storeNibbles("MODVLFOR", mutils.toNibbles(50))
     self:storeNibbles("MODVLVOL", mutils.toNibbles(50))
@@ -69,20 +69,20 @@ end
 function PdataMsg:getPdataValue(blockId)
 	local offset = self:getOffset(programBlock[blockId])
 	if blockId == "PTUNO" then
-		return midiSrvc:fromTuneBlock(self.data, offset)
+		return midiService:fromTuneBlock(self.data, offset)
 	elseif blockId == "PRNAME" then
-		return midiSrvc:fromStringBlock(self.data, offset)
+		return midiService:fromStringBlock(self.data, offset)
 	else
-		return midiSrvc:fromDefaultBlock(self.data, offset)
+		return midiService:fromDefaultBlock(self.data, offset)
 	end
 end
 
 function PdataMsg:setName(programName)
-	self:storeNibbles("PRNAME", midiSrvc:toAkaiString(programName))
+	self:storeNibbles("PRNAME", midiService:toAkaiString(programName))
 end
 
 function PdataMsg:getName()
-	return midiSrvc:fromStringBlock(self.data, self:getOffset(programBlock["PRNAME"]))
+	return midiService:fromStringBlock(self.data, self:getOffset(programBlock["PRNAME"]))
 end
 
 function PdataMsg:setNumKeyGroups(numKeyGroups)
@@ -98,7 +98,7 @@ function PdataMsg:setProgramNumber(programNumber)
 end
 
 function PdataMsg:getProgramNumber()
-	return midiSrvc:fromDefaultBlock(self.data, self:getOffset(programBlock["PRGNUM"]))
+	return midiService:fromDefaultBlock(self.data, self:getOffset(programBlock["PRGNUM"]))
 end
 
 function PdataMsg:getData()

@@ -46,30 +46,30 @@ function KdataMsg:_init(bytes)
   self[LUA_CONTRUCTOR_NAME] = "Kdata"
 
   if bytes == nil then
-    self:storeNibbles("MODVFILT1", midiSrvc:toNibbles(50))
-    self:storeNibbles("MODVFILT2", midiSrvc:toNibbles(50))
-    self:storeNibbles("MODVFILT3", midiSrvc:toNibbles(50))
-    self:storeNibbles("K_FREQ", midiSrvc:toNibbles(50))
-    self:storeNibbles("MODVAMP3", midiSrvc:toNibbles(50))
-    self:storeNibbles("K_DAR1", midiSrvc:toNibbles(50))
-    self:storeNibbles("V_ATT1", midiSrvc:toNibbles(50))
-    self:storeNibbles("V_REL1", midiSrvc:toNibbles(50))
-    self:storeNibbles("V_ENV2", midiSrvc:toNibbles(50))
-    self:storeNibbles("K_DAR2", midiSrvc:toNibbles(50))
-    self:storeNibbles("V_ATT2", midiSrvc:toNibbles(50))
-    self:storeNibbles("V_REL2", midiSrvc:toNibbles(50))
-    self:storeNibbles("V_ENV2", midiSrvc:toNibbles(50))
-    self:storeNibbles("V_ENV2", midiSrvc:toNibbles(50))
-    self:storeNibbles("DECAY1", midiSrvc:toNibbles(50))
-    self:storeNibbles("SUSTN1", midiSrvc:toNibbles(50))
-    self:storeNibbles("ENV2R2", midiSrvc:toNibbles(50))
-    self:storeNibbles("ENV2R3", midiSrvc:toNibbles(50))
-    self:storeNibbles("ENV2L2", midiSrvc:toNibbles(50))
-    self:storeNibbles("ENV2L3", midiSrvc:toNibbles(50))
+    self:storeNibbles("MODVFILT1", midiService:toNibbles(50))
+    self:storeNibbles("MODVFILT2", midiService:toNibbles(50))
+    self:storeNibbles("MODVFILT3", midiService:toNibbles(50))
+    self:storeNibbles("K_FREQ", midiService:toNibbles(50))
+    self:storeNibbles("MODVAMP3", midiService:toNibbles(50))
+    self:storeNibbles("K_DAR1", midiService:toNibbles(50))
+    self:storeNibbles("V_ATT1", midiService:toNibbles(50))
+    self:storeNibbles("V_REL1", midiService:toNibbles(50))
+    self:storeNibbles("V_ENV2", midiService:toNibbles(50))
+    self:storeNibbles("K_DAR2", midiService:toNibbles(50))
+    self:storeNibbles("V_ATT2", midiService:toNibbles(50))
+    self:storeNibbles("V_REL2", midiService:toNibbles(50))
+    self:storeNibbles("V_ENV2", midiService:toNibbles(50))
+    self:storeNibbles("V_ENV2", midiService:toNibbles(50))
+    self:storeNibbles("DECAY1", midiService:toNibbles(50))
+    self:storeNibbles("SUSTN1", midiService:toNibbles(50))
+    self:storeNibbles("ENV2R2", midiService:toNibbles(50))
+    self:storeNibbles("ENV2R3", midiService:toNibbles(50))
+    self:storeNibbles("ENV2L2", midiService:toNibbles(50))
+    self:storeNibbles("ENV2L3", midiService:toNibbles(50))
 
     for i = 1,4 do
-      self:storeNibbles(string.format("VFREQ%d", i), midiSrvc:toNibbles(50))
-      self:storeNibbles(string.format("VPANO%d", i), midiSrvc:toNibbles(50))
+      self:storeNibbles(string.format("VFREQ%d", i), midiService:toNibbles(50))
+      self:storeNibbles(string.format("VPANO%d", i), midiService:toNibbles(50))
     end
   end
 
@@ -96,10 +96,10 @@ function KdataMsg:getKdataValue(blockId)
 	local offset = self:getOffset(keyGroupBlock[blockId])
 	if tuneBlocks[blockId] then
 		log:info("getKdataValue %s => %d => %d", blockId, keyGroupBlock[blockId], offset)
-		return midiSrvc:fromTuneBlock(self.data, offset)
+		return midiService:fromTuneBlock(self.data, offset)
 	elseif vssBlocks[blockId] then
-		return midiSrvc:fromVssBlock(self.data, offset)
+		return midiService:fromVssBlock(self.data, offset)
 	else
-		return midiSrvc:fromDefaultBlock(self.data, offset)
+		return midiService:fromDefaultBlock(self.data, offset)
 	end
 end

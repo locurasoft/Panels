@@ -39,7 +39,7 @@ function PlistMsg:getProgramNames()
   while offset + PROGRAM_NAME_LENG < self.data:getSize() do
     self.data:copyTo(buf, offset, PROGRAM_NAME_LENG)
     offset = offset + PROGRAM_NAME_LENG
-    local name = midiSrvc:fromAkaiString(buf)
+    local name = midiService:fromAkaiString(buf)
     --console(string.format("Program Name: %s", name))
     table.insert(programNames, name)
   end

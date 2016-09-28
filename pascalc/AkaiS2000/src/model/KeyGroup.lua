@@ -50,11 +50,11 @@ function KeyGroup:storeParamEdit(khead)
 end
 
 function KeyGroup:setLowNote(lowNote)
-  self.kdata:storeNibbles("LONOTE", midiSrvc:toNibbles(lowNote))
+  self.kdata:storeNibbles("LONOTE", midiService:toNibbles(lowNote))
 end
 
 function KeyGroup:setHighNote(highNote)
-  self.kdata:storeNibbles("HINOTE", midiSrvc:toNibbles(highNote))
+  self.kdata:storeNibbles("HINOTE", midiService:toNibbles(highNote))
 end
 
 function KeyGroup:getParamValue(blockId)
@@ -82,16 +82,16 @@ end
 function KeyGroup:replaceZoneWithStereoSample(zoneIndex, sampleNameLeft, sampleNameRight)
   local leftZone = self.zones[zoneIndex]
   leftZone:setSample(sampleNameLeft)
-  self.kdata:storeNibbles(string.format("VLOUD%d", zoneIndex), midiSrvc:toNibbles(63))
+  self.kdata:storeNibbles(string.format("VLOUD%d", zoneIndex), midiService:toNibbles(63))
 
   if self:numZones() < 4 then
-    self.kdata:storeNibbles(string.format("VPANO%d", zoneIndex), midiSrvc:toNibbles(0))
+    self.kdata:storeNibbles(string.format("VPANO%d", zoneIndex), midiService:toNibbles(0))
 
     local rightZone = Zone()
     rightZone:setSample(sampleNameRight)
     self:insertZone(zoneIndex + 1, rightZone)
-    self.kdata:storeNibbles(string.format("VPANO%d", zoneIndex + 1), midiSrvc:toNibbles(101))
-    self.kdata:storeNibbles(string.format("VLOUD%d", zoneIndex + 1), midiSrvc:toNibbles(63))
+    self.kdata:storeNibbles(string.format("VPANO%d", zoneIndex + 1), midiService:toNibbles(101))
+    self.kdata:storeNibbles(string.format("VLOUD%d", zoneIndex + 1), midiService:toNibbles(63))
   end
 end
 

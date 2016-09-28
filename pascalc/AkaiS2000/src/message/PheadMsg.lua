@@ -14,9 +14,9 @@ setmetatable(PheadMsg, {
 
 function PheadMsg:_init(progNbr, headerOffset, valuesMemBlock)
   SyxMsg._init(self)
-  local pgm = midiSrvc:toNibbles(progNbr)
-  local headerOffsArray = midiSrvc:splitBytes(headerOffset)
-  local numBytesArray = midiSrvc:splitBytes(valuesMemBlock:getSize())
+  local pgm = midiService:toNibbles(progNbr)
+  local headerOffsArray = midiService:splitBytes(headerOffset)
+  local numBytesArray = midiService:splitBytes(valuesMemBlock:getSize())
 
   local memBlock = MemoryBlock(13 + valuesMemBlock:getSize(), true)
   memBlock:loadFromHexString(string.format("F0 47 00 28 48 %s 0x00 %.2x %.2x %.2x %.2x%s F7",
