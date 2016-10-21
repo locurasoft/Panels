@@ -1,4 +1,4 @@
-require("ctrlr")
+require("ctrlrsdk")
 
 LUA_CONTRUCTOR_NAME = "LUA_CLASS_NAME"
 
@@ -8,4 +8,8 @@ end
 
 function regGlobal(name, value)
   _G[name] = value
+end
+
+function delGlobal(name)
+  _G[name] = nil
 end

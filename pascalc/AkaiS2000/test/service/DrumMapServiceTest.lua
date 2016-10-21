@@ -7,10 +7,14 @@ module( 'DrumMapServiceTest', lunity )
 function setup()
   -- code here will be run before each test
   --console("setup")
-  underTest = DrumMapService()
+  
   mc = lemock.controller()
+  sampleListMock = mc:mock()
+  drumMapMock = mc:mock()
   listener = mc:mock()
   listener2 = mc:mock()
+  
+  underTest = DrumMapService(drumMapMock, sampleListMock)
 end
 
 function teardown()
@@ -32,6 +36,10 @@ function testFindStereoCounterpart()
 	  "DEATH GR-L",
 	  "DEATH GR-R",
 	}
+end
+
+function testUpdateDrumMap()
+	
 end
 
 runTests{useANSI = false}

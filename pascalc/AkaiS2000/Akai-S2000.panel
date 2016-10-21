@@ -6,9 +6,9 @@
        panelVersionName="Hell-O-Kitty" panelVendor="" panelDevice=""
        panelMidiSnapshotAfterLoad="0" panelMidiSnapshotAfterProgramChange="0"
        panelMidiSnapshotDelay="10" panelMidiSnapshotShowProgress="0"
-       panelMidiInputChannelDevice="0" panelMidiInputDevice="4- MIDISPORT 2x2 In B"
+       panelMidiInputChannelDevice="0" panelMidiInputDevice="-- None"
        panelMidiControllerChannelDevice="1" panelMidiControllerDevice="-- None"
-       panelMidiOutputChannelDevice="1" panelMidiOutputDevice="Microsoft GS Wavetable Synth"
+       panelMidiOutputChannelDevice="1" panelMidiOutputDevice="-- None"
        panelMidiInputFromHost="0" panelMidiInputChannelHost="1" panelMidiOutputToHost="0"
        panelMidiOutputChannelHost="1" panelMidiThruH2H="0" panelMidiThruH2HChannelize="0"
        panelMidiThruH2D="0" panelMidiThruH2DChannelize="0" panelMidiThruD2D="0"
@@ -47,9 +47,9 @@
     <uiChildWindow uiChildWindowName="LayerEditor" uiChildWindowState="539 196 800 500">
       <uiChildWindowContentState/>
     </uiChildWindow>
-    <uiChildWindow uiChildWindowName="LuaMethodEditor" uiChildWindowState="fs 252 30 800 500">
-      <uiChildWindowContentState luaMethodEditorBgColour="ffffffff" luaMethodEditorFont="Courier New;16;0;0;0;0;1;0"
-                                 luaMethodEditor="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#13;&#10;&#13;&#10;&lt;OPEN id=&quot;LUA&quot; scrollPos=&quot;530&quot;&gt;&#13;&#10;  &lt;OPEN id=&quot;generic&quot;/&gt;&#13;&#10;  &lt;OPEN id=&quot;controller&quot;&gt;&#13;&#10;    &lt;OPEN id=&quot;program&quot;/&gt;&#13;&#10;    &lt;OPEN id=&quot;dev&quot;/&gt;&#13;&#10;    &lt;OPEN id=&quot;global&quot;/&gt;&#13;&#10;  &lt;/OPEN&gt;&#13;&#10;  &lt;OPEN id=&quot;service&quot;/&gt;&#13;&#10;  &lt;OPEN id=&quot;model&quot;/&gt;&#13;&#10;  &lt;SELECTED id=&quot;/LUA/service/MidiService.lua&quot;/&gt;&#13;&#10;&lt;/OPEN&gt;&#13;&#10;;ff92dad46b9a40c99d7a8629520d4ece:52c8e84c05c94f179bab5ae181147ebd:bd9aa1f21fc3491da906c4d506fdf247:b85fb52ba25640e599a1d43caf2138af:e76ce8f0e3894351b3da192fb6237505:d858b8cb20224a878ecb94cd7b38b798:a183d4b59fac4565b7c7360814e8527d"/>
+    <uiChildWindow uiChildWindowName="LuaMethodEditor" uiChildWindowState="fs 0 0 800 500">
+      <uiChildWindowContentState luaMethodEditor="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#13;&#10;&#13;&#10;&lt;OPEN id=&quot;LUA&quot; scrollPos=&quot;0&quot;&gt;&#13;&#10;  &lt;OPEN id=&quot;controller&quot;&gt;&#13;&#10;    &lt;OPEN id=&quot;drumMap&quot;/&gt;&#13;&#10;    &lt;OPEN id=&quot;program&quot;/&gt;&#13;&#10;    &lt;OPEN id=&quot;global&quot;/&gt;&#13;&#10;  &lt;/OPEN&gt;&#13;&#10;  &lt;SELECTED id=&quot;/LUA/controller/drumMap/onResetPadKeyRange&quot;/&gt;&#13;&#10;&lt;/OPEN&gt;&#13;&#10;;9f2ac623e1954e038b36c25999cde095:135fbcd9426a4a9189da5db296c0bdda:8902aa5260cf4919af9a47944cf00db8:a8d753f2dd7448c586c007f066b699e6:eee3382cf6534633822e49c7b1caf874:8c23d8f8d3ba4936931a513d611f6724:eb120b9cf4d64603a8fe65e7c9e2b2b8:1e9a744a2553455287bced455d40b4be:7cfe166ee7c34575bdbae2f8b40472d1:eabc132df6a54a28aadae8b52b84ae71:ee4a8d89632a4d938f4a96703199ed12:c1825d5f35174f1db4e391cc562c8881:206407022c68407d988fff10e058ff4e:028d39b1eb83459788c729658cd3210a:3eaa4adb2965496ab3c422354ff7e8fa:3a4b3fa74455478593db585e12c2ef01:4e26d1958eb0445c998ecf82ef8b9da8:3eb3bb637bda4cc2b877c2ae7301870a:0be51fd61c794158bdf9e0bada59feb5:1be366e3610a43da9e8af4b831afcaef:10f6fbbe8dc4474b9349803d886a3b92"
+                                 luaMethodEditorFont="Courier New;16;0;0;0;0;1;0" luaMethodEditorBgColour="ffffffff"/>
     </uiChildWindow>
     <uiChildWindow uiChildWindowName="LuaConsole" uiChildWindowState="400 180 800 500">
       <uiChildWindowContentState/>
@@ -68,6 +68,12 @@
   <luaManager>
     <luaManagerMethods>
       <luaMethodGroup name="Built-In" uuid="0717f91120b24a49bdfa02174b3e51a5">
+        <luaMethod luaMethodName="LuaObject.lua" luaMethodSourcePath="C:\ctrlr\Panels\pascalc\Generic\src\LuaObject.lua"
+                   luaMethodSource="1" uuid="13d768cd5e844d1b9be7df5b441cea1b" luaMethodValid="1"/>
+        <luaMethod luaMethodName="lutils.lua" luaMethodSourcePath="C:\ctrlr\Panels\pascalc\Generic\src\lutils.lua"
+                   luaMethodSource="1" uuid="2815101a505b45c1b34ad7f6aa87a00e" luaMethodValid="1"/>
+        <luaMethod luaMethodName="mutils.lua" luaMethodSourcePath="C:\ctrlr\Panels\pascalc\Generic\src\mutils.lua"
+                   luaMethodSource="1" uuid="b766234dc96941328b9ae96cc9cb5ecb" luaMethodValid="1"/>
         <luaMethod luaMethodName="table_dump" luaMethodCode="-- @1.1&#13;&#10;--&#13;&#10;-- Print table contents&#13;&#10;--&#13;&#10;function table_dump(table)&#13;&#10;&#9;for key,value in ipairs(table) do&#13;&#10;&#9;&#9;_DBG (&quot;KEY= [&quot;..key..&quot;]&quot;)&#13;&#10;&#13;&#10;&#9;&#9;if (type(value) == &quot;table&quot;) then&#13;&#10;&#9;&#9;&#9;table_dump(value)&#13;&#10;&#9;&#9;elseif (type(value) == &quot;nil&quot;) then&#13;&#10;&#9;&#9;&#9;_DBG (&quot; = NIL&quot;)&#13;&#10;&#9;&#9;else&#13;&#10;&#9;&#9;&#9;what (value)&#13;&#10;&#9;&#9;end&#13;&#10;&#9;end&#13;&#10;end"
                    luaMethodLinkedProperty="" luaMethodSource="0" uuid="00000000000000000000000000000001"
                    luaMethodValid="1"/>
@@ -88,50 +94,84 @@
                    luaMethodValid="1"/>
       </luaMethodGroup>
       <luaMethodGroup name="generic" uuid="5f2d09e8736a4d2b82e27762212cf934">
-        <luaMethod luaMethodName="Object.lua" luaMethodSourcePath="C:\ctrlr\Panels\pascalc\Generic\src\Object.lua"
-                   luaMethodSource="1" uuid="5fadcbd54f824131ba8421ad8a440679" luaMethodValid="1"/>
-        <luaMethod luaMethodName="AbstractController.lua" luaMethodSourcePath="C:\ctrlr\Panels\pascalc\Generic\src\AbstractController.lua"
-                   luaMethodSource="1" uuid="df6b496c5c924b10a689b4b932e0b7f8" luaMethodValid="1"/>
+        <luaMethod luaMethodName="cutils.lua" luaMethodSourcePath="C:\ctrlr\Panels\pascalc\Generic\src\cutils.lua"
+                   luaMethodSource="1" uuid="27faa199b01c4c6d87ab1041dbe1a85a" luaMethodValid="1"/>
         <luaMethod luaMethodName="Dispatcher.lua" luaMethodSourcePath="C:\ctrlr\Panels\pascalc\Generic\src\Dispatcher.lua"
-                   luaMethodSource="1" uuid="697643ad80454cc0a93ad97b44645b1a" luaMethodValid="1"/>
+                   luaMethodSource="1" uuid="554bafe85c8744ef89c70522e0967531" luaMethodValid="1"/>
         <luaMethod luaMethodName="json4ctrlr.lua" luaMethodSourcePath="C:\ctrlr\Panels\pascalc\Generic\src\json4ctrlr.lua"
-                   luaMethodSource="1" uuid="d06fa07007c045ddb394adf67a5abc29" luaMethodValid="1"/>
-        <luaMethod luaMethodName="Logger.lua" luaMethodSourcePath="C:\ctrlr\Panels\pascalc\Generic\src\Logger.lua"
-                   luaMethodSource="1" uuid="b70c81de4d864fd09d43e438f817e117" luaMethodValid="1"/>
+                   luaMethodSource="1" uuid="a1458a6d1e004f1385748d5955e1a746" luaMethodValid="1"/>
         <luaMethod luaMethodName="SyxMsg.lua" luaMethodSourcePath="C:\ctrlr\Panels\pascalc\Generic\src\SyxMsg.lua"
-                   luaMethodSource="1" uuid="f3e7c50eae5c4692ae91591793aade4e" luaMethodValid="1"/>
+                   luaMethodSource="1" uuid="da80d326b10e48b7892bb451373253de" luaMethodValid="1"/>
+        <luaMethod luaMethodName="Logger.lua" luaMethodSourcePath="C:\ctrlr\Panels\pascalc\Generic\src\Logger.lua"
+                   luaMethodSource="1" uuid="d3f0733cfa0e40d694cdde6c8cc6bcad" luaMethodValid="1"/>
+        <luaMethod luaMethodName="AbstractController.lua" luaMethodSourcePath="C:\ctrlr\Panels\pascalc\Generic\src\AbstractController.lua"
+                   luaMethodSource="1" uuid="ead9a0fbceea4af297e0e84a64d6fb0d" luaMethodValid="1"/>
       </luaMethodGroup>
       <luaMethodGroup name="message" uuid="57811b7dfbc54f56b40f94e68a7f97a3">
-        <luaMethod luaMethodName="Delk.lua" luaMethodSourcePath="C:\ctrlr\Panels\pascalc\AkaiS2000\src\message\Delk.lua"
-                   luaMethodSource="1" uuid="84f49dac99834e739dc815cafef64a4c" luaMethodValid="1"/>
-        <luaMethod luaMethodName="Delp.lua" luaMethodSourcePath="C:\ctrlr\Panels\pascalc\AkaiS2000\src\message\Delp.lua"
-                   luaMethodSource="1" uuid="47a54133c918414eac23bfaacfb84e2a" luaMethodValid="1"/>
-        <luaMethod luaMethodName="Dels.lua" luaMethodSourcePath="C:\ctrlr\Panels\pascalc\AkaiS2000\src\message\Dels.lua"
-                   luaMethodSource="1" uuid="3cd3646915484aa7a6a1d8e3d707e3d8" luaMethodValid="1"/>
-        <luaMethod luaMethodName="Kdata.lua" luaMethodSourcePath="C:\ctrlr\Panels\pascalc\AkaiS2000\src\message\Kdata.lua"
-                   luaMethodSource="1" uuid="780845e96d87491b800d5e09e98d2832" luaMethodValid="1"/>
-        <luaMethod luaMethodName="Khead.lua" luaMethodSourcePath="C:\ctrlr\Panels\pascalc\AkaiS2000\src\message\Khead.lua"
-                   luaMethodSource="1" uuid="27561ba13e474ba4ba2549829c126b34" luaMethodValid="1"/>
-        <luaMethod luaMethodName="Pdata.lua" luaMethodSourcePath="C:\ctrlr\Panels\pascalc\AkaiS2000\src\message\Pdata.lua"
-                   luaMethodSource="1" uuid="8b771b5338a04fe983e21086a29e9e7a" luaMethodValid="1"/>
-        <luaMethod luaMethodName="Phead.lua" luaMethodSourcePath="C:\ctrlr\Panels\pascalc\AkaiS2000\src\message\Phead.lua"
-                   luaMethodSource="1" uuid="6f7c3611e3bf42afa36b46a69b36f036" luaMethodValid="1"/>
-        <luaMethod luaMethodName="Plist.lua" luaMethodSourcePath="C:\ctrlr\Panels\pascalc\AkaiS2000\src\message\Plist.lua"
-                   luaMethodSource="1" uuid="1e96e314e67f471dbbd76ec352d70e0b" luaMethodValid="1"/>
-        <luaMethod luaMethodName="Rkdata.lua" luaMethodSourcePath="C:\ctrlr\Panels\pascalc\AkaiS2000\src\message\Rkdata.lua"
-                   luaMethodSource="1" uuid="7a18fcb499a54bf2bccd3105285fd087" luaMethodValid="1"/>
-        <luaMethod luaMethodName="Rpdata.lua" luaMethodSourcePath="C:\ctrlr\Panels\pascalc\AkaiS2000\src\message\Rpdata.lua"
-                   luaMethodSource="1" uuid="5d3492cd62cd4f1a9279f08f6ee74d1e" luaMethodValid="1"/>
-        <luaMethod luaMethodName="Rplist.lua" luaMethodSourcePath="C:\ctrlr\Panels\pascalc\AkaiS2000\src\message\Rplist.lua"
-                   luaMethodSource="1" uuid="44700a33617e424684a5f6a206f77dcd" luaMethodValid="1"/>
-        <luaMethod luaMethodName="Rslist.lua" luaMethodSourcePath="C:\ctrlr\Panels\pascalc\AkaiS2000\src\message\Rslist.lua"
-                   luaMethodSource="1" uuid="a601e6aa7c874ec39068c511b9558c51" luaMethodValid="1"/>
-        <luaMethod luaMethodName="Rstat.lua" luaMethodSourcePath="C:\ctrlr\Panels\pascalc\AkaiS2000\src\message\Rstat.lua"
-                   luaMethodSource="1" uuid="91dc941324d44f0e9df391f381558be5" luaMethodValid="1"/>
-        <luaMethod luaMethodName="Slist.lua" luaMethodSourcePath="C:\ctrlr\Panels\pascalc\AkaiS2000\src\message\Slist.lua"
-                   luaMethodSource="1" uuid="78f077ba7b664a8281a8b3a04c172cdd" luaMethodValid="1"/>
-        <luaMethod luaMethodName="Stat.lua" luaMethodSourcePath="C:\ctrlr\Panels\pascalc\AkaiS2000\src\message\Stat.lua"
-                   luaMethodSource="1" uuid="6dbff6396554437ebb0eb9858f7ac34e" luaMethodValid="1"/>
+        <luaMethod luaMethodName="DelkMsg.lua" luaMethodSourcePath="C:\ctrlr\Panels\pascalc\AkaiS2000\src\message\DelkMsg.lua"
+                   luaMethodSource="1" uuid="9f441251abcd4ce5a65bd53e2685aff7" luaMethodValid="1"/>
+        <luaMethod luaMethodName="DelpMsg.lua" luaMethodSourcePath="C:\ctrlr\Panels\pascalc\AkaiS2000\src\message\DelpMsg.lua"
+                   luaMethodSource="1" uuid="2f06553ad8e44ff3a832221a7457ce6b" luaMethodValid="1"/>
+        <luaMethod luaMethodName="DelsMsg.lua" luaMethodSourcePath="C:\ctrlr\Panels\pascalc\AkaiS2000\src\message\DelsMsg.lua"
+                   luaMethodSource="1" uuid="0b7779a1e84c4578a3e13389c629a462" luaMethodValid="1"/>
+        <luaMethod luaMethodName="KdataMsg.lua" luaMethodSourcePath="C:\ctrlr\Panels\pascalc\AkaiS2000\src\message\KdataMsg.lua"
+                   luaMethodSource="1" uuid="973e5199593e4b59b7d2241fbe8d2385" luaMethodValid="1"/>
+        <luaMethod luaMethodName="KheadMsg.lua" luaMethodSourcePath="C:\ctrlr\Panels\pascalc\AkaiS2000\src\message\KheadMsg.lua"
+                   luaMethodSource="1" uuid="b382a342adb94f49b8391730dd3ab5d5" luaMethodValid="1"/>
+        <luaMethod luaMethodName="PdataMsg.lua" luaMethodSourcePath="C:\ctrlr\Panels\pascalc\AkaiS2000\src\message\PdataMsg.lua"
+                   luaMethodSource="1" uuid="ef5bb072a640464a9b4925fb45576909" luaMethodValid="1"/>
+        <luaMethod luaMethodName="PheadMsg.lua" luaMethodSourcePath="C:\ctrlr\Panels\pascalc\AkaiS2000\src\message\PheadMsg.lua"
+                   luaMethodSource="1" uuid="97a474edfa1e4a93852a6072ceaa3e3f" luaMethodValid="1"/>
+        <luaMethod luaMethodName="PlistMsg.lua" luaMethodSourcePath="C:\ctrlr\Panels\pascalc\AkaiS2000\src\message\PlistMsg.lua"
+                   luaMethodSource="1" uuid="a342fde0cffc409785981dc3185bc2a2" luaMethodValid="1"/>
+        <luaMethod luaMethodName="RkdataMsg.lua" luaMethodSourcePath="C:\ctrlr\Panels\pascalc\AkaiS2000\src\message\RkdataMsg.lua"
+                   luaMethodSource="1" uuid="ea9b5959cf3949c1ac73de12a25e565f" luaMethodValid="1"/>
+        <luaMethod luaMethodName="RpdataMsg.lua" luaMethodSourcePath="C:\ctrlr\Panels\pascalc\AkaiS2000\src\message\RpdataMsg.lua"
+                   luaMethodSource="1" uuid="ac3736b55a9f4cc0adc1080ea233ca73" luaMethodValid="1"/>
+        <luaMethod luaMethodName="RplistMsg.lua" luaMethodSourcePath="C:\ctrlr\Panels\pascalc\AkaiS2000\src\message\RplistMsg.lua"
+                   luaMethodSource="1" uuid="d69872d256474bcc9ed568fd793aef2c" luaMethodValid="1"/>
+        <luaMethod luaMethodName="RslistMsg.lua" luaMethodSourcePath="C:\ctrlr\Panels\pascalc\AkaiS2000\src\message\RslistMsg.lua"
+                   luaMethodSource="1" uuid="d1492873393047ea8bfafba3a1ad3b46" luaMethodValid="1"/>
+        <luaMethod luaMethodName="RstatMsg.lua" luaMethodSourcePath="C:\ctrlr\Panels\pascalc\AkaiS2000\src\message\RstatMsg.lua"
+                   luaMethodSource="1" uuid="ece164daffef4a98ac990ea53b50302f" luaMethodValid="1"/>
+        <luaMethod luaMethodName="SlistMsg.lua" luaMethodSourcePath="C:\ctrlr\Panels\pascalc\AkaiS2000\src\message\SlistMsg.lua"
+                   luaMethodSource="1" uuid="33c1eaae41444ba3bb3e98b3b073a48b" luaMethodValid="1"/>
+        <luaMethod luaMethodName="StatMsg.lua" luaMethodSourcePath="C:\ctrlr\Panels\pascalc\AkaiS2000\src\message\StatMsg.lua"
+                   luaMethodSource="1" uuid="00b9f3540f0f4a59935c12c910b32317" luaMethodValid="1"/>
+      </luaMethodGroup>
+      <luaMethodGroup name="model" uuid="1579d54f0e5c427d922085403fcfc6ea">
+        <luaMethod luaMethodName="DrumMap.lua" luaMethodSourcePath="C:\ctrlr\Panels\pascalc\AkaiS2000\src\model\DrumMap.lua"
+                   luaMethodSource="1" uuid="bd9aa1f21fc3491da906c4d506fdf247" luaMethodValid="1"/>
+        <luaMethod luaMethodName="KeyGroup.lua" luaMethodSourcePath="C:\ctrlr\Panels\pascalc\AkaiS2000\src\model\KeyGroup.lua"
+                   luaMethodSource="1" uuid="15215162ab1a4988be8537173e0b93ae" luaMethodValid="1"/>
+        <luaMethod luaMethodName="Process.lua" luaMethodSourcePath="C:\ctrlr\Panels\pascalc\AkaiS2000\src\model\Process.lua"
+                   luaMethodSource="1" uuid="6ccec304817b450cafdc62ce15b0871b" luaMethodValid="1"/>
+        <luaMethod luaMethodName="Program.lua" luaMethodSourcePath="C:\ctrlr\Panels\pascalc\AkaiS2000\src\model\Program.lua"
+                   luaMethodSource="1" uuid="481b0a52bdee4a50bce52d457467818f" luaMethodValid="1"/>
+        <luaMethod luaMethodName="ProgramList.lua" luaMethodSourcePath="C:\ctrlr\Panels\pascalc\AkaiS2000\src\model\ProgramList.lua"
+                   luaMethodSource="1" uuid="e8d3985319e7474893fe293e2125e775" luaMethodValid="1"/>
+        <luaMethod luaMethodName="Sample.lua" luaMethodSourcePath="C:\ctrlr\Panels\pascalc\AkaiS2000\src\model\Sample.lua"
+                   luaMethodSource="1" uuid="d07aeaaf5e9d42cebf783aed66f36626" luaMethodValid="1"/>
+        <luaMethod luaMethodName="SampleList.lua" luaMethodSourcePath="C:\ctrlr\Panels\pascalc\AkaiS2000\src\model\SampleList.lua"
+                   luaMethodSource="1" uuid="1efe70af00204ca6a0b1843e1241144a" luaMethodValid="1"/>
+        <luaMethod luaMethodName="Zone.lua" luaMethodSourcePath="C:\ctrlr\Panels\pascalc\AkaiS2000\src\model\Zone.lua"
+                   luaMethodSource="1" uuid="73212e6a58ad4ade8646ca3718926dcf" luaMethodValid="1"/>
+      </luaMethodGroup>
+      <luaMethodGroup name="service" uuid="7b024567336b4a5b932b7792fb9fcd90">
+        <luaMethod luaMethodName="DrumMapService.lua" luaMethodSourcePath="C:\ctrlr\Panels\pascalc\AkaiS2000\src\service\DrumMapService.lua"
+                   luaMethodSource="1" uuid="52c8e84c05c94f179bab5ae181147ebd" luaMethodValid="1"/>
+        <luaMethod luaMethodName="HxcService.lua" luaMethodSourcePath="C:\ctrlr\Panels\pascalc\AkaiS2000\src\service\HxcService.lua"
+                   luaMethodSource="1" uuid="064333dc7201461ab4bf66c5796e1e1d" luaMethodValid="1"/>
+        <luaMethod luaMethodName="MidiService.lua" luaMethodSourcePath="C:\ctrlr\Panels\pascalc\AkaiS2000\src\service\MidiService.lua"
+                   luaMethodSource="1" uuid="a183d4b59fac4565b7c7360814e8527d" luaMethodValid="1"/>
+        <luaMethod luaMethodName="ProcessService.lua" luaMethodSourcePath="C:\ctrlr\Panels\pascalc\AkaiS2000\src\service\ProcessService.lua"
+                   luaMethodSource="1" uuid="18e3cab67f49415fb50d94976e32bf78" luaMethodValid="1"/>
+        <luaMethod luaMethodName="ProgramService.lua" luaMethodSourcePath="C:\ctrlr\Panels\pascalc\AkaiS2000\src\service\ProgramService.lua"
+                   luaMethodSource="1" uuid="ccfae271f87b4e2f860cc2d4f30802a2" luaMethodValid="1"/>
+        <luaMethod luaMethodName="S2kDieService.lua" luaMethodSourcePath="C:\ctrlr\Panels\pascalc\AkaiS2000\src\service\S2kDieService.lua"
+                   luaMethodSource="1" uuid="09ca39de27304ef9831fb91cf3a3d7ff" luaMethodValid="1"/>
+        <luaMethod luaMethodName="SampleEditService.lua" luaMethodSourcePath="C:\ctrlr\Panels\pascalc\AkaiS2000\src\service\SampleEditService.lua"
+                   luaMethodSource="1" uuid="7cd9a78480354d01a0bc3e5ef468520d" luaMethodValid="1"/>
       </luaMethodGroup>
       <luaMethodGroup name="controller" uuid="546d2220d2804c70a4a9c6f176d52d24">
         <luaMethodGroup name="drumMap" uuid="bf13c93189ac46c994c03d74154a98ba">
@@ -144,7 +184,7 @@
           <luaMethod luaMethodName="onDrumMapKeyChange" luaMethodCode="--&#10;-- Called when a modulator value changes&#10;-- @mod   http://ctrlr.org/api/class_ctrlr_modulator.html&#10;-- @value    new numeric value of the modulator&#10;--&#10;function onDrumMapKeyChange(mod, value)&#13;&#10;&#13;&#10;    -- This variable stops index issues during panel bootup&#10;    if panel:getBootstrapState() or panel:getProgramState() then&#10;        return&#10;    end&#13;&#10;&#13;&#10;&#9;local customIndex = mod:getProperty(&quot;modulatorCustomIndex&quot;)&#13;&#10;&#9;drumMapModel:setKeyRange(customIndex, value)&#10;end"
                      luaMethodLinkedProperty="" luaMethodSource="0" uuid="0be51fd61c794158bdf9e0bada59feb5"
                      luaMethodValid="1"/>
-          <luaMethod luaMethodName="onDrumMapClear" luaMethodCode="function onDrumMapClear()&#10;    -- This variable stops index issues during panel bootup&#10;    if panel:getBootstrapState() or panel:getProgramState() then&#10;        return&#10;    end&#13;&#10;&#13;&#10;&#9;drumMapModel:clear()&#13;&#10;&#13;&#10;&#9;drumMapCtrl:updateStatus(&quot;Select a sample and a key group&quot;)&#13;&#10;end"
+          <luaMethod luaMethodName="onDrumMapClear" luaMethodCode="function onDrumMapClear()&#10;    -- This variable stops index issues during panel bootup&#10;    if panel:getBootstrapState() or panel:getProgramState() then&#10;        return&#10;    end&#13;&#10;&#13;&#10;&#9;drumMapModel:resetDrumMap()&#13;&#10;&#13;&#10;&#9;drumMapCtrl:updateStatus(&quot;Select a sample and a key group&quot;)&#13;&#10;end"
                      luaMethodLinkedProperty="" luaMethodSource="0" uuid="a8d753f2dd7448c586c007f066b699e6"
                      luaMethodValid="1"/>
           <luaMethod luaMethodName="onSampleAssign" luaMethodCode="function onSampleAssign()&#10;    -- This variable stops index issues during panel bootup&#13;&#10;    if panel:getBootstrapState() or panel:getProgramState() then&#13;&#10;        return&#13;&#10;    end&#13;&#10;&#13;&#10;&#9;if not drumMapModel:isReadyForAssignment() then&#13;&#10;&#9;&#9;updateStatus(&quot;Select a sample and a key group.&quot;)&#13;&#10;&#9;&#9;return&#13;&#10;&#9;end&#13;&#10;&#13;&#10;&#9;local result = drumMapSrvc:assignSample()&#13;&#10;&#9;drumMapCtrl:updateStatus(result)&#13;&#10;end"
@@ -177,10 +217,10 @@
           <luaMethod luaMethodName="onTransferMethodChange" luaMethodCode="--&#10;-- Called when a modulator value changes&#10;-- @mod   http://ctrlr.org/api/class_ctrlr_modulator.html&#10;-- @value    new numeric value of the modulator&#10;--&#10;function onTransferMethodChange(mod, value)&#13;&#10;&#13;&#10;    -- This variable stops index issues during panel bootup&#13;&#10;    if panel:getBootstrapState() or panel:getProgramState() then&#13;&#10;        return&#13;&#10;    end&#13;&#10;&#13;&#10;&#9;local FLOPPY, HXCFE, MIDI = 0, 1, 2&#13;&#10;&#13;&#10;&#9;drumMapCtrl:toggleActivation(&quot;hxcPathGroup&quot;, value == HXCFE)&#13;&#10;&#9;drumMapCtrl:toggleActivation(&quot;loadOsButton&quot;, value == HXCFE)&#13;&#10;&#9;drumMapCtrl:toggleActivation(&quot;loadFloppyImageGroup&quot;, value == HXCFE)&#13;&#10;&#9;drumMapCtrl:toggleActivation(&quot;setfdprmPathGroup&quot;, value == FLOPPY)&#13;&#10;end"
                      luaMethodLinkedProperty="" luaMethodSource="0" uuid="7cfe166ee7c34575bdbae2f8b40472d1"
                      luaMethodValid="1"/>
-          <luaMethod luaMethodName="onFloppyImageSelected" luaMethodCode="--&#10;-- Called when a modulator value changes&#10;-- @mod   http://ctrlr.org/api/class_ctrlr_modulator.html&#10;-- @value    new numeric value of the modulator&#10;--&#10;function onFloppyImageSelected(mod, value)&#13;&#10;&#13;&#10;    -- This variable stops index issues during panel bootup&#13;&#10;    if panel:getBootstrapState() or panel:getProgramState() then&#13;&#10;        return&#13;&#10;    end&#13;&#10;&#13;&#10;&#9;floppyImgPath = utils.openFileWindow(&quot;Select floppy image&quot;, File.getSpecialLocation(File.userHomeDirectory), &quot;*.img&quot;, true)&#13;&#10;&#9;panel:getComponent(&quot;loadFloppyImageLabel&quot;):setText(floppyImgPath:getFullPathName())&#13;&#10;&#9;drumMapCtrl:toggleActivation(&quot;transferSamples&quot;, getLaunchButtonState())&#10;end"
+          <luaMethod luaMethodName="onFloppyImageSelected" luaMethodCode="--&#10;-- Called when a modulator value changes&#10;-- @mod   http://ctrlr.org/api/class_ctrlr_modulator.html&#10;-- @value    new numeric value of the modulator&#10;--&#10;function onFloppyImageSelected(mod, value)&#13;&#10;&#13;&#10;    -- This variable stops index issues during panel bootup&#13;&#10;    if panel:getBootstrapState() or panel:getProgramState() then&#13;&#10;        return&#13;&#10;    end&#13;&#10;&#9;floppyImgPath = utils.openFileWindow(&quot;Select floppy image&quot;, File.getSpecialLocation(File.userHomeDirectory), &quot;*.img&quot;, true)&#13;&#10;&#13;&#10;&#9;if floppyImgPath:getFullPathName() ~= nil and floppyImgPath:getFullPathName() ~= &quot;&quot; then&#13;&#10;&#9;&#9;panel:getComponent(&quot;loadFloppyImageLabel&quot;):setText(floppyImgPath:getFullPathName())&#13;&#10;&#9;&#9;drumMapCtrl:toggleActivation(&quot;transferSamples&quot;, drumMapModel:getLaunchButtonState())&#13;&#10;&#9;end&#10;end"
                      luaMethodLinkedProperty="" luaMethodSource="0" uuid="1e9a744a2553455287bced455d40b4be"
                      luaMethodValid="1"/>
-          <luaMethod luaMethodName="onFloppyImageCleared" luaMethodCode="--&#10;-- Called when a modulator value changes&#10;-- @mod   http://ctrlr.org/api/class_ctrlr_modulator.html&#10;-- @value    new numeric value of the modulator&#10;--&#10;function onFloppyImageCleared(mod, value)&#13;&#10;&#13;&#10;    -- This variable stops index issues during panel bootup&#13;&#10;    if panel:getBootstrapState() or panel:getProgramState() then&#13;&#10;        return&#13;&#10;    end&#13;&#10;&#13;&#10;&#9;floppyImgPath = nil&#13;&#10;&#9;panel:getComponent(&quot;loadFloppyImageLabel&quot;):setText(&quot;&quot;)&#13;&#10;&#9;local launchButtonState = drumMapSrvc:getLaunchButtonState()&#13;&#10;&#13;&#10;&#13;&#10;&#9;if launchButtonState == &quot;&quot; then&#13;&#10;&#9;&#9;drumMapCtrl:toggleActivation(&quot;transferSamples&quot;, 0)&#10;&#9;else&#13;&#10;&#9;&#9;drumMapCtrl:updateStatus(launchButtonState)&#13;&#10;&#9;&#9;drumMapCtrl:toggleActivation(&quot;transferSamples&quot;, 1)&#13;&#10;&#9;end&#13;&#10;end"
+          <luaMethod luaMethodName="onFloppyImageCleared" luaMethodCode="--&#10;-- Called when a modulator value changes&#10;-- @mod   http://ctrlr.org/api/class_ctrlr_modulator.html&#10;-- @value    new numeric value of the modulator&#10;--&#10;function onFloppyImageCleared(mod, value)&#13;&#10;&#13;&#10;    -- This variable stops index issues during panel bootup&#13;&#10;    if panel:getBootstrapState() or panel:getProgramState() then&#13;&#10;        return&#13;&#10;    end&#13;&#10;&#13;&#10;&#9;floppyImgPath = nil&#13;&#10;&#9;what(panel:getComponent(&quot;loadFloppyImageLabel&quot;))&#13;&#10;&#9;panel:getComponent(&quot;loadFloppyImageLabel&quot;):setText(&quot;&quot;)&#13;&#10;&#9;local launchButtonState = drumMapModel:getLaunchButtonState()&#13;&#10;&#13;&#10;&#9;if launchButtonState == &quot;&quot; then&#13;&#10;&#9;&#9;drumMapCtrl:toggleActivation(&quot;transferSamples&quot;, 0)&#10;&#9;else&#13;&#10;&#9;&#9;drumMapCtrl:updateStatus(launchButtonState)&#13;&#10;&#9;&#9;drumMapCtrl:toggleActivation(&quot;transferSamples&quot;, 1)&#13;&#10;&#9;end&#13;&#10;end"
                      luaMethodLinkedProperty="" luaMethodSource="0" uuid="135fbcd9426a4a9189da5db296c0bdda"
                      luaMethodValid="1"/>
           <luaMethod luaMethodName="onPadSelected" luaMethodCode="--&#10;-- Called when a mouse is down on this component&#10;--&#10;&#13;&#10;function onPadSelected(comp, event)&#13;&#10;&#13;&#10;&#9;function getKeyGroupByComponent(comp)&#13;&#10;&#9;&#9;local grpName = comp:getProperty(&quot;componentGroupName&quot;)&#13;&#10;&#9;&#9;return string.sub(grpName, 0, string.find(grpName, &quot;-grp&quot;) - 1)&#13;&#10;&#9;end&#13;&#10;&#13;&#10;&#9;local kg = getKeyGroupByComponent(comp)&#13;&#10;&#9;drumMapModel:setSelectedKeyGroup(kg)&#13;&#10;end&#13;&#10;"
@@ -197,6 +237,9 @@
                      luaMethodValid="1"/>
           <luaMethod luaMethodName="onCreateProgram" luaMethodCode="--&#10;-- Called when a modulator value changes&#10;-- @mod   http://ctrlr.org/api/class_ctrlr_modulator.html&#10;-- @value    new numeric value of the modulator&#10;--&#10;function onCreateProgram(mod, value)&#13;&#10;&#9;-- This variable stops index issues during panel bootup&#10;    if panel:getBootstrapState() or panel:getProgramState() then&#10;        return&#10;    end&#13;&#10;&#13;&#10;&#9;local programName = panel:getComponent(&quot;programCreateNameLbl&quot;):getProperty(&quot;uiLabelText&quot;)&#13;&#10;&#13;&#10;&#9;if programName == nil or programName == &quot;&quot; then&#13;&#10;&#9;&#9;LOGGER:info(&quot;Please provide program name...&quot;)&#13;&#10;&#9;&#9;return&#13;&#10;&#9;end&#13;&#10;&#13;&#10;&#9;if programListModel:hasProgram(programName) then&#13;&#10;&#9;&#9;LOGGER:info(&quot;Program already exists...&quot;)&#13;&#10;&#9;&#9;return&#13;&#10;&#9;end&#13;&#10;&#13;&#10;&#9;if not drumMapModel:hasLoadedAllSamples() then&#13;&#10;&#9;&#9;LOGGER:info(&quot;You cannot create a program with unloaded samples...&quot;)&#13;&#10;&#9;&#9;return&#13;&#10;&#9;end&#13;&#10;&#13;&#10;&#9;local keyGroups = drumMapModel:getKeyGroups()&#13;&#10;&#9;local program = programSrvc:newProgram(programName, keyGroups)&#13;&#10;&#9;LOGGER:fine(&quot;Adding program '%s', # progs: %d&quot;, program:getName(), programListModel:getNumPrograms())&#13;&#10;&#9;programListModel:addProgram(program)&#13;&#10;&#9;local highestProg = programListModel:getNumPrograms()&#13;&#10;&#9;LOGGER:fine(&quot;Selecting prog # %d&quot;, highestProg)&#13;&#10;&#9;panel:getModulatorByName(&quot;programSelector&quot;):setValue(highestProg, true)&#13;&#10;end"
                      luaMethodLinkedProperty="" luaMethodSource="0" uuid="eee3382cf6534633822e49c7b1caf874"
+                     luaMethodValid="1"/>
+          <luaMethod luaMethodName="onKeyGroupClear" luaMethodCode="function onKeyGroupClear(mod, value)&#10;    -- This variable stops index issues during panel bootup&#10;    if panel:getBootstrapState() or panel:getProgramState() then&#10;        return&#10;    end&#13;&#10;&#9;what(panel)&#13;&#10;&#9;what(mod)&#13;&#10;&#9;what(mod:getComponent())&#13;&#10;&#9;drumMapModel:clearSelectedKeyGroup()&#13;&#10;&#13;&#10;&#9;drumMapCtrl:updateStatus(&quot;Select a sample and a key group&quot;)&#13;&#10;end"
+                     luaMethodLinkedProperty="" luaMethodSource="0" uuid="8902aa5260cf4919af9a47944cf00db8"
                      luaMethodValid="1"/>
         </luaMethodGroup>
         <luaMethodGroup name="sample" uuid="b7c23899e84d4093bebb4d070eb41f0d">
@@ -262,13 +305,13 @@
           <luaMethod luaMethodName="onKgDefaultParamChange" luaMethodCode="--&#13;-- Called when a modulator value changes&#13;-- @mod   http://ctrlr.org/api/class_ctrlr_modulator.html&#13;-- @value    new numeric value of the modulator&#13;&#10;function onKgDefaultParamChange(mod, value)&#10;&#13;&#10;    -- This variable stops index issues during panel bootup&#10;    if panel:getBootstrapState() or panel:getProgramState() then&#10;        return&#10;    end&#13;&#10;&#13;&#10;&#9;local activeProg = programListModel:getActiveProgram()&#13;&#10;&#9;if activeProg == nil then&#13;&#10;&#9;&#9;return&#13;&#10;&#9;end&#13;&#10;&#13;&#10;&#9;local prog = activeProg:getProgramNumber()&#13;&#10;&#9;local kg = activeProg:getActiveKeyGroupIndex()&#13;&#10;&#9;local offset = keyGroupBlock[mod:getProperty(&quot;name&quot;)]&#13;&#10;&#9;local valueBlock = midiSrvc:toDefaultBlock(value + math.abs(mod:getMinNonMapped()))&#13;&#10;&#9;local khead = Khead(prog, kg, offset, valueBlock)&#13;&#10;&#13;&#10;&#9;--LOGGER:info(&quot;onKgDefaultParamChange %d =&gt; %s (%s)&quot;, value, mod:getProperty(&quot;name&quot;), khead:toString())&#13;&#10;&#13;&#10;&#9;midiSrvc:sendMidiMessage(khead)&#13;&#10;&#9;programSrvc:storeKgParamEdit(khead)&#13;&#10;end&#13;&#10;"
                      luaMethodLinkedProperty="" luaMethodSource="0" uuid="72d2b977571f465aaa58a14b485ebdeb"
                      luaMethodValid="1"/>
-          <luaMethod luaMethodName="onProgDefaultParamChange" luaMethodCode="--&#13;-- Called when a modulator value changes&#13;-- @mod   http://ctrlr.org/api/class_ctrlr_modulator.html&#13;-- @value    new numeric value of the modulator&#13;&#10;function onProgDefaultParamChange(mod, value)&#10;&#13;&#10;    -- This variable stops index issues during panel bootup&#10;    if panel:getBootstrapState() or panel:getProgramState() then&#10;        return&#10;    end&#13;&#10;&#13;&#10;&#9;local activeProg = programListModel:getActiveProgram()&#13;&#10;&#9;if activeProg == nil then&#13;&#10;&#9;&#9;return&#13;&#10;&#9;end&#13;&#10;&#13;&#10;&#9;local prog = activeProg:getProgramNumber()&#13;&#10;&#9;local offset = programBlock[mod:getProperty(&quot;name&quot;)]&#13;&#10;&#9;local valueBlock = midiSrvc:toDefaultBlock(value + math.abs(mod:getMinNonMapped()))&#13;&#10;&#9;local phead = Phead(prog, offset, valueBlock)&#13;&#10;&#9;midiSrvc:sendMidiMessage(phead)&#13;&#10;&#13;&#10;&#9;programSrvc:storeProgParamEdit(phead)&#13;&#10;end&#13;&#10;"
+          <luaMethod luaMethodName="onProgDefaultParamChange" luaMethodCode="--&#13;-- Called when a modulator value changes&#13;-- @mod   http://ctrlr.org/api/class_ctrlr_modulator.html&#13;-- @value    new numeric value of the modulator&#13;&#10;function onProgDefaultParamChange(mod, value)&#10;&#13;&#10;    -- This variable stops index issues during panel bootup&#10;    if panel:getBootstrapState() or panel:getProgramState() then&#10;        return&#10;    end&#13;&#10;&#13;&#10;&#9;local activeProg = programListModel:getActiveProgram()&#13;&#10;&#9;if activeProg == nil then&#13;&#10;&#9;&#9;return&#13;&#10;&#9;end&#13;&#10;&#13;&#10;&#9;local prog = activeProg:getProgramNumber()&#13;&#10;&#9;local offset = programBlock[mod:getProperty(&quot;name&quot;)]&#13;&#10;&#9;local valueBlock = midiService:toDefaultBlock(value + math.abs(mod:getMinNonMapped()))&#13;&#10;&#9;local phead = PheadMsg(prog, offset, valueBlock)&#13;&#10;&#9;midiService:sendMidiMessage(phead)&#13;&#10;&#13;&#10;&#9;programSrvc:storeProgParamEdit(phead)&#13;&#10;end&#13;&#10;"
                      luaMethodLinkedProperty="" luaMethodSource="0" uuid="e7614757edac423fa4779693e8bf0e0e"
                      luaMethodValid="1"/>
           <luaMethod luaMethodName="onKgTuneChange" luaMethodCode="--&#13;-- Called when a modulator value changes&#13;-- @mod   http://ctrlr.org/api/class_ctrlr_modulator.html&#13;-- @value    new numeric value of the modulator&#13;&#10;function onKgTuneChange(mod, value)&#10;&#13;&#10;    -- This variable stops index issues during panel bootup&#10;    if panel:getBootstrapState() or panel:getProgramState() then&#10;        return&#10;    end&#13;&#10;&#13;&#10;&#9;local activeProg = programListModel:getActiveProgram()&#13;&#10;&#9;if activeProg == nil then&#13;&#10;&#9;&#9;return&#13;&#10;&#9;end&#13;&#10;&#13;&#10;&#9;local prog = activeProg:getProgramNumber()&#13;&#10;&#9;local kg = activeProg:getActiveKeyGroupIndex()&#13;&#10;&#9;local offset = keyGroupBlock[mod:getProperty(&quot;name&quot;)]&#13;&#10;&#9;local valueBlock = midiSrvc:toTuneBlock(value)&#13;&#10;&#9;local khead = Khead(prog, kg, offset, valueBlock)&#13;&#10;&#13;&#10;&#9;midiSrvc:sendMidiMessage(khead)&#13;&#10;&#9;programSrvc:storeKgParamEdit(khead)&#13;&#10;&#9;local ll, mm = midiSrvc:toTuneBytes(value)&#13;&#10;&#9;programCtrl:updateTuneLabel(mod:getProperty(&quot;name&quot;), mm, ll)&#13;&#10;end&#13;&#10;"
                      luaMethodLinkedProperty="" luaMethodSource="0" uuid="844467c9b3c2469f972bc0b620d01808"
                      luaMethodValid="1"/>
-          <luaMethod luaMethodName="onProgTuneChange" luaMethodCode="--&#13;-- Called when a modulator value changes&#13;-- @mod   http://ctrlr.org/api/class_ctrlr_modulator.html&#13;-- @value    new numeric value of the modulator&#13;&#10;function onProgTuneChange(mod, value)&#10;&#13;&#10;    -- This variable stops index issues during panel bootup&#10;    if panel:getBootstrapState() or panel:getProgramState() then&#10;        return&#10;    end&#13;&#10;&#13;&#10;&#9;local activeProg = programListModel:getActiveProgram()&#13;&#10;&#9;if activeProg == nil then&#13;&#10;&#9;&#9;return&#13;&#10;&#9;end&#13;&#10;&#13;&#10;&#9;local prog = activeProg:getProgramNumber()&#13;&#10;&#9;local offset = programBlock[mod:getProperty(&quot;name&quot;)]&#13;&#10;&#9;local valueBlock = midiSrvc:toTuneBlock(value)&#13;&#10;&#9;local phead = Phead(prog, offset, valueBlock)&#13;&#10;&#13;&#10;&#9;midiSrvc:sendMidiMessage(phead)&#13;&#10;&#13;&#10;&#9;programSrvc:storeProgParamEdit(phead)&#13;&#10;&#9;local ll, mm = midiSrvc:toTuneBytes(value)&#13;&#10;&#9;programCtrl:updateTuneLabel(mod:getProperty(&quot;name&quot;), mm, ll)&#13;&#10;end&#13;&#10;"
+          <luaMethod luaMethodName="onProgTuneChange" luaMethodCode="--&#13;-- Called when a modulator value changes&#13;-- @mod   http://ctrlr.org/api/class_ctrlr_modulator.html&#13;-- @value    new numeric value of the modulator&#13;&#10;function onProgTuneChange(mod, value)&#10;&#13;&#10;    -- This variable stops index issues during panel bootup&#10;    if panel:getBootstrapState() or panel:getProgramState() then&#10;        return&#10;    end&#13;&#10;&#13;&#10;&#9;local activeProg = programListModel:getActiveProgram()&#13;&#10;&#9;if activeProg == nil then&#13;&#10;&#9;&#9;return&#13;&#10;&#9;end&#13;&#10;&#13;&#10;&#9;local prog = activeProg:getProgramNumber()&#13;&#10;&#9;local offset = programBlock[mod:getProperty(&quot;name&quot;)]&#13;&#10;&#9;local valueBlock = midiService:toTuneBlock(value)&#13;&#10;&#9;local phead = PheadMsg(prog, offset, valueBlock)&#13;&#10;&#13;&#10;&#9;midiService:sendMidiMessage(phead)&#13;&#10;&#13;&#10;&#9;programSrvc:storeProgParamEdit(phead)&#13;&#10;&#9;local ll, mm = midiService:toTuneBytes(value)&#13;&#10;&#9;programCtrl:updateTuneLabel(mod:getProperty(&quot;name&quot;), mm, ll)&#13;&#10;end&#13;&#10;"
                      luaMethodLinkedProperty="" luaMethodSource="0" uuid="54ccd488d80f432ba40bd33d8b74b7a4"
                      luaMethodValid="1"/>
           <luaMethod luaMethodName="onKgStringChange" luaMethodCode="--&#13;-- Called when a modulator value changes&#13;-- @mod   http://ctrlr.org/api/class_ctrlr_modulator.html&#13;-- @value    new numeric value of the modulator&#13;&#10;function onKgStringChange(mod, value)&#10;&#13;&#10;    -- This variable stops index issues during panel bootup&#10;    if panel:getBootstrapState() or panel:getProgramState() then&#10;        return&#10;    end&#13;&#10;&#13;&#10;&#9;local activeProg = programListModel:getActiveProgram()&#13;&#10;&#9;if activeProg == nil then&#13;&#10;&#9;&#9;return&#13;&#10;&#9;end&#13;&#10;&#13;&#10;&#9;local prog = activeProg:getProgramNumber()&#13;&#10;&#9;local kg = activeProg:getActiveKeyGroupIndex()&#13;&#10;&#9;local offset = keyGroupBlock[mod:getProperty(&quot;name&quot;)]&#13;&#10;&#9;local valueBlock = midiSrvc:toStringBlock(value)&#13;&#10;&#9;local khead = Khead(prog, kg, offset, valueBlock)&#13;&#10;&#13;&#10;&#9;midiSrvc:sendMidiMessage(khead)&#13;&#10;&#13;&#10;&#9;programSrvc:storeKgParamEdit(khead)&#13;&#10;end&#13;&#10;"
@@ -285,7 +328,7 @@
           <luaMethod luaMethodName="onPanelStateChanged" luaMethodCode="--&#10;-- Called when a modulator value changes&#10;-- @mod   http://ctrlr.org/api/class_ctrlr_modulator.html&#10;-- @value    new numeric value of the modulator&#10;--&#13;&#10;function onPanelStateChanged(mod, value)&#13;&#10;&#13;&#10;    -- This variable stops index issues during panel bootup&#13;&#10;    if panel:getBootstrapState() or panel:getProgramState() then&#13;&#10;        return&#13;&#10;    end&#13;&#10;&#13;&#10;&#9;panelState = mod:getValueMapped()&#13;&#10;&#9;LOGGER:warn(&quot;[onPanelStateChanged] %d&quot;, panelState)&#13;&#10;end"
                      luaMethodLinkedProperty="" luaMethodSource="0" uuid="b5e0ab3af1c54934af4498b581ab109c"
                      luaMethodValid="1"/>
-          <luaMethod luaMethodName="test1" luaMethodCode="function test1(mod, value)&#13;&#10;    -- This variable stops index issues during panel bootup&#10;    if panel:getBootstrapState() or panel:getProgramState() then&#10;        return&#10;    end&#13;&#10;&#13;&#10;&#9;if value == 1 then&#13;&#10;&#9;&#9;drumMapModel:setNumKeyGroups(2)&#13;&#10;&#9;&#9;drumMapModel:setSelectedKeyGroup(&quot;drumMap-1&quot;)&#13;&#10;&#9;elseif value == 2 then&#13;&#10;&#9;&#9;--local file = File(&quot;/Users/collberg/Pascal/Ctrlr/Bowed-Bass.wav&quot;)&#13;&#10;&#9;&#9;local file = File(&quot;c:\\ctrlr\\wavs\\Bowed-Bass-C2.wav&quot;)&#13;&#10;&#9;&#9;drumMapModel:setSelectedSample(file)&#13;&#10;&#13;&#10;&#9;&#9;local result = drumMapSrvc:assignSample()&#13;&#10;&#9;&#9;drumMapCtrl:updateStatus(result)&#13;&#10;&#9;elseif value == 3 then&#13;&#10;&#9;&#9;drumMapModel:setSelectedKeyGroup(&quot;drumMap-2&quot;)&#13;&#10;&#9;&#9;--local file = File(&quot;/Users/collberg/Pascal/Ctrlr/Door-Close-Blabla.wav&quot;)&#13;&#10;&#9;&#9;local file = File(&quot;c:\\ctrlr\\wavs\\Door-Close.wav&quot;)&#13;&#10;&#9;&#9;drumMapModel:setSelectedSample(file)&#13;&#10;&#13;&#10;&#9;&#9;local result = drumMapSrvc:assignSample()&#13;&#10;&#9;&#9;drumMapCtrl:updateStatus(result)&#13;&#10;&#9;elseif value == 4 then&#13;&#10;&#9;&#9;local midi = CtrlrMidiMessage({0xf0, 0x47, 0x00, 0x05, 0x48, 0x1e, 0x00, 0x1d, 0x17, 0x0b, 0x0d, 0x15, 0x13, 0x18, 0x0a, 0x0a, 0x0a, 0x0a, 0x0a, 0x0c, 0x19, 0x21, 0x0f, 0x0e, 0x27, 0x0c, 0x0b, 0x1d, 0x1d, 0x27, 0x16, 0x0c, 0x19, 0x21, 0x0f, 0x0e, 0x27, 0x0c, 0x0b, 0x1d, 0x1d, 0x27, 0x16, 0x0c, 0x19, 0x21, 0x0f, 0x0e, 0x27, 0x0c, 0x0b, 0x1d, 0x1d, 0x27, 0x1c, 0x0d, 0x0b, 0x1e, 0x27, 0x17, 0x0f, 0x19, 0x21, 0x28, 0x21, 0x27, 0x16, 0x0d, 0x0b, 0x1e, 0x27, 0x17, 0x0f, 0x19, 0x21, 0x28, 0x21, 0x27, 0x1c, 0x0e, 0x19, 0x11, 0x27, 0x0c, 0x0b, 0x1c, 0x15, 0x28, 0x21, 0x27, 0x16, 0x0e, 0x19, 0x11, 0x27, 0x0c, 0x0b, 0x1c, 0x15, 0x28, 0x21, 0x27, 0x1c, 0x0e, 0x19, 0x19, 0x1c, 0x27, 0x0d, 0x16, 0x19, 0x1d, 0x0f, 0x27, 0x16, 0x0e, 0x19, 0x19, 0x1c, 0x27, 0x0d, 0x16, 0x19, 0x1d, 0x0f, 0x27, 0x1c, 0x0e, 0x1c, 0x13, 0x16, 0x16, 0x28, 0x21, 0x0b, 0x20, 0x0a, 0x27, 0x16, 0x0e, 0x1c, 0x13, 0x16, 0x16, 0x28, 0x21, 0x0b, 0x20, 0x0a, 0x27, 0x1c, 0x10, 0x16, 0x19, 0x21, 0x13, 0x18, 0x11, 0x27, 0x21, 0x0b, 0x27, 0x16, 0x10, 0x16, 0x19, 0x21, 0x13, 0x18, 0x11, 0x27, 0x21, 0x0b, 0x27, 0x1c, 0x15, 0x0b, 0x21, 0x0b, 0x13, 0x27, 0x15, 0x01, 0x1c, 0x27, 0x27, 0x16, 0x15, 0x0b, 0x21, 0x0b, 0x13, 0x27, 0x15, 0x01, 0x1c, 0x27, 0x27, 0x1c, 0x16, 0x13, 0x19, 0x18, 0x27, 0x1c, 0x19, 0x0b, 0x1c, 0x28, 0x27, 0x16, 0x16, 0x13, 0x19, 0x18, 0x27, 0x1c, 0x19, 0x0b, 0x1c, 0x28, 0x27, 0x1c, 0x1e, 0x1c, 0x0b, 0x13, 0x18, 0x28, 0x21, 0x0b, 0x20, 0x0a, 0x27, 0x16, 0x1e, 0x1c, 0x0b, 0x13, 0x18, 0x28, 0x21, 0x0b, 0x20, 0x0a, 0x27, 0x1c, 0x0b, 0x16, 0x0f, 0x1d, 0x13, 0x1d, 0x27, 0x10, 0x1f, 0x1d, 0x27, 0x16, 0x0b, 0x16, 0x0f, 0x1d, 0x13, 0x1d, 0x27, 0x10, 0x1f, 0x1d, 0x27, 0x1c, 0x0d, 0x0b, 0x1d, 0x13, 0x19, 0x27, 0x17, 0x1e, 0x27, 0x06, 0x27, 0x16, 0x0d, 0x0b, 0x1d, 0x13, 0x19, 0x27, 0x17, 0x1e, 0x27, 0x06, 0x27, 0x1c, 0x0d, 0x16, 0x19, 0x1d, 0x0f, 0x0e, 0x27, 0x12, 0x13, 0x27, 0x27, 0x16, 0x0d, 0x16, 0x19, 0x1d, 0x0f, 0x0e, 0x27, 0x12, 0x13, 0x27, 0x27, 0x1c, 0x0f, 0x27, 0x17, 0x1f, 0x27, 0x1a, 0x1c, 0x19, 0x1e, 0x0f, 0x27, 0x16, 0x0f, 0x27, 0x17, 0x1f, 0x27, 0x1a, 0x1c, 0x19, 0x1e, 0x0f, 0x27, 0x1c, 0x0f, 0x16, 0x0f, 0x0d, 0x1e, 0x1c, 0x13, 0x0d, 0x27, 0x0c, 0x27, 0x16, 0x0f, 0x16, 0x0f, 0x0d, 0x1e, 0x1c, 0x13, 0x0d, 0x27, 0x0c, 0x27, 0x1c, 0xf7})&#13;&#10;&#9;&#9;local slist = Slist(midi:getData())&#13;&#10;&#9;&#9;sampleListModel:addSamples(slist)&#13;&#10;&#9;elseif value == 5 then&#13;&#10;&#9;&#9;onCreateProgram()&#13;&#10;&#9;end&#13;&#10;end"
+          <luaMethod luaMethodName="test1" luaMethodCode="function test1(mod, value)&#13;&#10;    -- This variable stops index issues during panel bootup&#10;    if panel:getBootstrapState() or panel:getProgramState() then&#10;        return&#10;    end&#13;&#10;&#13;&#10;--&#9;if value == 1 then&#13;&#10;--&#9;&#9;drumMapModel:setNumKeyGroups(2)&#13;&#10;--&#9;&#9;drumMapModel:setSelectedKeyGroup(&quot;drumMap-1&quot;)&#13;&#10;--&#9;elseif value == 2 then&#13;&#10;--&#9;&#9;--local file = File(&quot;/Users/collberg/Pascal/Ctrlr/Bowed-Bass.wav&quot;)&#13;&#10;--&#9;&#9;local file = File(&quot;c:\\ctrlr\\wavs\\Bowed-Bass-C2.wav&quot;)&#13;&#10;--&#9;&#9;drumMapModel:setSelectedSample(file)&#13;&#10;--&#13;&#10;--&#9;&#9;local result = drumMapSrvc:assignSample()&#13;&#10;--&#9;&#9;drumMapCtrl:updateStatus(result)&#13;&#10;--&#9;elseif value == 3 then&#13;&#10;--&#9;&#9;drumMapModel:setSelectedKeyGroup(&quot;drumMap-2&quot;)&#13;&#10;--&#9;&#9;--local file = File(&quot;/Users/collberg/Pascal/Ctrlr/Door-Close-Blabla.wav&quot;)&#13;&#10;--&#9;&#9;local file = File(&quot;c:\\ctrlr\\wavs\\Door-Close.wav&quot;)&#13;&#10;--&#9;&#9;drumMapModel:setSelectedSample(file)&#13;&#10;--&#13;&#10;--&#9;&#9;local result = drumMapSrvc:assignSample()&#13;&#10;--&#9;&#9;drumMapCtrl:updateStatus(result)&#13;&#10;--&#9;elseif value == 4 then&#13;&#10;--&#9;&#9;local midi = CtrlrMidiMessage({0xf0, 0x47, 0x00, 0x05, 0x48, 0x1e, 0x00, 0x1d, 0x17, 0x0b, 0x0d, 0x15, 0x13, 0x18, 0x0a, 0x0a, 0x0a, 0x0a, 0x0a, 0x0c, 0x19, 0x21, 0x0f, 0x0e, 0x27, 0x0c, 0x0b, 0x1d, 0x1d, 0x27, 0x16, 0x0c, 0x19, 0x21, 0x0f, 0x0e, 0x27, 0x0c, 0x0b, 0x1d, 0x1d, 0x27, 0x16, 0x0c, 0x19, 0x21, 0x0f, 0x0e, 0x27, 0x0c, 0x0b, 0x1d, 0x1d, 0x27, 0x1c, 0x0d, 0x0b, 0x1e, 0x27, 0x17, 0x0f, 0x19, 0x21, 0x28, 0x21, 0x27, 0x16, 0x0d, 0x0b, 0x1e, 0x27, 0x17, 0x0f, 0x19, 0x21, 0x28, 0x21, 0x27, 0x1c, 0x0e, 0x19, 0x11, 0x27, 0x0c, 0x0b, 0x1c, 0x15, 0x28, 0x21, 0x27, 0x16, 0x0e, 0x19, 0x11, 0x27, 0x0c, 0x0b, 0x1c, 0x15, 0x28, 0x21, 0x27, 0x1c, 0x0e, 0x19, 0x19, 0x1c, 0x27, 0x0d, 0x16, 0x19, 0x1d, 0x0f, 0x27, 0x16, 0x0e, 0x19, 0x19, 0x1c, 0x27, 0x0d, 0x16, 0x19, 0x1d, 0x0f, 0x27, 0x1c, 0x0e, 0x1c, 0x13, 0x16, 0x16, 0x28, 0x21, 0x0b, 0x20, 0x0a, 0x27, 0x16, 0x0e, 0x1c, 0x13, 0x16, 0x16, 0x28, 0x21, 0x0b, 0x20, 0x0a, 0x27, 0x1c, 0x10, 0x16, 0x19, 0x21, 0x13, 0x18, 0x11, 0x27, 0x21, 0x0b, 0x27, 0x16, 0x10, 0x16, 0x19, 0x21, 0x13, 0x18, 0x11, 0x27, 0x21, 0x0b, 0x27, 0x1c, 0x15, 0x0b, 0x21, 0x0b, 0x13, 0x27, 0x15, 0x01, 0x1c, 0x27, 0x27, 0x16, 0x15, 0x0b, 0x21, 0x0b, 0x13, 0x27, 0x15, 0x01, 0x1c, 0x27, 0x27, 0x1c, 0x16, 0x13, 0x19, 0x18, 0x27, 0x1c, 0x19, 0x0b, 0x1c, 0x28, 0x27, 0x16, 0x16, 0x13, 0x19, 0x18, 0x27, 0x1c, 0x19, 0x0b, 0x1c, 0x28, 0x27, 0x1c, 0x1e, 0x1c, 0x0b, 0x13, 0x18, 0x28, 0x21, 0x0b, 0x20, 0x0a, 0x27, 0x16, 0x1e, 0x1c, 0x0b, 0x13, 0x18, 0x28, 0x21, 0x0b, 0x20, 0x0a, 0x27, 0x1c, 0x0b, 0x16, 0x0f, 0x1d, 0x13, 0x1d, 0x27, 0x10, 0x1f, 0x1d, 0x27, 0x16, 0x0b, 0x16, 0x0f, 0x1d, 0x13, 0x1d, 0x27, 0x10, 0x1f, 0x1d, 0x27, 0x1c, 0x0d, 0x0b, 0x1d, 0x13, 0x19, 0x27, 0x17, 0x1e, 0x27, 0x06, 0x27, 0x16, 0x0d, 0x0b, 0x1d, 0x13, 0x19, 0x27, 0x17, 0x1e, 0x27, 0x06, 0x27, 0x1c, 0x0d, 0x16, 0x19, 0x1d, 0x0f, 0x0e, 0x27, 0x12, 0x13, 0x27, 0x27, 0x16, 0x0d, 0x16, 0x19, 0x1d, 0x0f, 0x0e, 0x27, 0x12, 0x13, 0x27, 0x27, 0x1c, 0x0f, 0x27, 0x17, 0x1f, 0x27, 0x1a, 0x1c, 0x19, 0x1e, 0x0f, 0x27, 0x16, 0x0f, 0x27, 0x17, 0x1f, 0x27, 0x1a, 0x1c, 0x19, 0x1e, 0x0f, 0x27, 0x1c, 0x0f, 0x16, 0x0f, 0x0d, 0x1e, 0x1c, 0x13, 0x0d, 0x27, 0x0c, 0x27, 0x16, 0x0f, 0x16, 0x0f, 0x0d, 0x1e, 0x1c, 0x13, 0x0d, 0x27, 0x0c, 0x27, 0x1c, 0xf7})&#13;&#10;--&#9;&#9;local slist = Slist(midi:getData())&#13;&#10;--&#9;&#9;sampleListModel:addSamples(slist)&#13;&#10;--&#9;elseif value == 5 then&#13;&#10;--&#9;&#9;onCreateProgram()&#13;&#10;--&#9;end&#13;&#10;end"
                      luaMethodLinkedProperty="" luaMethodSource="0" uuid="ff92dad46b9a40c99d7a8629520d4ece"
                      luaMethodValid="1"/>
           <luaMethod luaMethodName="test2" luaMethodCode="function test2()&#13;&#10;&#13;&#10;    -- This variable stops index issues during panel bootup&#10;    if panel:getBootstrapState() or panel:getProgramState() then&#10;        return&#10;    end&#13;&#10;&#13;&#10;&#9;local midiService    = MidiService()&#13;&#10;&#9;--LOGGER:info(&quot;result for -89 is %d&quot;, midiService:fromVssBlock(MemoryBlock(&quot;07 0a 0f 0f&quot;), 0))&#13;&#10;&#9;--LOGGER:info(&quot;result for -148 is %d&quot;, midiService:fromVssBlock(MemoryBlock(&quot;0C 06 0F 0F&quot;), 0))&#13;&#10;&#9;--LOGGER:info(&quot;result for -346 is %d&quot;, midiService:fromVssBlock(MemoryBlock(&quot;06 0A 0E 0F&quot;), 0))&#13;&#10;&#9;--LOGGER:info(&quot;result for -597 is %d&quot;, midiService:fromVssBlock(MemoryBlock(&quot;0B 0A 0D 0F&quot;), 0))&#13;&#10;&#9;--LOGGER:info(&quot;result for -1027 is %d&quot;, midiService:fromVssBlock(MemoryBlock(&quot;0D 0F 0B 0F&quot;), 0))&#13;&#10;&#9;--LOGGER:info(&quot;result for -1745 is %d&quot;, midiService:fromVssBlock(MemoryBlock(&quot;0F 02 09 0F&quot;), 0))&#13;&#10;&#9;--LOGGER:info(&quot;result for -2884 is %d&quot;, midiService:fromVssBlock(MemoryBlock(&quot;0C 0B 04 0F&quot;), 0))&#13;&#10;&#9;--LOGGER:info(&quot;result for -4747 is %d&quot;, midiService:fromVssBlock(MemoryBlock(&quot;05 07 0D 0E&quot;), 0))&#13;&#10;&#9;--LOGGER:info(&quot;result for -5190 is %d&quot;, midiService:fromVssBlock(MemoryBlock(&quot;0A 0B 0B 0E&quot;), 0))&#13;&#10;&#13;&#10;&#9;--LOGGER:info(&quot;result for 07 0a 0f 0f is %s&quot;, midiService:toVssBlock(-89):toHexString(1))&#13;&#10;&#9;--LOGGER:info(&quot;result for 0C 06 0F 0F is %s&quot;, midiService:toVssBlock(-148):toHexString(1))&#13;&#10;&#9;--LOGGER:info(&quot;result for 06 0A 0E 0F is %s&quot;, midiService:toVssBlock(-346):toHexString(1))&#13;&#10;&#9;--LOGGER:info(&quot;result for 0B 0A 0D 0F is %s&quot;, midiService:toVssBlock(-597):toHexString(1))&#13;&#10;&#9;--LOGGER:info(&quot;result for 0D 0F 0B 0F is %s&quot;, midiService:toVssBlock(-1027):toHexString(1))&#13;&#10;&#9;--LOGGER:info(&quot;result for 0F 02 09 0F is %s&quot;, midiService:toVssBlock(-1745):toHexString(1))&#13;&#10;&#9;--LOGGER:info(&quot;result for 0C 0B 04 0F is %s&quot;, midiService:toVssBlock(-2884):toHexString(1))&#13;&#10;&#9;--LOGGER:info(&quot;result for 05 07 0D 0E is %s&quot;, midiService:toVssBlock(-4747):toHexString(1))&#13;&#10;&#9;--LOGGER:info(&quot;result for 0A 0B 0B 0E is %s&quot;, midiService:toVssBlock(-5190):toHexString(1))&#13;&#10;&#9;&#13;&#10;&#9;--LOGGER:info(&quot;result for -5000 is %d&quot;, midiService:fromTuneBlock(MemoryBlock(&quot;00 00 0E 0C&quot;), 0))&#13;&#10;&#9;--LOGGER:info(&quot;result for -4000 is %d&quot;, midiService:fromTuneBlock(MemoryBlock(&quot;00 00 08 0D&quot;), 0))&#13;&#10;&#9;--LOGGER:info(&quot;result for -3000 is %d&quot;, midiService:fromTuneBlock(MemoryBlock(&quot;00 00 02 0E&quot;), 0))&#13;&#10;&#9;--LOGGER:info(&quot;result for -2000 is %d&quot;, midiService:fromTuneBlock(MemoryBlock(&quot;00 00 0C 0E&quot;), 0))&#13;&#10;&#9;--LOGGER:info(&quot;result for -1000 is %d&quot;, midiService:fromTuneBlock(MemoryBlock(&quot;00 00 06 0F&quot;), 0))&#13;&#10;&#9;--LOGGER:info(&quot;result for -10 is %d&quot;, midiService:fromTuneBlock(MemoryBlock(&quot;07 0E 0F 0F&quot;), 0))&#13;&#10;&#9;--LOGGER:info(&quot;result for -8 is %d&quot;, midiService:fromTuneBlock(MemoryBlock(&quot;0C 0E 0F 0F&quot;), 0))&#13;&#10;&#9;--LOGGER:info(&quot;result for -5 is %d&quot;, midiService:fromTuneBlock(MemoryBlock(&quot;04 0F 0F 0F&quot;), 0))&#13;&#10;&#9;--LOGGER:info(&quot;result for -4 is %d&quot;, midiService:fromTuneBlock(MemoryBlock(&quot;06 0F 0F 0F&quot;), 0))&#13;&#10;&#9;--LOGGER:info(&quot;result for -3 is %d&quot;, midiService:fromTuneBlock(MemoryBlock(&quot;09 0F 0F 0F&quot;), 0))&#13;&#10;&#9;--LOGGER:info(&quot;result for -2 is %d&quot;, midiService:fromTuneBlock(MemoryBlock(&quot;0B 0F 0F 0F&quot;), 0))&#13;&#10;&#9;--LOGGER:info(&quot;result for -1 is %d&quot;, midiService:fromTuneBlock(MemoryBlock(&quot;0E 0F 0F 0F&quot;), 0))&#13;&#10;&#9;--LOGGER:info(&quot;result for 0 is %d&quot;, midiService:fromTuneBlock(MemoryBlock(&quot;00 00 00 00&quot;), 0))&#13;&#10;&#9;--LOGGER:info(&quot;result for 1 is %d&quot;, midiService:fromTuneBlock(MemoryBlock(&quot;02 00 00 00&quot;), 0))&#13;&#10;&#9;--LOGGER:info(&quot;result for 2 is %d&quot;, midiService:fromTuneBlock(MemoryBlock(&quot;05 00 00 00&quot;), 0))&#13;&#10;&#9;--LOGGER:info(&quot;result for 3 is %d&quot;, midiService:fromTuneBlock(MemoryBlock(&quot;07 00 00 00&quot;), 0))&#13;&#10;&#9;--LOGGER:info(&quot;result for 5 is %d&quot;, midiService:fromTuneBlock(MemoryBlock(&quot;0C 00 00 00&quot;), 0))&#13;&#10;&#9;--LOGGER:info(&quot;result for 7 is %d&quot;, midiService:fromTuneBlock(MemoryBlock(&quot;02 01 00 00&quot;), 0))&#13;&#10;&#9;--LOGGER:info(&quot;result for 8 is %d&quot;, midiService:fromTuneBlock(MemoryBlock(&quot;04 01 00 00&quot;), 0))&#13;&#10;&#9;--LOGGER:info(&quot;result for 10 is %d&quot;, midiService:fromTuneBlock(MemoryBlock(&quot;09 01 00 00&quot;), 0))&#13;&#10;&#9;--LOGGER:info(&quot;result for 1000 is %d&quot;, midiService:fromTuneBlock(MemoryBlock(&quot;00 00 0A 00&quot;), 0))&#13;&#10;&#9;--LOGGER:info(&quot;result for 2000 is %d&quot;, midiService:fromTuneBlock(MemoryBlock(&quot;00 00 04 01&quot;), 0))&#13;&#10;&#9;--LOGGER:info(&quot;result for 3000 is %d&quot;, midiService:fromTuneBlock(MemoryBlock(&quot;00 00 0E 01&quot;), 0))&#13;&#10;&#9;--LOGGER:info(&quot;result for 4000 is %d&quot;, midiService:fromTuneBlock(MemoryBlock(&quot;00 00 08 02&quot;), 0))&#13;&#10;&#9;--LOGGER:info(&quot;result for 5000 is %d&quot;, midiService:fromTuneBlock(MemoryBlock(&quot;00 00 02 03&quot;), 0))&#13;&#10;&#13;&#10;&#9;--LOGGER:info(&quot;result for 00 00 0E 0C is %s&quot;, midiService:toTuneBlock(-5000):toHexString(1))&#13;&#10;&#9;--LOGGER:info(&quot;result for 00 00 08 0D is %s&quot;, midiService:toTuneBlock(-4000):toHexString(1))&#13;&#10;&#9;--LOGGER:info(&quot;result for 00 00 02 0E is %s&quot;, midiService:toTuneBlock(-3000):toHexString(1))&#13;&#10;&#9;--LOGGER:info(&quot;result for 00 00 0C 0E is %s&quot;, midiService:toTuneBlock(-2000):toHexString(1))&#13;&#10;&#9;--LOGGER:info(&quot;result for 00 00 06 0F is %s&quot;, midiService:toTuneBlock(-1000):toHexString(1))&#13;&#10;&#9;--LOGGER:info(&quot;result for 00 00 00 00 is %s&quot;, midiService:toTuneBlock(0):toHexString(1))&#13;&#10;&#9;--LOGGER:info(&quot;result for 00 00 0A 00 is %s&quot;, midiService:toTuneBlock(1000):toHexString(1))&#13;&#10;&#9;--LOGGER:info(&quot;result for 00 00 04 01 is %s&quot;, midiService:toTuneBlock(2000):toHexString(1))&#13;&#10;&#9;--LOGGER:info(&quot;result for 00 00 0E 01 is %s&quot;, midiService:toTuneBlock(3000):toHexString(1))&#13;&#10;&#9;--LOGGER:info(&quot;result for 00 00 08 02 is %s&quot;, midiService:toTuneBlock(4000):toHexString(1))&#13;&#10;&#9;--LOGGER:info(&quot;result for 00 00 02 03 is %s&quot;, midiService:toTuneBlock(5000):toHexString(1))&#13;&#10;&#13;&#10;--&#9;function verifyFloat2Nibbles(value, expectedMemBlock)&#13;&#10;--&#9;&#9;local temp = string.upper(midiService:float2nibbles2(value):toHexString(1))&#13;&#10;--&#9;&#9;assert(expectedMemBlock == temp, &#13;&#10;--&#9;&#9;&#9;string.format(&quot;Incorrect result for %.2f, expected %s, got %s&quot;, value, expectedMemBlock, temp))&#13;&#10;--&#9;end&#13;&#10;--&#13;&#10;--&#9;verifyFloat2Nibbles(-50.00, &quot;00 00 0E 0C&quot;)&#13;&#10;--&#9;verifyFloat2Nibbles(-40.00, &quot;00 00 08 0D&quot;)&#13;&#10;--&#9;verifyFloat2Nibbles(-30.00, &quot;00 00 02 0E&quot;)&#13;&#10;--&#9;verifyFloat2Nibbles(-20.00, &quot;00 00 0C 0E&quot;)&#13;&#10;--&#9;verifyFloat2Nibbles(-10.00, &quot;00 00 06 0F&quot;)&#13;&#10;--&#9;verifyFloat2Nibbles(-0.10, &quot;07 0E 0F 0F&quot;)&#13;&#10;--&#9;verifyFloat2Nibbles(-0.08, &quot;0C 0E 0F 0F&quot;)&#13;&#10;--&#9;verifyFloat2Nibbles(-0.05, &quot;04 0F 0F 0F&quot;)&#13;&#10;--&#9;verifyFloat2Nibbles(-0.04, &quot;06 0F 0F 0F&quot;)&#13;&#10;--&#9;verifyFloat2Nibbles(-0.03, &quot;09 0F 0F 0F&quot;)&#13;&#10;--&#9;verifyFloat2Nibbles(-0.02, &quot;0B 0F 0F 0F&quot;)&#13;&#10;--&#9;verifyFloat2Nibbles(-0.01, &quot;0E 0F 0F 0F&quot;)&#13;&#10;--&#9;verifyFloat2Nibbles(0, &quot;00 00 00 00&quot;)&#13;&#10;--&#9;verifyFloat2Nibbles(0.01, &quot;02 00 00 00&quot;)&#13;&#10;--&#9;verifyFloat2Nibbles(0.02, &quot;05 00 00 00&quot;)&#13;&#10;--&#9;verifyFloat2Nibbles(0.03, &quot;07 00 00 00&quot;)&#13;&#10;--&#9;verifyFloat2Nibbles(0.05, &quot;0C 00 00 00&quot;)&#13;&#10;--&#9;verifyFloat2Nibbles(0.07, &quot;02 01 00 00&quot;)&#13;&#10;--&#9;verifyFloat2Nibbles(0.08, &quot;04 01 00 00&quot;)&#13;&#10;--&#9;verifyFloat2Nibbles(0.10, &quot;09 01 00 00&quot;)&#13;&#10;--&#9;verifyFloat2Nibbles(10.00, &quot;00 00 0A 00&quot;)&#13;&#10;--&#9;verifyFloat2Nibbles(20.00, &quot;00 00 04 01&quot;)&#13;&#10;--&#9;verifyFloat2Nibbles(30.00, &quot;00 00 0E 01&quot;)&#13;&#10;--&#9;verifyFloat2Nibbles(40.00, &quot;00 00 08 02&quot;)&#13;&#10;--&#9;verifyFloat2Nibbles(50.00, &quot;00 00 02 03&quot;)&#13;&#10;&#9;--local test = { apa = 1, bapa = 2}&#13;&#10;&#9;--local pdata = Pdata()&#13;&#10;&#9;--console(string.format(&quot;Pdata %s&quot;, pdata:toJson()))&#13;&#10;&#9;--local replaced = string.gsub(pdata:toJson(), &quot;&#94;{&quot;, string.format(&quot;{data = \&quot;%s\&quot;,&quot;, pdata:toString()), 1)&#13;&#10;&#9;--console(string.format(&quot;pdata replaced %s&quot;, replaced))&#13;&#10;&#9;--local result = json.encode(programListModel)&#13;&#10;&#9;--console(string.format(&quot;Result %s&quot;, result))&#13;&#10;&#9;local jsonService = JsonService()&#13;&#10;&#9;local temp = jsonService:encode(programListModel)&#13;&#10;&#9;console(string.format(&quot;Json Before %s&quot;, temp))&#13;&#10;&#9;local pl = jsonService:decode(temp)&#13;&#10;&#9;console(string.format(&quot;Json After %s&quot;, jsonService:encode(pl)))&#13;&#10;end"
@@ -305,9 +348,9 @@
           <luaMethod luaMethodName="onPanelRestoreState" luaMethodCode="--&#10;-- Called when data is restored&#10;--&#10;function onPanelRestoreState(stateData)&#13;&#10;&#9;--drumMapState = stateData:getProperty(&quot;drumMapState&quot;)&#13;&#10;&#9;programListState = stateData:getProperty(&quot;programListState&quot;)&#13;&#10;&#9;--sampleListState = stateData:getProperty(&quot;sampleListState&quot;)&#13;&#10;&#9;--floppyImgPathState = stateData:getProperty(&quot;floppyImgPathState&quot;)&#13;&#10;&#9;--editSampleState = stateData:getProperty(&quot;editSampleState&quot;)&#13;&#10;end"
                      luaMethodLinkedProperty="" luaMethodSource="0" uuid="944e95685a504ce39516e9c33fc20159"
                      luaMethodValid="1"/>
-          <luaMethod luaMethodName="onPanelLoaded" luaMethodCode="--&#10;-- Called when the panel has finished loading&#10;--&#10;-- @type the type of instance beeing started, types available in the CtrlrPanel&#10;-- class as enum&#10;--&#10;-- InstanceSingle&#10;-- InstanceMulti&#10;-- InstanceSingleRestriced&#10;-- InstanceSingleEngine&#10;-- InstanceMultiEngine&#10;-- InstanceSingleRestrictedEngine&#10;--&#10;function onPanelLoaded(type)&#13;&#10;&#13;&#10;&#9;-- Init logger&#13;&#10;&#9;LOGGER = Logger(&quot;Global&quot;)&#10;&#9;LOGGER:info(&quot;[initPanel] Initializing...&quot;)&#10;&#13;&#10;&#9;panel:setProperty (&quot;panelGlobalVariables&quot;, &quot;0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0&quot;, false)&#13;&#10;&#9;loopAtResource = resources:getResource(&quot;AkaiLoopAt&quot;)&#13;&#10;&#9;loopAtImage = Image()&#13;&#10;&#9;if loopAtResource ~= nil then&#13;&#10;&#9;&#9;loopAtImage = loopAtResource:asImage()&#13;&#10;&#9;else&#13;&#10;&#9;&#9;LOGGER:warn(&quot;loopAtResource invalid, panel will crash&quot;)&#13;&#10;&#9;end&#13;&#10;&#13;&#10;&#9;local getPath = function(labelName)&#13;&#10;&#9;&#9;return File(panel:getComponent(labelName):getText())&#13;&#10;&#9;end&#13;&#10;&#13;&#10;&#9;workFolder   = getPath(&quot;workPathLabel&quot;)&#13;&#10;&#13;&#10;&#9;local processListener = function(running)&#13;&#10;&#9;&#9;if running then&#13;&#10;&#9;&#9;&#9;drumMapCtrl:updateStatus(&quot;Running process...&quot;)&#13;&#10;&#9;&#9;&#9;drumMapCtrl:toggleActivation(&quot;cancelTransfer&quot;, true)&#13;&#10;&#9;&#9;else&#13;&#10;&#9;&#9;&#9;drumMapCtrl:updateStatus(&quot;Ready.&quot;)&#13;&#10;&#9;&#9;&#9;drumMapCtrl:toggleActivation(&quot;cancelTransfer&quot;, false)&#13;&#10;&#9;&#9;end&#13;&#10;&#9;end&#13;&#10;&#13;&#10;&#9;midiSrvc    = MidiService()&#13;&#10;&#9;processSrvc = ProcessService(processListener)&#13;&#10;&#9;programSrvc = ProgramService()&#13;&#10;&#9;drumMapSrvc = DrumMapService()&#13;&#10;&#9;hxcSrvc     = HxcService()&#13;&#10;&#9;s2kDieSrvc  = S2kDieService(getPath(&quot;s2kDiePathLabel&quot;), getPath(&quot;setfdprmPathLabel&quot;))&#13;&#10;&#13;&#10;&#9;drumMapCtrl = DrumMapController()&#13;&#10;&#9;programCtrl = ProgramController()&#10;&#9;sampleListCtrl = SampleListController()&#13;&#10;&#13;&#10;&#9;if drumMapState == nil then&#13;&#10;&#9;&#9;drumMapModel = DrumMap()&#13;&#10;&#9;else&#13;&#10;&#9;&#9;LOGGER:info(&quot;Using drumMapState: %s&quot;, drumMapState)&#13;&#10;&#9;&#9;drumMapModel = cson.decode(drumMapState)&#13;&#10;&#9;end&#13;&#10;&#9;drumMapCtrl:setDrumMap(drumMapModel)&#13;&#10;&#9;drumMapSrvc:setDrumMap(drumMapModel)&#13;&#10;    &#13;&#10;&#9;if programListState == nil then&#13;&#10;&#9;&#9;LOGGER:info(&quot;Initialising new ProgramList...&quot;)&#13;&#10;&#9;&#9;programListModel = ProgramList()&#13;&#10;&#9;else&#13;&#10;&#9;&#9;LOGGER:info(&quot;Using programListState: %s&quot;, programListState)&#13;&#10;&#9;&#9;programListModel = cson.decode(programListState)&#13;&#10;&#9;end&#13;&#10;&#9;programCtrl:setProgramList(programListModel)&#13;&#10;&#9;programSrvc:setProgramList(programListModel)&#13;&#10;    &#13;&#10;&#9;if sampleListState == nil then&#13;&#10;&#9;&#9;sampleListModel = SampleList()&#13;&#10;&#9;else&#13;&#10;&#9;&#9;LOGGER:info(&quot;Using sampleListState: %s&quot;, sampleListState)&#13;&#10;&#9;&#9;sampleListModel = cson.decode(sampleListState)&#13;&#10;&#9;end&#13;&#10;&#9;sampleListCtrl:setSampleList(sampleListModel)&#13;&#10;&#9;drumMapSrvc:setSampleList(sampleListModel)&#13;&#10;    &#13;&#10;&#9;if floppyImgPathState == nil then&#13;&#10;&#9;&#9;floppyImgPath = nil&#13;&#10;&#9;else&#13;&#10;&#9;&#9;floppyImgPath = cson.decode(floppyImgPathState)&#13;&#10;&#9;end&#13;&#10;    &#13;&#10;&#9;if editSampleState == nil then&#13;&#10;&#9;&#9;editSample = nil&#10;&#9;else&#13;&#10;&#9;&#9;editSample = cson.decode(editSampleState)&#13;&#10;&#9;end&#13;&#10;&#13;&#10;&#9;PanelController = AbstractController()&#13;&#10;&#13;&#10;&#9;function PanelController:toggleEditor(visibleLayerIndex)&#10;&#9;&#9;local PROGRAM, SAMPLE, DRUMMAP = 0, 1, 2&#10;&#9;&#10;&#9;&#9;if visibleLayerIndex == SAMPLE and editSample ~= nil then&#10;&#9;&#9;&#9;self:updateSampleEdit(editSample, true)&#10;&#9;&#9;elseif visibleLayerIndex == DRUMMAP then&#10;&#9;&#9;&#9;drumMapCtrl:updateStatus(&quot;Select a sample and a key group&quot;)&#10;&#9;&#9;&#9;drumMapCtrl:updateDrumMap(drumMapModel)&#10;&#9;&#9;end&#10;&#9;&#10;&#9;&#9;self:toggleLayerVisibility(&quot;ProgramBackground&quot;, visibleLayerIndex == PROGRAM)&#10;&#9;&#9;self:toggleLayerVisibility(&quot;ProgramControls&quot;, visibleLayerIndex == PROGRAM)&#10;&#9;&#9;self:toggleLayerVisibility(&quot;SampleBackground&quot;, visibleLayerIndex == SAMPLE)&#10;&#9;&#9;self:toggleLayerVisibility(&quot;Sample&quot;, visibleLayerIndex == SAMPLE)&#10;&#9;&#9;self:toggleLayerVisibility(&quot;SampleTrim&quot;, visibleLayerIndex == SAMPLE)&#10;&#9;&#9;self:toggleLayerVisibility(&quot;SampleLoop&quot;, visibleLayerIndex == SAMPLE)&#10;&#9;&#9;self:toggleLayerVisibility(&quot;Drummap&quot;, visibleLayerIndex == DRUMMAP)&#10;&#9;end&#13;&#10;&#13;&#10;&#9;function PanelController:setFileSystemRoot(comp, path)&#13;&#10;&#9;&#9;comp:setProperty(&quot;uiFileListCurrentRoot&quot;, path, false)&#13;&#10;&#9;end&#13;&#10;&#13;&#10;&#9;function PanelController:initFileSystemPath(operatingSystem)&#13;&#10;&#9;&#9;local comp = panel:getComponent(&quot;wavSelector&quot;)&#13;&#10;&#9;&#9;self:setFileSystemRoot(comp, cutils.getUserHome())&#13;&#10;&#9;end&#13;&#10;&#13;&#10;&#9;panelController = PanelController:new()&#13;&#10;&#9;panelController:initFileSystemPath(operatingSystem)&#13;&#10;&#13;&#10;end"
+          <luaMethod luaMethodName="onPanelLoaded" luaMethodCode="--&#10;-- Called when the panel has finished loading&#10;--&#10;-- @type the type of instance beeing started, types available in the CtrlrPanel&#10;-- class as enum&#10;--&#10;-- InstanceSingle&#10;-- InstanceMulti&#10;-- InstanceSingleRestriced&#10;-- InstanceSingleEngine&#10;-- InstanceMultiEngine&#10;-- InstanceSingleRestrictedEngine&#10;--&#10;function onPanelLoaded(type)&#13;&#10;&#13;&#10;&#9;-- Init logger&#13;&#10;&#9;LOGGER = Logger(&quot;Global&quot;)&#10;&#9;LOGGER:info(&quot;[initPanel] Initializing...&quot;)&#13;&#10;&#13;&#10;&#9;panel:setProperty (&quot;panelGlobalVariables&quot;, &quot;0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0&quot;, false)&#13;&#10;&#9;loopAtResource = resources:getResource(&quot;AkaiLoopAt&quot;)&#13;&#10;&#9;loopAtImage = Image()&#13;&#10;&#9;if loopAtResource ~= nil then&#13;&#10;&#9;&#9;loopAtImage = loopAtResource:asImage()&#13;&#10;&#9;else&#13;&#10;&#9;&#9;LOGGER:warn(&quot;loopAtResource invalid, panel will crash&quot;)&#13;&#10;&#9;end&#13;&#10;&#13;&#10;&#9;local getPath = function(labelName)&#13;&#10;&#9;&#9;local temp = panel:getComponent(labelName):getText()&#13;&#10;&#9;&#9;if temp == nil or temp == '' then&#13;&#10;&#9;&#9;&#9;return nil&#13;&#10;&#9;&#9;else&#13;&#10;&#9;&#9;&#9;return File(temp)&#13;&#10;&#9;&#9;end&#13;&#10;&#9;end&#13;&#10;&#13;&#10;&#9;workFolder   = getPath(&quot;workPathLabel&quot;)&#13;&#10;&#13;&#10;&#9;local processListener = function(running)&#13;&#10;&#9;&#9;if running then&#13;&#10;&#9;&#9;&#9;drumMapCtrl:updateStatus(&quot;Running process...&quot;)&#13;&#10;&#9;&#9;&#9;drumMapCtrl:toggleActivation(&quot;cancelTransfer&quot;, true)&#13;&#10;&#9;&#9;else&#13;&#10;&#9;&#9;&#9;drumMapCtrl:updateStatus(&quot;Ready.&quot;)&#13;&#10;&#9;&#9;&#9;drumMapCtrl:toggleActivation(&quot;cancelTransfer&quot;, false)&#13;&#10;&#9;&#9;end&#13;&#10;&#9;end&#13;&#10;&#13;&#10;&#9;midiService = MidiService()&#13;&#10;&#9;processSrvc = ProcessService(processListener)&#13;&#10;&#9;programSrvc = ProgramService()&#13;&#10;&#9;drumMapSrvc = DrumMapService()&#13;&#10;&#9;hxcSrvc     = HxcService(getPath(&quot;hxcPathLabel&quot;))&#13;&#10;&#9;s2kDieSrvc  = S2kDieService(getPath(&quot;s2kDiePathLabel&quot;), getPath(&quot;setfdprmPathLabel&quot;))&#13;&#10;&#13;&#10;&#9;drumMapCtrl = DrumMapController()&#13;&#10;&#9;programCtrl = ProgramController()&#10;&#9;sampleListCtrl = SampleListController()&#13;&#10;&#13;&#10;&#9;if drumMapState == nil then&#13;&#10;&#9;&#9;drumMapModel = DrumMap()&#13;&#10;&#9;else&#13;&#10;&#9;&#9;LOGGER:info(&quot;Using drumMapState: %s&quot;, drumMapState)&#13;&#10;&#9;&#9;drumMapModel = cson.decode(drumMapState)&#13;&#10;&#9;end&#13;&#10;&#9;drumMapCtrl:setDrumMap(drumMapModel)&#13;&#10;&#9;drumMapSrvc:setDrumMap(drumMapModel)&#13;&#10;    &#13;&#10;&#9;if programListState == nil then&#13;&#10;&#9;&#9;LOGGER:info(&quot;Initialising new ProgramList...&quot;)&#13;&#10;&#9;&#9;programListModel = ProgramList()&#13;&#10;&#9;else&#13;&#10;&#9;&#9;LOGGER:info(&quot;Using programListState: %s&quot;, programListState)&#13;&#10;&#9;&#9;programListModel = cson.decode(programListState)&#13;&#10;&#9;end&#13;&#10;&#9;programCtrl:setProgramList(programListModel)&#13;&#10;&#9;programSrvc:setProgramList(programListModel)&#13;&#10;    &#13;&#10;&#9;if sampleListState == nil then&#13;&#10;&#9;&#9;sampleListModel = SampleList()&#13;&#10;&#9;else&#13;&#10;&#9;&#9;LOGGER:info(&quot;Using sampleListState: %s&quot;, sampleListState)&#13;&#10;&#9;&#9;sampleListModel = cson.decode(sampleListState)&#13;&#10;&#9;end&#13;&#10;&#9;sampleListCtrl:setSampleList(sampleListModel)&#13;&#10;&#9;drumMapSrvc:setSampleList(sampleListModel)&#13;&#10;    &#13;&#10;&#9;if floppyImgPathState == nil then&#13;&#10;&#9;&#9;floppyImgPath = nil&#13;&#10;&#9;else&#13;&#10;&#9;&#9;floppyImgPath = cson.decode(floppyImgPathState)&#13;&#10;&#9;end&#13;&#10;    &#13;&#10;&#9;if editSampleState == nil then&#13;&#10;&#9;&#9;editSample = nil&#10;&#9;else&#13;&#10;&#9;&#9;editSample = cson.decode(editSampleState)&#13;&#10;&#9;end&#13;&#10;&#13;&#10;&#9;panelController = PanelController()&#13;&#10;&#9;panelController:initFileSystemPath(operatingSystem)&#13;&#10;&#13;&#10;end"
                      luaMethodLinkedProperty="" luaMethodSource="0" uuid="295a3739f5aa4a24aa97c55a5eb2eb6d"
-                     luaMethodValid="0"/>
+                     luaMethodValid="1"/>
           <luaMethod luaMethodName="onPanelBeforeLoad" luaMethodCode="--&#10;-- Called when the panel is created, no modulators will exist at this point&#10;-- consider this the panels constructor&#10;--&#10;function onPanelBeforeLoad()&#13;&#10;&#13;&#10;&#9;-- Init global constants&#13;&#10;&#9;STATE_DEV, STATE_PROD = 1, 2&#13;&#10;&#9;if panelState == 0 then&#13;&#10;&#9;&#9;panelState = STATE_PROD&#13;&#10;&#9;end&#13;&#10;&#13;&#10;&#9;pathSeparator = cutils.getPathSeparator()&#13;&#10;&#9;eol = cutils.getEolChar()&#13;&#10;&#9;operatingSystem = cutils.getOsName()&#13;&#10;&#13;&#10;&#9;LUA_CONTRUCTOR_NAME = &quot;LUA_CLASS_NAME&quot;&#13;&#10;&#13;&#10;&#9;INTELL_TYPE, CYCLIC_TYPE = 0, 1&#13;&#10;&#9;NO_LOOPING_TYPE, LP_IN_RELEASE_TYPE, ONE_SHOT_TYPE = 0, 1, 2&#13;&#10;&#13;&#10;&#9;programBlock = {&#13;&#10;&#9;&#9;[&quot;KGRP1@&quot;]      = 1,&#13;&#10;&#9;&#9;[&quot;PRNAME&quot;]      = 3,&#13;&#10;&#9;&#9;[&quot;PRGNUM&quot;]      = 15,&#13;&#10;&#9;&#9;[&quot;PMCHAN&quot;]      = 16,&#13;&#10;&#9;&#9;[&quot;POLYPH&quot;]      = 17,&#13;&#10;&#9;&#9;[&quot;PRIORT&quot;]      = 18,&#13;&#10;&#9;&#9;[&quot;PLAYLO&quot;]      = 19,&#13;&#10;&#9;&#9;[&quot;PLAYHI&quot;]      = 20,&#13;&#10;&#9;&#9;[&quot;OSHIFT&quot;]      = 21,&#13;&#10;&#9;&#9;[&quot;OUTPUT&quot;]      = 22,&#13;&#10;&#9;&#9;[&quot;STEREO&quot;]      = 23,&#13;&#10;&#9;&#9;[&quot;PANPOS&quot;]      = 24,&#13;&#10;&#9;&#9;[&quot;PRLOUD&quot;]      = 25,&#13;&#10;&#9;&#9;[&quot;V_LOUD&quot;]      = 26,&#13;&#10;&#9;&#9;[&quot;K_LOUD&quot;]      = 27,&#13;&#10;&#9;&#9;[&quot;P_LOUD&quot;]      = 28,&#13;&#10;&#9;&#9;[&quot;PANRAT&quot;]      = 29,&#13;&#10;&#9;&#9;[&quot;PANDEP&quot;]      = 30,&#13;&#10;&#9;&#9;[&quot;PANDEL&quot;]      = 31,&#13;&#10;&#9;&#9;[&quot;K_PANP&quot;]      = 32,&#13;&#10;&#9;&#9;[&quot;LFORAT&quot;]      = 33,&#13;&#10;&#9;&#9;[&quot;LFODEP&quot;]      = 34,&#13;&#10;&#9;&#9;[&quot;LFODEL&quot;]      = 35,&#13;&#10;&#9;&#9;[&quot;MWLDEP&quot;]      = 36,&#13;&#10;&#9;&#9;[&quot;PRSDEP&quot;]      = 37,&#13;&#10;&#9;&#9;[&quot;VELDEP&quot;]      = 38,&#13;&#10;&#9;&#9;[&quot;B_PTCH&quot;]      = 39,&#13;&#10;&#9;&#9;[&quot;P_PTCH&quot;]      = 40,&#13;&#10;&#9;&#9;[&quot;KXFADE&quot;]      = 41,&#13;&#10;&#9;&#9;[&quot;GROUPS&quot;]      = 42,&#13;&#10;&#9;&#9;[&quot;TPNUM&quot;]       = 43,&#13;&#10;&#9;&#9;[&quot;TEMPER&quot;]      = 44,&#13;&#10;&#9;&#9;[&quot;ECHOUT&quot;]      = 56,&#13;&#10;&#9;&#9;[&quot;MW_PAN&quot;]      = 57,&#13;&#10;&#9;&#9;[&quot;COHERE&quot;]      = 58,&#13;&#10;&#9;&#9;[&quot;DESYNC&quot;]      = 59,&#13;&#10;&#9;&#9;[&quot;PLAW&quot;]        = 60,&#13;&#10;&#9;&#9;[&quot;VASSOQ&quot;]      = 61,&#13;&#10;&#9;&#9;[&quot;SPLOUD&quot;]      = 62,&#13;&#10;&#9;&#9;[&quot;SPATT&quot;]       = 63,&#13;&#10;&#9;&#9;[&quot;SPFILT&quot;]      = 64,&#13;&#10;&#9;&#9;[&quot;PTUNO&quot;]       = 65,&#13;&#10;&#9;&#9;[&quot;K_LRAT&quot;]      = 67,&#13;&#10;&#9;&#9;[&quot;K_LDEP&quot;]      = 68,&#13;&#10;&#9;&#9;[&quot;K_LDEL&quot;]      = 69,&#13;&#10;&#9;&#9;[&quot;VOSCL&quot;]       = 70,&#13;&#10;&#9;&#9;[&quot;VSSCL&quot;]       = 71,&#13;&#10;&#9;&#9;[&quot;LEGATO&quot;]      = 72,&#13;&#10;&#9;&#9;[&quot;B_PTCHD&quot;]     = 73,&#13;&#10;&#9;&#9;[&quot;B_MODE&quot;]      = 74,&#13;&#10;&#9;&#9;[&quot;TRANSPOSE&quot;]   = 75,&#13;&#10;&#9;&#9;[&quot;MODSPAN1&quot;]    = 76,&#13;&#10;&#9;&#9;[&quot;MODSPAN2&quot;]    = 77,&#13;&#10;&#9;&#9;[&quot;MODSPAN3&quot;]    = 78,&#13;&#10;&#9;&#9;[&quot;MODSAMP1&quot;]    = 79,&#13;&#10;&#9;&#9;[&quot;MODSAMP2&quot;]    = 80,&#13;&#10;&#9;&#9;[&quot;MODSLFOT&quot;]    = 81,&#13;&#10;&#9;&#9;[&quot;MODSLFOL&quot;]    = 82,&#13;&#10;&#9;&#9;[&quot;MODSLFOD&quot;]    = 83,&#13;&#10;&#9;&#9;[&quot;MODSFILT1&quot;]   = 84,&#13;&#10;&#9;&#9;[&quot;MODSFILT2&quot;]   = 85,&#13;&#10;&#9;&#9;[&quot;MODSFILT3&quot;]   = 86,&#13;&#10;&#9;&#9;[&quot;MODSPITCH&quot;]   = 87,&#13;&#10;&#9;&#9;[&quot;MODSAMP3&quot;]    = 88,&#13;&#10;&#9;&#9;[&quot;MODVPAN1&quot;]    = 89,&#13;&#10;&#9;&#9;[&quot;MODVPAN2&quot;]    = 90,&#13;&#10;&#9;&#9;[&quot;MODVPAN3&quot;]    = 91,&#13;&#10;&#9;&#9;[&quot;MODVAMP1&quot;]    = 92,&#13;&#10;&#9;&#9;[&quot;MODVAMP2&quot;]    = 93,&#13;&#10;&#9;&#9;[&quot;MODVLFOR&quot;]    = 94,&#13;&#10;&#9;&#9;[&quot;MODVLVOL&quot;]    = 95,&#13;&#10;&#9;&#9;[&quot;MODVLFOD&quot;]    = 96,&#13;&#10;&#9;&#9;[&quot;LFO1WAVE&quot;]    = 97,&#13;&#10;&#9;&#9;[&quot;LFO2WAVE&quot;]    = 98,&#13;&#10;&#9;&#9;[&quot;MODSLFLT2_1&quot;] = 99,&#13;&#10;&#9;&#9;[&quot;MODSLFLT2_2&quot;] = 100,&#13;&#10;&#9;&#9;[&quot;MODSLFLT2_3&quot;] = 101,&#13;&#10;&#9;&#9;[&quot;lfo2trig&quot;]    = 102,&#13;&#10;&#9;&#9;[&quot;Reserved&quot;]    = 103,&#13;&#10;&#9;&#9;[&quot;PORTIME&quot;]     = 110,&#13;&#10;&#9;&#9;[&quot;PORTYPE&quot;]     = 111,&#13;&#10;&#9;&#9;[&quot;PORTEN&quot;]      = 112,&#13;&#10;&#9;&#9;[&quot;PFXCHAN&quot;]     = 113,&#13;&#10;&#9;&#9;[&quot;PFXSLEV&quot;]     = 114&#13;&#10;&#9;}&#13;&#10;&#13;&#10;&#9;keyGroupBlock = {&#13;&#10;&#9;&#9;[&quot;KGIDENT&quot;]     = 0,&#13;&#10;&#9;&#9;[&quot;NXTKG@&quot;]      = 1,&#13;&#10;&#9;&#9;[&quot;LONOTE&quot;]      = 3,&#13;&#10;&#9;&#9;[&quot;HINOTE&quot;]      = 4,&#13;&#10;&#9;&#9;[&quot;KGTUNO&quot;]      = 5,&#13;&#10;&#9;&#9;[&quot;FILFRQ&quot;]      = 7,&#13;&#10;&#9;&#9;[&quot;K_FREQ&quot;]      = 8,&#13;&#10;&#9;&#9;[&quot;V_FREQ&quot;]      = 9,&#13;&#10;&#9;&#9;[&quot;P_FREQ&quot;]      = 10,&#13;&#10;&#9;&#9;[&quot;E_FREQ&quot;]      = 11,&#13;&#10;&#9;&#9;[&quot;ATTAK1&quot;]      = 12,&#13;&#10;&#9;&#9;[&quot;DECAY1&quot;]      = 13,&#13;&#10;&#9;&#9;[&quot;SUSTN1&quot;]      = 14,&#13;&#10;&#9;&#9;[&quot;RELSE1&quot;]      = 15,&#13;&#10;&#9;&#9;[&quot;V_ATT1&quot;]      = 16,&#13;&#10;&#9;&#9;[&quot;V_REL1&quot;]      = 17,&#13;&#10;&#9;&#9;[&quot;O_REL1&quot;]      = 18,&#13;&#10;&#9;&#9;[&quot;K_DAR1&quot;]      = 19,&#13;&#10;&#9;&#9;[&quot;ENV2R1&quot;]      = 20,&#13;&#10;&#9;&#9;[&quot;ENV2R3&quot;]      = 21,&#13;&#10;&#9;&#9;[&quot;ENV2L3&quot;]      = 22,&#13;&#10;&#9;&#9;[&quot;ENV2R4&quot;]      = 23,&#13;&#10;&#9;&#9;[&quot;V_ATT2&quot;]      = 24,&#13;&#10;&#9;&#9;[&quot;V_REL2&quot;]      = 25,&#13;&#10;&#9;&#9;[&quot;O_REL2&quot;]      = 26,&#13;&#10;&#9;&#9;[&quot;K_DAR2&quot;]      = 27,&#13;&#10;&#9;&#9;[&quot;V_ENV2&quot;]      = 28,&#13;&#10;&#9;&#9;[&quot;E_PTCH&quot;]      = 29,&#13;&#10;&#9;&#9;[&quot;VXFADE&quot;]      = 30,&#13;&#10;&#9;&#9;[&quot;VZONES&quot;]      = 31,&#13;&#10;&#9;&#9;[&quot;LKXF&quot;]        = 32,&#13;&#10;&#9;&#9;[&quot;RKXF&quot;]        = 33,&#13;&#10;&#9;&#9;[&quot;SNAME1&quot;]      = 34,&#13;&#10;&#9;&#9;[&quot;LOVEL1&quot;]      = 46,&#13;&#10;&#9;&#9;[&quot;HIVEL1&quot;]      = 47,&#13;&#10;&#9;&#9;[&quot;VTUNO1&quot;]      = 48,&#13;&#10;&#9;&#9;[&quot;VLOUD1&quot;]      = 50,&#13;&#10;&#9;&#9;[&quot;VFREQ1&quot;]      = 51,&#13;&#10;&#9;&#9;[&quot;VPANO1&quot;]      = 52,&#13;&#10;&#9;&#9;[&quot;ZPLAY1&quot;]      = 53,&#13;&#10;&#9;&#9;[&quot;LVXF1&quot;]       = 54,&#13;&#10;&#9;&#9;[&quot;HVXF1&quot;]       = 55,&#13;&#10;&#9;&#9;[&quot;SBADD1&quot;]      = 56,&#13;&#10;&#9;&#9;[&quot;SNAME2&quot;]      = 58,&#13;&#10;&#9;&#9;[&quot;LOVEL2&quot;]      = 70,&#13;&#10;&#9;&#9;[&quot;HIVEL2&quot;]      = 71,&#13;&#10;&#9;&#9;[&quot;VTUNO2&quot;]      = 72,&#13;&#10;&#9;&#9;[&quot;VLOUD2&quot;]      = 74,&#13;&#10;&#9;&#9;[&quot;VFREQ2&quot;]      = 75,&#13;&#10;&#9;&#9;[&quot;VPANO2&quot;]      = 76,&#13;&#10;&#9;&#9;[&quot;ZPLAY2&quot;]      = 77,&#13;&#10;&#9;&#9;[&quot;LVXF2&quot;]       = 78,&#13;&#10;&#9;&#9;[&quot;HVXF2&quot;]       = 79,&#13;&#10;&#9;&#9;[&quot;SBADD2&quot;]      = 80,&#13;&#10;&#9;&#9;[&quot;SNAME3&quot;]      = 82,&#13;&#10;&#9;&#9;[&quot;LOVEL3&quot;]      = 94,&#13;&#10;&#9;&#9;[&quot;HIVEL3&quot;]      = 95,&#13;&#10;&#9;&#9;[&quot;VTUNO3&quot;]      = 96,&#13;&#10;&#9;&#9;[&quot;VLOUD3&quot;]      = 98,&#13;&#10;&#9;&#9;[&quot;VFREQ3&quot;]      = 99,&#13;&#10;&#9;&#9;[&quot;VPANO3&quot;]      = 100,&#13;&#10;&#9;&#9;[&quot;ZPLAY3&quot;]      = 101,&#13;&#10;&#9;&#9;[&quot;LVXF3&quot;]       = 102,&#13;&#10;&#9;&#9;[&quot;HVXF3&quot;]       = 103,&#13;&#10;&#9;&#9;[&quot;SBADD3&quot;]      = 104,&#13;&#10;&#9;&#9;[&quot;SNAME4&quot;]      = 106,&#13;&#10;&#9;&#9;[&quot;LOVEL4&quot;]      = 118,&#13;&#10;&#9;&#9;[&quot;HIVEL4&quot;]      = 119,&#13;&#10;&#9;&#9;[&quot;VTUNO4&quot;]      = 120,&#13;&#10;&#9;&#9;[&quot;VLOUD4&quot;]      = 122,&#13;&#10;&#9;&#9;[&quot;VFREQ4&quot;]      = 123,&#13;&#10;&#9;&#9;[&quot;VPANO4&quot;]      = 124,&#13;&#10;&#9;&#9;[&quot;ZPLAY4&quot;]      = 125,&#13;&#10;&#9;&#9;[&quot;LVXF4&quot;]       = 126,&#13;&#10;&#9;&#9;[&quot;HVXF4&quot;]       = 127,&#13;&#10;&#9;&#9;[&quot;SBADD4&quot;]      = 128,&#13;&#10;&#9;&#9;[&quot;KBEAT&quot;]       = 130,&#13;&#10;&#9;&#9;[&quot;AHOLD&quot;]       = 131,&#13;&#10;&#9;&#9;[&quot;CP1&quot;]         = 132,&#13;&#10;&#9;&#9;[&quot;CP2&quot;]         = 133,&#13;&#10;&#9;&#9;[&quot;CP3&quot;]         = 134,&#13;&#10;&#9;&#9;[&quot;CP4&quot;]         = 135,&#13;&#10;&#9;&#9;[&quot;VZOUT1&quot;]      = 136,&#13;&#10;&#9;&#9;[&quot;VZOUT2&quot;]      = 137,&#13;&#10;&#9;&#9;[&quot;VZOUT3&quot;]      = 138,&#13;&#10;&#9;&#9;[&quot;VZOUT4&quot;]      = 139,&#13;&#10;&#9;&#9;[&quot;VSS1&quot;]        = 140,&#13;&#10;&#9;&#9;[&quot;VSS2&quot;]        = 142,&#13;&#10;&#9;&#9;[&quot;VSS3&quot;]        = 144,&#13;&#10;&#9;&#9;[&quot;VSS4&quot;]        = 146,&#13;&#10;&#9;&#9;[&quot;KV_LO&quot;]       = 148,&#13;&#10;&#9;&#9;[&quot;FILQ&quot;]        = 149,&#13;&#10;&#9;&#9;[&quot;L_PTCH&quot;]      = 150,&#13;&#10;&#9;&#9;[&quot;MODVFILT1&quot;]   = 151,&#13;&#10;&#9;&#9;[&quot;MODVFILT2&quot;]   = 152,&#13;&#10;&#9;&#9;[&quot;MODVFILT3&quot;]   = 153,&#13;&#10;&#9;&#9;[&quot;MODVPITCH&quot;]   = 154,&#13;&#10;&#9;&#9;[&quot;MODVAMP3&quot;]    = 155,&#13;&#10;&#9;&#9;[&quot;ENV2L1&quot;]      = 156,&#13;&#10;&#9;&#9;[&quot;ENV2R2&quot;]      = 157,&#13;&#10;&#9;&#9;[&quot;ENV2L2&quot;]      = 158,&#13;&#10;&#9;&#9;[&quot;ENV2L4&quot;]      = 159,&#13;&#10;&#9;&#9;[&quot;kgmute&quot;]      = 160,&#13;&#10;&#9;&#9;[&quot;PFXCHAN&quot;]     = 161,&#13;&#10;&#9;&#9;[&quot;PFXSLEV&quot;]     = 162,&#13;&#10;&#9;&#9;[&quot;Reserved&quot;]    = 163,&#13;&#10;&#9;&#9;[&quot;LSI2_ON&quot;]     = 168,&#13;&#10;&#9;&#9;[&quot;FLT2GAIN&quot;]    = 169,&#13;&#10;&#9;&#9;[&quot;FLT2MODE&quot;]    = 170,&#13;&#10;&#9;&#9;[&quot;FLT2Q&quot;]       = 171,&#13;&#10;&#9;&#9;[&quot;TONEFREQ&quot;]    = 172,&#13;&#10;&#9;&#9;[&quot;TONESLOP&quot;]    = 173,&#13;&#10;&#9;&#9;[&quot;MODVFLT2_1&quot;]  = 174,&#13;&#10;&#9;&#9;[&quot;MODVFLT2_2&quot;]  = 175,&#13;&#10;&#9;&#9;[&quot;MODVFLT2_3&quot;]  = 176,&#13;&#10;&#9;&#9;[&quot;FIL2FR&quot;]      = 177,&#13;&#10;&#9;&#9;[&quot;K_FRQ2&quot;]      = 178,&#13;&#10;&#9;&#9;[&quot;ENV3R1&quot;]      = 179,&#13;&#10;&#9;&#9;[&quot;ENV3L1&quot;]      = 180,&#13;&#10;&#9;&#9;[&quot;ENV3R2&quot;]      = 181,&#13;&#10;&#9;&#9;[&quot;ENV3L2&quot;]      = 182,&#13;&#10;&#9;&#9;[&quot;ENV3R3&quot;]      = 183,&#13;&#10;&#9;&#9;[&quot;ENV3L3&quot;]      = 184,&#13;&#10;&#9;&#9;[&quot;ENV3R4&quot;]      = 185,&#13;&#10;&#9;&#9;[&quot;ENV3L4&quot;]      = 186,&#13;&#10;&#9;&#9;[&quot;V_ATT3&quot;]      = 187,&#13;&#10;&#9;&#9;[&quot;V_REL3&quot;]      = 188,&#13;&#10;&#9;&#9;[&quot;O_REL3&quot;]      = 189,&#13;&#10;&#9;&#9;[&quot;K_DAR3&quot;]      = 190,&#13;&#10;&#9;&#9;[&quot;V_ENV3&quot;]      = 191&#13;&#10;&#9;}&#13;&#10;end"
                      luaMethodLinkedProperty="" luaMethodSource="0" uuid="b85fb52ba25640e599a1d43caf2138af"
                      luaMethodValid="1"/>
@@ -320,58 +363,26 @@
                    luaMethodSource="1" uuid="d858b8cb20224a878ecb94cd7b38b798" luaMethodValid="1"/>
         <luaMethod luaMethodName="SampleListController.lua" luaMethodSourcePath="C:\ctrlr\Panels\pascalc\AkaiS2000\src\controller\SampleListController.lua"
                    luaMethodSource="1" uuid="77d4f68353e148f4ac6e5780acb721a2" luaMethodValid="1"/>
-      </luaMethodGroup>
-      <luaMethodGroup name="service" uuid="7b024567336b4a5b932b7792fb9fcd90">
-        <luaMethod luaMethodName="DrumMapService.lua" luaMethodSourcePath="C:\ctrlr\Panels\pascalc\AkaiS2000\src\service\DrumMapService.lua"
-                   luaMethodSource="1" uuid="52c8e84c05c94f179bab5ae181147ebd" luaMethodValid="1"/>
-        <luaMethod luaMethodName="HxcService.lua" luaMethodSourcePath="C:\ctrlr\Panels\pascalc\AkaiS2000\src\service\HxcService.lua"
-                   luaMethodSource="1" uuid="064333dc7201461ab4bf66c5796e1e1d" luaMethodValid="1"/>
-        <luaMethod luaMethodName="MidiService.lua" luaMethodSourcePath="C:\ctrlr\Panels\pascalc\AkaiS2000\src\service\MidiService.lua"
-                   luaMethodSource="1" uuid="a183d4b59fac4565b7c7360814e8527d" luaMethodValid="1"/>
-        <luaMethod luaMethodName="ProcessService.lua" luaMethodSourcePath="C:\ctrlr\Panels\pascalc\AkaiS2000\src\service\ProcessService.lua"
-                   luaMethodSource="1" uuid="18e3cab67f49415fb50d94976e32bf78" luaMethodValid="1"/>
-        <luaMethod luaMethodName="ProgramService.lua" luaMethodSourcePath="C:\ctrlr\Panels\pascalc\AkaiS2000\src\service\ProgramService.lua"
-                   luaMethodSource="1" uuid="ccfae271f87b4e2f860cc2d4f30802a2" luaMethodValid="1"/>
-        <luaMethod luaMethodName="S2kDieService.lua" luaMethodSourcePath="C:\ctrlr\Panels\pascalc\AkaiS2000\src\service\S2kDieService.lua"
-                   luaMethodSource="1" uuid="09ca39de27304ef9831fb91cf3a3d7ff" luaMethodValid="1"/>
-        <luaMethod luaMethodName="SampleEditService.lua" luaMethodSourcePath="C:\ctrlr\Panels\pascalc\AkaiS2000\src\service\SampleEditService.lua"
-                   luaMethodSource="1" uuid="7cd9a78480354d01a0bc3e5ef468520d" luaMethodValid="1"/>
-      </luaMethodGroup>
-      <luaMethodGroup name="model" uuid="1579d54f0e5c427d922085403fcfc6ea">
-        <luaMethod luaMethodName="DrumMap.lua" luaMethodSourcePath="C:\ctrlr\Panels\pascalc\AkaiS2000\src\model\DrumMap.lua"
-                   luaMethodSource="1" uuid="bd9aa1f21fc3491da906c4d506fdf247" luaMethodValid="1"/>
-        <luaMethod luaMethodName="KeyGroup.lua" luaMethodSourcePath="C:\ctrlr\Panels\pascalc\AkaiS2000\src\model\KeyGroup.lua"
-                   luaMethodSource="1" uuid="15215162ab1a4988be8537173e0b93ae" luaMethodValid="1"/>
-        <luaMethod luaMethodName="Process.lua" luaMethodSourcePath="C:\ctrlr\Panels\pascalc\AkaiS2000\src\model\Process.lua"
-                   luaMethodSource="1" uuid="6ccec304817b450cafdc62ce15b0871b" luaMethodValid="1"/>
-        <luaMethod luaMethodName="Program.lua" luaMethodSourcePath="C:\ctrlr\Panels\pascalc\AkaiS2000\src\model\Program.lua"
-                   luaMethodSource="1" uuid="481b0a52bdee4a50bce52d457467818f" luaMethodValid="1"/>
-        <luaMethod luaMethodName="ProgramList.lua" luaMethodSourcePath="C:\ctrlr\Panels\pascalc\AkaiS2000\src\model\ProgramList.lua"
-                   luaMethodSource="1" uuid="e8d3985319e7474893fe293e2125e775" luaMethodValid="1"/>
-        <luaMethod luaMethodName="Sample.lua" luaMethodSourcePath="C:\ctrlr\Panels\pascalc\AkaiS2000\src\model\Sample.lua"
-                   luaMethodSource="1" uuid="d07aeaaf5e9d42cebf783aed66f36626" luaMethodValid="1"/>
-        <luaMethod luaMethodName="SampleList.lua" luaMethodSourcePath="C:\ctrlr\Panels\pascalc\AkaiS2000\src\model\SampleList.lua"
-                   luaMethodSource="1" uuid="1efe70af00204ca6a0b1843e1241144a" luaMethodValid="1"/>
-        <luaMethod luaMethodName="Zone.lua" luaMethodSourcePath="C:\ctrlr\Panels\pascalc\AkaiS2000\src\model\Zone.lua"
-                   luaMethodSource="1" uuid="73212e6a58ad4ade8646ca3718926dcf" luaMethodValid="1"/>
+        <luaMethod luaMethodName="PanelController.lua" luaMethodSourcePath="C:\ctrlr\Panels\pascalc\AkaiS2000\src\controller\PanelController.lua"
+                   luaMethodSource="1" uuid="f596c587182a4741b6c08c4128524d4d" luaMethodValid="1"/>
       </luaMethodGroup>
     </luaManagerMethods>
   </luaManager>
   <panelResources>
-    <resource resourceHash="2452868127033641614" resourceLoadedTime="1471592351713"
+    <resource resourceHash="2452868127033641614" resourceLoadedTime="1476997837858"
               resourceSize="168" resourceFile="AkaiLoopAt.png" resourceSourceFile="C:\ctrlr\Panels\pascalc\AkaiLoopAt.png"
               resourceName="AkaiLoopAt" resourceType="Image"/>
-    <resource resourceHash="325667125948557472" resourceLoadedTime="1471592351713"
+    <resource resourceHash="325667125948557472" resourceLoadedTime="1476997837858"
               resourceSize="322" resourceFile="AkaiModulationArrowDown.png"
               resourceSourceFile="C:\ctrlr\Panels\pascalc\AkaiModulationArrowDown.png"
               resourceName="AkaiModulationArrowDown" resourceType="Image"/>
-    <resource resourceHash="7220683403334545719" resourceLoadedTime="1471592351714"
+    <resource resourceHash="7220683403334545719" resourceLoadedTime="1476997837859"
               resourceSize="323" resourceFile="AkaiModulationArrowUp.png" resourceSourceFile="C:\ctrlr\Panels\pascalc\AkaiModulationArrowUp.png"
               resourceName="AkaiModulationArrowUp" resourceType="Image"/>
-    <resource resourceHash="5223918378058402900" resourceLoadedTime="1471592351716"
+    <resource resourceHash="5223918378058402900" resourceLoadedTime="1476997837861"
               resourceSize="38529" resourceFile="AkaiS2000Logo.png" resourceSourceFile="C:\ctrlr\Panels\pascalc\AkaiS2000Logo.png"
               resourceName="AkaiS2000Logo" resourceType="Image"/>
-    <resource resourceHash="-2263635452950825971" resourceLoadedTime="1471592351717"
+    <resource resourceHash="-2263635452950825971" resourceLoadedTime="1476997837861"
               resourceSize="290" resourceFile="AkaiSignalArrow.png" resourceSourceFile="C:\ctrlr\Panels\pascalc\AkaiSignalArrow.png"
               resourceName="AkaiSignalArrow" resourceType="Image"/>
   </panelResources>
@@ -388,12 +399,12 @@
                  uiPanelTooltipOutlineColour="0xff000000" uiPanelTooltipColour="0xff000000"
                  uiPanelTooltipCornerRound="1" uiPanelTooltipPlacement="2" uiPanelTooltipFont="&lt;Sans-Serif&gt;;15;1;0;0;0;0;3"
                  uiPanelZoom="0.90000000000000002" uiPanelMenuBarHideOnExport="0"
-                 uiPanelPropertiesSize="247" uiPanelViewPortSize="990">
+                 uiPanelPropertiesSize="247" uiPanelViewPortSize="989">
     <uiPanelCanvasLayer uiPanelCanvasLayerName="ProgramBackground" uiPanelCanvasLayerUid="4515ed3444000000a8000000a85ca200"
-                        uiPanelCanvasLayerColour="0x000000" uiPanelCanvasLayerVisibility="1"
+                        uiPanelCanvasLayerColour="0x000000" uiPanelCanvasLayerVisibility="0"
                         uiPanelCanvasLayerIndex="5"/>
     <uiPanelCanvasLayer uiPanelCanvasLayerName="ProgramControls" uiPanelCanvasLayerUid="d7b8258473000000a8000000a0f70408"
-                        uiPanelCanvasLayerColour="0x000000" uiPanelCanvasLayerVisibility="1"
+                        uiPanelCanvasLayerColour="0x000000" uiPanelCanvasLayerVisibility="0"
                         uiPanelCanvasLayerIndex="6"/>
     <uiPanelCanvasLayer uiPanelCanvasLayerName="Sample" uiPanelCanvasLayerUid="17d5168673000000a8000000a0f70408"
                         uiPanelCanvasLayerColour="0x000000" uiPanelCanvasLayerVisibility="0"
@@ -411,8 +422,11 @@
                         uiPanelCanvasLayerColour="0x000000" uiPanelCanvasLayerVisibility="0"
                         uiPanelCanvasLayerIndex="1"/>
     <uiPanelCanvasLayer uiPanelCanvasLayerName="Drummap" uiPanelCanvasLayerUid="cb9205925e010000a8000000c8a9c407"
-                        uiPanelCanvasLayerColour="0x000000" uiPanelCanvasLayerVisibility="0"
+                        uiPanelCanvasLayerColour="0x000000" uiPanelCanvasLayerVisibility="1"
                         uiPanelCanvasLayerIndex="7"/>
+    <uiPanelCanvasLayer uiPanelCanvasLayerName="Debug" uiPanelCanvasLayerUid="7f04d0cb56010000a8000000b8e6ad09"
+                        uiPanelCanvasLayerColour="0x000000" uiPanelCanvasLayerVisibility="0"
+                        uiPanelCanvasLayerIndex="8"/>
   </uiPanelEditor>
   <modulator modulatorCustomIndex="0" modulatorCustomIndexGroup="0" modulatorIsStatic="1"
              name="editor" modulatorVstExported="0" modulatorValue="0">
@@ -1827,7 +1841,7 @@
                uiComboSelectedIndex="-1" uiType="uiCombo" componentRectangle="148 5 64 32"
                componentLayerUid="d7b8258473000000a8000000a0f70408"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="2" vstIndex="145" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="0" vstIndex="145" modulatorIsStatic="0"
              modulatorGlobalVariable="1" modulatorMuteOnStart="1" modulatorMute="1"
              modulatorExcludeFromSnapshot="1" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -1853,7 +1867,7 @@
                componentValueDecimalPlaces="0" componentLuaMouseMoved="-- None"
                componentLuaMouseDown="-- None" componentLuaMouseDrag="-- None"
                componentLuaMouseDoubleClick="-- None" uiSliderStyle="IncDecButtons"
-               uiSliderMin="1" uiSliderMax="2" uiSliderInterval="1" uiSliderDoubleClickEnabled="1"
+               uiSliderMin="1" uiSliderMax="0" uiSliderInterval="1" uiSliderDoubleClickEnabled="1"
                uiSliderDoubleClickValue="0" uiSliderValuePosition="2" uiSliderValueHeight="20"
                uiSliderValueWidth="25" uiSliderTrackCornerSize="3" uiSliderThumbCornerSize="3"
                uiSliderThumbWidth="0" uiSliderThumbHeight="0" uiSliderThumbFlatOnLeft="0"
@@ -2135,7 +2149,7 @@
              modulatorLinkedToComponent="Modulator" modulatorBaseValue="0"
              modulatorCustomIndex="24" modulatorCustomName="" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="onProgDefaultParamChange"
-             name="PANPOS" modulatorMin="0" modulatorValue="50">
+             name="PANPOS" modulatorMin="0" modulatorValue="7">
     <midi midiMessageType="9" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula=""/>
@@ -2178,7 +2192,7 @@
              modulatorLinkedToComponent="Modulator" modulatorBaseValue="0"
              modulatorCustomIndex="65" modulatorCustomName="" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="onProgTuneChange"
-             name="PTUNO" modulatorMin="-5000" modulatorValue="-10000">
+             name="PTUNO" modulatorMin="-5000" modulatorValue="0">
     <midi midiMessageType="9" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula=""/>
@@ -5834,13 +5848,13 @@
                componentLuaMouseDoubleClick="-- None" uiLabelBgColour="0x00000000"
                uiLabelTextColour="0xff000000" uiLabelOutline="0" uiLabelOutlineColour="0x00000000"
                uiLabelJustification="centred" uiLabelFitFont="0" uiLabelFont="Digital-7;18;0;0;0;0;1;2"
-               uiLabelText="PASCAL      " uiLabelDisplaysAllValues="0" uiLabelDisplayFormat="%n(%N) = %v(%h)"
+               uiLabelText="PASCAL2     " uiLabelDisplaysAllValues="0" uiLabelDisplayFormat="%n(%N) = %v(%h)"
                uiLabelInputHighlightTextColour="0xffffffff" uiLabelInputHighlightColour="0xff0000ff"
                uiLabelEditOnSingleClick="0" uiLabelEditOnDoubleClick="1" uiLabelEditFocusDiscardsChanges="1"
                uiLabelInputAllowedChars="" uiLabelInputMaxLength="1024" uiLabelChangedCbk="-- None"
                uiType="uiLabel" componentRectangle="104 0 113 50" componentLayerUid="d7b8258473000000a8000000a0f70408"/>
   </modulator>
-  <modulator modulatorVstExported="1" modulatorMax="2" vstIndex="265" modulatorIsStatic="0"
+  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="265" modulatorIsStatic="0"
              modulatorGlobalVariable="0" modulatorMuteOnStart="1" modulatorMute="1"
              modulatorExcludeFromSnapshot="1" modulatorValueExpression="modulatorValue"
              modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
@@ -5850,7 +5864,7 @@
              modulatorLinkedToComponent="Modulator" modulatorBaseValue="0"
              modulatorCustomIndex="0" modulatorCustomName="" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="onProgramChange"
-             name="programSelector" modulatorMin="1" modulatorValue="1">
+             name="programSelector" modulatorMin="1" modulatorValue="0">
     <midi midiMessageType="9" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula=""/>
@@ -5860,14 +5874,14 @@
                componentLabelFont="&lt;Sans-Serif&gt;;12;0;0;0;0;1;3" componentVisibleName="Program"
                componentMouseCursor="2" componentGroupName="programCtrlGroup"
                componentGroupped="1" componentSnapSize="0" componentIsLocked="0"
-               componentDisabled="0" componentRadioGroupId="0" componentRadioGroupNotifyMidi="1"
+               componentDisabled="1" componentRadioGroupId="0" componentRadioGroupNotifyMidi="1"
                componentVisibility="1" componentEffect="0" componentEffectRadius="1"
                componentEffectColour="0xff000000" componentEffectOffsetX="0"
                componentEffectOffsetY="0" componentExcludedFromLabelDisplay="0"
                componentValueDecimalPlaces="0" componentLuaMouseMoved="-- None"
                componentLuaMouseDown="-- None" componentLuaMouseDrag="-- None"
                componentLuaMouseDoubleClick="-- None" uiSliderStyle="IncDecButtons"
-               uiSliderMin="1" uiSliderMax="2" uiSliderInterval="1" uiSliderDoubleClickEnabled="1"
+               uiSliderMin="1" uiSliderMax="1" uiSliderInterval="1" uiSliderDoubleClickEnabled="1"
                uiSliderDoubleClickValue="0" uiSliderValuePosition="2" uiSliderValueHeight="20"
                uiSliderValueWidth="25" uiSliderTrackCornerSize="3" uiSliderThumbCornerSize="3"
                uiSliderThumbWidth="0" uiSliderThumbHeight="0" uiSliderThumbFlatOnLeft="0"
@@ -6753,7 +6767,7 @@
              modulatorLinkedToComponent="Modulator" modulatorBaseValue="0"
              modulatorCustomIndex="17" modulatorCustomName="" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="onProgDefaultParamChange"
-             name="POLYPH" modulatorMin="1" modulatorValue="20">
+             name="POLYPH" modulatorMin="1" modulatorValue="16">
     <midi midiMessageType="9" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula=""/>
@@ -6878,7 +6892,7 @@
              modulatorLinkedToComponent="Modulator" modulatorBaseValue="0"
              modulatorCustomIndex="0" modulatorCustomName="" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="onToggleEditor"
-             name="editorSelector" modulatorMin="0" modulatorValue="0">
+             name="editorSelector" modulatorMin="0" modulatorValue="2">
     <midi midiMessageType="9" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula=""/>
@@ -8519,7 +8533,7 @@
                uiFileListBoxVScrollTrackColour="33ffffff" uiFileListBoxHScrollBgColour="33ffffff"
                uiFileListBoxHScrollThumbColour="0xffababab" uiFileListBoxHScrollTrackColour="33ffffff"
                uiFileListOpenButtonVisible="0" uiFileListFileClicked="onSampleSelected"
-               uiFileListFileDoubleClicked="onSampleDoubleClicked" uiFileListCurrentRoot="C:\Users\pcg"
+               uiFileListFileDoubleClicked="onSampleDoubleClicked" uiFileListCurrentRoot="C:"
                componentRectangle="0 1 334 407" componentTabId="0" componentTabName="sampleTabs"
                uiType="uiFileListBox" componentLayerUid="cb9205925e010000a8000000c8a9c407"/>
   </modulator>
@@ -8933,7 +8947,7 @@
                componentLabelAlwaysOnTop="1" componentSentBack="0" componentLabelColour="0xff000000"
                componentLabelFont="&lt;Sans-Serif&gt;;12;0;0;0;0;1;3" componentVisibleName="modulator-2"
                componentMouseCursor="2" componentGroupName="" componentGroupped="0"
-               componentSnapSize="0" componentIsLocked="0" componentDisabled="0"
+               componentSnapSize="0" componentIsLocked="0" componentDisabled="1"
                componentRadioGroupId="0" componentRadioGroupNotifyMidi="1" componentVisibility="1"
                componentEffect="0" componentEffectRadius="1" componentEffectColour="0xff000000"
                componentEffectOffsetX="0" componentEffectOffsetY="0" componentExcludedFromLabelDisplay="0"
@@ -8945,7 +8959,7 @@
                uiButtonTextColourOff="ff332f2b" uiButtonContent="&gt;" uiButtonConnectedLeft="0"
                uiButtonConnectedRight="0" uiButtonConnectedTop="0" uiButtonConnectedBottom="0"
                uiButtonRepeat="0" uiButtonRepeatRate="100" uiButtonTriggerOnMouseDown="0"
-               componentInternalFunction="-- None" componentRectangle="371 311 88 32"
+               componentInternalFunction="-- None" componentRectangle="371 285 88 32"
                uiType="uiButton" componentLayerUid="cb9205925e010000a8000000c8a9c407"/>
   </modulator>
   <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="492" modulatorIsStatic="0"
@@ -8957,8 +8971,8 @@
              modulatorLinkedToModulator="-- None" modulatorLinkedToModulatorSource="1"
              modulatorLinkedToComponent="Modulator" modulatorBaseValue="0"
              modulatorCustomIndex="0" modulatorCustomName="" modulatorCustomIndexGroup="0"
-             modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="onDrumMapClear"
-             name="clearSamples" modulatorMin="0" modulatorValue="0">
+             modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="onKeyGroupClear"
+             name="clearSample" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="9" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula=""/>
@@ -8967,7 +8981,7 @@
                componentLabelAlwaysOnTop="1" componentSentBack="0" componentLabelColour="0xff000000"
                componentLabelFont="&lt;Sans-Serif&gt;;12;0;0;0;0;1;3" componentVisibleName="modulator-2"
                componentMouseCursor="2" componentGroupName="" componentGroupped="0"
-               componentSnapSize="0" componentIsLocked="0" componentDisabled="0"
+               componentSnapSize="0" componentIsLocked="0" componentDisabled="1"
                componentRadioGroupId="0" componentRadioGroupNotifyMidi="1" componentVisibility="1"
                componentEffect="0" componentEffectRadius="1" componentEffectColour="0xff000000"
                componentEffectOffsetX="0" componentEffectOffsetY="0" componentExcludedFromLabelDisplay="0"
@@ -8979,7 +8993,7 @@
                uiButtonTextColourOff="ff332f2b" uiButtonContent="&lt;&lt;" uiButtonConnectedLeft="0"
                uiButtonConnectedRight="0" uiButtonConnectedTop="0" uiButtonConnectedBottom="0"
                uiButtonRepeat="0" uiButtonRepeatRate="100" uiButtonTriggerOnMouseDown="0"
-               componentInternalFunction="-- None" componentRectangle="371 359 88 32"
+               componentInternalFunction="-- None" componentRectangle="371 333 88 32"
                componentLayerUid="cb9205925e010000a8000000c8a9c407" uiType="uiButton"/>
   </modulator>
   <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="493" modulatorIsStatic="0"
@@ -8992,7 +9006,7 @@
              modulatorLinkedToComponent="Modulator" modulatorBaseValue="0"
              modulatorCustomIndex="13" modulatorCustomName="" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="drumMap-13" modulatorMin="0" modulatorValue="0">
+             name="drumMap-13" modulatorMin="0" modulatorValue="2">
     <midi midiMessageType="9" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula=""/>
@@ -9167,7 +9181,7 @@
              modulatorLinkedToComponent="Modulator" modulatorBaseValue="0"
              modulatorCustomIndex="10" modulatorCustomName="" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="drumMap-10" modulatorMin="0" modulatorValue="0">
+             name="drumMap-10" modulatorMin="0" modulatorValue="1">
     <midi midiMessageType="9" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula=""/>
@@ -9184,8 +9198,8 @@
                componentValueDecimalPlaces="0" componentLuaMouseMoved="-- None"
                componentLuaMouseDown="onPadSelected" componentLuaMouseDrag="-- None"
                componentLuaMouseDoubleClick="-- None" uiButtonTrueValue="1"
-               uiButtonFalseValue="0" uiButtonIsToggle="0" uiButtonColourOn="ff93b4ff"
-               uiButtonColourOff="ff93b4ff" uiButtonTextColourOn="0xff000000"
+               uiButtonFalseValue="0" uiButtonIsToggle="0" uiButtonColourOn="0xff0000ff"
+               uiButtonColourOff="0xff0000ff" uiButtonTextColourOn="0xff000000"
                uiButtonTextColourOff="0xff454545" uiButtonContent="" uiButtonConnectedLeft="0"
                uiButtonConnectedRight="0" uiButtonConnectedTop="0" uiButtonConnectedBottom="0"
                uiButtonRepeat="0" uiButtonRepeatRate="100" uiButtonTriggerOnMouseDown="0"
@@ -9202,7 +9216,7 @@
              modulatorLinkedToComponent="Modulator" modulatorBaseValue="0"
              modulatorCustomIndex="9" modulatorCustomName="" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="drumMap-9" modulatorMin="0" modulatorValue="0">
+             name="drumMap-9" modulatorMin="0" modulatorValue="2">
     <midi midiMessageType="9" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula=""/>
@@ -9236,7 +9250,7 @@
              modulatorLinkedToComponent="Modulator" modulatorBaseValue="0"
              modulatorCustomIndex="8" modulatorCustomName="" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="drumMap-8" modulatorMin="0" modulatorValue="0">
+             name="drumMap-8" modulatorMin="0" modulatorValue="1">
     <midi midiMessageType="9" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula=""/>
@@ -9338,7 +9352,7 @@
              modulatorLinkedToComponent="Modulator" modulatorBaseValue="0"
              modulatorCustomIndex="5" modulatorCustomName="" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="drumMap-5" modulatorMin="0" modulatorValue="0">
+             name="drumMap-5" modulatorMin="0" modulatorValue="1">
     <midi midiMessageType="9" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula=""/>
@@ -9406,7 +9420,7 @@
              modulatorLinkedToComponent="Modulator" modulatorBaseValue="0"
              modulatorCustomIndex="3" modulatorCustomName="" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="drumMap-3" modulatorMin="0" modulatorValue="0">
+             name="drumMap-3" modulatorMin="0" modulatorValue="1">
     <midi midiMessageType="9" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula=""/>
@@ -9440,24 +9454,24 @@
              modulatorLinkedToComponent="Modulator" modulatorBaseValue="0"
              modulatorCustomIndex="2" modulatorCustomName="" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="drumMap-2" modulatorMin="0" modulatorValue="0">
+             name="drumMap-2" modulatorMin="0" modulatorValue="3">
     <midi midiMessageType="9" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="topLeft"
-               componentLabelHeight="128" componentLabelWidth="0" componentLabelVisible="1"
+               componentLabelHeight="128" componentLabelWidth="0" componentLabelVisible="0"
                componentLabelAlwaysOnTop="1" componentSentBack="0" componentLabelColour="0xff000000"
-               componentLabelFont="&lt;Sans-Serif&gt;;12;0;0;0;0;1;3" componentVisibleName="DOOR-CLOSE-L&#10;DOOR-CLOSE-R"
+               componentLabelFont="&lt;Sans-Serif&gt;;12;0;0;0;0;1;3" componentVisibleName=""
                componentMouseCursor="2" componentGroupName="drumMap-2-grp" componentGroupped="1"
                componentSnapSize="0" componentIsLocked="0" componentDisabled="0"
-               componentRadioGroupId="0" componentRadioGroupNotifyMidi="1" componentVisibility="1"
+               componentRadioGroupId="0" componentRadioGroupNotifyMidi="1" componentVisibility="0"
                componentEffect="0" componentEffectRadius="1" componentEffectColour="0xff000000"
                componentEffectOffsetX="0" componentEffectOffsetY="0" componentExcludedFromLabelDisplay="0"
                componentValueDecimalPlaces="0" componentLuaMouseMoved="-- None"
                componentLuaMouseDown="onPadSelected" componentLuaMouseDrag="-- None"
                componentLuaMouseDoubleClick="-- None" uiButtonTrueValue="1"
-               uiButtonFalseValue="0" uiButtonIsToggle="0" uiButtonColourOn="0xff0000ff"
-               uiButtonColourOff="0xff0000ff" uiButtonTextColourOn="0xff000000"
+               uiButtonFalseValue="0" uiButtonIsToggle="0" uiButtonColourOn="ff93b4ff"
+               uiButtonColourOff="ff93b4ff" uiButtonTextColourOn="0xff000000"
                uiButtonTextColourOff="0xff454545" uiButtonContent="" uiButtonConnectedLeft="0"
                uiButtonConnectedRight="0" uiButtonConnectedTop="0" uiButtonConnectedBottom="0"
                uiButtonRepeat="0" uiButtonRepeatRate="100" uiButtonTriggerOnMouseDown="0"
@@ -9474,17 +9488,17 @@
              modulatorLinkedToComponent="Modulator" modulatorBaseValue="0"
              modulatorCustomIndex="1" modulatorCustomName="" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="drumMap-1" modulatorMin="0" modulatorValue="0">
+             name="drumMap-1" modulatorMin="0" modulatorValue="7">
     <midi midiMessageType="9" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="topLeft"
-               componentLabelHeight="128" componentLabelWidth="0" componentLabelVisible="1"
+               componentLabelHeight="128" componentLabelWidth="0" componentLabelVisible="0"
                componentLabelAlwaysOnTop="1" componentSentBack="0" componentLabelColour="0xff000000"
-               componentLabelFont="&lt;Sans-Serif&gt;;12;0;0;0;0;1;3" componentVisibleName="BOWED-BASS-L&#10;BOWED-BASS-R"
+               componentLabelFont="&lt;Sans-Serif&gt;;12;0;0;0;0;1;3" componentVisibleName=""
                componentMouseCursor="2" componentGroupName="drumMap-1-grp" componentGroupped="1"
                componentSnapSize="0" componentIsLocked="0" componentDisabled="0"
-               componentRadioGroupId="0" componentRadioGroupNotifyMidi="1" componentVisibility="1"
+               componentRadioGroupId="0" componentRadioGroupNotifyMidi="1" componentVisibility="0"
                componentEffect="0" componentEffectRadius="1" componentEffectColour="0xff000000"
                componentEffectOffsetX="0" componentEffectOffsetY="0" componentExcludedFromLabelDisplay="0"
                componentValueDecimalPlaces="0" componentLuaMouseMoved="-- None"
@@ -9508,7 +9522,7 @@
              modulatorLinkedToComponent="Modulator" modulatorBaseValue="0"
              modulatorCustomIndex="14" modulatorCustomName="" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="drumMap-14" modulatorMin="0" modulatorValue="0">
+             name="drumMap-14" modulatorMin="0" modulatorValue="3">
     <midi midiMessageType="9" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula=""/>
@@ -9800,7 +9814,7 @@
                componentLabelAlwaysOnTop="1" componentSentBack="0" componentLabelColour="0xff000000"
                componentLabelFont="&lt;Sans-Serif&gt;;12;0;0;0;0;1;3" componentVisibleName="modulator-2"
                componentMouseCursor="2" componentGroupName="settingsGroup" componentGroupped="1"
-               componentSnapSize="0" componentIsLocked="0" componentDisabled="0"
+               componentSnapSize="0" componentIsLocked="0" componentDisabled="1"
                componentRadioGroupId="0" componentRadioGroupNotifyMidi="1" componentVisibility="1"
                componentEffect="0" componentEffectRadius="1" componentEffectColour="0xff000000"
                componentEffectOffsetX="0" componentEffectOffsetY="0" componentExcludedFromLabelDisplay="0"
@@ -10179,7 +10193,7 @@
                componentLuaMouseDoubleClick="-- None" uiLabelBgColour="0x00000000"
                uiLabelTextColour="0xff000000" uiLabelOutline="0" uiLabelOutlineColour="0x00000000"
                uiLabelJustification="left" uiLabelFitFont="0" uiLabelFont="&lt;Sans-Serif&gt;;20;0;0;0;0;1.3;3"
-               uiLabelText="KeyGroup 2" uiLabelDisplaysAllValues="0" uiLabelDisplayFormat="%n(%N) = %v(%h)"
+               uiLabelText="KeyGroup 10" uiLabelDisplaysAllValues="0" uiLabelDisplayFormat="%n(%N) = %v(%h)"
                uiLabelInputHighlightTextColour="0xffffffff" uiLabelInputHighlightColour="0xff0000ff"
                uiLabelEditOnSingleClick="0" uiLabelEditOnDoubleClick="0" uiLabelEditFocusDiscardsChanges="1"
                uiLabelInputAllowedChars="" uiLabelInputMaxLength="1024" uiLabelChangedCbk="-- None"
@@ -10196,7 +10210,7 @@
              modulatorLinkedToComponent="Modulator" modulatorBaseValue="0"
              modulatorCustomIndex="1" modulatorCustomName="" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="onDrumMapKeyChange"
-             name="drumMapLowKey" modulatorMin="0" modulatorValue="1">
+             name="drumMapLowKey" modulatorMin="0" modulatorValue="9">
     <midi midiMessageType="9" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula=""/>
@@ -10238,7 +10252,7 @@
              modulatorLinkedToComponent="Modulator" modulatorBaseValue="0"
              modulatorCustomIndex="2" modulatorCustomName="" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="onDrumMapKeyChange"
-             name="drumMapHighKey" modulatorMin="0" modulatorValue="1">
+             name="drumMapHighKey" modulatorMin="0" modulatorValue="9">
     <midi midiMessageType="9" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula=""/>
@@ -10586,7 +10600,7 @@
              modulatorLinkedToComponent="Modulator" modulatorBaseValue="0"
              modulatorCustomIndex="0" modulatorCustomName="" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="floppyUsageBar" modulatorMin="0" modulatorValue="59">
+             name="floppyUsageBar" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="9" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula=""/>
@@ -10658,7 +10672,7 @@
                componentLuaMouseDoubleClick="-- None" uiLabelBgColour="0x00000000"
                uiLabelTextColour="0xff000000" uiLabelOutline="0" uiLabelOutlineColour="0x00000000"
                uiLabelJustification="left" uiLabelFitFont="0" uiLabelFont="&lt;Sans-Serif&gt;;14;0;0;0;0;1;3"
-               uiLabelText="# Floppies to be transfered: 1" uiLabelDisplaysAllValues="0"
+               uiLabelText="# Floppies to be transfered: 0" uiLabelDisplaysAllValues="0"
                uiLabelDisplayFormat="%n(%N) = %v(%h)" uiLabelInputHighlightTextColour="0xffffffff"
                uiLabelInputHighlightColour="0xff0000ff" uiLabelEditOnSingleClick="0"
                uiLabelEditOnDoubleClick="0" uiLabelEditFocusDiscardsChanges="1"
@@ -10684,7 +10698,7 @@
                componentLabelHeight="14" componentLabelWidth="0" componentLabelVisible="0"
                componentLabelAlwaysOnTop="1" componentSentBack="0" componentLabelColour="0xff000000"
                componentLabelFont="&lt;Sans-Serif&gt;;12;0;0;0;0;1;3" componentVisibleName="modulator-14"
-               componentMouseCursor="2" componentGroupName="editor" componentGroupped="1"
+               componentMouseCursor="2" componentGroupName="" componentGroupped="0"
                componentSnapSize="0" componentIsLocked="0" componentDisabled="0"
                componentRadioGroupId="0" componentRadioGroupNotifyMidi="1" componentVisibility="1"
                componentEffect="0" componentEffectRadius="1" componentEffectColour="0xff000000"
@@ -10698,7 +10712,7 @@
                uiButtonConnectedRight="0" uiButtonConnectedTop="0" uiButtonConnectedBottom="0"
                uiButtonRepeat="0" uiButtonRepeatRate="100" uiButtonTriggerOnMouseDown="0"
                componentInternalFunction="-- None" componentRectangle="1181 11 88 32"
-               uiType="uiButton" componentLayerUid="23f0e4d8e3000000a8000000d008e208"/>
+               uiType="uiButton" componentLayerUid="7f04d0cb56010000a8000000b8e6ad09"/>
   </modulator>
   <modulator modulatorCustomIndex="0" modulatorCustomIndexGroup="0" modulatorIsStatic="1"
              name="sampleImageGrp" modulatorVstExported="0" modulatorValue="0">
@@ -10841,7 +10855,7 @@
              modulatorLinkedToComponent="Modulator" modulatorBaseValue="0"
              modulatorCustomIndex="0" modulatorCustomName="" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="onKeyGroupNumChange"
-             name="numKeyGroups" modulatorMin="1" modulatorValue="13">
+             name="numKeyGroups" modulatorMin="1" modulatorValue="8">
     <midi midiMessageType="9" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula=""/>
@@ -10893,7 +10907,7 @@
                componentLabelHeight="14" componentLabelWidth="0" componentLabelVisible="1"
                componentLabelAlwaysOnTop="1" componentSentBack="0" componentLabelColour="0xff000000"
                componentLabelFont="&lt;Sans-Serif&gt;;12;0;0;0;0;1;3" componentVisibleName="Test 1"
-               componentMouseCursor="2" componentGroupName="editor" componentGroupped="1"
+               componentMouseCursor="2" componentGroupName="" componentGroupped="0"
                componentSnapSize="0" componentIsLocked="0" componentDisabled="0"
                componentRadioGroupId="0" componentRadioGroupNotifyMidi="1" componentVisibility="1"
                componentEffect="0" componentEffectRadius="1" componentEffectColour="0xff000000"
@@ -10911,7 +10925,7 @@
                uiComboButtonGradientColour2="ff00008b" uiComboButtonWidthOverride="0"
                uiComboButtonWidth="16" uiComboDynamicContent="0" uiComboSelectedId="-1"
                uiComboSelectedIndex="-1" uiType="uiCombo" componentRectangle="1077 6 88 32"
-               componentLayerUid="23f0e4d8e3000000a8000000d008e208"/>
+               componentLayerUid="7f04d0cb56010000a8000000b8e6ad09"/>
   </modulator>
   <modulator modulatorVstExported="1" modulatorMax="2" vstIndex="532" modulatorIsStatic="0"
              modulatorGlobalVariable="-1" modulatorMuteOnStart="1" modulatorMute="1"
@@ -10923,7 +10937,7 @@
              modulatorLinkedToComponent="Modulator" modulatorBaseValue="0"
              modulatorCustomIndex="0" modulatorCustomName="" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="onLogLevelChanged"
-             name="logLevelCombo" modulatorMin="0" modulatorValue="1">
+             name="logLevelCombo" modulatorMin="0" modulatorValue="2">
     <midi midiMessageType="9" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula=""/>
@@ -10931,7 +10945,7 @@
                componentLabelHeight="14" componentLabelWidth="0" componentLabelVisible="1"
                componentLabelAlwaysOnTop="1" componentSentBack="0" componentLabelColour="0xff000000"
                componentLabelFont="&lt;Sans-Serif&gt;;12;0;0;0;0;1;3" componentVisibleName="Log Level"
-               componentMouseCursor="2" componentGroupName="editor" componentGroupped="1"
+               componentMouseCursor="2" componentGroupName="" componentGroupped="0"
                componentSnapSize="0" componentIsLocked="0" componentDisabled="0"
                componentRadioGroupId="0" componentRadioGroupNotifyMidi="1" componentVisibility="1"
                componentEffect="0" componentEffectRadius="1" componentEffectColour="0xff000000"
@@ -10948,7 +10962,7 @@
                uiComboMenuBackgroundRibbed="1" uiComboButtonGradient="0" uiComboButtonGradientColour1="ff0000ff"
                uiComboButtonGradientColour2="ff00008b" uiComboButtonWidthOverride="0"
                uiComboButtonWidth="16" uiComboDynamicContent="0" uiComboSelectedId="-1"
-               uiComboSelectedIndex="-1" componentLayerUid="23f0e4d8e3000000a8000000d008e208"
+               uiComboSelectedIndex="-1" componentLayerUid="7f04d0cb56010000a8000000b8e6ad09"
                componentRectangle="975 7 88 32" uiType="uiCombo"/>
   </modulator>
   <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="533" modulatorIsStatic="0"
@@ -10961,7 +10975,7 @@
              modulatorLinkedToComponent="Modulator" modulatorBaseValue="0"
              modulatorCustomIndex="0" modulatorCustomName="" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="onPanelStateChanged"
-             name="panelStateBtn" modulatorMin="0" modulatorValue="0">
+             name="panelStateBtn" modulatorMin="0" modulatorValue="1">
     <midi midiMessageType="9" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula=""/>
@@ -10969,7 +10983,7 @@
                componentLabelHeight="14" componentLabelWidth="0" componentLabelVisible="0"
                componentLabelAlwaysOnTop="0" componentSentBack="0" componentLabelColour="0xff000000"
                componentLabelFont="&lt;Sans-Serif&gt;;12;0;0;0;0;1;3" componentVisibleName="modulator-2"
-               componentMouseCursor="2" componentGroupName="editor" componentGroupped="1"
+               componentMouseCursor="2" componentGroupName="" componentGroupped="0"
                componentSnapSize="0" componentIsLocked="0" componentDisabled="0"
                componentRadioGroupId="0" componentRadioGroupNotifyMidi="1" componentVisibility="1"
                componentEffect="0" componentEffectRadius="1" componentEffectColour="0xff000000"
@@ -10983,7 +10997,7 @@
                uiButtonConnectedLeft="0" uiButtonConnectedRight="0" uiButtonConnectedTop="0"
                uiButtonConnectedBottom="0" uiButtonRepeat="0" uiButtonRepeatRate="100"
                uiButtonTriggerOnMouseDown="0" componentInternalFunction="-- None"
-               componentRectangle="914 11 50 32" uiType="uiButton" componentLayerUid="23f0e4d8e3000000a8000000d008e208"/>
+               componentRectangle="914 11 50 32" uiType="uiButton" componentLayerUid="7f04d0cb56010000a8000000b8e6ad09"/>
   </modulator>
   <modulator modulatorCustomIndex="0" modulatorCustomIndexGroup="0" modulatorIsStatic="1"
              name="VTUNO1-LBL" modulatorVstExported="0" modulatorValue="0">
@@ -11090,7 +11104,7 @@
                componentLuaMouseDoubleClick="-- None" uiLabelBgColour="0x00000000"
                uiLabelTextColour="0xff000000" uiLabelOutline="0" uiLabelOutlineColour="ffffff"
                uiLabelJustification="centred" uiLabelFitFont="0" uiLabelFont="&lt;Sans-Serif&gt;;12;0;0;0;0;1;3"
-               uiLabelText="-100.00" uiLabelDisplaysAllValues="0" uiLabelDisplayFormat="%n(%N) = %v(%h)"
+               uiLabelText="00.00" uiLabelDisplaysAllValues="0" uiLabelDisplayFormat="%n(%N) = %v(%h)"
                uiLabelInputHighlightTextColour="0xffffffff" uiLabelInputHighlightColour="0xff0000ff"
                uiLabelEditOnSingleClick="0" uiLabelEditOnDoubleClick="0" uiLabelEditFocusDiscardsChanges="1"
                uiLabelInputAllowedChars="" uiLabelInputMaxLength="1024" uiLabelChangedCbk="-- None"
@@ -11114,7 +11128,7 @@
                componentLabelHeight="14" componentLabelWidth="0" componentLabelVisible="0"
                componentLabelAlwaysOnTop="1" componentSentBack="0" componentLabelColour="0xff000000"
                componentLabelFont="&lt;Sans-Serif&gt;;12;0;0;0;0;1;3" componentVisibleName="modulator-2"
-               componentMouseCursor="2" componentGroupName="editor" componentGroupped="1"
+               componentMouseCursor="2" componentGroupName="" componentGroupped="0"
                componentSnapSize="0" componentIsLocked="0" componentDisabled="0"
                componentRadioGroupId="0" componentRadioGroupNotifyMidi="1" componentVisibility="1"
                componentEffect="0" componentEffectRadius="1" componentEffectColour="0xff000000"
@@ -11128,7 +11142,41 @@
                uiButtonConnectedRight="0" uiButtonConnectedTop="0" uiButtonConnectedBottom="0"
                uiButtonRepeat="0" uiButtonRepeatRate="100" uiButtonTriggerOnMouseDown="0"
                componentInternalFunction="-- None" componentRectangle="852 10 50 32"
-               componentLayerUid="23f0e4d8e3000000a8000000d008e208" uiType="uiButton"/>
+               componentLayerUid="7f04d0cb56010000a8000000b8e6ad09" uiType="uiButton"/>
   </modulator>
-  <panelCustomData programListState="null"/>
+  <modulator modulatorVstExported="1" modulatorMax="1" vstIndex="535" modulatorIsStatic="0"
+             modulatorGlobalVariable="-1" modulatorMuteOnStart="0" modulatorMute="0"
+             modulatorExcludeFromSnapshot="0" modulatorValueExpression="modulatorValue"
+             modulatorValueExpressionReverse="midiValue" modulatorControllerExpression="value"
+             luaModulatorGetValueForMIDI="-- None" luaModulatorGetValueFromMIDI="-- None"
+             modulatorLinkedToPanelProperty="-- None" modulatorLinkedToModulatorProperty="-- None"
+             modulatorLinkedToModulator="-- None" modulatorLinkedToModulatorSource="1"
+             modulatorLinkedToComponent="Modulator" modulatorBaseValue="0"
+             modulatorCustomIndex="0" modulatorCustomName="" modulatorCustomIndexGroup="0"
+             modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="onDrumMapClear"
+             name="clearAllSamples" modulatorMin="0" modulatorValue="0">
+    <midi midiMessageType="9" midiMessageChannelOverride="0" midiMessageChannel="1"
+          midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
+          midiMessageSysExFormula=""/>
+    <component componentLabelPosition="top" componentLabelJustification="centred"
+               componentLabelHeight="14" componentLabelWidth="0" componentLabelVisible="0"
+               componentLabelAlwaysOnTop="1" componentSentBack="0" componentLabelColour="0xff000000"
+               componentLabelFont="&lt;Sans-Serif&gt;;12;0;0;0;0;1;3" componentVisibleName="modulator-2"
+               componentMouseCursor="2" componentGroupName="" componentGroupped="0"
+               componentSnapSize="0" componentIsLocked="0" componentDisabled="1"
+               componentRadioGroupId="0" componentRadioGroupNotifyMidi="1" componentVisibility="1"
+               componentEffect="0" componentEffectRadius="1" componentEffectColour="0xff000000"
+               componentEffectOffsetX="0" componentEffectOffsetY="0" componentExcludedFromLabelDisplay="0"
+               componentValueDecimalPlaces="0" componentLuaMouseMoved="-- None"
+               componentLuaMouseDown="-- None" componentLuaMouseDrag="-- None"
+               componentLuaMouseDoubleClick="-- None" uiButtonTrueValue="1"
+               uiButtonFalseValue="0" uiButtonIsToggle="0" uiButtonColourOn="ffd6c393"
+               uiButtonColourOff="ff4364ff" uiButtonTextColourOn="ff332f2b"
+               uiButtonTextColourOff="ff332f2b" uiButtonContent="Clear All"
+               uiButtonConnectedLeft="0" uiButtonConnectedRight="0" uiButtonConnectedTop="0"
+               uiButtonConnectedBottom="0" uiButtonRepeat="0" uiButtonRepeatRate="100"
+               uiButtonTriggerOnMouseDown="0" componentInternalFunction="-- None"
+               componentRectangle="371 381 88 32" uiType="uiButton" componentLayerUid="cb9205925e010000a8000000c8a9c407"/>
+  </modulator>
+  <panelCustomData programListState="{&quot;activeProgram&quot;:-1,&quot;list&quot;:[],&quot;LUA_CLASS_NAME&quot;:&quot;ProgramList&quot;,&quot;listeners&quot;:{}}"/>
 </panel>

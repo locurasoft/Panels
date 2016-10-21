@@ -13,6 +13,8 @@ local math = require('math')
 local string = require("string")
 local table = require("table")
 local package = require("package")
+local os = require("os")
+local io = require("io")
 
 local base = _G
 
@@ -54,9 +56,9 @@ end
 
 function getUserHome()
   if getOsName() == "win" then 
-    return os.getenv("USERPROFILE")
+    return os.getenv("HOMEDRIVE")
   else
-    return os.getenv("HOME")
+    return "/"
   end
 end
 
@@ -79,11 +81,11 @@ function getFileContents(filepath)
 end
 
 function toFilePath(fileDir, fileName)
-  return string.format("%s%s%s", fileDir, pathseparator, fileName)
+  return string.format("%s%s%s", fileDir, pathSeparator, fileName)
 end
 
 function getFileName(filePath)
-  local lastSlash = string.find(filePath, string.format("%s[^%s]*$", pathseparator, pathseparator))
+  local lastSlash = string.find(filePath, string.format("%s[^%s]*$", pathSeparator, pathSeparator))
   return string.sub(filePath, lastSlash + 1)
 end
 

@@ -47,12 +47,9 @@ setmetatable(DrumMapController, {
   end,
 })
 
-function DrumMapController:_init()
+function DrumMapController:_init(drumMap)
   AbstractController._init(self)
-end
-
-function DrumMapController:setDrumMap(drumMap)	
-	drumMap:addListener(self, "updateDrumMap")
+  drumMap:addListener(self, "updateDrumMap")
 end
 
 function DrumMapController:updateDrumMap(drumMap)
@@ -65,16 +62,13 @@ function DrumMapController:updateDrumMap(drumMap)
 
 	for i = 1,16 do
 		local padName = string.format("drumMap-%d", i)
-		--log:fine("padName %s", padName)
 		if drumMap:isSelectedKeyGroup(i) then
-			--log:fine("selected")
 			local comp = panel:getComponent(padName)
 			local kgName = self:getKeyGroupName(comp)
 
 			enablePad(comp)			
 			panel:getComponent("drumMapSelectionLabel"):setProperty("uiLabelText", kgName, false)
 		else
-			--console("not selected")
 			disablePad(panel:getComponent(padName))
 		end
 		local samplesOfPad = drumMap:getSamplesOfKeyGroup(i)
@@ -106,7 +100,8 @@ function DrumMapController:updateDrumMap(drumMap)
 	-- Update assignment controls
 	--
 	self:toggleActivation("assignSample", drumMap:isReadyForAssignment())
-	self:toggleActivation("clearSamples", not drumMap:isClear())
+	self:toggleActivation("clearSample", not drumMap:isClear())
+	self:toggleActivation("clearAllSamples", not drumMap:isClear())
 	self:toggleActivation("transferSamples", not drumMap:isClear())
 
 	--
@@ -118,8 +113,7 @@ function DrumMapController:updateDrumMap(drumMap)
 	self:toggleActivation("defaultDrumMapButton", isPadSelected)
 
 	if isPadSelected then
-		local keyRanges = drumMap:getKeyRangeValues()
-		-- console(string.format("keyRagnes: %d, %d", keyRanges[1], keyRanges[2]))
+		local keyRanges = drumMap:getSelectedKeyRangeValues()
 		panel:getModulatorByName("drumMapLowKey"):setValue(keyRanges[1], false)
 		panel:getModulatorByName("drumMapHighKey"):setValue(keyRanges[2], false)
 	end
@@ -132,7 +126,6 @@ end
 function DrumMapController:getKeyGroupName(comp)
 	local grpName = comp:getProperty("componentGroupName")
 	local kgIndex = string.sub(grpName, 9, string.find(grpName, "-grp") - 1)
-	--log:fine("Found %s", kgIndex)
 	return string.format("KeyGroup %s", kgIndex)
 end
 

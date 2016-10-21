@@ -3,6 +3,8 @@ require("Logger")
 require("mutils")
 
 local PDATA_HEADER_SIZE = 4
+local PDATA_SIZE = 232
+local MAX_PROG_NBR = 255
 local log = Logger("PdataMsg")
 
 PdataMsg = {}
@@ -20,11 +22,11 @@ setmetatable(PdataMsg, {
 function PdataMsg:_init(bytes)
   SyxMsg._init(self)
   if bytes == nil then
-    bytes = MemoryBlock(232, true)
+    bytes = MemoryBlock(PDATA_SIZE, true)
     bytes:setByte(0, 0xF0)
     bytes:setByte(1, 0x47)
     bytes:setByte(3, 0x07)
-    bytes:setByte(231, 0xF7)
+    bytes:setByte(PDATA_SIZE - 1, 0xF7)
 
     self.data = bytes
     self[LUA_CONTRUCTOR_NAME] = "Pdata"
@@ -90,10 +92,15 @@ function PdataMsg:setNumKeyGroups(numKeyGroups)
 end
 
 function PdataMsg:setMaxProgramNumber()
-	self:setProgramNumber(255)
+	self:setProgramNumber(MAX_PROG_NBR)
 end
 
 function PdataMsg:setProgramNumber(programNumber)
+  if programNumber > MAX_PROG_NBR then
+    programNumber = MAX_PROG_NBR
+  elseif programNumber < 0 then
+    programNumber = 0
+  end
 	self:storeNibbles("PRGNUM", mutils.toNibbles(programNumber))
 end
 

@@ -273,10 +273,10 @@ function decode_scanObject(s,startPos)
     if (curChar=='}') then
       -- pascalc edit start
       if object[LUA_CONSTRUCTOR_NAME] == nil then
-        base.console(string.format("MISS"))
+--        base.console(string.format("MISS"))
         return object,startPos+1
       else
-		base.console(string.format("Creating - %s", object[LUA_CONSTRUCTOR_NAME]))
+--		base.console(string.format("Creating - %s", object[LUA_CONSTRUCTOR_NAME]))
         local temp = base[object[LUA_CONSTRUCTOR_NAME]]()
         for k,v in base.pairs(object)do
           temp[k] = v
@@ -340,9 +340,9 @@ function decode_scanString(s,startPos)
     i,j = string.find(s, "\\.", j+1)
     local x,y = string.find(s, startChar, oldj+1)
     if not i or x < i then
-      base.print(s, startPos, string.sub(s,startPos,oldj))
+--      base.print(s, startPos, string.sub(s,startPos,oldj))
       i,j = x,y-1
-      if not x then base.print(s, startPos, string.sub(s,startPos,oldj)) end
+--      if not x then base.print(s, startPos, string.sub(s,startPos,oldj)) end
     end
     table.insert(t, string.sub(s, oldj+1, i-1))
     if string.sub(s, i, j) == "\\u" then

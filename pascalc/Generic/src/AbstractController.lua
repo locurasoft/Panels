@@ -1,7 +1,10 @@
 require("LuaObject")
+require("Logger")
 
 AbstractController = {}
 AbstractController.__index = AbstractController
+
+local log = Logger("AbstractController")
 
 setmetatable(AbstractController, {
   __index = LuaObject, -- this is what makes the inheritance work

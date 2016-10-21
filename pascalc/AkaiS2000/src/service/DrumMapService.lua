@@ -1,5 +1,6 @@
 require("LuaObject")
 require("Logger")
+require("cutils")
 
 local log = Logger("DrumMapService")
 local MAX_FLOPPY_SIZE = 1400000
@@ -17,15 +18,9 @@ setmetatable(DrumMapService, {
   end,
 })
 
-function DrumMapService:_init()
+function DrumMapService:_init(drumMap, sampleList)
   LuaObject._init(self)
-end
-
-function DrumMapService:setDrumMap(drumMap)
   self.drumMap = drumMap
-end
-
-function DrumMapService:setSampleList(sampleList)
   self.sampleList = sampleList
   sampleList:addListener(self, "updateDrumMap")
 end
@@ -41,7 +36,6 @@ function DrumMapService:getSamplerFileName(filename)
 end
 
 function DrumMapService:findStereoCounterpart(sampleList, stereoPartnerName, arrayOffset)
-  --log:fine("findStereoCounterpart %s", stereoPartnerName))
   for k,v in pairs(sampleList) do
     if type(v) ~= "string" and v[arrayOffset] == stereoPartnerName then
       return k
@@ -96,7 +90,6 @@ function DrumMapService:getUnloadedMatchingZoneIndex(keyGroup, monoSampleName)
   return 0
 end
 
-
 function DrumMapService:getFloppyUsagePercent()
   return (self.drumMap:getCurrentFloppyUsage() / MAX_FLOPPY_SIZE) * 100
 end
@@ -110,10 +103,8 @@ function DrumMapService:updateDrumMap(sl)
       local matchingZoneIndex = 0
       if type(stereoSample) == "string" then
         -- Mono sample
-        --log:fine("[new] Mono sample %s", stereoSample)
         matchingZoneIndex = self:getUnloadedMatchingZoneIndex(keyGroup, stereoSample)
       else
-        --log:fine("[new] Stereo sample %s, %s %s", stereoSample[1], stereoSample[2], string.sub(stereoSample[1], 1, #stereoSample[1] - 2))
         -- Stereo sample
         matchingZoneIndex = self:getUnloadedMatchingZoneIndex(keyGroup, string.sub(stereoSample[1], 1, #stereoSample[1] - 2))
       end

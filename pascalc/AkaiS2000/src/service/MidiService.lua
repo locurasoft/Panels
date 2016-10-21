@@ -63,7 +63,6 @@ setmetatable(MidiService, {
 --@module __MidiService
 function MidiService:_init()
   LuaObject._init(self)
-  self.messageQueue = {}
   self.on_midi_received_func = nil
   self.alphabet = AKAI_ALPHABET
   self.flipAlphabet = flip(AKAI_ALPHABET)
@@ -80,11 +79,7 @@ end
 -- @function [parent=#MidiService] sendMidiMessages
 --
 function MidiService:sendMidiMessages(msgs)
-  for k, v in pairs(msgs) do
-    table.insert(self.messageQueue, v)
-  end
-  local nextMsg = table.remove(self.messageQueue)
-  if nextMsg then
+  for k, nextMsg in pairs(msgs) do
     self:sendMidiMessage(nextMsg)
   end
 end
@@ -97,8 +92,7 @@ function MidiService:setMidiReceived(midiCallback)
   self.on_midi_received_func = midiCallback
 end
 
-function MidiService:dispatchMidi(midi)
-  local data = midi:getData()
+function MidiService:dispatchMidi(data)
   log:fine("[onMidiReceived] %d", data:getSize())
   if data:getByte(0) ~= 0xF0 or data:getByte(1) ~= 0x47 then
     log:info("Invalid S2K Sysex received!")
@@ -106,11 +100,6 @@ function MidiService:dispatchMidi(midi)
   end
   if self.on_midi_received_func ~= nil then
     self.on_midi_received_func(data)
-  end
-
-  local nextMsg = table.remove(self.messageQueue)
-  if nextMsg then
-    self:sendMidiMessage(nextMsg)
   end
 end
 

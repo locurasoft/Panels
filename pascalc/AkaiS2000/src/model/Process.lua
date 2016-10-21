@@ -40,11 +40,7 @@ end
 
 function Process:getLogFilePath()
   local logFileName = string.format("scriptLauncher.%s.log", self.suffix)
-  return self:getFullPath(logFileName)
-end
-
-function Process:getFullPath(scriptName)
-  return string.format("%s%s%s", self.scriptPath, pathseparator, scriptName)
+  return cutils.toFilePath(self.scriptPath, logFileName)
 end
 
 function Process:getScriptPath()
@@ -72,7 +68,7 @@ function Process:build()
   local scriptName = string.format("scriptLauncher.%s", self.suffix)
   self.launchVariables["scriptIndex"] = self.id
   self.launchVariables["scriptName"] = scriptName
-  self.launchVariables["scriptPath"] = self:getFullPath(scriptName)
+  self.launchVariables["scriptPath"] = cutils.toFilePath(self.scriptPath, scriptName)
   self.launchVariables["scriptDir"]  = self.scriptPath
   os.remove(self.launchVariables["scriptPath"])
   console(string.format("Building process %d %s in %s",
@@ -84,7 +80,7 @@ function Process:build()
   end
 
   self.abortScriptName = string.format("scriptAborter.%s", self.suffix)
-  local abortScriptPath = self:getFullPath(self.abortScriptName)
+  local abortScriptPath = cutils.toFilePath(self.scriptPath, self.abortScriptName)
   os.remove(abortScriptPath)
   for key,abortGenerator in pairs(self.abortGenerators) do
     abortGenerator(abortScriptPath)

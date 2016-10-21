@@ -28,7 +28,7 @@ setmetatable(KeyGroup, {
 
 function KeyGroup:_init()
   Dispatcher._init(self)
-  self.kdata = data or Kdata()
+  self.kdata = data or KdataMsg()
   self.zones = {}
   self.updating = false
   self[LUA_CONTRUCTOR_NAME] = "KeyGroup"
@@ -42,6 +42,14 @@ function KeyGroup:getZones()
   return self.zones
 end
 
+function KeyGroup:removeAllZones()
+  self.zones = {}
+  for i = 1, 4 do
+    self.kdata:storeNibbles(string.format("VLOUD%d", i), midiService:toNibbles(0))
+    self.kdata:storeNibbles(string.format("VPANO%d", i), midiService:toNibbles(50))
+  end
+end
+
 function KeyGroup:storeParamEdit(khead)
   if self.updating then
     return
@@ -50,11 +58,13 @@ function KeyGroup:storeParamEdit(khead)
 end
 
 function KeyGroup:setLowNote(lowNote)
-  self.kdata:storeNibbles("LONOTE", midiService:toNibbles(lowNote))
+  local nibbles = midiService:toNibbles(lowNote)
+  self.kdata:storeNibbles("LONOTE", nibbles)
 end
 
 function KeyGroup:setHighNote(highNote)
-  self.kdata:storeNibbles("HINOTE", midiService:toNibbles(highNote))
+  local nibbles = midiService:toNibbles(highNote)
+  self.kdata:storeNibbles("HINOTE", nibbles)
 end
 
 function KeyGroup:getParamValue(blockId)
@@ -107,7 +117,6 @@ end
 function KeyGroup:isUpdating()
   return self.updating
 end
-
 
 function KeyGroup:toString()
   return self.kdata:toString()

@@ -25,22 +25,22 @@ function Zone:_init()
 end
 local log = Logger("Zone")
 
-function __Zone:setSample(sampleName)
+function Zone:setSample(sampleName)
   self.sampleLoaded = true
   self.sampleName = sampleName
 end
 
-function __Zone:setFile(file)
+function Zone:setFile(file)
   self.sampleLoaded = false
   self.file = file
   self.fileName = file:getFileName()
 end
 
-function __Zone:isSampleLoaded()
+function Zone:isSampleLoaded()
   return self.sampleLoaded
 end
 
-function __Zone:getSampleName()
+function Zone:getSampleName()
   if self:isSampleLoaded() then
     --log:info("sample loaded %s", self.sampleName))
     return self.sampleName
@@ -50,7 +50,7 @@ function __Zone:getSampleName()
   end
 end
 
-function __Zone:matchesSampleName(sampleName)
+function Zone:matchesSampleName(sampleName)
   local monoSampleName = v
   if string.sub(v, #v - 2, #v) == "-L" or string.sub(v, #v - 2, #v) == "-R" then
     monoSampleName = string.sub(v, 1, #v - 2)

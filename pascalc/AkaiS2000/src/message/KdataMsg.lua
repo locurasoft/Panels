@@ -41,11 +41,10 @@ setmetatable(KdataMsg, {
 
 function KdataMsg:_init(bytes)
   SyxMsg._init(self)
-  bytes = bytes or defaultBytes()
-  self.data = bytes
-  self[LUA_CONTRUCTOR_NAME] = "Kdata"
+  self.data = bytes or defaultBytes()
+  self[LUA_CONTRUCTOR_NAME] = "KdataMsg"
 
-  if bytes == nil then
+  if self.data == nil then
     self:storeNibbles("MODVFILT1", midiService:toNibbles(50))
     self:storeNibbles("MODVFILT2", midiService:toNibbles(50))
     self:storeNibbles("MODVFILT3", midiService:toNibbles(50))

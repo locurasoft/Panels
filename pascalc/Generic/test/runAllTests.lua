@@ -7,6 +7,14 @@ function is_dir(path)
     return not f:read(0) and f:seek("end") ~= 0
 end
 
+function isUnitTest(path)
+  return string.sub(path, -string.len("Test.lua")) == "Test.lua"
+end
+
+function isIntegrationTest(path)
+  return string.sub(path, -string.len("IT.lua")) == "IT.lua"
+end
+
 function runAllScriptsInFolder(dirName)
   local dir = io.popen(string.format("dir %s /b", dirName))
   local lines = dir:lines()
@@ -16,7 +24,7 @@ function runAllScriptsInFolder(dirName)
       table.insert(requireDirs, mod)
       runAllScriptsInFolder(absPath)
       table.remove(requireDirs)
-    elseif absPath ~= arg[0] and string.sub(absPath, -string.len("Test.lua")) == "Test.lua" then
+    elseif absPath ~= arg[0] and (isUnitTest(absPath) or isIntegrationTest(absPath)) then
       local modPath = ""
       for k, v in pairs(requireDirs) do
         modPath = string.format("%s/%s", modPath, v)
@@ -28,6 +36,6 @@ function runAllScriptsInFolder(dirName)
   end
 end
 
-local current_dir=io.popen("cd"):read('*l')
-print(string.format("Executing all tests in folder %s", current_dir))
-runAllScriptsInFolder(current_dir)
+local currentDir = io.popen("cd"):read('*l')
+print(string.format("Executing all tests in folder %s", currentDir))
+runAllScriptsInFolder(currentDir)

@@ -17,7 +17,7 @@ setmetatable(Program, {
 
 function Program:_init()
   Dispatcher._init(self)
-  self.pdata = data or Pdata()
+  self.pdata = data or PdataMsg()
   self.keyGroups = {}
   self.activeKg = 1
   self.updating = false

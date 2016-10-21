@@ -1,5 +1,8 @@
 require("Dispatcher")
 require("Logger")
+require("model/KeyGroup")
+require("model/Zone")
+require("message/KdataMsg")
 
 local log = Logger("DrumMap")
 
@@ -17,9 +20,9 @@ setmetatable(DrumMap, {
 
 function DrumMap:_init()
   Dispatcher._init(self)
-  local kRngs = {}
+  self.keyRanges = {}
   for i = 0,15 do
-    table.insert(kRngs, {i, i})
+    table.insert(self.keyRanges, {i, i})
   end
 
   self.keyGroups = {}
@@ -28,7 +31,6 @@ function DrumMap:_init()
   self.selectedKg = nil
   self.currentFloppyUsage = 0
   self.numKgs = 16
-  self.keyRanges = kRngs
   self[LUA_CONTRUCTOR_NAME] = "DrumMap"
 end
 
@@ -37,6 +39,10 @@ function DrumMap:setSelectedSample(selectedSample)
   self:notifyListeners()
 end
 
+---
+-- @function [parent=#DrumMap] setSelectedKeyGroup
+--
+-- Accepts either string like drumMap-[integer] or just the integer
 function DrumMap:setSelectedKeyGroup(selectedKg)
   if type(selectedKg) == "string" then
     selectedKg = tonumber(string.sub(selectedKg, string.find(selectedKg, "-") + 1, #selectedKg))
@@ -51,6 +57,9 @@ function DrumMap:setSelectedKeyGroup(selectedKg)
 end
 
 function DrumMap:isSelectedKeyGroup(padName)
+  if type(padName) == "string" then
+    padName = tonumber(string.sub(padName, string.find(padName, "-") + 1, #padName))
+  end
   return padName == self.selectedKg
 end
 
@@ -60,10 +69,6 @@ end
 
 function DrumMap:getSelectedKeyGroup()
   return self.selectedKg
-end
-
-function DrumMap:getNumFloppies()
-  return table.getn(self.floppyList)
 end
 
 function DrumMap:isReadyForAssignment()
@@ -77,6 +82,10 @@ end
 function DrumMap:setCurrentFloppyUsage(currentFloppyUsage)
   self.currentFloppyUsage = currentFloppyUsage
   self:notifyListeners()
+end
+
+function DrumMap:getNumFloppies()
+  return table.getn(self.floppyList)
 end
 
 function DrumMap:addNewFloppy()
@@ -114,11 +123,19 @@ function DrumMap:setNumKeyGroups(numKeyGroups)
   while table.getn(self.keyGroups) > numKeyGroups do
     table.remove(self.keyGroups)
   end
+  self.numKgs = numKeyGroups
   self:notifyListeners()
 end
 
+function DrumMap:getKeyGroups()
+  return self.keyGroups
+end
+
+function DrumMap:getNumKeyGroups()
+  return table.getn(self.keyGroups)
+end
+
 function DrumMap:addSampleToSelectedKeyGroup(sample)
-  log:fine("Selected kg %d", self.selectedKg)
   local selectedKeyGroup = self.keyGroups[self.selectedKg]
   assert(selectedKeyGroup:numZones() < 4, "A key group can only contain 4 zones")
   selectedKeyGroup:addSampleZone(sample)
@@ -126,7 +143,6 @@ function DrumMap:addSampleToSelectedKeyGroup(sample)
 end
 
 function DrumMap:addFileToSelectedKeyGroup(file)
-  log:info("Selected kg %d", self.selectedKg)
   local selectedKeyGroup = self.keyGroups[self.selectedKg]
   assert(selectedKeyGroup:numZones() < 4, "A key group can only contain 4 zones")
   selectedKeyGroup:addFileZone(file)
@@ -165,24 +181,15 @@ function DrumMap:getSamplesOfKeyGroup(kgIndex)
   return samplesOfKg
 end
 
-function DrumMap:isClear()
-  for k,keyGroup in pairs(self.keyGroups) do
-    return false
-  end
-  return true
-end
-
-function DrumMap:clear()
-  self.currentFloppyUsage = 0
-  self.keyGroups = {}
-  self:setNumKeyGroups(16)
-  self.floppyList = {}
+function DrumMap:clearSelectedKeyGroup()
+  local selectedKeyGroup = self.keyGroups[self.selectedKg]
+  selectedKeyGroup:removeAllZones()
   self:notifyListeners()
 end
 
 function DrumMap:resetSelectedKeyRange()
   if self.selectedKg == nil then
-    console("DrumMap:resetSelectedKeyRange - No pad selected")
+    log:fine("DrumMap:resetSelectedKeyRange - No pad selected")
     return
   end
   local defaultValue = self.selectedKg - 1
@@ -190,23 +197,33 @@ function DrumMap:resetSelectedKeyRange()
   self:notifyListeners()
 end
 
-function DrumMap:setKeyRange(endIndex, value)
-  local index = tonumber(endIndex)
-  if index < 1 or index > 2 then
-    console(string.format("Weird endIndex %d", index))
-    return
+function DrumMap:setKeyRange(index, value)
+  if type(index) == "string" then
+    index = tonumber(index)
   end
+
+  -- 1 signifies low key
+  -- 2 signifies high key
+  assert(index == 1 or index == 2, string.format("Weird high/low index %d", index))
   local rangeValues = self.keyRanges[self.selectedKg]
   rangeValues[index] = value
   self:notifyListeners()
 end
 
-function DrumMap:getKeyRangeValues()
+function DrumMap:getSelectedKeyRangeValues()
   if self.selectedKg == nil then
     return { 0, 0 }
   else
     return self.keyRanges[self.selectedKg]
   end
+end
+
+function DrumMap:resetAllRanges()
+  for i = 1, self:getNumKeyGroups() do
+    local defaultValue = i - 1
+    self.keyRanges[i] = { defaultValue, defaultValue }
+  end
+  self:notifyListeners()
 end
 
 function DrumMap:replaceKeyGroupZoneWithSample(keyGroupName, zoneIndex, stereoSample)
@@ -218,11 +235,6 @@ function DrumMap:replaceKeyGroupZoneWithSample(keyGroupName, zoneIndex, stereoSa
     -- Stereo sample
     keyGroup:replaceZoneWithStereoSample(zoneIndex, stereoSample[1], stereoSample[2])
   end
-  self:notifyListeners()
-end
-
-function DrumMap:resetAllRanges()
-  setRangesToDefault(self.keyRanges)
   self:notifyListeners()
 end
 
@@ -238,24 +250,31 @@ function DrumMap:hasLoadedAllSamples()
   return true
 end
 
-function DrumMap:getKeyGroups()
-  return self.keyGroups
+function DrumMap:isClear()
+  for k,keyGroup in pairs(self.keyGroups) do
+    return false
+  end
+  return true
 end
 
-function DrumMap:getNumKeyGroups()
-  return table.getn(self.keyGroups)
+function DrumMap:resetDrumMap()
+  self.currentFloppyUsage = 0
+  self.keyGroups = {}
+  self.floppyList = {}
+  log:info("self.numKgs %d", self.numKgs)
+  self:setNumKeyGroups(self.numKgs)
 end
 
 -- Used for floppy image selection
 function DrumMap:getLaunchButtonState()
   if floppyImgPath == nil then
-    if self.selectedKg ~= nil and self.selectedSample ~= nil then
+    if self:isReadyForAssignment() then
       return ""
     else
       return "Select a sample and a key group"
     end
   else
-    if self.selectedKg ~= nil or self.setSelectedSample ~= nil then
+    if self.selectedKg ~= nil or self.selectedSample ~= nil then
       return "You cannot load both an image and samples.\nPlease clear some data"
     else
       return ""
