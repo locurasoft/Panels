@@ -15,12 +15,9 @@ setmetatable(ProgramService, {
   end,
 })
 
-function ProgramService:_init()
+function ProgramService:_init(programList)
   LuaObject._init(self)
-end
-
-function ProgramService:setProgramList(programList)
-	self.programList = programList
+  self.programList = programList
 end
 
 function ProgramService:storeProgParamEdit(phead)

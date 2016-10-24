@@ -4,7 +4,7 @@ require("cutils")
 
 local log = Logger("DrumMapService")
 local MAX_FLOPPY_SIZE = 1400000
-local MAX_SAMPLE_NAME_SIZE = 10
+local MAX_SAMPLE_NAME_SIZE = 12
 
 DrumMapService = {}
 DrumMapService.__index = DrumMapService
@@ -49,7 +49,7 @@ function DrumMapService:generateStereoSampleList(sampleList)
   local leftIndex = 1
   local rightIndex = 2
 
-  for name,v in pairs(sampleList) do
+  for k,name in pairs(sampleList) do
     local suffix = string.sub(name, #name - 1, #name)
     if suffix == "-L" then
       -- Search for -R counterpart
@@ -83,7 +83,8 @@ function DrumMapService:getUnloadedMatchingZoneIndex(keyGroup, monoSampleName)
   local zones = keyGroup:getZones()
   for m, zone in pairs(zones) do
     local sampleName = self:getSamplerFileName(zone:getSampleName())
-    if not zone:isSampleLoaded() and sampleName == monoSampleName then
+    local start, length = string.find(sampleName, monoSampleName, 1, true)
+    if not zone:isSampleLoaded() and start == 1 and length == monoSampleName:len() then
       return m
     end
   end

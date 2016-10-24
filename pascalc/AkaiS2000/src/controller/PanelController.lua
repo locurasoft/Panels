@@ -2,6 +2,7 @@ require("AbstractController")
 require("Logger")
 
 local log = Logger("PanelController")
+local PROGRAM, SAMPLE, DRUMMAP = 0, 1, 2
 
 PanelController = {}
 PanelController.__index = PanelController
@@ -18,16 +19,17 @@ setmetatable(PanelController, {
 function PanelController:_init()
   AbstractController._init(self)
   self:toggleLayerVisibility("Debug", false)
+  panel:getComponent("wavSelector"):setProperty("uiFileListCurrentRoot",
+    cutils.getUserHome(), false)
 end
 
 function PanelController:toggleEditor(visibleLayerIndex)
-  local PROGRAM, SAMPLE, DRUMMAP = 0, 1, 2
 
   if visibleLayerIndex == SAMPLE and editSample ~= nil then
     self:updateSampleEdit(editSample, true)
   elseif visibleLayerIndex == DRUMMAP then
-    drumMapCtrl:updateStatus("Select a sample and a key group")
-    drumMapCtrl:updateDrumMap(drumMapModel)
+    drumMapController:updateStatus("Select a sample and a key group")
+    drumMapController:updateDrumMap(drumMap)
   end
 
   self:toggleLayerVisibility("ProgramBackground", visibleLayerIndex == PROGRAM)
@@ -37,13 +39,4 @@ function PanelController:toggleEditor(visibleLayerIndex)
   self:toggleLayerVisibility("SampleTrim", visibleLayerIndex == SAMPLE)
   self:toggleLayerVisibility("SampleLoop", visibleLayerIndex == SAMPLE)
   self:toggleLayerVisibility("Drummap", visibleLayerIndex == DRUMMAP)
-end
-
-function PanelController:setFileSystemRoot(comp, path)
-  comp:setProperty("uiFileListCurrentRoot", path, false)
-end
-
-function PanelController:initFileSystemPath(operatingSystem)
-  local comp = panel:getComponent("wavSelector")
-  self:setFileSystemRoot(comp, cutils.getUserHome())
 end

@@ -65,7 +65,7 @@ function MockModulator:setValueNonMapped(value)
   self.value = value
 end
 
-function MockModulator:setValue()
+function MockModulator:setValue(value)
   log:info("MockModulator setValue")
   self.value = value
 end

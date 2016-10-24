@@ -1,5 +1,6 @@
 if SampleList ~= nil then return end
 require("Dispatcher")
+require("lutils")
 require("Logger")
 
 local log = Logger("SampleList")
@@ -19,11 +20,12 @@ setmetatable(SampleList, {
 function SampleList:_init()
   Dispatcher._init(self)
   self.list = {}
+  self.sampleNameList = {}
   self[LUA_CONTRUCTOR_NAME] = "SampleList"
 end
 
 function SampleList:sampleExists(name)
-  return self.list[name] ~= nil
+  return self.sampleNameList[name] ~= nil
 end
 
 function SampleList:getSampleList()
@@ -34,17 +36,18 @@ function SampleList:getSampleNames()
   local sampleListString = ""
   for k,v in pairs(self.list) do
     if sampleListString == "" then
-      sampleListString = k
+      sampleListString = v
     else
-      sampleListString = string.format("%s\n%s", sampleListString, k)
+      sampleListString = string.format("%s\n%s", sampleListString, v)
     end
   end
   return sampleListString
 end
 
 function SampleList:addSample(name)
-  self.list[name] = true
+  table.insert(self.list, name)
   table.sort(self.list)
+  self.sampleNameList = lutils.flipTable(self.list)
   self:notifyListeners()
 end
 
@@ -53,11 +56,12 @@ function SampleList:addSamples(slist)
   local sampleNames = slist:getSampleList()
   for k,v in pairs(sampleNames) do
     if not self:sampleExists(v) then
-      self.list[v] = true
+      table.insert(self.list, v)
       modified = true
     end
   end
   table.sort(self.list)
+  self.sampleNameList = lutils.flipTable(self.list)
 
   if modified then
     self:notifyListeners()

@@ -1,16 +1,65 @@
 require("akaiS2kTestUtils")
 require("integration/DrumMapFunctions")
+require("MockPanel")
+require("json4ctrlr")
+require("cutils")
+
+require("model/Process")
 require("model/DrumMap")
 require("model/SampleList")
+require("model/Settings")
+
 require("controller/DrumMapController")
+require("controller/SettingsController")
+require("controller/SampleListController")
+
+require("service/S2kDieService")
+require("service/HxcService")
 require("service/DrumMapService")
+require("service/ProcessService")
 require("service/MidiService")
-require("MockPanel")
+
+require("message/StatMsg")
+require("message/RstatMsg")
 require("message/KdataMsg")
-require("json4ctrlr")
+require("message/SlistMsg")
+require("message/RslistMsg")
+
 require 'lunity'
 require 'lemock'
 module( 'DrumMapIT', lunity )
+
+local tmpFolderName = "ctrlrwork"
+local samplesData = {
+  "0E 0B 17 1A 27 11 0C 1D 18 27 27 16", -- DAMP-GBSN--L
+  "0E 0B 17 1A 27 11 0C 1D 18 27 27 1C",  -- DAMP-GBSN--R
+  "1A 1F 16 16 27 11 1E 1C 27 27 11 02", -- PULL-GTR--G2 
+  "1D 17 0B 0D 15 13 18 0A 0A 0A 0A 0A", -- SMACKIN     
+  "17 1F 1E 0F 0A 11 1E 1C 0A 11 02 0A", -- MUTE GTR G2 
+  "17 1F 1E 0F 0A 11 1E 1C 0A 0E 03 0A", -- MUTE GTR D3 
+  "17 1F 1E 0F 0A 11 1E 1C 0A 0F 04 0A", -- MUTE GTR E4 
+  "0E 0B 17 1A 0A 11 1E 1C 0A 11 02 0A", -- DAMP GTR G2 
+  "0E 0B 17 1A 0A 11 1E 1C 0A 0E 03 0A", -- DAMP GTR D3 
+  "0E 0B 17 1A 0A 11 1E 1C 0A 0F 04 0A", -- DAMP GTR E4 
+  "17 1F 1E 0F 0A 11 1E 1C 0A 0D 05 0A", -- MUTE GTR C5 
+  "0E 0B 17 1A 0A 11 1E 1C 0A 0D 05 0A", -- DAMP GTR C5 
+  "1A 1F 16 16 0A 11 1E 1C 0A 0E 03 0A", -- PULL GTR D3 
+  "1A 1F 16 16 0A 11 1E 1C 0A 0F 04 0A", -- PULL GTR E4 
+  "11 0C 1D 18 0A 03 03 05 0A 0F 02 0A", -- GBSN 335 E2 
+  "11 0C 1D 18 0A 03 03 05 0A 0B 02 0A", -- GBSN 335 A2 
+  "11 0C 1D 18 0A 03 03 05 0A 0F 03 0A", -- GBSN 335 E3 
+  "11 0C 1D 18 0A 03 03 05 0A 0B 03 0A", -- GBSN 335 A3 
+  "11 0C 1D 18 0A 03 03 05 0A 0F 04 0A", -- GBSN 335 E4 
+  "11 0C 1D 18 0A 03 03 05 0A 0B 04 0A", -- GBSN 335 A4 
+  "11 0C 1D 18 0A 03 03 05 0A 0F 05 0A", -- GBSN 335 E5 
+  "11 0C 1D 18 0A 03 03 05 0A 1A 13 15", -- GBSN 335 PIK
+  "11 0C 1D 18 0A 12 0B 1C 17 19 18 0D", -- GBSN HARMONC
+  "0E 0B 17 1A 0A 11 0C 1D 18 0A 0F 04", -- DAMP GBSN E4
+  "0E 0B 17 1A 0A 11 0C 1D 18 0A 0D 05", -- DAMP GBSN C5
+  "0E 0B 17 1A 0A 11 0C 1D 18 0A 0B 02", -- DAMP GBSN A2
+  "0E 0B 17 1A 0A 11 0C 1D 18 0A 0F 03", -- DAMP GBSN E3
+  "0E 0B 17 1A 0A 11 0C 1D 18 0A 0B 03", -- DAMP GBSN A3
+}
 
 function assertText(compName, expectedText)
   assertEqual(panel:getComponent(compName):getText(), expectedText)
@@ -20,68 +69,120 @@ function assertEnabled(compName)
   assertTrue(panel:getComponent(compName):isEnabled())
 end
 
+function assertDisabled(compName)
+  assertFalse(panel:getComponent(compName):isEnabled())
+end
+
 function assertCompProperty(compName, propName, value)
   assertEqual(panel:getComponent(compName):getProperty(propName), value)
 end
 
+function assertModProperty(modName, propName, value)
+  assertEqual(panel:getModulatorByName(modName):getProperty(propName), value)
+end
+
+function assertModValue(modName, value)
+  assertEqual(panel:getModulatorByName(modName):getValue(), value)
+end
+
+function assertModMin(modName, value)
+  fail("Not implemented")
+  assertEqual(panel:getModulatorByName(modName):getValue(), value)
+end
+
+function assertModMax(modName, value)
+  fail("Not implemented")
+  assertEqual(panel:getModulatorByName(modName):getValue(), value)
+end
+
+function assertTmpFile(filename, expectedContents)
+  local contents = cutils.getFileContents(cutils.toFilePath(tmpFolderName, filename))
+  local start, fin = string.find(contents, expectedContents, 1, true)
+  assertEqual(fin - start + 1, string.len(expectedContents))
+end
+
 function setup()
-  regGlobal("midiService", MidiService())
+  regGlobal("OPERATING_SYSTEM", "win")
+  regGlobal("PATH_SEPARATOR", "\\")
+  regGlobal("EOL", "\n")
+
+  os.execute("if exist " .. tmpFolderName .. " rmdir /S /Q " .. tmpFolderName)
+
+  os.execute("mkdir " .. tmpFolderName)
   regGlobal("panel", MockPanel())
+  regGlobal("LOGGER", Logger("GLOBAL"))
+
+  local settings = Settings()
+  settings:setWorkFolder(File("ctrlrwork"))
+  settings:setS2kDiePath(File("c:\\ctrlr\\s2kdie\\s2kdie.php"))
+  settings:setHxcPath(File("hxc.exe"))
+  settings:setTransferMethod(1)
+
   local drumMap = DrumMap()
   local sampleList = SampleList()
-  local drumMapController = DrumMapController(drumMap)
-  drumMap:addListener(drumMapController, "updateDrumMap")
-  regGlobal("drumMapModel", drumMap)
-  regGlobal("drumMapCtrl", drumMapController)
-  regGlobal("drumMapSrvc", DrumMapService(drumMap, sampleList))
 
+  regGlobal("settings", settings)
+  regGlobal("drumMap", drumMap)
+  regGlobal("sampleList", sampleList)
+
+  regGlobal("drumMapController", DrumMapController(drumMap))
+  regGlobal("settingsController", SettingsController(settings))
+  regGlobal("sampleListController", SampleListController(sampleList))
+
+  tempOsExecute = os.execute
+  executedOsCommands = {}
+  os.execute = function(cmd) table.insert(executedOsCommands, cmd) end
+
+  tempUtilsInfoWindow = utils.infoWindow
+  openedInfoWindows = {}
+  utils.infoWindow = function(title, message) table.insert(openedInfoWindows, message) end
+
+  processListenerCalls = 0
+  processActive = false
+  local processListener = function(active)
+    processActive = active
+    processListenerCalls = processListenerCalls + 1
+  end
+  regGlobal("processService", ProcessService(processListener))
+  regGlobal("drumMapService", DrumMapService(drumMap, sampleList))
+  regGlobal("midiService", MidiService())
+  regGlobal("s2kDieService", S2kDieService(settings))
+  regGlobal("hxcService", HxcService(settings))
 end
 
 function teardown()
   delGlobal("midiService")
   delGlobal("panel")
-  delGlobal("drumMapModel")
-  delGlobal("drumMapCtrl")
+  delGlobal("drumMap")
+  delGlobal("settings")
+  delGlobal("drumMapController")
+  delGlobal("drumMapService")
+  delGlobal("processService")
+  os.execute = tempOsExecute
+  os.execute("rmdir /S /Q " .. tmpFolderName)
+
+  utils.infoWindow = tempUtilsInfoWindow
+  
 end
 
-function expectFloppyInfo(numFloppies, floppyUsagePercent)
-  component:setText(string.format("# Floppies to be transfered: %d", numFloppies));mc:times(1)
-  if floppyUsagePercent == nil then
-    modulator:setValue(mc.ANYARG, false);mc:times(1)
-  else
-    modulator:setValue(floppyUsagePercent, false);mc:times(1)
+function newSlistMsg(numSamples)
+  local bytes = string.format("F0 47 00 05 48 %.2X 00", numSamples)
+  for i = 1, numSamples do
+    bytes = string.format("%s %s", bytes, samplesData[i])
   end
-  component:setProperty("uiSliderThumbColour", mc.ANYARG, false);mc:times(1)
-end
-
-function expectAssignmentCtrls(readyForAssignment, clear)
-  if readyForAssignment then
-    component:setProperty("componentDisabled", 0, false);mc:times(1)
-  else
-    component:setProperty("componentDisabled", 1, false);mc:times(1)
-  end
-
-  if clear then
-    component:setProperty("componentDisabled", 1, false);mc:times(3)
-  else
-    component:setProperty("componentDisabled", 0, false);mc:times(3)
-  end
-end
-
-function expectRangeControls(isPadSelected, lowKey, highKey)
-  if isPadSelected then
-    component:setProperty("componentDisabled", 0, false);mc:times(3)
-    modulator:setValue(lowKey, false)
-    modulator:setValue(highKey, false)
-  else
-    component:setProperty("componentDisabled", 1, false);mc:times(3)
-  end
+  return MemoryBlock(string.format("%s %s", bytes, "F7"))
 end
 
 function newKeyGroupComponent(index)
   local comp = panel:getComponent(string.format("drumMap-%d", index))
   comp:setProperty("componentGroupName", string.format("drumMap-%d-grp", index))
   return comp
+end
+
+function newModulatorWithCustomIndex(name, customIndex)
+  local mod = panel:getModulator(name)
+  mod:setProperty("modulatorCustomIndex", string.format("%d", customIndex))
+  return mod
 end
 
 function assignSamples(selectedComp, ...)
@@ -136,7 +237,7 @@ function testOnKeyGroupNumChange()
 
   assertText("uiLabelText", "")
   verifyPads(numKgs, 0, {})
-  assertEqual(drumMapModel.numKgs, numKgs)
+  assertEqual(drumMap.numKgs, numKgs)
 end
 
 function testOnKeyGroupChange_MultipleKeyGroups_OneSelected()
@@ -147,7 +248,7 @@ function testOnKeyGroupChange_MultipleKeyGroups_OneSelected()
 
   assertText("uiLabelText", "")
   verifyPads(numKgs, selectedKg, {})
-  assertEqual(drumMapModel.numKgs, numKgs)
+  assertEqual(drumMap.numKgs, numKgs)
 end
 
 function testOnKeyGroupChange_MultipleKeyGroups_UnselectedPad()
@@ -161,7 +262,7 @@ function testOnKeyGroupChange_MultipleKeyGroups_UnselectedPad()
 
   assertText("uiLabelText", "")
   verifyPads(numKgs, 0, {})
-  assertEqual(drumMapModel.numKgs, numKgs)
+  assertEqual(drumMap.numKgs, numKgs)
 end
 
 function testOnKeyGroupChange_MultipleKeyGroups_OneSelected_FilesLoaded()
@@ -183,7 +284,7 @@ function testOnKeyGroupChange_MultipleKeyGroups_OneSelected_FilesLoaded()
     [selectedKg] = "Cat-Meow.wav\nElectric-Bass-High-..",
     [secondKg] = "Casio-CZ-5000-Synth..\nBowed-Bass-C2.wav",
   })
-  assertEqual(drumMapModel.numKgs, numKgs)
+  assertEqual(drumMap.numKgs, numKgs)
 end
 
 function testOnKeyGroupClear()
@@ -205,7 +306,7 @@ function testOnKeyGroupClear()
     [selectedKg] = "Cat-Meow.wav\nElectric-Bass-High-..",
     [secondKg] = "Casio-CZ-5000-Synth..\nBowed-Bass-C2.wav",
   })
-  assertEqual(drumMapModel.numKgs, numKgs)
+  assertEqual(drumMap.numKgs, numKgs)
 
   onKeyGroupClear()
 
@@ -213,12 +314,12 @@ function testOnKeyGroupClear()
   verifyPads(numKgs, selectedKg, {
     [secondKg] = "Casio-CZ-5000-Synth..\nBowed-Bass-C2.wav",
   })
-  assertEqual(drumMapModel.numKgs, numKgs)
+  assertEqual(drumMap.numKgs, numKgs)
 end
 
 function testOnDrumMapClear()
-  local selectedKg = 3
-  local numKgs = 3
+  local selectedKg = 5
+  local numKgs = 6
   local secondKg = 2
 
   onKeyGroupNumChange(numKgs)
@@ -235,13 +336,13 @@ function testOnDrumMapClear()
     [selectedKg] = "Cat-Meow.wav\nElectric-Bass-High-..",
     [secondKg] = "Casio-CZ-5000-Synth..\nBowed-Bass-C2.wav",
   })
-  assertEqual(drumMapModel.numKgs, numKgs)
+  assertEqual(drumMap.numKgs, numKgs)
 
   onDrumMapClear()
 
   assertText("uiLabelText", "")
   verifyPads(numKgs, selectedKg, {})
-  assertEqual(drumMapModel.numKgs, numKgs)
+  assertEqual(drumMap.numKgs, numKgs)
 end
 
 --function testOnCreateProgram()
@@ -250,11 +351,11 @@ end
 function testOnSampleDoubleClicked()
   local numKgs = 3
   local selectedKg = 3
-  
-  local secondKg = 2
+
+  local secondKg = 1
 
   onKeyGroupNumChange(numKgs)
-  
+
   local selectedComp = newKeyGroupComponent(selectedKg)
 
   onPadSelected(selectedComp)
@@ -294,316 +395,402 @@ function testOnSampleDoubleClicked()
 end
 
 function testOnSampleSelected()
+  local numKgs = 16
+  local selectedKg = 15
+
+  onKeyGroupNumChange(numKgs)
+
+  onSampleSelected(File("test/data/Cat-Meow.wav"))
+  assertDisabled("assignSample")
+
+  onSampleSelected(File("test/data/Invalid.txt"))
+  assertDisabled("assignSample")
+  assertText("lcdLabel", "Please select a wav file")
+
+  onPadSelected(newKeyGroupComponent(selectedKg))
+  onSampleSelected(File("test/data/Cat-Meow.wav"))
+  assertEnabled("assignSample")
 end
 
---function testOnPadSelected()
---  function getKeyGroupByComponent(comp)
---    local grpName = comp:getProperty("componentGroupName")
---    return string.sub(grpName, 0, string.find(grpName, "-grp") - 1)
---  end
---
---  local kg = getKeyGroupByComponent(comp)
---  drumMapModel:setSelectedKeyGroup(kg)
---end
---
---function testOnFloppyImageSelected()
---  -- This variable stops index issues during panel bootup
---  if panel:getBootstrapState() or panel:getProgramState() then
---    return
---  end
---  floppyImgPath = utils.openFileWindow("Select floppy image", File.getSpecialLocation(File.userHomeDirectory), "*.img", true)
---
---  if floppyImgPath:getFullPathName() ~= nil and floppyImgPath:getFullPathName() ~= "" then
---    panel:getComponent("loadFloppyImageLabel"):setText(floppyImgPath:getFullPathName())
---    drumMapCtrl:toggleActivation("transferSamples", drumMapModel:getLaunchButtonState())
---  end
---end
---
---function testOnTransferMethodChange()
---  -- This variable stops index issues during panel bootup
---  if panel:getBootstrapState() or panel:getProgramState() then
---    return
---  end
---
---  local FLOPPY, HXCFE, MIDI = 0, 1, 2
---
---  drumMapCtrl:toggleActivation("hxcPathGroup", value == HXCFE)
---  drumMapCtrl:toggleActivation("loadOsButton", value == HXCFE)
---  drumMapCtrl:toggleActivation("loadFloppyImageGroup", value == HXCFE)
---  drumMapCtrl:toggleActivation("setfdprmPathGroup", value == FLOPPY)
---end
---
---function testOnSetfdprmPathChange()
---  -- This variable stops index issues during panel bootup
---  if panel:getBootstrapState() or panel:getProgramState() then
---    return
---  end
---
---  setfdprmPath = utils.openFileWindow("Select setfdprm path", File.getSpecialLocation(File.userHomeDirectory), "*", true)
---  s2kDieSrvc:setFdprmPath(setfdprmPath)
---  panel:getComponent("setfdprmPathLabel"):setText(setfdprmPath:getFullPathName())
---end
---
---function testOnHxcPathChange(parameters)
---  -- This variable stops index issues during panel bootup
---  if panel:getBootstrapState() or panel:getProgramState() then
---    return
---  end
---
---  filePatternsAllowed = "*"
---  if operatingsystem == "win" then
---    filePatternsAllowed = "*.exe"
---  end
---
---  local hxcPath = utils.openFileWindow("Select hxcfe executable", File.getSpecialLocation(File.userHomeDirectory),
---    filePatternsAllowed, true)
---  hxcSrvc:setHxcPath(hxcPath)
---  panel:getComponent("hxcPathLabel"):setText(hxcPath:getFullPathName())
---end
---
---function testOnS2kDiePathChange()
---  -- This variable stops index issues during panel bootup
---  if panel:getBootstrapState() or panel:getProgramState() then
---    return
---  end
---
---  local s2kDiePath = utils.openFileWindow("Select s2kDie folder", File.getSpecialLocation(File.userHomeDirectory), "*.php", true)
---  s2kDieSrvc:setS2kDiePath(s2kDiePath)
---  panel:getComponent("s2kDiePathLabel"):setText(s2kDiePath:getFullPathName())
---end
---
---function testOnWorkPathChange()
---  -- This variable stops index issues during panel bootup
---  if panel:getBootstrapState() or panel:getProgramState() then
---    return
---  end
---
---  workFolder = utils.getDirectoryWindow("Select work folder", File.getSpecialLocation(File.userHomeDirectory))
---  panel:getComponent("workPathLabel"):setText(workFolder:getFullPathName())
---end
---
---function testOnTransferSamples()
---  -- This variable stops index issues during panel bootup
---  if panel:getBootstrapState() or panel:getProgramState() then
---    return
---  end
---
---  if not drumMapCtrl:verifyTransferSettings() then
---    drumMapCtrl:updateStatus("There are config issues.\nPlease verify your settings...")
---    return
---  end
---
---  local logFilePath
---  local numSamplesBefore = 0
---  local expectedNumSamples = -1
---
---  local rslistFunc = function()
---    midiSrvc:sendMidiMessage(Rslist())
---  end
---
---  local midiCallbackFunc = function(data)
---    local msg = Slist(data)
---    if msg ~= nil then
---      local numSamples = msg:getNumSamples()
---      if numSamplesBefore == 0 then
---        numSamplesBefore = numSamples
---      elseif expectedNumSamples == -1 then
---        expectedNumSamples = s2kDieSrvc:getNumGeneratedSamples(logFilePath)
---      elseif numSamples == numSamplesBefore + expectedNumSamples then
---        sampleListModel:addSamples(msg)
---        processSrvc:abort()
---
---        local wavList = drumMapModel:retrieveNextFloppy()
---        if wavList == nil then
---          drumMapCtrl:updateStatus("Data transfer done.")
---        else
---          drumMapCtrl:updateStatus(string.format("Transfering 1:st floppy to Akai S2000..."))
---          executeTransfer(wavList)
---        end
---      else
---      end
---    end
---  end
---
---  local executeTransfer = function(wavList)
---    -- console(string.format("WavList : %d", table.getn(wavList)))
---    local transferProc = Process()
---      :withPath(workFolder:getFullPathName())
---      :withLaunchVariable("wavFiles", wavList)
---      :withLaunchGenerator(s2kDieSrvc:s2kDieLauncher())
---      :withLaunchGenerator(hxcSrvc:getHxcLauncher())
---      :withAbortGenerator(hxcSrvc:getHxcAborter())
---      :withMidiCallback(midiCallbackFunc)
---      :withMidiSender(rslistFunc, 1000)
---
---    logFilePath = transferProc:getLogFilePath()
---
---    local result = processSrvc:execute(transferProc)
---    if result then
---      utils.infoWindow ("Load samples", "Please select to load all from\nfloppy on the Akai S2000.")
---      drumMapCtrl:updateStatus("Transfering samples...")
---    else
---      drumMapCtrl:updateStatus("Failed to transfer data.\nPlease cancel process")
---    end
---  end
---
---
---  if floppyImgPath == nil then
---    local wavList = drumMapModel:retrieveNextFloppy()
---    if wavList == nil then
---      drumMapCtrl:updateStatus("Data transfer done.")
---    else
---      drumMapCtrl:updateStatus(string.format("Transfering 1:st floppy to Akai S2000..."))
---      executeTransfer(wavList)
---    end
---  else
---    drumMapCtrl:updateStatus(string.format("Transfering floppy to Akai S2000..."))
---    local transferProc = process()
---      :withPath(workFolder:getFullPathName())
---      :withLaunchVariable("imgPath", floppyImgPath:getFullPathName())
---      :withLaunchGenerator(hxcService:getHxcLauncher())
---      :withAbortGenerator(hxcService:getHxcAborter())
---
---    local result = processService:execute(transferProc)
---    if result then
---      utils.infoWindow ("Load samples", "Please select to load all from\nfloppy on the Akai S2000.")
---      drumMapCtrl:updateStatus("Done...")
---    else
---      drumMapCtrl:updateStatus("Failed to transfer data.\nPlease cancel process")
---    end
---  end
---end
---
---function testOnLoadOs()
---  -- This variable stops index issues during panel bootup
---  if panel:getBootstrapState() or panel:getProgramState() then
---    return
---  end
---
---  if not drumMapCtrl:verifyTransferSettings() then
---    drumMapCtrl:updateStatus("There are config issues.\nPlease verify your settings...")
---    return
---  end
---
---  local statCount = 0
---
---  local rstatFunc = function()
---    midiSrvc:sendMidiMessage(Rstat())
---  end
---
---  local statFunc = function(data)
---    LOGGER:fine("[statFunc]")
---    local statMsg = Stat(data)
---    if statMsg ~= nil then
---      if statCount > 20 then
---        statCount = statCount + 1
---      else
---        processSrvc:abort()
---        drumMapCtrl:updateStatus("Akai S2000 OS loaded.")
---        drumMapCtrl:toggleActivation("loadOsButton", true)
---      end
---    end
---  end
---
---  local transferProc = Process()
---    :withPath(workFolder:getFullPathName())
---    :withLaunchVariable("imgPath", string.format("%s%sosimage.img", workFolder:getFullPathName(), pathseparator))
---    :withLaunchGenerator(hxcSrvc:getHxcLauncher())
---    :withAbortGenerator(hxcSrvc:getHxcAborter())
---    :withMidiCallback(statFunc)
---    :withMidiSender(rstatFunc, 1000)
---
---  drumMapCtrl:toggleActivation("loadOsButton", false)
---
---  local result = processSrvc:execute(transferProc)
---  if result then
---    drumMapCtrl:updateStatus("Loading Akai S2000 OS...")
---  else
---    drumMapCtrl:updateStatus("Failed to load OS.\nPlease cancel process")
---  end
---end
---
---function testOnCancelProcess()
---  -- This variable stops index issues during panel bootup
---  if panel:getBootstrapState() or panel:getProgramState() then
---    return
---  end
---
---  drumMapCtrl:updateStatus("Select a sample and a key group")
---  processSrvc:abort()
---end
---
---function testOnRslist()
---  -- This variable stops index issues during panel bootup
---  if panel:getBootstrapState() or panel:getProgramState() then
---    return
---  end
---
---  local rslistFunc = function()
---    midiSrvc:sendMidiMessage(rslist())
---  end
---
---  local midiCallbackFunc = function(data)
---    local slist = slist(data)
---    if slist then
---      processSrvc:abort()
---      sampleListModel:addSamples(slist)
---    end
---  end
---
---  local rslistProc = process()
---    :withMidiCallback(midiCallbackFunc)
---    :withMidiSender(rslistFunc, 100)
---
---  local result = processSrvc:execute(rslistProc)
---  if result then
---    drumMapCtrl:updateStatus("Receiving sample list...")
---  else
---    drumMapCtrl:updateStatus("Failed to receive data.\nPlease cancel process")
---  end
---end
---
---function testOnSampleAssign()
---  -- This variable stops index issues during panel bootup
---  if panel:getBootstrapState() or panel:getProgramState() then
---    return
---  end
---
---  if not drumMapModel:isReadyForAssignment() then
---    updateStatus("Select a sample and a key group.")
---    return
---  end
---
---  local result = drumMapSrvc:assignSample()
---  drumMapCtrl:updateStatus(result)
---end
---
---function testOnDrumMapKeyChange()
---  -- This variable stops index issues during panel bootup
---  if panel:getBootstrapState() or panel:getProgramState() then
---    return
---  end
---
---  local customIndex = mod:getProperty("modulatorCustomIndex")
---  drumMapModel:setKeyRange(customIndex, value)
---end
---
---function testOnResetAllKeyRanges()
---  -- This variable stops index issues during panel bootup
---  if panel:getBootstrapState() or panel:getProgramState() then
---    return
---  end
---
---  drumMapModel:resetAllRanges()
---end
---
---function testOnResetPadKeyRange()
---  -- This variable stops index issues during panel bootup
---  if panel:getBootstrapState() or panel:getProgramState() then
---    return
---  end
---
---  drumMapModel:resetSelectedKeyRange()
---end
+function testOnPadSelected()
+  local numKgs = 15
+  local selectedKg = 8
+
+  onKeyGroupNumChange(numKgs)
+
+  onPadSelected(newKeyGroupComponent(selectedKg))
+  assertDisabled("assignSample")
+
+  onSampleSelected(File("test/data/Cat-Meow.wav"))
+  assertEnabled("assignSample")
+end
+
+function testOnTransferSamples_FloppyImgPath()
+  local numKgs = 1
+  local selectedKg = 1
+
+  onKeyGroupNumChange(numKgs)
+
+  local selectedComp = newKeyGroupComponent(selectedKg)
+
+  onPadSelected(selectedComp)
+  onSampleDoubleClicked(File("test/data/PULL-GTR--G2.wav"))
+  onSampleDoubleClicked(File("test/data/DAMP-GBSN-A5.wav"))
+  verifyPads(numKgs, selectedKg, {
+    [selectedKg] = "PULL-GTR--G2.wav\nDAMP-GBSN-A5.wav"
+  })
+
+  settings:setFloppyImgPath(File("test/data/SL1041.img"))
+  
+  onTransferSamples()
+
+  assertFalse(processActive)
+  
+  verifyPads(numKgs, selectedKg, {
+    [selectedKg] = "PULL-GTR--G2.wav\nDAMP-GBSN-A5.wav"
+  })
+  
+  assertTmpFile("scriptLauncher.bat", settings:getHxcPath())
+  assertTmpFile("scriptLauncher.bat", "-uselayout:AKAIS3000_HD")
+  assertTmpFile("scriptLauncher.bat", "-finput:" .. settings:getFloppyImgPath())
+  assertTmpFile("scriptLauncher.bat", "-usb:")
+end
+
+function testOnTransferSamples_NextFloppy()
+  local numKgs = 1
+  local selectedKg = 1
+
+  onKeyGroupNumChange(numKgs)
+
+  local selectedComp = newKeyGroupComponent(selectedKg)
+
+  onPadSelected(selectedComp)
+  onSampleDoubleClicked(File("test/data/PULL-GTR--G2.wav"))
+  onSampleDoubleClicked(File("test/data/DAMP-GBSN-A5.wav"))
+  verifyPads(numKgs, selectedKg, {
+    [selectedKg] = "PULL-GTR--G2.wav\nDAMP-GBSN-A5.wav"
+  })
+
+  drumMap:insertToCurrentFloppy(File("test/data/PULL-GTR--G2.wav"))
+  drumMap:insertToCurrentFloppy(File("test/data/DAMP-GBSN-A5.wav"))
+
+  onTransferSamples()
+
+  assertTrue(processActive)
+  midiService:dispatchMidi(newSlistMsg(0))
+
+  midiService:dispatchMidi(newSlistMsg(1))
+
+  cutils.writeToFile(tmpFolderName .. PATH_SEPARATOR .. "scriptLauncher.bat.log", "C:\ctrlr\Panels\pascalc\AkaiS2000>cp C:\ctrlr\Panels\pascalc\AkaiS2000\test\data\PULL-GTR-G2.wav C:\ctrlr\Panels\pascalc\AkaiS2000\ctrlrwork\PULL-GTR-G2.wav\r\nC:\ctrlr\Panels\pascalc\AkaiS2000>cp C:\ctrlr\Panels\pascalc\AkaiS2000\test\data\DAMP-GBSN.wav C:\ctrlr\Panels\pascalc\AkaiS2000\ctrlrwork\DAMP-GBSN.wav\r\nC:\ctrlr\Panels\pascalc\AkaiS2000>cd C:\ctrlr\Panels\pascalc\AkaiS2000\ctrlrwork\r\nC:\ctrlr\Panels\pascalc\AkaiS2000\ctrlrwork>php c:\ctrlr\s2kdie\s2kdie.php C:\ctrlr\Panels\pascalc\AkaiS2000\ctrlrwork\script-40947.s2k\r\n\r\nAKAI S2000/S3000/S900 Disk Image Editor v1.1.2\r\n(? for help.)\r\n\r\nFloppy read/writes disabled, setfdprm not found.\r\n\r\nCommand selected: BLANK S2000\r\nImage in memory blanked.\r\nCommand selected: VOL script-40947.s2k\r\nSCRIPT-40947\r\nCommand selected: WLOAD PULL-GTR-G2.wav\r\nStereo WAV imported as akai samples.\r\nCommand selected: WLOAD DAMP-GBSN.wav\r\nStereo WAV imported as akai samples.\r\nCommand selected: SAVE C:\ctrlr\Panels\pascalc\AkaiS2000\ctrlrwork\floppy-40947.img\r\nImage saved.\r\nCommand selected: DIR\r\n\r\n      S2000 Volume: SCRIPT-40947\r\n\r\n      Filename       Type        Bytes\r\n  [0] PULL-GTR-G-L   <UNKNOWN>   98034\r\n  [1] PULL-GTR-G-R   <UNKNOWN>   98034\r\n  [2] DAMP-GBSN.-L   <UNKNOWN>   37362\r\n  [3] DAMP-GBSN.-R   <UNKNOWN>   37362\r\n\r\n      1318 unused sectors.  (1349632 bytes free)\r\n\r\nCommand selected: \r\n\r\n\r\nC:\ctrlr\Panels\pascalc\AkaiS2000\ctrlrwork>cd C:\ctrlr\Panels\pascalc\AkaiS2000\r\nC:\ctrlr\Panels\pascalc\AkaiS2000>C:\ctrlr\Panels\pascalc\AkaiS2000\hxc.exe -uselayout:AKAIS3000_HD -finput:C:\ctrlr\Panels\pascalc\AkaiS2000\ctrlrwork\floppy-40947.img -usb:\r\nC:\ctrlr\Panels\pascalc\AkaiS2000>exit\r\n")
+
+  midiService:dispatchMidi(newSlistMsg(2))
+  midiService:dispatchMidi(newSlistMsg(2))
+  midiService:dispatchMidi(newSlistMsg(2))
+
+  midiService:dispatchMidi(newSlistMsg(4))
+
+  assertFalse(processActive)
+  
+  local namesString = "DAMP-GBSN--L\nDAMP-GBSN--R\nPULL-GTR--G2\nSMACKIN     "
+  assertCompProperty("noSamplesLabel", "componentVisibility", 0)
+  assertCompProperty("noSamplesLabel-1", "componentVisibility", 0)
+  assertCompProperty("samplerFileList", "componentVisibility", 1)
+  assertCompProperty("samplerFileList-1", "componentVisibility", 1)
+  assertCompProperty("samplerFileList", "uiListBoxContent", namesString)
+  assertCompProperty("samplerFileList-1", "uiListBoxContent", namesString)
+  assertCompProperty("zone1Selector", "uiComboContent", namesString)
+  assertCompProperty("zone2Selector", "uiComboContent", namesString)
+  assertCompProperty("zone3Selector", "uiComboContent", namesString)
+  assertCompProperty("zone4Selector", "uiComboContent", namesString)
+
+  verifyPads(numKgs, selectedKg, {
+    [selectedKg] = "PULL-GTR--G2\nDAMP-GBSN--L\nDAMP-GBSN--R"
+  })
+  
+  assertText("lcdLabel", "Data transfer done.")
+end
+
+function testOnLoadOs()
+  onLoadOs()
+
+  assertTrue(processActive)
+  assertDisabled("loadOsButton")
+
+  midiService:dispatchMidi(MemoryBlock("F0 47 00 01 48 00 11 6E 07 30 06 00 00 00 08 00 32 3E 07 00 F7"))
+
+  assertFalse(processActive)
+  assertText("lcdLabel", "Akai S2000 OS loaded.")
+  assertEnabled("loadOsButton")
+end
+
+function testOnCancelProcess()
+
+  processService:abort()
+
+  assertText("lcdLabel", "No active process to abort!")
+  assertEqual(table.getn(executedOsCommands), 0)
+  assertEqual(processListenerCalls, 0)
+
+  local transferProc = Process()
+    :withPath(settings:getWorkFolder())
+    :withAbortGenerator(hxcService:getHxcAborter())
+    :build()
+
+  executedOsCommands = {}
+  processListenerCalls = 0
+
+  processService.curr_transfer_proc = transferProc
+
+  processService:abort()
+
+  assertEqual(table.getn(executedOsCommands), 1)
+  assertEqual(processListenerCalls, 1)
+  assertFalse(processActive)
+
+  assertTmpFile("scriptAborter.bat", "for /f \"tokens=2 delims=,\" %%a in ('tasklist /v /fo csv ^| findstr /i \"hxcfe\"') do set \"$PID=%%a\"\r\ntaskkill /F /PID %$PID%\r\n\r\nexit\r\n")
+
+end
+
+function testOnRslist()
+  local numKgs = 1
+  local selectedKg = 1
+
+  onKeyGroupNumChange(numKgs)
+
+  local selectedComp = newKeyGroupComponent(selectedKg)
+
+  onPadSelected(selectedComp)
+  onSampleDoubleClicked(File("test/data/PULL-GTR--G2.wav"))
+  onSampleDoubleClicked(File("test/data/DAMP-GBSN-A5.wav"))
+  verifyPads(numKgs, selectedKg, {
+    [selectedKg] = "PULL-GTR--G2.wav\nDAMP-GBSN-A5.wav"
+  })
+
+  onRslist()
+
+  assertTrue(processActive)
+  assertText("lcdLabel", "Receiving sample list...")
+
+  local namesString = "DAMP GBSN A2\nDAMP GBSN A3\nDAMP GBSN C5\nDAMP GBSN E3\nDAMP GBSN E4\nDAMP GTR C5 \nDAMP GTR D3 \nDAMP GTR E4 \nDAMP GTR G2 \nDAMP-GBSN--L\nDAMP-GBSN--R\nGBSN 335 A2 \nGBSN 335 A3 \nGBSN 335 A4 \nGBSN 335 E2 \nGBSN 335 E3 \nGBSN 335 E4 \nGBSN 335 E5 \nGBSN 335 PIK\nGBSN HARMONC\nMUTE GTR C5 \nMUTE GTR D3 \nMUTE GTR E4 \nMUTE GTR G2 \nPULL GTR D3 \nPULL GTR E4 \nPULL-GTR--G2\nSMACKIN     "
+  midiService:dispatchMidi(newSlistMsg(28))
+
+  assertFalse(processActive)
+
+  assertCompProperty("noSamplesLabel", "componentVisibility", 0)
+  assertCompProperty("noSamplesLabel-1", "componentVisibility", 0)
+  assertCompProperty("samplerFileList", "componentVisibility", 1)
+  assertCompProperty("samplerFileList-1", "componentVisibility", 1)
+  assertCompProperty("samplerFileList", "uiListBoxContent", namesString)
+  assertCompProperty("samplerFileList-1", "uiListBoxContent", namesString)
+  assertCompProperty("zone1Selector", "uiComboContent", namesString)
+  assertCompProperty("zone2Selector", "uiComboContent", namesString)
+  assertCompProperty("zone3Selector", "uiComboContent", namesString)
+  assertCompProperty("zone4Selector", "uiComboContent", namesString)
+  verifyPads(numKgs, selectedKg, {
+    [selectedKg] = "PULL-GTR--G2\nDAMP-GBSN--L\nDAMP-GBSN--R"
+  })
+
+end
+
+function testOnSampleAssign()
+  local numKgs = 10
+  local selectedKg = 7
+
+  onKeyGroupNumChange(numKgs)
+
+  onPadSelected(newKeyGroupComponent(selectedKg))
+
+  onSampleAssign()
+  assertText("lcdLabel", "Select a sample and a key group.")
+
+  onSampleSelected(File("test/data/Cat-Meow.wav"))
+
+  onSampleAssign()
+
+  verifyPads(numKgs, selectedKg, {
+    [selectedKg] = "Cat-Meow.wav"
+  })
+end
+
+function testOnDrumMapKeyChange()
+  local numKgs = 14
+  local selectedKg = 12
+  local LOW_INDEX, HIGH_INDEX = 1, 2
+
+  onKeyGroupNumChange(numKgs)
+
+  assertDisabled("drumMapLowKey")
+  assertDisabled("drumMapHighKey")
+
+  onPadSelected(newKeyGroupComponent(selectedKg))
+
+  assertEnabled("drumMapLowKey")
+  assertEnabled("drumMapHighKey")
+
+  assertModValue("drumMapLowKey", selectedKg - 1)
+  assertModValue("drumMapHighKey", selectedKg - 1)
+  --  assertModProperty("drumMapLowKey", "modulatorMin", 0)
+  assertModProperty("drumMapLowKey", "modulatorMax", selectedKg - 1)
+  assertModProperty("drumMapHighKey", "modulatorMin", selectedKg - 1)
+  --  assertModProperty("drumMapHighKey", "modulatorMax", selectedKg - 1)
+
+  local lowMod = newModulatorWithCustomIndex("drumMapLowKey", LOW_INDEX)
+  local lowVal = 1
+  local highVal = 25
+  onDrumMapKeyChange(lowMod, lowVal)
+
+  assertEnabled("drumMapLowKey")
+  assertEnabled("drumMapHighKey")
+
+  assertModValue("drumMapLowKey", lowVal)
+  assertModValue("drumMapHighKey", selectedKg - 1)
+
+  --  assertModProperty("drumMapLowKey", "modulatorMin", 0)
+  assertModProperty("drumMapLowKey", "modulatorMax", selectedKg - 1)
+  assertModProperty("drumMapHighKey", "modulatorMin", lowVal)
+  --  assertModProperty("drumMapHighKey", "modulatorMax", selectedKg - 1)
+
+  local highMod = newModulatorWithCustomIndex("drumMapHighKey", HIGH_INDEX)
+  onDrumMapKeyChange(highMod, highVal)
+
+  assertEnabled("drumMapLowKey")
+  assertEnabled("drumMapHighKey")
+
+  assertModValue("drumMapLowKey", lowVal)
+  assertModValue("drumMapHighKey", highVal)
+
+  --  assertModProperty("drumMapLowKey", "modulatorMin", 0)
+  assertModProperty("drumMapLowKey", "modulatorMax", highVal)
+  assertModProperty("drumMapHighKey", "modulatorMin", lowVal)
+  --  assertModProperty("drumMapHighKey", "modulatorMax", selectedKg - 1)
+end
+
+function testOnResetAllKeyRanges()
+  local numKgs = 7
+  local selectedKg = 4
+  local secondKg = 5
+  local thirdKg = 6
+  local LOW_INDEX, HIGH_INDEX = 1, 2
+
+  local lowVal = 1
+  local highVal = 25
+  local lowVal2 = 4
+  local highVal2 = 16
+
+  local lowMod = newModulatorWithCustomIndex("drumMapLowKey", LOW_INDEX)
+  local highMod = newModulatorWithCustomIndex("drumMapHighKey", HIGH_INDEX)
+
+  local selectedComp = newKeyGroupComponent(selectedKg)
+  local secondComp = newKeyGroupComponent(secondKg)
+  local thirdComp = newKeyGroupComponent(thirdKg)
+
+  onKeyGroupNumChange(numKgs)
+
+  -- Try with one kg
+
+  onPadSelected(selectedComp)
+  onDrumMapKeyChange(lowMod, lowVal)
+  onDrumMapKeyChange(highMod, highVal)
+
+  assertModValue("drumMapLowKey", lowVal)
+  assertModValue("drumMapHighKey", highVal)
+
+  onResetAllKeyRanges()
+
+  assertModValue("drumMapLowKey", selectedKg - 1)
+  assertModValue("drumMapHighKey", selectedKg - 1)
+
+  -- Try with three kgs
+
+  onDrumMapKeyChange(lowMod, lowVal)
+  onDrumMapKeyChange(highMod, highVal)
+
+  assertModValue("drumMapLowKey", lowVal)
+  assertModValue("drumMapHighKey", highVal)
+
+  onPadSelected(secondComp)
+
+  assertModValue("drumMapLowKey", secondKg - 1)
+  assertModValue("drumMapHighKey", secondKg - 1)
+
+  onDrumMapKeyChange(lowMod, lowVal2)
+  onDrumMapKeyChange(highMod, highVal2)
+
+  assertModValue("drumMapLowKey", lowVal2)
+  assertModValue("drumMapHighKey", highVal2)
+
+  onPadSelected(thirdComp)
+
+  assertModValue("drumMapLowKey", thirdKg - 1)
+  assertModValue("drumMapHighKey", thirdKg - 1)
+
+  onDrumMapKeyChange(lowMod, lowVal2)
+  onDrumMapKeyChange(highMod, highVal2)
+
+  assertModValue("drumMapLowKey", lowVal2)
+  assertModValue("drumMapHighKey", highVal2)
+
+  onResetAllKeyRanges()
+
+  assertModValue("drumMapLowKey", thirdKg - 1)
+  assertModValue("drumMapHighKey", thirdKg - 1)
+
+  onPadSelected(secondComp)
+  assertModValue("drumMapLowKey", secondKg - 1)
+  assertModValue("drumMapHighKey", secondKg - 1)
+
+  onPadSelected(selectedComp)
+  assertModValue("drumMapLowKey", selectedKg - 1)
+  assertModValue("drumMapHighKey", selectedKg - 1)
+end
+
+function testOnResetPadKeyRange()
+  local numKgs = 8
+  local selectedKg = 5
+  local secondKg = 6
+  local LOW_INDEX, HIGH_INDEX = 1, 2
+
+  local lowVal = 1
+  local highVal = 25
+  local lowVal2 = 4
+  local highVal2 = 16
+
+  local lowMod = newModulatorWithCustomIndex("drumMapLowKey", LOW_INDEX)
+  local highMod = newModulatorWithCustomIndex("drumMapHighKey", HIGH_INDEX)
+
+  local selectedComp = newKeyGroupComponent(selectedKg)
+  local secondComp = newKeyGroupComponent(secondKg)
+
+  onKeyGroupNumChange(numKgs)
+
+  onPadSelected(selectedComp)
+  onDrumMapKeyChange(lowMod, lowVal)
+  onDrumMapKeyChange(highMod, highVal)
+
+  assertModValue("drumMapLowKey", lowVal)
+  assertModValue("drumMapHighKey", highVal)
+
+  onPadSelected(secondComp)
+
+  assertModValue("drumMapLowKey", secondKg - 1)
+  assertModValue("drumMapHighKey", secondKg - 1)
+
+  onDrumMapKeyChange(lowMod, lowVal2)
+  onDrumMapKeyChange(highMod, highVal2)
+
+  assertModValue("drumMapLowKey", lowVal2)
+  assertModValue("drumMapHighKey", highVal2)
+
+  onPadSelected(selectedComp)
+
+  onResetPadKeyRange()
+
+  assertModValue("drumMapLowKey", selectedKg - 1)
+  assertModValue("drumMapHighKey", selectedKg - 1)
+
+  onPadSelected(secondComp)
+  assertModValue("drumMapLowKey", lowVal2)
+  assertModValue("drumMapHighKey", highVal2)
+end
 
 runTests{useANSI = false}

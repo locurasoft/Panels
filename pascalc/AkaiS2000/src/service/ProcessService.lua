@@ -25,9 +25,9 @@ end
 local windowsExecutor = function(scriptDir, scriptName)
   local scriptPath = string.format("%s\\%s", scriptDir, scriptName)
   local script = io.open(scriptPath, "a")
-  script:write(eol)
+  script:write(EOL)
   script:write("exit")
-  script:write(eol)
+  script:write(EOL)
   script:close()
 
   os.execute(string.format("cmd /C start /B %s ^> %s.log", scriptPath, scriptPath))
@@ -79,7 +79,7 @@ function ProcessService:execute(proc)
       proc:build()
       local scriptPath = proc:getScriptPath()
       local scriptName = proc:getLaunchName()
-      if operatingSystem == "win" then
+      if OPERATING_SYSTEM == "win" then
         log:info("[hxcLaunchOnWindows] %s - %s:", scriptPath, scriptName)
         windowsExecutor(scriptPath, scriptName)
       else
@@ -96,9 +96,8 @@ function ProcessService:execute(proc)
 end
 
 function ProcessService:abort()
-  log:info("abort()")
   if self.curr_transfer_proc == nil then
-    log:info("No active process to abort!")
+    drumMapController:updateStatus("No active process to abort!")
   else
     timer:stopTimer(MIDI_POLL_THREAD_ID)
     midiService:clearMidiReceived()
@@ -106,7 +105,7 @@ function ProcessService:abort()
     if self.curr_transfer_proc:hasAborter() then
       local scriptPath = self.curr_transfer_proc:getScriptPath()
       local scriptName = self.curr_transfer_proc:getAbortName()
-      if operatingSystem == "win" then
+      if OPERATING_SYSTEM == "win" then
         log:info("[hxcLaunchOnWindows] %s - %s:", scriptPath, scriptName)
         windowsExecutor(scriptPath, scriptName)
       else

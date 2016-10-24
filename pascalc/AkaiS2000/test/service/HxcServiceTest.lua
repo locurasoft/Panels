@@ -8,7 +8,7 @@ function setup()
   -- code here will be run before each test
   --console("setup")
   hxcPath = "c:\\temp\\hxc.exe"
-  regGlobal("eol", "\r\n")
+  regGlobal("EOL", "\r\n")
   underTest = HxcService(hxcPath)
   scriptPath = "my_script.bat"
 end

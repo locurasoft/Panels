@@ -15,11 +15,8 @@ setmetatable(ProgramController, {
   end,
 })
 
-function ProgramController:_init()
+function ProgramController:_init(programList)
   AbstractController._init(self)
-end
-
-function ProgramController:setProgramList(programList)
   self.programList = programList
   programList:addListener(self, "updateProgramList")
 end
@@ -90,7 +87,7 @@ function ProgramController:assignProgramValues(program)
   else
     self:setValue("kgSelector", program:getActiveKeyGroupIndex())
   end
-  for k,v in pairs(programBlock) do
+  for k,v in pairs(PROGRAM_BLOCK) do
     local mod = panel:getModulatorByName(k)
     if mod ~= nil then
       local value = program:getParamValue(k)
@@ -122,7 +119,7 @@ function ProgramController:assignKeyGroupValues(program, kgIndex)
     panel:getComponent(selector):setText(sampleName, true)
   end
 
-  for k,v in pairs(keyGroupBlock) do
+  for k,v in pairs(KEY_GROUP_BLOCK) do
     local mod = panel:getModulatorByName(k)
     if mod ~= nil then
       local value = keyGroup:getParamValue(k)

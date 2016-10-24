@@ -58,7 +58,7 @@ function PdataMsg:getOffset(blockIndex)
 end
 
 function PdataMsg:storeNibbles(blockId, valBlock)
-	self.data:copyFrom(valBlock, self:getOffset(programBlock[blockId]), valBlock:getSize())
+	self.data:copyFrom(valBlock, self:getOffset(PROGRAM_BLOCK[blockId]), valBlock:getSize())
 end
 
 function PdataMsg:storePhead(phead)
@@ -69,7 +69,7 @@ function PdataMsg:storePhead(phead)
 end
 
 function PdataMsg:getPdataValue(blockId)
-	local offset = self:getOffset(programBlock[blockId])
+	local offset = self:getOffset(PROGRAM_BLOCK[blockId])
 	if blockId == "PTUNO" then
 		return midiService:fromTuneBlock(self.data, offset)
 	elseif blockId == "PRNAME" then
@@ -84,7 +84,7 @@ function PdataMsg:setName(programName)
 end
 
 function PdataMsg:getName()
-	return midiService:fromStringBlock(self.data, self:getOffset(programBlock["PRNAME"]))
+	return midiService:fromStringBlock(self.data, self:getOffset(PROGRAM_BLOCK["PRNAME"]))
 end
 
 function PdataMsg:setNumKeyGroups(numKeyGroups)
@@ -105,7 +105,7 @@ function PdataMsg:setProgramNumber(programNumber)
 end
 
 function PdataMsg:getProgramNumber()
-	return midiService:fromDefaultBlock(self.data, self:getOffset(programBlock["PRGNUM"]))
+	return midiService:fromDefaultBlock(self.data, self:getOffset(PROGRAM_BLOCK["PRGNUM"]))
 end
 
 function PdataMsg:getData()

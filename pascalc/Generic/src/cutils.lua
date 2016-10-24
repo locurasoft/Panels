@@ -45,9 +45,9 @@ function getOsName()
 end
 
 ---
--- @return the eol character based on os
+-- @return the EOL character based on os
 function getEolChar()
-  if getOsName() == "win" then 
+  if getOsName() == "win" then
     return "\r\n"
   else
     return "\n"
@@ -55,7 +55,7 @@ function getEolChar()
 end
 
 function getUserHome()
-  if getOsName() == "win" then 
+  if getOsName() == "win" then
     return os.getenv("HOMEDRIVE")
   else
     return "/"
@@ -76,26 +76,31 @@ function getFileContents(filepath)
     content = f:read("*all")
     f:close()
   end
-  
+
   return content
 end
 
+function writeToFile(fileName, contents)
+  file = io.open(fileName, "w+")
+  file:write(contents)
+  file:close()
+end
+
 function toFilePath(fileDir, fileName)
-  return string.format("%s%s%s", fileDir, pathSeparator, fileName)
+  return string.format("%s%s%s", fileDir, base.PATH_SEPARATOR, fileName)
 end
 
 function getFileName(filePath)
-  local lastSlash = string.find(filePath, string.format("%s[^%s]*$", pathSeparator, pathSeparator))
+  local lastSlash = string.find(filePath, string.format("%s[^%s]*$", base.PATH_SEPARATOR, base.PATH_SEPARATOR))
   return string.sub(filePath, lastSlash + 1)
 end
-
 
 function getRotationTransform(angle, x, y, w, h)
   local timesPi = angle / 180
   local xRot = x + w / 2
   local yRot = y + h / 2
   transform = AffineTransform.rotation(timesPi * 3.1415926536, xRot, yRot)
-    
+
   if transform:isSingularity() ~= true then
     return transform
   else

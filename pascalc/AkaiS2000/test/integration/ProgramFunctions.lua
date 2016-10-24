@@ -8,11 +8,11 @@ function onProgramChange()
     value = 1
   end
 
-  if programListModel:getNumPrograms() == 0 then
+  if programList:getNumPrograms() == 0 then
     return
   end
 
-  programListModel:setActiveProgram(value)
+  programList:setActiveProgram(value)
 end
 
 function onKeyGroupChange()
@@ -24,7 +24,7 @@ function onKeyGroupChange()
   if value == 0 then
     value = 1
   end
-  programCtrl:changeKeyGroup(value)
+  programController:changeKeyGroup(value)
 end
 
 function onVssChange()
@@ -33,19 +33,19 @@ function onVssChange()
     return
   end
 
-  local activeProg = programListModel:getActiveProgram()
+  local activeProg = programList:getActiveProgram()
   if activeProg == nil then
     return
   end
 
   local prog = activeProg:getProgramNumber()
   local kg = activeProg:getActiveKeyGroupIndex()
-  local offset = keyGroupBlock[mod:getProperty("name")]
-  local valueBlock = midiSrvc:toVssBlock(value)
+  local offset = KEY_GROUP_BLOCK[mod:getProperty("name")]
+  local valueBlock = midiService:toVssBlock(value)
   local khead = Khead(prog, kg, offset, valueBlock)
 
-  midiSrvc:sendMidiMessage(khead)
-  programSrvc:storeKgParamEdit(khead)
+  midiService:sendMidiMessage(khead)
+  programService:storeKgParamEdit(khead)
 end
 
 function onKgDefaultParamChange()
@@ -54,21 +54,21 @@ function onKgDefaultParamChange()
     return
   end
 
-  local activeProg = programListModel:getActiveProgram()
+  local activeProg = programList:getActiveProgram()
   if activeProg == nil then
     return
   end
 
   local prog = activeProg:getProgramNumber()
   local kg = activeProg:getActiveKeyGroupIndex()
-  local offset = keyGroupBlock[mod:getProperty("name")]
-  local valueBlock = midiSrvc:toDefaultBlock(value + math.abs(mod:getMinNonMapped()))
+  local offset = KEY_GROUP_BLOCK[mod:getProperty("name")]
+  local valueBlock = midiService:toDefaultBlock(value + math.abs(mod:getMinNonMapped()))
   local khead = Khead(prog, kg, offset, valueBlock)
 
   --LOGGER:info("onKgDefaultParamChange %d => %s (%s)", value, mod:getProperty("name"), khead:toString())
 
-  midiSrvc:sendMidiMessage(khead)
-  programSrvc:storeKgParamEdit(khead)
+  midiService:sendMidiMessage(khead)
+  programService:storeKgParamEdit(khead)
 end
 
 function onProgDefaultParamChange()
@@ -77,18 +77,18 @@ function onProgDefaultParamChange()
     return
   end
 
-  local activeProg = programListModel:getActiveProgram()
+  local activeProg = programList:getActiveProgram()
   if activeProg == nil then
     return
   end
 
   local prog = activeProg:getProgramNumber()
-  local offset = programBlock[mod:getProperty("name")]
+  local offset = PROGRAM_BLOCK[mod:getProperty("name")]
   local valueBlock = midiService:toDefaultBlock(value + math.abs(mod:getMinNonMapped()))
   local phead = PheadMsg(prog, offset, valueBlock)
   midiService:sendMidiMessage(phead)
 
-  programSrvc:storeProgParamEdit(phead)
+  programService:storeProgParamEdit(phead)
 end
 
 function onKgTuneChange()
@@ -97,21 +97,21 @@ function onKgTuneChange()
     return
   end
 
-  local activeProg = programListModel:getActiveProgram()
+  local activeProg = programList:getActiveProgram()
   if activeProg == nil then
     return
   end
 
   local prog = activeProg:getProgramNumber()
   local kg = activeProg:getActiveKeyGroupIndex()
-  local offset = keyGroupBlock[mod:getProperty("name")]
-  local valueBlock = midiSrvc:toTuneBlock(value)
+  local offset = KEY_GROUP_BLOCK[mod:getProperty("name")]
+  local valueBlock = midiService:toTuneBlock(value)
   local khead = Khead(prog, kg, offset, valueBlock)
 
-  midiSrvc:sendMidiMessage(khead)
-  programSrvc:storeKgParamEdit(khead)
-  local ll, mm = midiSrvc:toTuneBytes(value)
-  programCtrl:updateTuneLabel(mod:getProperty("name"), mm, ll)
+  midiService:sendMidiMessage(khead)
+  programService:storeKgParamEdit(khead)
+  local ll, mm = midiService:toTuneBytes(value)
+  programController:updateTuneLabel(mod:getProperty("name"), mm, ll)
 end
 
 function onProgTuneChange()
@@ -120,21 +120,21 @@ function onProgTuneChange()
     return
   end
 
-  local activeProg = programListModel:getActiveProgram()
+  local activeProg = programList:getActiveProgram()
   if activeProg == nil then
     return
   end
 
   local prog = activeProg:getProgramNumber()
-  local offset = programBlock[mod:getProperty("name")]
+  local offset = PROGRAM_BLOCK[mod:getProperty("name")]
   local valueBlock = midiService:toTuneBlock(value)
   local phead = PheadMsg(prog, offset, valueBlock)
 
   midiService:sendMidiMessage(phead)
 
-  programSrvc:storeProgParamEdit(phead)
+  programService:storeProgParamEdit(phead)
   local ll, mm = midiService:toTuneBytes(value)
-  programCtrl:updateTuneLabel(mod:getProperty("name"), mm, ll)
+  programController:updateTuneLabel(mod:getProperty("name"), mm, ll)
 end
 
 function onKgStringChange()
@@ -143,20 +143,20 @@ function onKgStringChange()
     return
   end
 
-  local activeProg = programListModel:getActiveProgram()
+  local activeProg = programList:getActiveProgram()
   if activeProg == nil then
     return
   end
 
   local prog = activeProg:getProgramNumber()
   local kg = activeProg:getActiveKeyGroupIndex()
-  local offset = keyGroupBlock[mod:getProperty("name")]
-  local valueBlock = midiSrvc:toStringBlock(value)
+  local offset = KEY_GROUP_BLOCK[mod:getProperty("name")]
+  local valueBlock = midiService:toStringBlock(value)
   local khead = Khead(prog, kg, offset, valueBlock)
 
-  midiSrvc:sendMidiMessage(khead)
+  midiService:sendMidiMessage(khead)
 
-  programSrvc:storeKgParamEdit(khead)
+  programService:storeKgParamEdit(khead)
 end
 
 function onProgStringChange()
@@ -165,17 +165,17 @@ function onProgStringChange()
     return
   end
 
-  local activeProg = programListModel:getActiveProgram()
+  local activeProg = programList:getActiveProgram()
   if activeProg == nil then
     return
   end
 
   local prog = activeProg:getProgramNumber()
-  local offset = programBlock[mod:getProperty("name")]
-  local valueBlock = midiSrvc:toStringBlock(value)
+  local offset = PROGRAM_BLOCK[mod:getProperty("name")]
+  local valueBlock = midiService:toStringBlock(value)
   local phead = Phead(prog, offset, valueBlock)
 
-  midiSrvc:sendMidiMessage(phead)
+  midiService:sendMidiMessage(phead)
 
-  programSrvc:storeProgParamEdit(phead)
+  programService:storeProgParamEdit(phead)
 end

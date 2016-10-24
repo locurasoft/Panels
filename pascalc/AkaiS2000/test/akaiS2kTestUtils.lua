@@ -7,7 +7,7 @@ regGlobal("NO_LOOPING_TYPE", 0)
 regGlobal("LP_IN_RELEASE_TYPE", 1)
 regGlobal("ONE_SHOT_TYPE", 2)
 
-regGlobal("programBlock", {
+regGlobal("PROGRAM_BLOCK", {
   ["KGRP1@"]      = 1,
   ["PRNAME"]      = 3,
   ["PRGNUM"]      = 15,
@@ -94,7 +94,7 @@ regGlobal("programBlock", {
   ["PFXSLEV"]     = 114
 })
 
-regGlobal("keyGroupBlock", {
+regGlobal("KEY_GROUP_BLOCK", {
   ["KGIDENT"]     = 0,
   ["NXTKG@"]      = 1,
   ["LONOTE"]      = 3,

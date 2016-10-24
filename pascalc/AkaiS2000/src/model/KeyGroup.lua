@@ -107,7 +107,7 @@ end
 
 function KeyGroup:replaceWithMonoSample(zoneIndex, sampleName)
   local zone = self.zones[zoneIndex]
-  zone:setSample(sampleNameLeft)
+  zone:setSample(sampleName)
 end
 
 function KeyGroup:setUpdating(updating)

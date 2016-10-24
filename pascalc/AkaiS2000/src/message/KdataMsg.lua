@@ -80,7 +80,7 @@ function KdataMsg:getOffset(blockIndex)
 end
 
 function KdataMsg:storeNibbles(blockId, valBlock)
-	self.data:copyFrom(valBlock, self:getOffset(keyGroupBlock[blockId]), valBlock:getSize())
+	self.data:copyFrom(valBlock, self:getOffset(KEY_GROUP_BLOCK[blockId]), valBlock:getSize())
 end
 
 function KdataMsg:storeKhead(khead)
@@ -92,9 +92,9 @@ function KdataMsg:storeKhead(khead)
 end
 
 function KdataMsg:getKdataValue(blockId)
-	local offset = self:getOffset(keyGroupBlock[blockId])
+	local offset = self:getOffset(KEY_GROUP_BLOCK[blockId])
 	if tuneBlocks[blockId] then
-		log:info("getKdataValue %s => %d => %d", blockId, keyGroupBlock[blockId], offset)
+		log:info("getKdataValue %s => %d => %d", blockId, KEY_GROUP_BLOCK[blockId], offset)
 		return midiService:fromTuneBlock(self.data, offset)
 	elseif vssBlocks[blockId] then
 		return midiService:fromVssBlock(self.data, offset)

@@ -3,16 +3,6 @@ require("Logger")
 
 local log = Logger("DrumMapController")
 
-local markGroup = function(groupName, error)
-  local color = "FF7A7269"
-  if error then
-    color = "FFEA402A"
-    retval = false
-  end
-  
-  panel:getComponent(groupName):setProperty("uiGroupOutlineColour1", color, false)
-end
-
 local disablePad = function(comp)
   comp:setProperty("uiButtonColourOff", "ff93b4ff", false)
   comp:setProperty("uiButtonColourOn", "ff93b4ff", false)
@@ -27,12 +17,18 @@ local setPadValue = function(padName, value)
   local pad = panel:getComponent(padName)
 
   if value == nil or value == "" then
-    pad:setProperty("componentVisibleName", "", true) 
+    pad:setProperty("componentVisibleName", "", true)
     pad:setProperty("componentLabelVisible", 0, true)
   else
     pad:setProperty("componentLabelVisible", 1, true)
     pad:setProperty("componentVisibleName", value, true)
   end
+end
+
+local getKeyGroupName = function(comp)
+  local grpName = comp:getProperty("componentGroupName")
+  local kgIndex = string.sub(grpName, 9, string.find(grpName, "-grp") - 1)
+  return string.format("KeyGroup %s", kgIndex)
 end
 
 DrumMapController = {}
@@ -53,105 +49,225 @@ function DrumMapController:_init(drumMap)
 end
 
 function DrumMapController:updateDrumMap(drumMap)
-	--
-	-- Update pads
-	--
-	panel:getComponent("drumMapSelectionLabel"):setProperty("uiLabelText", "", false)
+  --
+  -- Update pads
+  --
+  panel:getComponent("drumMapSelectionLabel"):setProperty("uiLabelText", "", false)
 
-	local numPads = drumMap:getNumKeyGroups()
+  local numPads = drumMap:getNumKeyGroups()
 
-	for i = 1,16 do
-		local padName = string.format("drumMap-%d", i)
-		if drumMap:isSelectedKeyGroup(i) then
-			local comp = panel:getComponent(padName)
-			local kgName = self:getKeyGroupName(comp)
+  for i = 1,16 do
+    local padName = string.format("drumMap-%d", i)
+    if drumMap:isSelectedKeyGroup(i) then
+      local comp = panel:getComponent(padName)
+      enablePad(comp)
 
-			enablePad(comp)			
-			panel:getComponent("drumMapSelectionLabel"):setProperty("uiLabelText", kgName, false)
-		else
-			disablePad(panel:getComponent(padName))
-		end
-		local samplesOfPad = drumMap:getSamplesOfKeyGroup(i)
-		setPadValue(padName, samplesOfPad)
+      local kgName = getKeyGroupName(comp)
+      panel:getComponent("drumMapSelectionLabel"):setProperty("uiLabelText", kgName, false)
+    else
+      disablePad(panel:getComponent(padName))
+    end
+    local samplesOfPad = drumMap:getSamplesOfKeyGroup(i)
+    setPadValue(padName, samplesOfPad)
 
-		self:toggleVisibility(padName, i <= numPads)
-	end
+    self:toggleVisibility(padName, i <= numPads)
+  end
 
-	--
-	-- Update floppy info
-	--
-	local numFloppies = drumMap:getNumFloppies()
-	local numFloppiesText = string.format("# Floppies to be transfered: %d", numFloppies)
-	panel:getComponent("numFloppiesLabel"):setText(numFloppiesText)
+  --
+  -- Update floppy info
+  --
+  local numFloppies = drumMap:getNumFloppies()
+  local numFloppiesText = string.format("# Floppies to be transfered: %d", numFloppies)
+  panel:getComponent("numFloppiesLabel"):setText(numFloppiesText)
 
-	local floppyUsagePercent = drumMapSrvc:getFloppyUsagePercent(drumMap)
-	local floppyUsageBar = panel:getModulatorByName("floppyUsageBar")
-	floppyUsageBar:setValue(floppyUsagePercent, false)
-	
-	local color = "FF99CE65"
-	if floppyUsagePercent > 90 then
-		color = "FFCC3824"
-	elseif floppyUsagePercent > 75 then
-		color = "FFCCAA24"
-	end
-	floppyUsageBar:getComponent():setProperty("uiSliderThumbColour", color, false)
+  local floppyUsagePercent = drumMapService:getFloppyUsagePercent(drumMap)
+  local floppyUsageBar = panel:getModulatorByName("floppyUsageBar")
+  floppyUsageBar:setValue(floppyUsagePercent, false)
 
-	--
-	-- Update assignment controls
-	--
-	self:toggleActivation("assignSample", drumMap:isReadyForAssignment())
-	self:toggleActivation("clearSample", not drumMap:isClear())
-	self:toggleActivation("clearAllSamples", not drumMap:isClear())
-	self:toggleActivation("transferSamples", not drumMap:isClear())
+  local color = "FF99CE65"
+  if floppyUsagePercent > 90 then
+    color = "FFCC3824"
+  elseif floppyUsagePercent > 75 then
+    color = "FFCCAA24"
+  end
+  floppyUsageBar:getComponent():setProperty("uiSliderThumbColour", color, false)
 
-	--
-	-- Update range controls
-	--
-	local isPadSelected = drumMap:getSelectedKeyGroup() ~= nil
-	self:toggleActivation("drumMapLowKey", isPadSelected)
-	self:toggleActivation("drumMapHighKey", isPadSelected)
-	self:toggleActivation("defaultDrumMapButton", isPadSelected)
+  --
+  -- Update assignment controls
+  --
+  self:toggleActivation("assignSample", drumMap:isReadyForAssignment())
+  self:toggleActivation("clearSample", not drumMap:isClear())
+  self:toggleActivation("clearAllSamples", not drumMap:isClear())
+  self:toggleActivation("transferSamples", not drumMap:isClear())
 
-	if isPadSelected then
-		local keyRanges = drumMap:getSelectedKeyRangeValues()
-		panel:getModulatorByName("drumMapLowKey"):setValue(keyRanges[1], false)
-		panel:getModulatorByName("drumMapHighKey"):setValue(keyRanges[2], false)
-	end
+  --
+  -- Update range controls
+  --
+  local isPadSelected = drumMap:getSelectedKeyGroup() ~= nil
+  self:toggleActivation("drumMapLowKey", isPadSelected)
+  self:toggleActivation("drumMapHighKey", isPadSelected)
+  self:toggleActivation("defaultDrumMapButton", isPadSelected)
+
+  if isPadSelected then
+    local keyRanges = drumMap:getSelectedKeyRangeValues()
+    local lowKeyMod = panel:getModulatorByName("drumMapLowKey")
+    lowKeyMod:setValue(keyRanges[1], false)
+    lowKeyMod:setProperty("modulatorMax", keyRanges[2], false)
+
+    local highKeyMod = panel:getModulatorByName("drumMapHighKey")
+    highKeyMod:setValue(keyRanges[2], false)
+    highKeyMod:setProperty("modulatorMin", keyRanges[1], false)
+  end
 end
 
 function DrumMapController:updateStatus(message)
-	panel:getComponent("lcdLabel"):setText(message)
+  panel:getComponent("lcdLabel"):setText(message)
 end
 
-function DrumMapController:getKeyGroupName(comp)
-	local grpName = comp:getProperty("componentGroupName")
-	local kgIndex = string.sub(grpName, 9, string.find(grpName, "-grp") - 1)
-	return string.format("KeyGroup %s", kgIndex)
+function DrumMapController:transferSamples()
+  local logFilePath
+  local numSamplesBefore = -1
+  local expectedNumSamples = -1
+
+  local rslistFunc = function()
+    midiService:sendMidiMessage(RslistMsg())
+  end
+
+  local midiCallbackFunc = function(data)
+    local msg = SlistMsg(data)
+    if msg ~= nil then
+      local numSamples = msg:getNumSamples()
+      if numSamplesBefore == -1 then
+        numSamplesBefore = numSamples
+      elseif expectedNumSamples == -1 then
+        expectedNumSamples = s2kDieService:getNumGeneratedSamples(logFilePath)
+      elseif numSamples == numSamplesBefore + expectedNumSamples then
+        sampleList:addSamples(msg)
+        processService:abort()
+
+        local wavList = drumMap:retrieveNextFloppy()
+        if wavList == nil then
+          self:updateStatus("Data transfer done.")
+        else
+          self:updateStatus(string.format("Transfering 1:st floppy to Akai S2000..."))
+          executeTransfer(wavList)
+        end
+      else
+      end
+    end
+  end
+
+  local executeTransfer = function(wavList)
+    local transferProc = Process()
+      :withPath(settings:getWorkFolder())
+      :withLaunchVariable("wavFiles", wavList)
+      :withLaunchGenerator(s2kDieService:s2kDieLauncher())
+      :withLaunchGenerator(hxcService:getHxcLauncher())
+      :withAbortGenerator(hxcService:getHxcAborter())
+      :withMidiCallback(midiCallbackFunc)
+      :withMidiSender(rslistFunc, 1000)
+      :build()
+
+    logFilePath = transferProc:getLogFilePath()
+
+    local result = processService:execute(transferProc)
+    if result then
+      utils.infoWindow("Load samples", "Please select to load all from\nfloppy on the Akai S2000.")
+      self:updateStatus("Transfering samples...")
+    else
+      self:updateStatus("Failed to transfer data.\nPlease cancel process")
+    end
+  end
+
+  local wavList = drumMap:retrieveNextFloppy()
+  if wavList == nil then
+    drumMapController:updateStatus("Data transfer done.")
+  else
+    drumMapController:updateStatus(string.format("Transfering 1:st floppy to Akai S2000..."))
+    executeTransfer(wavList)
+  end
 end
 
-function DrumMapController:verifyTransferSettings()
-	local retval = true
-	
-	markGroup("s2kDiePathGroup", not s2kDieSrvc:getS2kDiePath():exists())
-	markGroup("workPathGroup", not workFolder:exists())
+function DrumMapController:transferFloppyImage()
+  self:updateStatus(string.format("Transfering floppy image\nto Akai S2000..."))
 
-	-- Reset all values
-	markGroup("hxcPathGroup", false)
-	markGroup("setfdprmPathGroup", false)
-	markGroup("transferMethodGroup", false)
+  local transferProc = Process()
+    :withPath(settings:getWorkFolder())
+    :withLaunchVariable("imgPath", settings:getFloppyImgPath())
+    :withLaunchGenerator(hxcService:getHxcLauncher())
+    :withAbortGenerator(hxcService:getHxcAborter())
+    :build()
 
-	local loadMethod = panel:getModulatorByName("transferMethod"):getValue()
-	log:fine("[verifyTransferSettings] %d", loadMethod)
+  local result = processService:execute(transferProc)
+  if result then
+    utils.infoWindow("Load samples", "Please select to load all from\nfloppy on the Akai S2000.\n\nPress OK when done.")
+    processService:abort()
+  else
+    self:updateStatus("Failed to transfer data.\nPlease cancel process")
+  end
+end
 
-	if loadMethod == 0 then
-		-- Floppy
-		markGroup("setfdprmPathGroup", not setfdprmPath:exists())
-	elseif loadMethod == 1 then
-		-- HxC
-		markGroup("hxcPathGroup", not File(hxcSrvc:getHxcPath()):exists())
-	else
-		-- MIDI -> unsupported
-		markGroup("transferMethodGroup", true)
-	end
-	return retval
+function DrumMapController:requestSampleList()
+  local rslistFunc = function()
+    midiService:sendMidiMessage(RslistMsg())
+  end
+
+  local midiCallbackFunc = function(data)
+    local slist = SlistMsg(data)
+    if slist then
+      processService:abort()
+      sampleList:addSamples(slist)
+    end
+  end
+
+  local rslistProc = Process()
+    :withMidiCallback(midiCallbackFunc)
+    :withMidiSender(rslistFunc, 100)
+    :build()
+
+  local result = processService:execute(rslistProc)
+  if result then
+    self:updateStatus("Receiving sample list...")
+  else
+    self:updateStatus("Failed to receive data.\nPlease cancel process")
+  end
+
+end
+
+function DrumMapController:loadOs()
+  local statCount = 0
+
+  local rstatFunc = function()
+    midiService:sendMidiMessage(Rstat())
+  end
+
+  local statFunc = function(data)
+    local statMsg = StatMsg(data)
+    if statMsg ~= nil then
+      if statCount > 20 then
+        statCount = statCount + 1
+      else
+        processService:abort()
+        self:updateStatus("Akai S2000 OS loaded.")
+        self:toggleActivation("loadOsButton", true)
+      end
+    end
+  end
+
+  local transferProc = Process()
+    :withPath(settings:getWorkFolder())
+    :withLaunchVariable("imgPath", cutils.toFilePath(settings:getWorkFolder(), "osimage.img"))
+    :withLaunchGenerator(hxcService:getHxcLauncher())
+    :withAbortGenerator(hxcService:getHxcAborter())
+    :withMidiCallback(statFunc)
+    :withMidiSender(rstatFunc, 1000)
+
+  self:toggleActivation("loadOsButton", false)
+
+  local result = processService:execute(transferProc)
+  if result then
+    self:updateStatus("Loading Akai S2000 OS...")
+  else
+    self:updateStatus("Failed to load OS.\nPlease cancel process")
+  end
 end

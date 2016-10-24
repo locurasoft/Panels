@@ -16,10 +16,10 @@ local rotate = function(compName, rot)
 	end
 end
 
-SampleController = {}
-SampleController.__index = SampleController
+SampleEditController = {}
+SampleEditController.__index = SampleEditController
 
-setmetatable(SampleController, {
+setmetatable(SampleEditController, {
   __index = AbstractController, -- this is what makes the inheritance work
   __call = function (cls, ...)
     local self = setmetatable({}, cls)
@@ -28,15 +28,15 @@ setmetatable(SampleController, {
   end,
 })
 
-function SampleController:_init()
+function SampleEditController:_init()
   AbstractController._init(self)
 end
 
-function SampleController:setSampleList(sampleList)
+function SampleEditController:setSampleList(sampleList)
 	sampleList:addListener(self, "updateSampleLists")
 end
 
-function SampleController:updateSampleEdit(sample, updateKnobs)
+function SampleEditController:updateSampleEdit(sample, updateKnobs)
 
 	-- Avoid infinite loops
 	updateKnobs = updateKnobs or false

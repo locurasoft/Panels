@@ -13,25 +13,13 @@ setmetatable(HxcService, {
   end,
 })
 
-function HxcService:_init(hxcPath)
+function HxcService:_init(settings)
   LuaObject._init(self)
   
-  local hxcFile = File(hxcPath)
-  local logger = Logger("HxcService")
-  self.hxc_pipe = "HXC_PIPE"
-  self.hxc_cmd_log = "hxc_cmd.log"
-  self.hxc_child_pid = "hxc_child_pid"
-  self.hxc_launch_timeout = 100
-  self.hxc_timer_id = 20
-  self.hxc_path = hxcFile:getFullPathName()
-  self.hxc_root = hxcFile:getParentDirectory():getFullPathName()
-  self.log = logger
-  logger:info("HxC constants initialised.")
-end
-
-function HxcService:setHxcPath(hxcPath)
-  self.hxc_path = hxcPath:getFullPathName()
-  self.hxc_root = hxcPath:getParentDirectory():getFullPathName()
+  self.log = Logger("HxcService")
+  self.settings = settings
+  self.hxcPipe = "HXC_PIPE"
+  self.log:info("HxC constants initialised.")
 end
 
 function HxcService:getMacOsXLauncher()
@@ -44,16 +32,16 @@ function HxcService:getMacOsXLauncher()
     --file:write("set -x -v\n")
     file:write("set -e\n")
 
-    file:write(string.format("pipe=%s", self.hxc_pipe))
-    file:write(eol)
+    file:write(string.format("pipe=%s", self.hxcPipe))
+    file:write(EOL)
     file:write("if [ -p \"${pipe}\" ]; then rm -rf ${pipe}; fi")
-    file:write(eol)
+    file:write(EOL)
     file:write("mkfifo ${pipe}")
-    file:write(eol)
+    file:write(EOL)
 
     local hxc_cmd = self:getHxcCommand(imgPath)
     file:write(string.format("./%s < ${pipe}", hxc_cmd))
-    file:write(eol)
+    file:write(EOL)
     file:close()
   end
   return launcher
@@ -67,9 +55,9 @@ function HxcService:getMacOsXAborter()
     file:write("set -e\n")
 
     file:write("echo \"Attempting to kill hxcfe...\"")
-    file:write(eol)
-    file:write(string.format("echo \"q\n\" > %s", self.hxc_pipe))
-    file:write(eol)
+    file:write(EOL)
+    file:write(string.format("echo \"q\n\" > %s", self.hxcPipe))
+    file:write(EOL)
     file:close()
   end
   return aborter
@@ -79,9 +67,9 @@ function HxcService:getWindowsAborter()
   local aborter = function(scriptPath)
     local file = io.open(scriptPath, "a")
     file:write("for /f \"tokens=2 delims=,\" %%a in ('tasklist /v /fo csv ^| findstr /i \"hxcfe\"') do set \"$PID=%%a\"")
-    file:write(eol)
+    file:write(EOL)
     file:write("taskkill /F /PID %$PID%")
-    file:write(eol)
+    file:write(EOL)
     file:close()
   end
   return aborter
@@ -95,25 +83,21 @@ function HxcService:getWindowsLauncher()
     self.log:info("Generating %s with image %s", scriptPath, imgPath)
 
     local file = io.open(scriptPath, "a")
-    file:write(string.format("cd %s", self.hxc_root))
-    file:write(eol)
+    file:write(string.format("cd %s", self.settings:getHxcRoot()))
+    file:write(EOL)
     file:write(self:getHxcCommand(imgPath))
-    file:write(eol)
+    file:write(EOL)
     file:close()
   end
   return launcher
 end
 
 function HxcService:getHxcCommand(imgPath)
-  return string.format("%s -uselayout:AKAIS3000_HD -finput:%s -usb:", self.hxc_path, imgPath)
-end
-
-function HxcService:getHxcPath()
-  return self.hxc_path
+  return string.format("%s -uselayout:AKAIS3000_HD -finput:%s -usb:", self.settings:getHxcPath(), imgPath)
 end
 
 function HxcService:getHxcLauncher()
-  if operatingSystem == "win" then
+  if OPERATING_SYSTEM == "win" then
     return self:getWindowsLauncher()
   else
     return self:getMacOsXLauncher()
@@ -121,7 +105,7 @@ function HxcService:getHxcLauncher()
 end
 
 function HxcService:getHxcAborter()
-  if operatingSystem == "win" then
+  if OPERATING_SYSTEM == "win" then
     return self:getWindowsAborter()
   else
     return self:getMacOsXAborter()

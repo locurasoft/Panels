@@ -12,15 +12,15 @@ module( 'ProgramIT', lunity )
 function setup()
   regGlobal("midiService", MidiService())
   regGlobal("panel", MockPanel())
-  regGlobal("drumMapModel", DrumMap())
-  regGlobal("drumMapCtrl", DrumMapController())
+  regGlobal("drumMap", DrumMap())
+  regGlobal("drumMapController", DrumMapController())
 end
 
 function teardown()
   delGlobal("midiService")
   delGlobal("panel")
-  delGlobal("drumMapModel")
-  delGlobal("drumMapCtrl")
+  delGlobal("drumMap")
+  delGlobal("drumMapController")
 end
 
 function testOnProgramChange()

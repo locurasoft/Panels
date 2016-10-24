@@ -28,24 +28,23 @@ function Process:_init()
   self.launchGenerators = {}
   self.abortGenerators = {}
   self.launchVariables = {}
-  self.scriptPath = workFolder:getFullPathName()
+  self.workFolder = settings:getWorkFolder()
   self.abortScriptPath = nil
   self.id = math.random(100000)
 
   self.suffix = "bat"
-  if operatingSystem == "mac" then
+  if OPERATING_SYSTEM == "mac" then
     self.suffix = "sh"
   end
 end
 
 function Process:getLogFilePath()
   local logFileName = string.format("scriptLauncher.%s.log", self.suffix)
-  return cutils.toFilePath(self.scriptPath, logFileName)
+  return cutils.toFilePath(self.workFolder, logFileName)
 end
 
 function Process:getScriptPath()
-  console(string.format("[s2kProcess:getScriptPath()] %s", self.scriptPath))
-  return self.scriptPath
+  return self.workFolder
 end
 
 function Process:hasLauncher()
@@ -68,23 +67,21 @@ function Process:build()
   local scriptName = string.format("scriptLauncher.%s", self.suffix)
   self.launchVariables["scriptIndex"] = self.id
   self.launchVariables["scriptName"] = scriptName
-  self.launchVariables["scriptPath"] = cutils.toFilePath(self.scriptPath, scriptName)
-  self.launchVariables["scriptDir"]  = self.scriptPath
+  self.launchVariables["scriptPath"] = cutils.toFilePath(self.workFolder, scriptName)
+  self.launchVariables["scriptDir"]  = self.workFolder
   os.remove(self.launchVariables["scriptPath"])
-  console(string.format("Building process %d %s in %s",
-    self.launchVariables["scriptIndex"], self.launchVariables["scriptName"],
-    self.launchVariables["scriptDir"]))
 
   for key,launchGenerator in pairs(self.launchGenerators) do
     launchGenerator(self.launchVariables)
   end
 
   self.abortScriptName = string.format("scriptAborter.%s", self.suffix)
-  local abortScriptPath = cutils.toFilePath(self.scriptPath, self.abortScriptName)
+  local abortScriptPath = cutils.toFilePath(self.workFolder, self.abortScriptName)
   os.remove(abortScriptPath)
   for key,abortGenerator in pairs(self.abortGenerators) do
     abortGenerator(abortScriptPath)
   end
+  return self
 end
 
 function Process:withLaunchVariable(key, value)
@@ -108,7 +105,7 @@ function Process:withSuffix(value)
 end
 
 function Process:withPath(value)
-  self.scriptPath = value
+  self.workFolder = value
   return self
 end
 
