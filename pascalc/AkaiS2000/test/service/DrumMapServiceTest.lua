@@ -23,9 +23,9 @@ function teardown()
 end
 
 function testGetSamplerFileName()
-  assertEqual(underTest:getSamplerFileName("Death Grips - Get Got.mp3"), "DEATH GRIP")
-  assertEqual(underTest:getSamplerFileName("Akai test mp3.mp3"), "AKAI TEST ")
-  assertEqual(underTest:getSamplerFileName("Ak.mp3"), "AK.MP3    ")
+  assertEqual(underTest:getSamplerFileName("Death Grips - Get Got.mp3"), "DEATH GRIPS ")
+  assertEqual(underTest:getSamplerFileName("Akai test mp3.mp3"), "AKAI TEST MP")
+  assertEqual(underTest:getSamplerFileName("Ak.mp3"), "AK.MP3      ")
 end
 
 function testFindStereoCounterpart()

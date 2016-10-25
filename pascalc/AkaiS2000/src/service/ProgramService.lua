@@ -1,5 +1,6 @@
 require("LuaObject")
 require("Logger")
+require("model/Program")
 
 local log = Logger("ProgramService")
 
@@ -15,50 +16,12 @@ setmetatable(ProgramService, {
   end,
 })
 
-function ProgramService:_init(programList)
+function ProgramService:_init()
   LuaObject._init(self)
-  self.programList = programList
 end
 
-function ProgramService:storeProgParamEdit(phead)
-	local program = self.programList:getActiveProgram()
-	if program == nil then
-		return
-	end
-
-	program:storeParamEdit(phead)
-end
-
-function ProgramService:storeKgParamEdit(khead)
-	local program = self.programList:getActiveProgram()
-	if program == nil then
-		return
-	end
-	local keyGroup = program:getActiveKeyGroup()
-	keyGroup:storeParamEdit(khead)
-end
-
-function ProgramService:getActiveKeyGroupMessage()
-	local pIndex = self.programList:getActiveProgram()
-	local kIndex = self.programList:getActiveKeyGroup()
-	return self:getKeyGroupMessage(pIndex, kIndex)
-end
-
-function ProgramService:getKeyGroupMessage(pIndex, kIndex)
-	local program = self.programList[pIndex]
-	local keyGroup = program:getKeyGroup(kIndex)
-	return keyGroup:getKdata()
-end
-
-function ProgramService:getActiveProgramMessagesList()
-	local pIndex = self.programList:getActiveProgram()
-	return self:getProgramMessagesList(pIndex)
-end
-
-function ProgramService:getProgramMessagesList(pIndex)
-	pIndex = pIndex or self.programList:getActiveProgram()
+function ProgramService:getProgramMessagesList(program)
 	local msgs = {}
-	local program = self.programList[pIndex]
 	table.insert(msgs, program:getPdata())
 
 	local numKeyGroups = program:getNumKeyGroups()
@@ -98,11 +61,10 @@ function ProgramService:loadProgramFromFile(filePath)
 	end
 end
 
-function ProgramService:saveProgramToFolder(folderPath, pIndex)
-	local msgs = self:getProgramMessagesList(pIndex)
-	local program = self.programList:getProgram(pIndex)
+function ProgramService:saveProgramToFolder(folderPath, program)
+	local msgs = self:getProgramMessagesList(program)
 	local progName = program:getName()
-	local filePath = string.format("%s%s%s.syx", folderPath, pathseparator, progName)
+	local filePath = cutils.toFilePath(folderPath, string.format("%s.syx", progName))
 	local file = assert(io.open(filePath, "wb"))
 	for k,v in pairs(msgs) do
 		file:write(v:toMidiMessage():getData())
@@ -110,14 +72,12 @@ function ProgramService:saveProgramToFolder(folderPath, pIndex)
 	assert(file:close())
 end
 
-function ProgramService:saveProgramsToFolder(folderPath)
-	local numPrograms = self.programList:getNumPrograms()
-	if i < 1 then
-		return "There are no programs to store..."
-	end
+function ProgramService:saveProgramsToFolder(folderPath, programList)
+	local numPrograms = programList:getNumPrograms()
+	assert(numPrograms > 0, "There are no programs to store...")
 
 	for i = 1, numPrograms do
-		self:saveProgramToFile(folderPath, i)
+		self:saveProgramToFile(folderPath, programList:getProgram(i))
 	end
 end
 
@@ -128,25 +88,4 @@ function ProgramService:newProgram(programName, keyGroups)
 		prog:addKeyGroup(v)
 	end
 	return prog
-end
-
-function ProgramService:storParamEdit(indexGroup, headerOffs, values)
-	local activeProg = self.programList:getActiveProgram()
-	if activeProg ~= nil then
-		if indexGroup == 0 then
-			-- Program param
-			activeProg:setPdataByte(mod:getModulatorName(), values[1])
-		else
-			-- Key Group param
-			local activeKg = activeProg:getActiveKeyGroup()
-			activeKg:storeNibbles(mod:getModulatorName(), midiService:toNibbles(values[1]))
-		end
-	end
-end
-
-function ProgramService:toJson(programList)
-	local numProgs = programList:getNumPrograms()
-	for i = 1, numProgs do
-		local prog = programList:getProgram(i)
-	end
 end

@@ -56,26 +56,24 @@ function onCreateProgram()
   local programName = panel:getComponent("programCreateNameLbl"):getProperty("uiLabelText")
 
   if programName == nil or programName == "" then
-    LOGGER:info("Please provide program name...")
+    drumMapController:updateStatus("Please provide program name...")
     return
   end
 
   if programList:hasProgram(programName) then
-    LOGGER:info("Program already exists...")
+    drumMapController:updateStatus("Program already exists...")
     return
   end
 
   if not drumMap:hasLoadedAllSamples() then
-    LOGGER:info("You cannot create a program with unloaded samples...")
+    drumMapController:updateStatus("You cannot create a program with unloaded samples...")
     return
   end
 
   local keyGroups = drumMap:getKeyGroups()
   local program = programService:newProgram(programName, keyGroups)
-  LOGGER:fine("Adding program '%s', # progs: %d", program:getName(), programList:getNumPrograms())
   programList:addProgram(program)
   local highestProg = programList:getNumPrograms()
-  LOGGER:fine("Selecting prog # %d", highestProg)
   panel:getModulatorByName("programSelector"):setValue(highestProg, true)
 
 end
@@ -86,21 +84,7 @@ function onSampleDoubleClicked(file)
     return
   end
 
-  if not drumMapService:isValidSampleFile(file) then
-    drumMapController:toggleActivation("assignSample", 1)
-    drumMapController:updateStatus("Please select a wav file")
-    return
-  end
-
-  drumMap:setSelectedSample(file)
-
-  if not drumMap:isReadyForAssignment() then
-    drumMapController:updateStatus("Select a sample and a key group.")
-    return
-  end
-
-  local result = drumMapService:assignSample()
-  drumMapController:updateStatus(result)
+  drumMapController:assignSample(file)
 end
 
 function onSampleSelected(file)
@@ -166,7 +150,7 @@ function onCancelProcess()
   end
 
   drumMapController:updateStatus("Select a sample and a key group")
-  processService:abort()
+  processController:abort()
 end
 
 function onRslist()
@@ -184,13 +168,7 @@ function onSampleAssign()
     return
   end
 
-  if not drumMap:isReadyForAssignment() then
-    drumMapController:updateStatus("Select a sample and a key group.")
-    return
-  end
-
-  local result = drumMapService:assignSample()
-  drumMapController:updateStatus(result)
+  drumMapController:assignSample()
 end
 
 function onDrumMapKeyChange(mod, value)

@@ -18,11 +18,8 @@ setmetatable(DrumMapService, {
   end,
 })
 
-function DrumMapService:_init(drumMap, sampleList)
+function DrumMapService:_init()
   LuaObject._init(self)
-  self.drumMap = drumMap
-  self.sampleList = sampleList
-  sampleList:addListener(self, "updateDrumMap")
 end
 
 function DrumMapService:getSamplerFileName(filename)
@@ -91,41 +88,19 @@ function DrumMapService:getUnloadedMatchingZoneIndex(keyGroup, monoSampleName)
   return 0
 end
 
-function DrumMapService:getFloppyUsagePercent()
-  return (self.drumMap:getCurrentFloppyUsage() / MAX_FLOPPY_SIZE) * 100
-end
-
-function DrumMapService:updateDrumMap(sl)
-  local keyGroups = self.drumMap:getKeyGroups()
-  local list = sl:getSampleList()
-  local stereoSampleList = self:generateStereoSampleList(list)
-  for k, stereoSample in pairs(stereoSampleList) do
-    for l, keyGroup in pairs(keyGroups) do
-      local matchingZoneIndex = 0
-      if type(stereoSample) == "string" then
-        -- Mono sample
-        matchingZoneIndex = self:getUnloadedMatchingZoneIndex(keyGroup, stereoSample)
-      else
-        -- Stereo sample
-        matchingZoneIndex = self:getUnloadedMatchingZoneIndex(keyGroup, string.sub(stereoSample[1], 1, #stereoSample[1] - 2))
-      end
-      if matchingZoneIndex > 0 then
-        self.drumMap:replaceKeyGroupZoneWithSample(l, matchingZoneIndex, stereoSample)
-        break
-      end
-    end
-  end
+function DrumMapService:getFloppyUsagePercent(drumMap)
+  return (drumMap:getCurrentFloppyUsage() / MAX_FLOPPY_SIZE) * 100
 end
 
 function DrumMapService:isValidSampleFile(file)
   return file:getFileExtension() == ".wav"
 end
 
-function DrumMapService:assignSample()
-  local selectedSample = self.drumMap:getSelectedSample()
+function DrumMapService:assignSample(drumMap)
+  local selectedSample = drumMap:getSelectedSample()
   if type(selectedSample) == "string" then
     -- Sample is already on S2k
-    self.drumMap:addSampleToSelectedKeyGroup(selectedSample)
+    drumMap:addSampleToSelectedKeyGroup(selectedSample)
   else
     -- Sample is on host
     local sampleSize = cutils.getFileSize(selectedSample)
@@ -134,24 +109,24 @@ function DrumMapService:assignSample()
     end
 
     log:fine("Assigning sample...")
-    local numSamplesOnKg = self.drumMap:getNumSamplesOnSelectedKeyGroup()
+    local numSamplesOnKg = drumMap:getNumSamplesOnSelectedKeyGroup()
     if numSamplesOnKg == 4 then
       return "You can only add four samples per key group"
     end
 
-    local numFloppies = self.drumMap:getNumFloppies()
+    local numFloppies = drumMap:getNumFloppies()
     if numFloppies == 0 then
-      self.drumMap:addNewFloppy()
+      drumMap:addNewFloppy()
     end
 
-    log:fine("current usage: %d, sampleSize: %d", self.drumMap:getCurrentFloppyUsage(), sampleSize)
-    if self.drumMap:getCurrentFloppyUsage() + sampleSize > MAX_FLOPPY_SIZE then
-      self.drumMap:addNewFloppy()
+    log:fine("current usage: %d, sampleSize: %d", drumMap:getCurrentFloppyUsage(), sampleSize)
+    if drumMap:getCurrentFloppyUsage() + sampleSize > MAX_FLOPPY_SIZE then
+      drumMap:addNewFloppy()
     end
 
-    self.drumMap:insertToCurrentFloppy(selectedSample)
-    self.drumMap:setCurrentFloppyUsage(self.drumMap:getCurrentFloppyUsage() + sampleSize)
-    self.drumMap:addFileToSelectedKeyGroup(selectedSample)
+    drumMap:insertToCurrentFloppy(selectedSample)
+    drumMap:setCurrentFloppyUsage(drumMap:getCurrentFloppyUsage() + sampleSize)
+    drumMap:addFileToSelectedKeyGroup(selectedSample)
   end
 
   return "Transfer samples to sampler by pressing \"Launch\""

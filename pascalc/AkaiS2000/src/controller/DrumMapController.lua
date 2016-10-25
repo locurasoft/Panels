@@ -43,9 +43,12 @@ setmetatable(DrumMapController, {
   end,
 })
 
-function DrumMapController:_init(drumMap)
+function DrumMapController:_init(drumMap, sampleList)
   AbstractController._init(self)
+  self.drumMap = drumMap
   drumMap:addListener(self, "updateDrumMap")
+  self.sampleList = sampleList
+  sampleList:addListener(self, "updateSampleList")
 end
 
 function DrumMapController:updateDrumMap(drumMap)
@@ -143,7 +146,7 @@ function DrumMapController:transferSamples()
         expectedNumSamples = s2kDieService:getNumGeneratedSamples(logFilePath)
       elseif numSamples == numSamplesBefore + expectedNumSamples then
         sampleList:addSamples(msg)
-        processService:abort()
+        processController:abort()
 
         local wavList = drumMap:retrieveNextFloppy()
         if wavList == nil then
@@ -170,7 +173,7 @@ function DrumMapController:transferSamples()
 
     logFilePath = transferProc:getLogFilePath()
 
-    local result = processService:execute(transferProc)
+    local result = processController:execute(transferProc)
     if result then
       utils.infoWindow("Load samples", "Please select to load all from\nfloppy on the Akai S2000.")
       self:updateStatus("Transfering samples...")
@@ -198,10 +201,10 @@ function DrumMapController:transferFloppyImage()
     :withAbortGenerator(hxcService:getHxcAborter())
     :build()
 
-  local result = processService:execute(transferProc)
+  local result = processController:execute(transferProc)
   if result then
     utils.infoWindow("Load samples", "Please select to load all from\nfloppy on the Akai S2000.\n\nPress OK when done.")
-    processService:abort()
+    processController:abort()
   else
     self:updateStatus("Failed to transfer data.\nPlease cancel process")
   end
@@ -215,7 +218,7 @@ function DrumMapController:requestSampleList()
   local midiCallbackFunc = function(data)
     local slist = SlistMsg(data)
     if slist then
-      processService:abort()
+      processController:abort()
       sampleList:addSamples(slist)
     end
   end
@@ -225,7 +228,7 @@ function DrumMapController:requestSampleList()
     :withMidiSender(rslistFunc, 100)
     :build()
 
-  local result = processService:execute(rslistProc)
+  local result = processController:execute(rslistProc)
   if result then
     self:updateStatus("Receiving sample list...")
   else
@@ -247,7 +250,7 @@ function DrumMapController:loadOs()
       if statCount > 20 then
         statCount = statCount + 1
       else
-        processService:abort()
+        processController:abort()
         self:updateStatus("Akai S2000 OS loaded.")
         self:toggleActivation("loadOsButton", true)
       end
@@ -264,10 +267,51 @@ function DrumMapController:loadOs()
 
   self:toggleActivation("loadOsButton", false)
 
-  local result = processService:execute(transferProc)
+  local result = processController:execute(transferProc)
   if result then
     self:updateStatus("Loading Akai S2000 OS...")
   else
     self:updateStatus("Failed to load OS.\nPlease cancel process")
   end
+end
+
+function DrumMapController:updateSampleList(sl)
+  local keyGroups = self.drumMap:getKeyGroups()
+  local list = sl:getSampleList()
+  local stereoSampleList = drumMapService:generateStereoSampleList(list)
+  for k, stereoSample in pairs(stereoSampleList) do
+    for l, keyGroup in pairs(keyGroups) do
+      local matchingZoneIndex = 0
+      if type(stereoSample) == "string" then
+        -- Mono sample
+        matchingZoneIndex = drumMapService:getUnloadedMatchingZoneIndex(keyGroup, stereoSample)
+      else
+        -- Stereo sample
+        matchingZoneIndex = drumMapService:getUnloadedMatchingZoneIndex(keyGroup, string.sub(stereoSample[1], 1, #stereoSample[1] - 2))
+      end
+      if matchingZoneIndex > 0 then
+        self.drumMap:replaceKeyGroupZoneWithSample(l, matchingZoneIndex, stereoSample)
+      end
+    end
+  end
+end
+
+function DrumMapController:assignSample(file)
+  if file ~= nil then
+    if not drumMapService:isValidSampleFile(file) then
+      self:toggleActivation("assignSample", 1)
+      self:updateStatus("Please select a wav file")
+      return
+    end
+
+    drumMap:setSelectedSample(file)
+  end
+
+  if not drumMap:isReadyForAssignment() then
+    self:updateStatus("Select a sample and a key group.")
+    return
+  end
+
+  local result = drumMapService:assignSample(self.drumMap)
+  self:updateStatus(result)
 end

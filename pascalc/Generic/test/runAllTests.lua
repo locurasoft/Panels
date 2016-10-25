@@ -12,7 +12,9 @@ function isUnitTest(path)
 end
 
 function isIntegrationTest(path)
-  return string.sub(path, -string.len("IT.lua")) == "IT.lua"
+--  return string.sub(path, -string.len("IT.lua")) == "IT.lua"
+-- Disable integration tests
+  return false
 end
 
 function runAllScriptsInFolder(dirName)

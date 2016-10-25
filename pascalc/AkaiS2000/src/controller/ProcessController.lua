@@ -1,7 +1,7 @@
 require("LuaObject")
 require("Logger")
 
-local log = Logger("ProcessService")
+local log = Logger("ProcessController")
 local MIDI_POLL_THREAD_ID = 33
 
 local getFileContents = function(filepath)
@@ -33,10 +33,10 @@ local windowsExecutor = function(scriptDir, scriptName)
   os.execute(string.format("cmd /C start /B %s ^> %s.log", scriptPath, scriptPath))
 end
 
-ProcessService = {}
-ProcessService.__index = ProcessService
+ProcessController = {}
+ProcessController.__index = ProcessController
 
-setmetatable(ProcessService, {
+setmetatable(ProcessController, {
   __index = LuaObject, -- this is what makes the inheritance work
   __call = function (cls, ...)
     local self = setmetatable({}, cls)
@@ -45,13 +45,13 @@ setmetatable(ProcessService, {
   end,
 })
 
-function ProcessService:_init(pl)
+function ProcessController:_init(pl)
   LuaObject._init(self)
   self.processListener = pl
   self.curr_transfer_proc = nil
 end
 
-function ProcessService:execute(proc)
+function ProcessController:execute(proc)
   if self.curr_transfer_proc == nil then
     self.curr_transfer_proc = proc
 
@@ -95,7 +95,7 @@ function ProcessService:execute(proc)
   end
 end
 
-function ProcessService:abort()
+function ProcessController:abort()
   if self.curr_transfer_proc == nil then
     drumMapController:updateStatus("No active process to abort!")
   else

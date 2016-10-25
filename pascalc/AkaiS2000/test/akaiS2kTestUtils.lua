@@ -1,5 +1,18 @@
 require("ctrlrTestUtils")
 
+function toAkaiString(str)
+  local retval = ""
+  for i = 1, SAMPLE_NAME_LENG do
+    -- Pad with spaces
+    if i > #str then
+      retval = string.format("%s%s", retval, " ")
+    else
+      retval = string.format("%s%s", retval, string.sub(str, i, i):upper())
+    end
+  end
+  return retval
+end
+
 regGlobal("INTELL_TYPE", 0)
 regGlobal("CYCLIC_TYPE", 1)
 

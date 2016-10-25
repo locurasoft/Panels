@@ -60,8 +60,9 @@ function setup()
   end
 
   local drumMap = DrumMap()
+  local sampleList = SampleList()
   regGlobal("drumMap", drumMap)
-  regGlobal("drumMapController", DrumMapController(drumMap))
+  regGlobal("drumMapController", DrumMapController(drumMap, sampleList))
 end
 
 function teardown()

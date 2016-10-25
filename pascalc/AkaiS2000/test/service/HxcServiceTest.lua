@@ -1,15 +1,18 @@
 require("akaiS2kTestUtils")
-require("service.HxcService")
+require("service/HxcService")
+require("model/Settings")
 require 'lunity'
 require 'lemock'
 module( 'HxcServiceTest', lunity )
 
 function setup()
-  -- code here will be run before each test
-  --console("setup")
-  hxcPath = "c:\\temp\\hxc.exe"
+  local settings = Settings()
+  settings:setWorkFolder(File("ctrlrwork"))
+  settings:setS2kDiePath(File("c:\\ctrlr\\s2kdie\\s2kdie.php"))
+  settings:setHxcPath(File("c:\\temp\\hxc.exe"))
+
   regGlobal("EOL", "\r\n")
-  underTest = HxcService(hxcPath)
+  underTest = HxcService(settings)
   scriptPath = "my_script.bat"
 end
 

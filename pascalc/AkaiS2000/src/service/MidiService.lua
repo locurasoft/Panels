@@ -93,7 +93,6 @@ function MidiService:setMidiReceived(midiCallback)
 end
 
 function MidiService:dispatchMidi(data)
-  log:fine("[onMidiReceived] %d", data:getSize())
   if data:getByte(0) ~= 0xF0 or data:getByte(1) ~= 0x47 then
     log:info("Invalid S2K Sysex received!")
     return
@@ -285,14 +284,12 @@ function MidiService:toAkaiString(name)
   local memBlock = MemoryBlock(SAMPLE_NAME_LENG, true)
 
   for i = 1, SAMPLE_NAME_LENG do
-    local c = string.sub(name, i, i):upper()
-
     -- Pad with spaces
     if i > #name then
-      c = " "
+      memBlock:setByte(i - 1, self.flipAlphabet[" "] - 1)
+    else
+      memBlock:setByte(i - 1, self.flipAlphabet[string.sub(name, i, i):upper()] - 1)
     end
-
-    memBlock:setByte(i - 1, self.flipAlphabet[c] - 1)
   end
   return memBlock
 end

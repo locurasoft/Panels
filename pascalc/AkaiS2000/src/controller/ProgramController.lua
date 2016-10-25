@@ -1,6 +1,8 @@
 require("AbstractController")
 require("Logger")
 
+--  pIndex = pIndex or self.programList:getActiveProgram()
+
 local log = Logger("ProgramController")
 
 ProgramController = {}
@@ -134,4 +136,54 @@ function ProgramController:assignKeyGroupValues(program, kgIndex)
     end
   end
   keyGroup:setUpdating(false)
+end
+
+function ProgramController:storeProgParamEdit(phead)
+  local program = self.programList:getActiveProgram()
+  if program == nil then
+    return
+  end
+
+  program:storeParamEdit(phead)
+end
+
+function ProgramController:storeKgParamEdit(khead)
+  local program = self.programList:getActiveProgram()
+  if program == nil then
+    return
+  end
+  local keyGroup = program:getActiveKeyGroup()
+  keyGroup:storeParamEdit(khead)
+end
+
+function ProgramController:getActiveKeyGroupMessage()
+  local pIndex = self.programList:getActiveProgram()
+  local kIndex = self.programList:getActiveKeyGroup()
+  return self:getKeyGroupMessage(pIndex, kIndex)
+end
+
+function ProgramController:getKeyGroupMessage(pIndex, kIndex)
+  local program = self.programList[pIndex]
+  local keyGroup = program:getKeyGroup(kIndex)
+  return keyGroup:getKdata()
+end
+
+function ProgramController:getActiveProgramMessagesList()
+  local pIndex = self.programList:getActiveProgram()
+  
+  return self:getProgramMessagesList(pIndex)
+end
+
+function ProgramController:storeParamEdit(indexGroup, headerOffs, values)
+  local activeProg = self.programList:getActiveProgram()
+  if activeProg ~= nil then
+    if indexGroup == 0 then
+      -- Program param
+      activeProg:setPdataByte(mod:getModulatorName(), values[1])
+    else
+      -- Key Group param
+      local activeKg = activeProg:getActiveKeyGroup()
+      activeKg:storeNibbles(mod:getModulatorName(), midiService:toNibbles(values[1]))
+    end
+  end
 end

@@ -99,7 +99,7 @@ function onPanelLoaded(type)
 
   midiService    = MidiService()
   drumMapService = DrumMapService(drumMap, sampleList)
-  processService = ProcessService(processListener)
+  processController = ProcessController(processListener)
   programService = ProgramService(programList)
   hxcService     = HxcService(settings)
   s2kDieService  = S2kDieService(settings)

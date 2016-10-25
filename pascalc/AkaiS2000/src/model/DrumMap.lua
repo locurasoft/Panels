@@ -187,14 +187,20 @@ function DrumMap:clearSelectedKeyGroup()
   self:notifyListeners()
 end
 
+function DrumMap:resetKeyRange(index)
+  local defaultValue = index - 1
+  local kg = self.keyGroups[index]
+  kg:setLowNote(defaultValue)
+  kg:setHighNote(defaultValue)
+  self:notifyListeners()
+end
+
 function DrumMap:resetSelectedKeyRange()
   if self.selectedKg == nil then
     log:fine("DrumMap:resetSelectedKeyRange - No pad selected")
     return
   end
-  local defaultValue = self.selectedKg - 1
-  self.keyRanges[self.selectedKg] = { defaultValue, defaultValue }
-  self:notifyListeners()
+  self:resetKeyRange(self.selectedKg)
 end
 
 function DrumMap:setKeyRange(index, value)
@@ -204,9 +210,15 @@ function DrumMap:setKeyRange(index, value)
 
   -- 1 signifies low key
   -- 2 signifies high key
-  assert(index == 1 or index == 2, string.format("Weird high/low index %d", index))
-  local rangeValues = self.keyRanges[self.selectedKg]
-  rangeValues[index] = value
+  local kg = self.keyGroups[self.selectedKg]
+  if index == 1 then
+    kg:setLowNote(value)
+  elseif index == 2 then
+    kg:setHighNote(value)
+  else
+    assert(false, string.format("Weird high/low index %d", index))
+  end
+  
   self:notifyListeners()
 end
 
@@ -214,20 +226,20 @@ function DrumMap:getSelectedKeyRangeValues()
   if self.selectedKg == nil then
     return { 0, 0 }
   else
-    return self.keyRanges[self.selectedKg]
+    local kg = self.keyGroups[self.selectedKg]
+    return { kg:getParamValue("LONOTE"), kg:getParamValue("HINOTE") }
   end
 end
 
 function DrumMap:resetAllRanges()
   for i = 1, self:getNumKeyGroups() do
-    local defaultValue = i - 1
-    self.keyRanges[i] = { defaultValue, defaultValue }
+    self:resetKeyRange(i)
   end
   self:notifyListeners()
 end
 
-function DrumMap:replaceKeyGroupZoneWithSample(keyGroupName, zoneIndex, stereoSample)
-  local keyGroup = self.keyGroups[keyGroupName]
+function DrumMap:replaceKeyGroupZoneWithSample(keyGroupIndex, zoneIndex, stereoSample)
+  local keyGroup = self.keyGroups[keyGroupIndex]
   if type(stereoSample) == "string" then
     -- Mono sample
     keyGroup:replaceWithMonoSample(zoneIndex, stereoSample)

@@ -1,4 +1,4 @@
-function onProgramChange()
+function onProgramChange(mod, value)
   -- This variable stops index issues during panel bootup
   if panel:getBootstrapState() or panel:getProgramState() then
     return
@@ -15,7 +15,7 @@ function onProgramChange()
   programList:setActiveProgram(value)
 end
 
-function onKeyGroupChange()
+function onKeyGroupChange(mod, value)
   -- This variable stops index issues during panel bootup
   if panel:getBootstrapState() or panel:getProgramState() then
     return
@@ -27,7 +27,7 @@ function onKeyGroupChange()
   programController:changeKeyGroup(value)
 end
 
-function onVssChange()
+function onVssChange(mod, value)
   -- This variable stops index issues during panel bootup
   if panel:getBootstrapState() or panel:getProgramState() then
     return
@@ -48,7 +48,7 @@ function onVssChange()
   programService:storeKgParamEdit(khead)
 end
 
-function onKgDefaultParamChange()
+function onKgDefaultParamChange(mod, value)
   -- This variable stops index issues during panel bootup
   if panel:getBootstrapState() or panel:getProgramState() then
     return
@@ -71,7 +71,7 @@ function onKgDefaultParamChange()
   programService:storeKgParamEdit(khead)
 end
 
-function onProgDefaultParamChange()
+function onProgDefaultParamChange(mod, value)
   -- This variable stops index issues during panel bootup
   if panel:getBootstrapState() or panel:getProgramState() then
     return
@@ -91,7 +91,7 @@ function onProgDefaultParamChange()
   programService:storeProgParamEdit(phead)
 end
 
-function onKgTuneChange()
+function onKgTuneChange(mod, value)
   -- This variable stops index issues during panel bootup
   if panel:getBootstrapState() or panel:getProgramState() then
     return
@@ -114,7 +114,7 @@ function onKgTuneChange()
   programController:updateTuneLabel(mod:getProperty("name"), mm, ll)
 end
 
-function onProgTuneChange()
+function onProgTuneChange(mod, value)
   -- This variable stops index issues during panel bootup
   if panel:getBootstrapState() or panel:getProgramState() then
     return
@@ -137,7 +137,7 @@ function onProgTuneChange()
   programController:updateTuneLabel(mod:getProperty("name"), mm, ll)
 end
 
-function onKgStringChange()
+function onKgStringChange(mod, value)
   -- This variable stops index issues during panel bootup
   if panel:getBootstrapState() or panel:getProgramState() then
     return
@@ -159,7 +159,7 @@ function onKgStringChange()
   programService:storeKgParamEdit(khead)
 end
 
-function onProgStringChange()
+function onProgStringChange(mod, value)
   -- This variable stops index issues during panel bootup
   if panel:getBootstrapState() or panel:getProgramState() then
     return

@@ -37,15 +37,15 @@ function testAddSample()
   underTest:addSample(mySample)
   
   assertEqual(numSamples(underTest.list), 1)
-  assertTrue(underTest.list[mySample] ~= nil)
+  assertTrue(underTest:sampleExists(mySample))
   
   underTest:addListener(listener2, "notify")
 
   underTest:addSample(mySample2)
   
   assertEqual(numSamples(underTest.list), 2)
-  assertTrue(underTest.list[mySample] ~= nil)
-  assertTrue(underTest.list[mySample2] ~= nil)
+  assertTrue(underTest:sampleExists(mySample))
+  assertTrue(underTest:sampleExists(mySample2))
 
   mc:verify()
 end
