@@ -17,13 +17,9 @@ local programNameOffs = 7
 
 function PlistMsg:_init(bytes)
   SyxMsg._init(self)
-  if bytes:getByte(3) == 0x03 then
-    return __PlistMsg:new{ data = bytes }
-  else
-    console("MIDI is not a plist message")
-    console(bytes:toHexString(1))
-    return nil
-  end
+  assert(bytes:getByte(3) == 0x03, "Invalid plist message")
+  self.data = bytes
+  self[LUA_CONTRUCTOR_NAME] = "Plist"
 end
 
 function PlistMsg:getNumPrograms()
@@ -40,7 +36,6 @@ function PlistMsg:getProgramNames()
     self.data:copyTo(buf, offset, PROGRAM_NAME_LENG)
     offset = offset + PROGRAM_NAME_LENG
     local name = midiService:fromAkaiString(buf)
-    --console(string.format("Program Name: %s", name))
     table.insert(programNames, name)
   end
   return programNames

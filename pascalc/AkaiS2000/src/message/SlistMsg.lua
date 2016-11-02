@@ -1,5 +1,7 @@
 require("SyxMsg")
+require("Logger")
 
+local log = Logger("SlistMsg")
 local numSamplesOffs = 5
 local sampleNameOffs = 7
 
@@ -17,13 +19,8 @@ setmetatable(SlistMsg, {
 
 function SlistMsg:_init(bytes)
   SyxMsg._init(self)
-  local logger = Logger("SlistMsg")
-  if bytes:getByte(3) == 0x05 then
-    self.data = bytes
-    self.log = logger
-  else
-    logger:info("Not a slist msg")
-  end
+  assert(bytes:getByte(3) == 0x05, "Invalid slist message")
+  self.data = bytes
 end
 
 function SlistMsg:getNumSamples()
@@ -40,7 +37,6 @@ function SlistMsg:getSampleList()
     self.data:copyTo(buf, offset, SAMPLE_NAME_LENG)
     offset = offset + SAMPLE_NAME_LENG
     local name = midiService:fromAkaiString(buf)
-    --self.log:fine("Sample Name: %s", name)
     table.insert(sampleNames, name)
   end
   return sampleNames

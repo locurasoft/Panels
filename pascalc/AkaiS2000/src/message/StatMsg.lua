@@ -14,12 +14,8 @@ setmetatable(StatMsg, {
 
 function StatMsg:_init(bytes)
   SyxMsg._init(self)
-  if bytes:getSize() == 21 and bytes:getByte(3) == 0x01 then
-    self.data = bytes
-  else
-    console("MIDI is not a stat message")
-    console(bytes:toHexString(1))
-  end
+  assert(bytes:getSize() == 21 and bytes:getByte(3) == 0x01, "Invalid stat message")
+  self.data = bytes
 end
 
 function StatMsg:getSwVersion()

@@ -13,6 +13,156 @@ function toAkaiString(str)
   return retval
 end
 
+function setupIntegrationTest(tmpFolderName, processListener, midiListener)
+  regGlobal("OPERATING_SYSTEM", "win")
+  regGlobal("PATH_SEPARATOR", "\\")
+  regGlobal("EOL", "\n")
+  regGlobal("panel", MockPanel("Akai-S2000.panel", midiListener))
+  regGlobal("LOGGER", Logger("GLOBAL"))
+
+  local settings = Settings()
+  settings:setWorkFolder(File(tmpFolderName))
+  settings:setS2kDiePath(File("c:\\ctrlr\\s2kdie\\s2kdie.php"))
+  settings:setHxcPath(File("hxc.exe"))
+  settings:setTransferMethod(1)
+
+  local programList = ProgramList()
+  local drumMap = DrumMap()
+  local sampleList = SampleList()
+
+  regGlobal("programList", programList)
+  regGlobal("settings", settings)
+  regGlobal("drumMap", drumMap)
+  regGlobal("sampleList", sampleList)
+
+  regGlobal("drumMapController", DrumMapController(drumMap, sampleList))
+  regGlobal("settingsController", SettingsController(settings))
+  regGlobal("sampleListController", SampleListController(sampleList))
+  regGlobal("processController", ProcessController(processListener))
+  regGlobal("programController", ProgramController(programList))
+
+  regGlobal("programService", ProgramService())
+  regGlobal("drumMapService", DrumMapService())
+  regGlobal("midiService", MidiService())
+  regGlobal("s2kDieService", S2kDieService(settings))
+  regGlobal("hxcService", HxcService(settings))
+
+  panel:getModulatorByName("programSelector"):setProperty("luaModulatorValueChange", "onProgramChange")
+  panel:getModulatorByName("kgSelector"):setValue(1)
+end
+
+function tearDownIntegrationTest(tmpFolderName)
+  delGlobal("midiService")
+  delGlobal("panel")
+  delGlobal("drumMap")
+  delGlobal("settings")
+  delGlobal("drumMapController")
+  delGlobal("drumMapService")
+  delGlobal("processController")
+end
+
+local samplesData = {
+  "0E 0B 17 1A 27 11 0C 1D 18 27 27 16", -- DAMP-GBSN--L
+  "0E 0B 17 1A 27 11 0C 1D 18 27 27 1C", -- DAMP-GBSN--R
+  "1A 1F 16 16 27 11 1E 1C 27 27 11 02", -- PULL-GTR--G2
+  "1D 17 0B 0D 15 13 18 0A 0A 0A 0A 0A", -- SMACKIN
+  "17 1F 1E 0F 0A 11 1E 1C 0A 11 02 0A", -- MUTE GTR G2
+  "17 1F 1E 0F 0A 11 1E 1C 0A 0E 03 0A", -- MUTE GTR D3
+  "17 1F 1E 0F 0A 11 1E 1C 0A 0F 04 0A", -- MUTE GTR E4
+  "0E 0B 17 1A 0A 11 1E 1C 0A 11 02 0A", -- DAMP GTR G2
+  "0E 0B 17 1A 0A 11 1E 1C 0A 0E 03 0A", -- DAMP GTR D3
+  "0E 0B 17 1A 0A 11 1E 1C 0A 0F 04 0A", -- DAMP GTR E4
+  "17 1F 1E 0F 0A 11 1E 1C 0A 0D 05 0A", -- MUTE GTR C5
+  "0E 0B 17 1A 0A 11 1E 1C 0A 0D 05 0A", -- DAMP GTR C5
+  "1A 1F 16 16 0A 11 1E 1C 0A 0E 03 0A", -- PULL GTR D3
+  "1A 1F 16 16 0A 11 1E 1C 0A 0F 04 0A", -- PULL GTR E4
+  "11 0C 1D 18 0A 03 03 05 0A 0F 02 0A", -- GBSN 335 E2
+  "11 0C 1D 18 0A 03 03 05 0A 0B 02 0A", -- GBSN 335 A2
+  "11 0C 1D 18 0A 03 03 05 0A 0F 03 0A", -- GBSN 335 E3
+  "11 0C 1D 18 0A 03 03 05 0A 0B 03 0A", -- GBSN 335 A3
+  "11 0C 1D 18 0A 03 03 05 0A 0F 04 0A", -- GBSN 335 E4
+  "11 0C 1D 18 0A 03 03 05 0A 0B 04 0A", -- GBSN 335 A4
+  "11 0C 1D 18 0A 03 03 05 0A 0F 05 0A", -- GBSN 335 E5
+  "11 0C 1D 18 0A 03 03 05 0A 1A 13 15", -- GBSN 335 PIK
+  "11 0C 1D 18 0A 12 0B 1C 17 19 18 0D", -- GBSN HARMONC
+  "0E 0B 17 1A 0A 11 0C 1D 18 0A 0F 04", -- DAMP GBSN E4
+  "0E 0B 17 1A 0A 11 0C 1D 18 0A 0D 05", -- DAMP GBSN C5
+  "0E 0B 17 1A 0A 11 0C 1D 18 0A 0B 02", -- DAMP GBSN A2
+  "0E 0B 17 1A 0A 11 0C 1D 18 0A 0F 03", -- DAMP GBSN E3
+  "0E 0B 17 1A 0A 11 0C 1D 18 0A 0B 03", -- DAMP GBSN A3
+}
+
+
+function newSlistMsg(numSamples)
+  local bytes = string.format("F0 47 00 05 48 %.2X 00", numSamples)
+  for i = 1, numSamples do
+    bytes = string.format("%s %s", bytes, samplesData[i])
+  end
+  return MemoryBlock(string.format("%s %s", bytes, "F7"))
+end
+
+function newKeyGroupComponent(index)
+  local comp = panel:getComponent(string.format("drumMap-%d", index))
+  comp:setProperty("componentGroupName", string.format("drumMap-%d-grp", index))
+  return comp
+end
+
+function newModulatorWithCustomIndex(name, customIndex)
+  local mod = panel:getModulator(name)
+  mod:setProperty("modulatorCustomIndex", string.format("%d", customIndex))
+  return mod
+end
+
+function assignSamples(selectedComp, ...)
+  if type(selectedComp) == "number" then
+    selectedComp = newKeyGroupComponent(selectedComp)
+  end
+
+  onPadSelected(selectedComp)
+  for i,v in ipairs(arg) do
+    onFileDoubleClicked(File(string.format("test/data/%s", v)))
+  end
+end
+
+function writeLauncherLog(numWavs, numSamples, ctrlrwork, tmpFolderName)
+  local workPath = ctrlrwork:getFullPathName()
+  local execDir = ctrlrwork:getParentDirectory():getFullPathName()
+  local contents = ""
+  
+  for i = 1, numWavs do
+    contents = string.format("%s%s>cp %s\test\data\PULL-GTR-G2.wav %s\PULL-GTR-G2.wav\r\n", contents, execDir, execDir, workPath)
+  end
+  
+  contents = string.format("%s%s>cd %s\r\n", contents, execDir, workPath)
+  contents = string.format("%s%s>php c:\ctrlr\s2kdie\s2kdie.php %s\script-40947.s2k\r\n\r\n", contents, execDir, workPath)
+  contents = string.format("%s%s", contents, "AKAI S2000/S3000/S900 Disk Image Editor v1.1.2\r\n(? for help.)\r\n\r\n")
+  contents = string.format("%s%s", contents, "Floppy read/writes disabled, setfdprm not found.\r\n\r\n")
+  contents = string.format("%s%s", contents, "Command selected: BLANK S2000\r\n")
+  contents = string.format("%s%s", contents, "Image in memory blanked.\r\n")
+  contents = string.format("%s%s", contents, "Command selected: VOL script-40947.s2k\r\n")
+  contents = string.format("%s%s", contents, "SCRIPT-40947\r\n")
+  
+  for i = 1, numWavs do
+    contents = string.format("%sCommand selected: WLOAD PULL-GTR-G2.wav\r\n", contents)
+    contents = string.format("%sStereo WAV imported as akai samples.\r\n", contents)
+  end
+  contents = string.format("%sCommand selected: SAVE %s\floppy-40947.img\r\n", contents, workPath)
+  contents = string.format("%sImage saved.\r\nCommand selected: DIR\r\n\r\n", contents)
+  contents = string.format("%s      S2000 Volume: SCRIPT-40947\r\n\r\n", contents)
+  contents = string.format("%s      Filename       Type        Bytes\r\n", contents)
+  for i = 0, numSamples - 1 do
+    contents = string.format("%s  [%d] PULL-GTR-G-L   <UNKNOWN>   98034\r\n", contents, i)
+  end
+  contents = string.format("%s      1318 unused sectors.  (1349632 bytes free)\r\n\r\n", contents)
+  contents = string.format("%sCommand selected: \r\n\r\n\r\n", contents)
+  contents = string.format("%s%s> cd %s\r\n", contents, workPath, execDir)
+  contents = string.format("%s%s>%s\hxc.exe -uselayout:AKAIS3000_HD -finput:%s\floppy-40947.img -usb:\r\n", contents, execDir, execDir, workPath)
+  contents = string.format("%s%s>exit\r\n", contents, execDir)
+  
+  cutils.writeToFile(cutils.toFilePath(tmpFolderName, "scriptLauncher.bat.log"), contents)
+end
+
+
 regGlobal("INTELL_TYPE", 0)
 regGlobal("CYCLIC_TYPE", 1)
 

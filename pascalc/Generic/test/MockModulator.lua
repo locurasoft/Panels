@@ -17,109 +17,95 @@ setmetatable(MockModulator, {
 
 function MockModulator:_init(name)
   PropertyContainer._init(self)
-  self.name = name
+  self:setProperty("name", name)
   self.value = 0
-  self.max = 0
-  self.min = 0
   self.vstIndex = 0
   self.component = MockComponent(name)
 end
 
 function MockModulator:getComponent()
-  log:info("MockModulator getComponent")
   return self.component
 end
 
 function MockModulator:getMinNonMapped()
-  log:info("MockModulator getMinNonMapped")
-  return self.min
+  return self:getMinModulatorValue()
 end
 
 function MockModulator:getMaxMapped()
-  log:info("MockModulator getMaxMapped")
-  return self.max
+  return self:getMaxModulatorValue()
 end
 
 function MockModulator:setValueMapped(value)
-  log:info("MockModulator setValueMapped")
-  self.value = value
+  self:setValue(value)
 end
 
 function MockModulator:getValueNonMapped()
-  log:info("MockModulator getValueNonMapped")
   return self.value
 end
 
 function MockModulator:getValue()
-  log:info("MockModulator getValue")
   return self.value
 end
 
 function MockModulator:getValueMapped()
-  log:info("MockModulator getValueMapped")
   return self.value
-end
-
-function MockModulator:setValueNonMapped(value)
-  log:info("MockModulator setValueNonMapped")
-  self.value = value
-end
-
-function MockModulator:setValue(value)
-  log:info("MockModulator setValue")
-  self.value = value
 end
 
 function MockModulator:getMaxModulatorValue()
-  log:info("MockModulator getMaxModulatorValue")
-  return self.max
+  return self.component:getPropertyInt("uiSliderMax")
 end
 
 function MockModulator:getVstIndex()
-  log:info("MockModulator getVstIndex")
   return self.vstIndex
 end
 
-function MockModulator:setModulatorValue()
-  log:info("MockModulator setModulatorValue")
-  return self.value
+function MockModulator:setVstIndex(vstIndex)
+  self.vstIndex = vstIndex
 end
 
 function MockModulator:getMinMapped()
-  log:info("MockModulator getMinMapped")
-  return self.min
+  return self:getMinModulatorValue()
 end
 
 function MockModulator:getLuaName()
-  log:info("MockModulator getLuaName")
   return self.name
 end
 
 function MockModulator:getName()
-  log:info("MockModulator getName")
-  return self.name
+  return self:getProperty("name")
 end
 
 function MockModulator:getMinModulatorValue()
-  log:info("MockModulator getMinModulatorValue")
-  return self.min
+  return self.component:getPropertyInt("uiSliderMin")
 end
 
 function MockModulator:getModulatorName()
-  log:info("MockModulator getModulatorName")
   return self.name
 end
 
 function MockModulator:getMaxNonMapped()
-  log:info("MockModulator getMaxNonMapped")
-  return self.max
+  return self:getMaxModulatorValue()
 end
 
 function MockModulator:getMidiMessage()
-  log:info("MockModulator getMidiMessage")
 end
 
 function MockModulator:getModulatorValue()
-  log:info("MockModulator getModulatorValue")
+  return self.value
+end
+
+function MockModulator:setValueNonMapped(value)
+  self.value = value
+end
+
+function MockModulator:setValue(value)
+  self.value = value
+  local valChangeFunc = self:getProperty("luaModulatorValueChange")
+  if valChangeFunc ~= nil and valChangeFunc ~= "" then
+    _G[valChangeFunc](self, value)
+  end
+end
+
+function MockModulator:setModulatorValue()
   return self.value
 end

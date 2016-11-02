@@ -61,20 +61,21 @@ function ProgramController:changeProgram(newProgram)
 end
 
 function ProgramController:changeKeyGroup(keyGroupIndex)
+  if keyGroupIndex == 0 then
+    keyGroupIndex = 1
+  end
+
   if self.activeProgram == nil then
     log:info("Active program is nil! Disabling kg selector.")
     self:toggleActivation("kgSelector", false)
   else
-    --log:info("Before kg change: %s", self.activeProgram:getActiveKeyGroup():toString())
     self.activeProgram:setActiveKeyGroupIndex(keyGroupIndex)
     self:assignKeyGroupValues(self.activeProgram, self.activeProgram:getActiveKeyGroupIndex())
-    --log:info("After kg change: %s", self.activeProgram:getActiveKeyGroup():toString())
   end
 end
 
 function ProgramController:assignProgramValues(program)
   program:setUpdating(true)
-  --log:info("Active program name: %s", program:getName())
   self:setText("PRNAME", program:getName())
 
   if self.programList:getNumPrograms() > 1 then
@@ -97,7 +98,6 @@ function ProgramController:assignProgramValues(program)
         mod:getComponent():setText(value)
       else
         local absValue = value + mod:getMinNonMapped()
-        --log:info("Setting prog modulator %s to %d (%d)", k, absValue, value)
         mod:setValue(absValue, true)
       end
     end
@@ -113,11 +113,9 @@ function ProgramController:assignKeyGroupValues(program, kgIndex)
     return
   end
   keyGroup:setUpdating(true)
-  --log:info("Updating keyGroup %d", kgIndex)
   for k,zone in pairs(keyGroup:getZones()) do
     local sampleName = zone:getSampleName()
     local selector = string.format("zone%dSelector", k)
-    --log:info("Setting sample %s to %s", sampleName, selector)
     panel:getComponent(selector):setText(sampleName, true)
   end
 
@@ -131,27 +129,33 @@ function ProgramController:assignKeyGroupValues(program, kgIndex)
         absValue = value
       end
 
-      --log:info("Setting kg modulator %s to %d (%d)", k, absValue, value)
       mod:setValue(absValue, true)
     end
   end
   keyGroup:setUpdating(false)
 end
 
-function ProgramController:storeProgParamEdit(phead)
+function ProgramController:storeProgParamEdit(blockType, mod, value)
   local program = self.programList:getActiveProgram()
   if program == nil then
     return
   end
+  
+  local phead = programService:phead(program, blockType, mod:getProperty("name"), value)
+  midiService:sendMidiMessage(phead)
 
   program:storeParamEdit(phead)
 end
 
-function ProgramController:storeKgParamEdit(khead)
+function ProgramController:storeKgParamEdit(blockType, mod, value)
   local program = self.programList:getActiveProgram()
   if program == nil then
     return
   end
+  
+  local khead = programService:khead(program, blockType, mod:getProperty("name"), value)
+  midiService:sendMidiMessage(khead)
+  
   local keyGroup = program:getActiveKeyGroup()
   keyGroup:storeParamEdit(khead)
 end

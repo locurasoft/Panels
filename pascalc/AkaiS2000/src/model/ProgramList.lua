@@ -55,9 +55,15 @@ function ProgramList:getActiveProgram()
 end
 
 function ProgramList:setActiveProgram(activeProgNum)
-  --log:fine("Active program before %d", self.activeProgram)
+  if activeProgNum == 0 then
+    activeProgNum = 1
+  end
+
+  if self:getNumPrograms() == 0 then
+    return
+  end
+
   self.activeProgram = activeProgNum
-  --log:fine("Active program after %d", self.activeProgram)
   self:notifyListeners()
 end
 

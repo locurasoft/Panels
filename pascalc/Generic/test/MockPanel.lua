@@ -2,6 +2,7 @@ require("PropertyContainer")
 require("Logger")
 require("MockComponent")
 require("MockModulator")
+local xml = require("xmlSimple").newParser()
 
 MockPanel = {}
 MockPanel.__index = MockPanel
@@ -17,10 +18,28 @@ setmetatable(MockPanel, {
   end,
 })
 
-function MockPanel:_init()
+function MockPanel:_init(panelPath, midiListener)
   PropertyContainer._init(self)
   self.modulators = {}
+  self.midiListener = midiListener
   self.globalVariables = {}
+  
+  local xmlParser = xml:loadFile(panelPath)
+  local xmlElements = xmlParser.panel:children()
+  for key, xmlElement in ipairs(xmlElements) do
+    if xmlElement:name() == "modulator" then
+      assert(self.modulators[name] == nil, "Invalid panel. Found duplicate modulators.")
+      local modulator = MockModulator(xmlElement["@name"])
+      modulator:setVstIndex(tonumber(xmlElement["@vstIndex"]))
+      if xmlElement["@modulatorMin"] ~= nil then
+        modulator:getComponent():setProperty("uiSliderMin", xmlElement["@modulatorMin"])
+      end
+      if xmlElement["@modulatorMax"] ~= nil then
+        modulator:getComponent():setProperty("uiSliderMax", xmlElement["@modulatorMax"])
+      end
+      self.modulators[xmlElement["@name"]] = modulator
+    end
+  end
 end
 
 function MockPanel:getBootstrapState()
@@ -32,8 +51,8 @@ function MockPanel:setGlobalVariable()
   log:info("MockPanel setGlobalVariable")
 end
 
-function MockPanel:sendMidiMessageNow()
-  log:info("MockPanel sendMidiMessageNow")
+function MockPanel:sendMidiMessageNow(midiMessage)
+  self.midiListener(midiMessage:getData():toHexString(1))
 end
 
 function MockPanel:getProgramState()
@@ -46,14 +65,10 @@ function MockPanel:getGlobalVariable()
 end
 
 function MockPanel:getModulator(name)
-  if self.modulators[name] == nil then
-    self.modulators[name] = MockModulator(name)
-  end
   return self.modulators[name]
 end
 
 function MockPanel:getComponent(name)
-  log:info("MockPanel getComponent %s", name)
   return self:getModulator(name):getComponent()
 end
 
@@ -66,6 +81,15 @@ function MockPanel:getModulatorByName(name)
   return self:getModulator(name)
 end
 
-function MockPanel:sendMidi()
-  log:info("MockPanel sendMidi")
+function MockPanel:sendMidi(buffer, millisecondCounterToStartAt)
+end
+
+function MockPanel:sendMidi(message, millisecondCounterToStartAt)
+end
+
+function MockPanel:sendMidi(m, millisecondCounterToStartAt)
+end
+
+function MockPanel:sendMidiNow(midiMessage)
+  self:sendMidiMessageNow(midiMessage)
 end

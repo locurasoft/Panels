@@ -16,7 +16,7 @@ setmetatable(Program, {
   end,
 })
 
-function Program:_init()
+function Program:_init(data)
   Dispatcher._init(self)
   self.pdata = data or PdataMsg()
   self.keyGroups = {}

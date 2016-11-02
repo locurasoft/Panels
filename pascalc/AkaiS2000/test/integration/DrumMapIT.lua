@@ -1,5 +1,6 @@
 require("akaiS2kTestUtils")
 require("integration/DrumMapFunctions")
+require("integration/ProgramFunctions")
 require("MockPanel")
 require("json4ctrlr")
 require("cutils")
@@ -34,36 +35,6 @@ module( 'DrumMapIT', lunity )
 
 local LOW_INDEX, HIGH_INDEX = 1, 2
 local tmpFolderName = "ctrlrwork"
-local samplesData = {
-  "0E 0B 17 1A 27 11 0C 1D 18 27 27 16", -- DAMP-GBSN--L
-  "0E 0B 17 1A 27 11 0C 1D 18 27 27 1C",  -- DAMP-GBSN--R
-  "1A 1F 16 16 27 11 1E 1C 27 27 11 02", -- PULL-GTR--G2
-  "1D 17 0B 0D 15 13 18 0A 0A 0A 0A 0A", -- SMACKIN
-  "17 1F 1E 0F 0A 11 1E 1C 0A 11 02 0A", -- MUTE GTR G2
-  "17 1F 1E 0F 0A 11 1E 1C 0A 0E 03 0A", -- MUTE GTR D3
-  "17 1F 1E 0F 0A 11 1E 1C 0A 0F 04 0A", -- MUTE GTR E4
-  "0E 0B 17 1A 0A 11 1E 1C 0A 11 02 0A", -- DAMP GTR G2
-  "0E 0B 17 1A 0A 11 1E 1C 0A 0E 03 0A", -- DAMP GTR D3
-  "0E 0B 17 1A 0A 11 1E 1C 0A 0F 04 0A", -- DAMP GTR E4
-  "17 1F 1E 0F 0A 11 1E 1C 0A 0D 05 0A", -- MUTE GTR C5
-  "0E 0B 17 1A 0A 11 1E 1C 0A 0D 05 0A", -- DAMP GTR C5
-  "1A 1F 16 16 0A 11 1E 1C 0A 0E 03 0A", -- PULL GTR D3
-  "1A 1F 16 16 0A 11 1E 1C 0A 0F 04 0A", -- PULL GTR E4
-  "11 0C 1D 18 0A 03 03 05 0A 0F 02 0A", -- GBSN 335 E2
-  "11 0C 1D 18 0A 03 03 05 0A 0B 02 0A", -- GBSN 335 A2
-  "11 0C 1D 18 0A 03 03 05 0A 0F 03 0A", -- GBSN 335 E3
-  "11 0C 1D 18 0A 03 03 05 0A 0B 03 0A", -- GBSN 335 A3
-  "11 0C 1D 18 0A 03 03 05 0A 0F 04 0A", -- GBSN 335 E4
-  "11 0C 1D 18 0A 03 03 05 0A 0B 04 0A", -- GBSN 335 A4
-  "11 0C 1D 18 0A 03 03 05 0A 0F 05 0A", -- GBSN 335 E5
-  "11 0C 1D 18 0A 03 03 05 0A 1A 13 15", -- GBSN 335 PIK
-  "11 0C 1D 18 0A 12 0B 1C 17 19 18 0D", -- GBSN HARMONC
-  "0E 0B 17 1A 0A 11 0C 1D 18 0A 0F 04", -- DAMP GBSN E4
-  "0E 0B 17 1A 0A 11 0C 1D 18 0A 0D 05", -- DAMP GBSN C5
-  "0E 0B 17 1A 0A 11 0C 1D 18 0A 0B 02", -- DAMP GBSN A2
-  "0E 0B 17 1A 0A 11 0C 1D 18 0A 0F 03", -- DAMP GBSN E3
-  "0E 0B 17 1A 0A 11 0C 1D 18 0A 0B 03", -- DAMP GBSN A3
-}
 
 function assertText(compName, expectedText)
   assertEqual(panel:getComponent(compName):getText(), expectedText)
@@ -104,33 +75,8 @@ function assertTmpFile(filename, expectedContents)
 end
 
 function setup()
-  regGlobal("OPERATING_SYSTEM", "win")
-  regGlobal("PATH_SEPARATOR", "\\")
-  regGlobal("EOL", "\n")
-
   os.execute("if exist " .. tmpFolderName .. " rmdir /S /Q " .. tmpFolderName)
-
   os.execute("mkdir " .. tmpFolderName)
-  regGlobal("panel", MockPanel())
-  regGlobal("LOGGER", Logger("GLOBAL"))
-
-  local settings = Settings()
-  ctrlrwork = File("ctrlrwork")
-  
-  settings:setWorkFolder(ctrlrwork)
-  settings:setS2kDiePath(File("c:\\ctrlr\\s2kdie\\s2kdie.php"))
-  settings:setHxcPath(File("hxc.exe"))
-  settings:setTransferMethod(1)
-
-  local programList = ProgramList()
-
-  local drumMap = DrumMap()
-  local sampleList = SampleList()
-
-  regGlobal("programList", programList)
-  regGlobal("settings", settings)
-  regGlobal("drumMap", drumMap)
-  regGlobal("sampleList", sampleList)
 
   processListenerCalls = 0
   processActive = false
@@ -138,12 +84,11 @@ function setup()
     processActive = active
     processListenerCalls = processListenerCalls + 1
   end
-
-  regGlobal("drumMapController", DrumMapController(drumMap, sampleList))
-  regGlobal("settingsController", SettingsController(settings))
-  regGlobal("sampleListController", SampleListController(sampleList))
-  regGlobal("processController", ProcessController(processListener))
-  regGlobal("programController", ProgramController(programList))
+  
+  midiMessages = {}
+  local midiListener = function(midiMessage)
+    table.insert(midiMessages, midiMessage)
+  end
 
   tempOsExecute = os.execute
   executedOsCommands = {}
@@ -153,56 +98,17 @@ function setup()
   openedInfoWindows = {}
   utils.infoWindow = function(title, message) table.insert(openedInfoWindows, message) end
 
-  regGlobal("programService", ProgramService())
-  regGlobal("drumMapService", DrumMapService())
-  regGlobal("midiService", MidiService())
-  regGlobal("s2kDieService", S2kDieService(settings))
-  regGlobal("hxcService", HxcService(settings))
+  ctrlrwork = File(tmpFolderName)
+
+  setupIntegrationTest(tmpFolderName, processListener, midiListener)
 end
 
 function teardown()
-  delGlobal("midiService")
-  delGlobal("panel")
-  delGlobal("drumMap")
-  delGlobal("settings")
-  delGlobal("drumMapController")
-  delGlobal("drumMapService")
-  delGlobal("processController")
   os.execute = tempOsExecute
-  os.execute("rmdir /S /Q " .. tmpFolderName)
-
   utils.infoWindow = tempUtilsInfoWindow
-end
-
-function newSlistMsg(numSamples)
-  local bytes = string.format("F0 47 00 05 48 %.2X 00", numSamples)
-  for i = 1, numSamples do
-    bytes = string.format("%s %s", bytes, samplesData[i])
-  end
-  return MemoryBlock(string.format("%s %s", bytes, "F7"))
-end
-
-function newKeyGroupComponent(index)
-  local comp = panel:getComponent(string.format("drumMap-%d", index))
-  comp:setProperty("componentGroupName", string.format("drumMap-%d-grp", index))
-  return comp
-end
-
-function newModulatorWithCustomIndex(name, customIndex)
-  local mod = panel:getModulator(name)
-  mod:setProperty("modulatorCustomIndex", string.format("%d", customIndex))
-  return mod
-end
-
-function assignSamples(selectedComp, ...)
-  if type(selectedComp) == "number" then
-    selectedComp = newKeyGroupComponent(selectedComp)
-  end
-
-  onPadSelected(selectedComp)
-  for i,v in ipairs(arg) do
-    onSampleDoubleClicked(File(string.format("test/data/%s", v)))
-  end
+  
+  tearDownIntegrationTest(tmpFolderName)
+  os.execute("rmdir /S /Q " .. tmpFolderName)
 end
 
 function verifyPads(numKgs, selectedKg, kgTexts)
@@ -232,44 +138,6 @@ function verifyPads(numKgs, selectedKg, kgTexts)
   end
 end
 
-function writeLauncherLog(numWavs, numSamples)
-  local workPath = ctrlrwork:getFullPathName()
-  local execDir = ctrlrwork:getParentDirectory():getFullPathName()
-  local contents = ""
-  
-  for i = 1, numWavs do
-  	contents = string.format("%s%s>cp %s\test\data\PULL-GTR-G2.wav %s\PULL-GTR-G2.wav\r\n", contents, execDir, execDir, workPath)
-  end
-  
-  contents = string.format("%s%s>cd %s\r\n", contents, execDir, workPath)
-  contents = string.format("%s%s>php c:\ctrlr\s2kdie\s2kdie.php %s\script-40947.s2k\r\n\r\n", contents, execDir, workPath)
-  contents = string.format("%s%s", contents, "AKAI S2000/S3000/S900 Disk Image Editor v1.1.2\r\n(? for help.)\r\n\r\n")
-  contents = string.format("%s%s", contents, "Floppy read/writes disabled, setfdprm not found.\r\n\r\n")
-  contents = string.format("%s%s", contents, "Command selected: BLANK S2000\r\n")
-  contents = string.format("%s%s", contents, "Image in memory blanked.\r\n")
-  contents = string.format("%s%s", contents, "Command selected: VOL script-40947.s2k\r\n")
-  contents = string.format("%s%s", contents, "SCRIPT-40947\r\n")
-  
-  for i = 1, numWavs do
-    contents = string.format("%sCommand selected: WLOAD PULL-GTR-G2.wav\r\n", contents)
-    contents = string.format("%sStereo WAV imported as akai samples.\r\n", contents)
-  end
-  contents = string.format("%sCommand selected: SAVE %s\floppy-40947.img\r\n", contents, workPath)
-  contents = string.format("%sImage saved.\r\nCommand selected: DIR\r\n\r\n", contents)
-  contents = string.format("%s      S2000 Volume: SCRIPT-40947\r\n\r\n", contents)
-  contents = string.format("%s      Filename       Type        Bytes\r\n", contents)
-  for i = 0, numSamples - 1 do
-    contents = string.format("%s  [%d] PULL-GTR-G-L   <UNKNOWN>   98034\r\n", contents, i)
-  end
-  contents = string.format("%s      1318 unused sectors.  (1349632 bytes free)\r\n\r\n", contents)
-  contents = string.format("%sCommand selected: \r\n\r\n\r\n", contents)
-  contents = string.format("%s%s> cd %s\r\n", contents, workPath, execDir)
-  contents = string.format("%s%s>%s\hxc.exe -uselayout:AKAIS3000_HD -finput:%s\floppy-40947.img -usb:\r\n", contents, execDir, execDir, workPath)
-  contents = string.format("%s%s>exit\r\n", contents, execDir)
-  
-  cutils.writeToFile(cutils.toFilePath(tmpFolderName, "scriptLauncher.bat.log"), contents)
-end
-
 function testOnFloppyImageCleared()
   onFloppyImageCleared()
 
@@ -282,7 +150,7 @@ function testOnKeyGroupNumChange()
   local numKgs = 1
   onKeyGroupNumChange(numKgs)
 
-  assertText("uiLabelText", "")
+  assertCompProperty("drumMapSelectionLabel", "")
   verifyPads(numKgs, 0, {})
   assertEqual(drumMap.numKgs, numKgs)
 end
@@ -293,7 +161,7 @@ function testOnKeyGroupChange_MultipleKeyGroups_OneSelected()
   onKeyGroupNumChange(numKgs)
   onPadSelected(newKeyGroupComponent(selectedKg))
 
-  assertText("uiLabelText", "")
+  assertCompProperty("drumMapSelectionLabel", "")
   verifyPads(numKgs, selectedKg, {})
   assertEqual(drumMap.numKgs, numKgs)
 end
@@ -307,7 +175,7 @@ function testOnKeyGroupChange_MultipleKeyGroups_UnselectedPad()
   onPadSelected(comp)
   onPadSelected(comp)
 
-  assertText("uiLabelText", "")
+  assertCompProperty("drumMapSelectionLabel", "")
   verifyPads(numKgs, 0, {})
   assertEqual(drumMap.numKgs, numKgs)
 end
@@ -326,7 +194,7 @@ function testOnKeyGroupChange_MultipleKeyGroups_OneSelected_FilesLoaded()
 
   onPadSelected(selectedComp)
 
-  assertText("uiLabelText", "")
+  assertCompProperty("drumMapSelectionLabel", "")
   verifyPads(numKgs, selectedKg, {
     [selectedKg] = "Cat-Meow.wav\nElectric-Bass-High-..",
     [secondKg] = "Casio-CZ-5000-Synth..\nBowed-Bass-C2.wav",
@@ -348,7 +216,7 @@ function testOnKeyGroupClear()
 
   onPadSelected(selectedComp)
 
-  assertText("uiLabelText", "")
+  assertCompProperty("drumMapSelectionLabel", "")
   verifyPads(numKgs, selectedKg, {
     [selectedKg] = "Cat-Meow.wav\nElectric-Bass-High-..",
     [secondKg] = "Casio-CZ-5000-Synth..\nBowed-Bass-C2.wav",
@@ -357,7 +225,7 @@ function testOnKeyGroupClear()
 
   onKeyGroupClear()
 
-  assertText("uiLabelText", "")
+  assertCompProperty("drumMapSelectionLabel", "")
   verifyPads(numKgs, selectedKg, {
     [secondKg] = "Casio-CZ-5000-Synth..\nBowed-Bass-C2.wav",
   })
@@ -378,7 +246,7 @@ function testOnDrumMapClear()
 
   onPadSelected(selectedComp)
 
-  assertText("uiLabelText", "")
+  assertCompProperty("drumMapSelectionLabel", "")
   verifyPads(numKgs, selectedKg, {
     [selectedKg] = "Cat-Meow.wav\nElectric-Bass-High-..",
     [secondKg] = "Casio-CZ-5000-Synth..\nBowed-Bass-C2.wav",
@@ -387,7 +255,7 @@ function testOnDrumMapClear()
 
   onDrumMapClear()
 
-  assertText("uiLabelText", "")
+  assertCompProperty("drumMapSelectionLabel", "")
   verifyPads(numKgs, selectedKg, {})
   assertEqual(drumMap.numKgs, numKgs)
 end
@@ -400,18 +268,18 @@ function testOnCreateProgram()
   local kg2 = newKeyGroupComponent(2)
 
   onPadSelected(kg1)
-  onSampleDoubleClicked(File("test/data/PULL-GTR--G2.wav"))
-  onSampleDoubleClicked(File("test/data/DAMP-GBSN-A5.wav"))
+  onFileDoubleClicked(File("test/data/PULL-GTR--G2.wav"))
+  onFileDoubleClicked(File("test/data/DAMP-GBSN-A5.wav"))
   local highVal = 25
   local highMod = newModulatorWithCustomIndex("drumMapHighKey", HIGH_INDEX)
   onDrumMapKeyChange(highMod, highVal)
 
   onPadSelected(kg2)
-  onSampleDoubleClicked(File("test/data/DAMP-GBSN-A5.wav"))
+  onFileDoubleClicked(File("test/data/DAMP-GBSN-A5.wav"))
 
   onTransferSamples()
   midiService:dispatchMidi(newSlistMsg(0))
-  writeLauncherLog(2, 4)
+  writeLauncherLog(2, 4, ctrlrwork, tmpFolderName)
   midiService:dispatchMidi(newSlistMsg(2))
   midiService:dispatchMidi(newSlistMsg(4))
 
@@ -426,8 +294,27 @@ function testOnCreateProgram()
 
   onCreateProgram()
 
+  assertText("PRNAME", toAkaiString(progName))
+  assertText("zone1Selector", "PULL-GTR--G2")
+  assertModValue("VPANO1", 0)
+  assertModValue("VLOUD1", 63)
+  
+  assertText("zone2Selector", "DAMP-GBSN--L")
+  assertModValue("VPANO2", -50)
+  assertModValue("VLOUD2", 63)
+  
+  assertText("zone3Selector", "DAMP-GBSN--R")
+  assertModValue("VPANO3", 50)
+  assertModValue("VLOUD3", 63)
+  
+  assertModValue("LONOTE", 0)
+  assertModValue("HINOTE", 25)
+  
   assertCompMax("programSelector", 1)
   assertModValue("programSelector", 1)
+  
+  assertCompMax("kgSelector", 2)
+  assertModValue("kgSelector", 1)
 
   assertEqual(programList:getNumPrograms(), 1)
 
@@ -449,7 +336,7 @@ function testOnCreateProgram()
   assertEqual(kg2Result:getParamValue("HINOTE"), 1)
 end
 
-function testOnSampleDoubleClicked()
+function testOnFileDoubleClicked()
   local numKgs = 3
   local selectedKg = 3
 
@@ -460,36 +347,36 @@ function testOnSampleDoubleClicked()
   local selectedComp = newKeyGroupComponent(selectedKg)
 
   onPadSelected(selectedComp)
-  onSampleDoubleClicked(File("test/data/Bowed-Bass-C2.wav"))
+  onFileDoubleClicked(File("test/data/Bowed-Bass-C2.wav"))
   verifyPads(numKgs, selectedKg, {
     [selectedKg] = "Bowed-Bass-C2.wav"
   })
 
-  onSampleDoubleClicked(File("test/data/Cat-Meow.wav"))
+  onFileDoubleClicked(File("test/data/Cat-Meow.wav"))
   verifyPads(numKgs, selectedKg, {
     [selectedKg] = "Bowed-Bass-C2.wav\nCat-Meow.wav"
   })
 
   -- Test when pads are deselected
   onPadSelected(selectedComp)
-  onSampleDoubleClicked(File("test/data/Closed-Hi-Hat-1.wav"))
+  onFileDoubleClicked(File("test/data/Closed-Hi-Hat-1.wav"))
   verifyPads(numKgs, 0, {
     [selectedKg] = "Bowed-Bass-C2.wav\nCat-Meow.wav"
   })
 
   onPadSelected(selectedComp)
-  onSampleDoubleClicked(File("test/data/Closed-Hi-Hat-1.wav"))
+  onFileDoubleClicked(File("test/data/Closed-Hi-Hat-1.wav"))
   verifyPads(numKgs, selectedKg, {
     [selectedKg] = "Bowed-Bass-C2.wav\nCat-Meow.wav\nClosed-Hi-Hat-1.wav"
   })
 
-  onSampleDoubleClicked(File("test/data/Closed-Hi-Hat-2.wav"))
+  onFileDoubleClicked(File("test/data/Closed-Hi-Hat-2.wav"))
   verifyPads(numKgs, selectedKg, {
     [selectedKg] = "Bowed-Bass-C2.wav\nCat-Meow.wav\nClosed-Hi-Hat-1.wav\nClosed-Hi-Hat-2.wav"
   })
 
   -- Key group full
-  onSampleDoubleClicked(File("test/data/Closed-Hi-Hat-3.wav"))
+  onFileDoubleClicked(File("test/data/Closed-Hi-Hat-3.wav"))
   verifyPads(numKgs, selectedKg, {
     [selectedKg] = "Bowed-Bass-C2.wav\nCat-Meow.wav\nClosed-Hi-Hat-1.wav\nClosed-Hi-Hat-2.wav"
   })
@@ -501,15 +388,15 @@ function testOnSampleSelected()
 
   onKeyGroupNumChange(numKgs)
 
-  onSampleSelected(File("test/data/Cat-Meow.wav"))
+  onFileSelected(File("test/data/Cat-Meow.wav"))
   assertDisabled("assignSample")
 
-  onSampleSelected(File("test/data/Invalid.txt"))
+  onFileSelected(File("test/data/Invalid.txt"))
   assertDisabled("assignSample")
   assertText("lcdLabel", "Please select a wav file")
 
   onPadSelected(newKeyGroupComponent(selectedKg))
-  onSampleSelected(File("test/data/Cat-Meow.wav"))
+  onFileSelected(File("test/data/Cat-Meow.wav"))
   assertEnabled("assignSample")
 end
 
@@ -522,7 +409,7 @@ function testOnPadSelected()
   onPadSelected(newKeyGroupComponent(selectedKg))
   assertDisabled("assignSample")
 
-  onSampleSelected(File("test/data/Cat-Meow.wav"))
+  onFileSelected(File("test/data/Cat-Meow.wav"))
   assertEnabled("assignSample")
 end
 
@@ -535,8 +422,8 @@ function testOnTransferSamples_FloppyImgPath()
   local selectedComp = newKeyGroupComponent(selectedKg)
 
   onPadSelected(selectedComp)
-  onSampleDoubleClicked(File("test/data/PULL-GTR--G2.wav"))
-  onSampleDoubleClicked(File("test/data/DAMP-GBSN-A5.wav"))
+  onFileDoubleClicked(File("test/data/PULL-GTR--G2.wav"))
+  onFileDoubleClicked(File("test/data/DAMP-GBSN-A5.wav"))
   verifyPads(numKgs, selectedKg, {
     [selectedKg] = "PULL-GTR--G2.wav\nDAMP-GBSN-A5.wav"
   })
@@ -566,8 +453,8 @@ function testOnTransferSamples_NextFloppy()
   local selectedComp = newKeyGroupComponent(selectedKg)
 
   onPadSelected(selectedComp)
-  onSampleDoubleClicked(File("test/data/PULL-GTR--G2.wav"))
-  onSampleDoubleClicked(File("test/data/DAMP-GBSN-A5.wav"))
+  onFileDoubleClicked(File("test/data/PULL-GTR--G2.wav"))
+  onFileDoubleClicked(File("test/data/DAMP-GBSN-A5.wav"))
   verifyPads(numKgs, selectedKg, {
     [selectedKg] = "PULL-GTR--G2.wav\nDAMP-GBSN-A5.wav"
   })
@@ -582,7 +469,7 @@ function testOnTransferSamples_NextFloppy()
 
   midiService:dispatchMidi(newSlistMsg(1))
 
-  writeLauncherLog(2, 4)
+  writeLauncherLog(2, 4, ctrlrwork, tmpFolderName)
 
   midiService:dispatchMidi(newSlistMsg(2))
   midiService:dispatchMidi(newSlistMsg(2))
@@ -662,8 +549,8 @@ function testOnRslist()
   local selectedComp = newKeyGroupComponent(selectedKg)
 
   onPadSelected(selectedComp)
-  onSampleDoubleClicked(File("test/data/PULL-GTR--G2.wav"))
-  onSampleDoubleClicked(File("test/data/DAMP-GBSN-A5.wav"))
+  onFileDoubleClicked(File("test/data/PULL-GTR--G2.wav"))
+  onFileDoubleClicked(File("test/data/DAMP-GBSN-A5.wav"))
   verifyPads(numKgs, selectedKg, {
     [selectedKg] = "PULL-GTR--G2.wav\nDAMP-GBSN-A5.wav"
   })
@@ -706,7 +593,7 @@ function testOnSampleAssign()
   onSampleAssign()
   assertText("lcdLabel", "Select a sample and a key group.")
 
-  onSampleSelected(File("test/data/Cat-Meow.wav"))
+  onFileSelected(File("test/data/Cat-Meow.wav"))
 
   onSampleAssign()
 

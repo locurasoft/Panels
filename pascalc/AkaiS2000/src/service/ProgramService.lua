@@ -4,6 +4,9 @@ require("model/Program")
 
 local log = Logger("ProgramService")
 
+PROG_TUNE, PROG_STRING, PROG_DEFAULT = 0, 1, 2
+KG_TUNE, KG_STRING, KG_DEFAULT, KG_VSS = 3, 4, 5, 6
+
 ProgramService = {}
 ProgramService.__index = ProgramService
 
@@ -88,4 +91,42 @@ function ProgramService:newProgram(programName, keyGroups)
 		prog:addKeyGroup(v)
 	end
 	return prog
+end
+
+function ProgramService:khead(program, blockType, blockName, value)
+  local prog = program:getProgramNumber()
+  local kg = program:getActiveKeyGroupIndex()
+  
+  local offset = KEY_GROUP_BLOCK[blockName]
+  local valueBlock = -1
+  if blockType == KG_DEFAULT then
+    valueBlock = midiService:toDefaultBlock(value)
+  elseif blockType == KG_STRING then
+    valueBlock = midiService:toStringBlock(value)
+  elseif blockType == KG_TUNE then
+    valueBlock = midiService:toTuneBlock(value)
+  elseif blockType == KG_VSS then
+    valueBlock = midiService:toVssBlock(value)
+  else
+    assert(false, "Invalid keygroup modulator type " .. blockType)
+  end
+  
+  return KheadMsg(prog, kg, offset, valueBlock)
+end
+
+function ProgramService:phead(program, blockType, blockName, value)
+  local prog = program:getProgramNumber()
+  local offset = PROGRAM_BLOCK[blockName]
+  local valueBlock = -1
+  if blockType == PROG_DEFAULT then
+    valueBlock = midiService:toDefaultBlock(value)
+  elseif blockType == PROG_STRING then
+    valueBlock = midiService:toStringBlock(value)
+  elseif blockType == PROG_TUNE then
+    valueBlock = midiService:toTuneBlock(value)
+  else
+    assert(false, "Invalid program modulator type " .. blockType)
+  end
+  
+  return PheadMsg(prog, offset, valueBlock)
 end

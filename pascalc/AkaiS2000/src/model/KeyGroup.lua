@@ -100,7 +100,7 @@ function KeyGroup:replaceZoneWithStereoSample(zoneIndex, sampleNameLeft, sampleN
     local rightZone = Zone()
     rightZone:setSample(sampleNameRight)
     self:insertZone(zoneIndex + 1, rightZone)
-    self.kdata:storeNibbles(string.format("VPANO%d", zoneIndex + 1), midiService:toNibbles(101))
+    self.kdata:storeNibbles(string.format("VPANO%d", zoneIndex + 1), midiService:toNibbles(100))
     self.kdata:storeNibbles(string.format("VLOUD%d", zoneIndex + 1), midiService:toNibbles(63))
   end
 end
@@ -108,6 +108,7 @@ end
 function KeyGroup:replaceWithMonoSample(zoneIndex, sampleName)
   local zone = self.zones[zoneIndex]
   zone:setSample(sampleName)
+  self.kdata:storeNibbles(string.format("VLOUD%d", zoneIndex), midiService:toNibbles(63))
 end
 
 function KeyGroup:setUpdating(updating)

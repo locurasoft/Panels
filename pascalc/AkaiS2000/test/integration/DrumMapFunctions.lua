@@ -78,16 +78,16 @@ function onCreateProgram()
 
 end
 
-function onSampleDoubleClicked(file)
+function onFileDoubleClicked(file)
   -- This variable stops index issues during panel bootup
   if panel:getBootstrapState() or panel:getProgramState() then
     return
   end
 
-  drumMapController:assignSample(file)
+  drumMapController:assignFile(file)
 end
 
-function onSampleSelected(file)
+function onFileSelected(file)
   -- This variable stops index issues during panel bootup
   if panel:getBootstrapState() or panel:getProgramState() then
     return
@@ -100,6 +100,25 @@ function onSampleSelected(file)
     drumMapController:updateStatus("Please select a wav file")
   end
 end
+
+function onSampleDoubleClicked(sampleName)
+  -- This variable stops index issues during panel bootup
+  if panel:getBootstrapState() or panel:getProgramState() then
+    return
+  end
+
+  drumMapController:assignSample(sampleName)
+end
+
+function onSampleSelected(sampleName)
+  -- This variable stops index issues during panel bootup
+  if panel:getBootstrapState() or panel:getProgramState() then
+    return
+  end
+
+  drumMap:setSelectedSample(sampleName)
+end
+
 
 function onPadSelected(comp)
   function getKeyGroupByComponent(comp)

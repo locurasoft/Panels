@@ -41,10 +41,10 @@ setmetatable(KdataMsg, {
 
 function KdataMsg:_init(bytes)
   SyxMsg._init(self)
-  self.data = bytes or defaultBytes()
   self[LUA_CONTRUCTOR_NAME] = "KdataMsg"
 
-  if self.data == nil then
+  if bytes == nil then
+    self.data = defaultBytes()
     self:storeNibbles("MODVFILT1", midiService:toNibbles(50))
     self:storeNibbles("MODVFILT2", midiService:toNibbles(50))
     self:storeNibbles("MODVFILT3", midiService:toNibbles(50))
@@ -70,9 +70,11 @@ function KdataMsg:_init(bytes)
       self:storeNibbles(string.format("VFREQ%d", i), midiService:toNibbles(50))
       self:storeNibbles(string.format("VPANO%d", i), midiService:toNibbles(50))
     end
+  else
+    assert(bytes:getByte(3) == 0x09, "Invalid Kdata message")
+    self.data = bytes
   end
 
---  if bytes:getByte(3) == 0x09 then
 end
 
 function KdataMsg:getOffset(blockIndex)

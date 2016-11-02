@@ -47,7 +47,8 @@ function PdataMsg:_init(bytes)
     self:storeNibbles("POLYPH", mutils.toNibbles(15))
     self:storeNibbles("PRIORT", mutils.toNibbles(2))
     self:storeNibbles("P_PTCH", mutils.toNibbles(12))
-  elseif bytes:getByte(3) == 0x07 then
+  else
+    assert(bytes:getByte(3) == 0x07, "Invalid pdata message")
     self.data = bytes
     self[LUA_CONTRUCTOR_NAME] = "Pdata"
   end
@@ -64,7 +65,6 @@ end
 function PdataMsg:storePhead(phead)
 	local valBlock = phead:getValueBlock()
 	local offset = phead:getOffset()
-	--self.log:info("setPdataValue %s", valBlock:toHexString(1))
 	self.data:copyFrom(valBlock, self:getOffset(offset), valBlock:getSize())
 end
 

@@ -296,7 +296,7 @@ function DrumMapController:updateSampleList(sl)
   end
 end
 
-function DrumMapController:assignSample(file)
+function DrumMapController:assignFile(file)
   if file ~= nil then
     if not drumMapService:isValidSampleFile(file) then
       self:toggleActivation("assignSample", 1)
@@ -305,6 +305,20 @@ function DrumMapController:assignSample(file)
     end
 
     drumMap:setSelectedSample(file)
+  end
+
+  if not drumMap:isReadyForAssignment() then
+    self:updateStatus("Select a sample and a key group.")
+    return
+  end
+
+  local result = drumMapService:assignSample(self.drumMap)
+  self:updateStatus(result)
+end
+
+function DrumMapController:assignSample(sampleName)
+  if sampleName ~= nil then
+    drumMap:setSelectedSample(sampleName)
   end
 
   if not drumMap:isReadyForAssignment() then
