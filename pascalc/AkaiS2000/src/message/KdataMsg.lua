@@ -1,6 +1,7 @@
 require("SyxMsg")
 
-local KDATA_HEADER_SIZE = 9
+KDATA_HEADER_SIZE = 9
+KDATA_SIZE = 393
 
 local tuneBlocks = {
   ["VTUNO1"] = true,
@@ -17,7 +18,7 @@ local vssBlocks = {
 }
 
 local defaultBytes = function()
-  local bytes = MemoryBlock(393, true)
+  local bytes = MemoryBlock(KDATA_SIZE, true)
   bytes:setByte(0, 0xF0)
   bytes:setByte(1, 0x47)
   bytes:setByte(3, 0x09)
@@ -89,14 +90,12 @@ function KdataMsg:storeKhead(khead)
 	local valBlock = khead:getValueBlock()
 	local offset = khead:getOffset()
 	local kdataOffs = self:getOffset(offset)
-	--log:info("setKdataValue %d (%d) -> %s", offset, kdataOffs, valBlock:toHexString(1))
 	self.data:copyFrom(valBlock, kdataOffs, valBlock:getSize())
 end
 
 function KdataMsg:getKdataValue(blockId)
 	local offset = self:getOffset(KEY_GROUP_BLOCK[blockId])
 	if tuneBlocks[blockId] then
-		log:info("getKdataValue %s => %d => %d", blockId, KEY_GROUP_BLOCK[blockId], offset)
 		return midiService:fromTuneBlock(self.data, offset)
 	elseif vssBlocks[blockId] then
 		return midiService:fromVssBlock(self.data, offset)

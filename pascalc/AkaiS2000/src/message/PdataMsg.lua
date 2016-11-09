@@ -30,7 +30,7 @@ function PdataMsg:_init(bytes)
 
     self.data = bytes
     self[LUA_CONTRUCTOR_NAME] = "Pdata"
-    self:storeNibbles("PTUNO", midiService:toTuneBlock(5000))
+    self:storeNibbles("PTUNO", midiService:toTuneBlock(0))
     self:setName("EMPTYPROGRAM")
     self:storeNibbles("MODVLFOR", mutils.toNibbles(50))
     self:storeNibbles("MODVLVOL", mutils.toNibbles(50))
@@ -80,7 +80,7 @@ function PdataMsg:getPdataValue(blockId)
 end
 
 function PdataMsg:setName(programName)
-	self:storeNibbles("PRNAME", midiService:toAkaiString(programName))
+	self:storeNibbles("PRNAME", midiService:toAkaiStringBytes(programName))
 end
 
 function PdataMsg:getName()

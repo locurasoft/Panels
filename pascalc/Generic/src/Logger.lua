@@ -1,6 +1,6 @@
 require("LuaObject")
 
-FINE, INFO, WARN = 3, 2, 1
+FINE, INFO, WARN = 2, 1, 0
 LOG_LEVEL = WARN
 
 local GLOBAL_LOG_FILE = io.open("akaiS2000Panel.log", "w")

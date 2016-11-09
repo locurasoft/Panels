@@ -1,17 +1,6 @@
 require("Dispatcher")
 require("Logger")
 
-local doubleByteParams = {
-  ["VSS1"] = true,
-  ["VSS2"] = true,
-  ["VSS3"] = true,
-  ["VSS4"] = true,
-  ["VTUNO1"] = true,
-  ["VTUNO2"] = true,
-  ["VTUNO3"] = true,
-  ["VTUNO4"] = true,
-}
-
 local log = Logger("KeyGroup")
 
 KeyGroup = {}
@@ -26,7 +15,7 @@ setmetatable(KeyGroup, {
   end,
 })
 
-function KeyGroup:_init()
+function KeyGroup:_init(data)
   Dispatcher._init(self)
   self.kdata = data or KdataMsg()
   self.zones = {}
@@ -44,10 +33,6 @@ end
 
 function KeyGroup:removeAllZones()
   self.zones = {}
-  for i = 1, 4 do
-    self.kdata:storeNibbles(string.format("VLOUD%d", i), midiService:toNibbles(0))
-    self.kdata:storeNibbles(string.format("VPANO%d", i), midiService:toNibbles(50))
-  end
 end
 
 function KeyGroup:storeParamEdit(khead)
@@ -92,23 +77,17 @@ end
 function KeyGroup:replaceZoneWithStereoSample(zoneIndex, sampleNameLeft, sampleNameRight)
   local leftZone = self.zones[zoneIndex]
   leftZone:setSample(sampleNameLeft)
-  self.kdata:storeNibbles(string.format("VLOUD%d", zoneIndex), midiService:toNibbles(63))
 
   if self:numZones() < 4 then
-    self.kdata:storeNibbles(string.format("VPANO%d", zoneIndex), midiService:toNibbles(0))
-
     local rightZone = Zone()
     rightZone:setSample(sampleNameRight)
     self:insertZone(zoneIndex + 1, rightZone)
-    self.kdata:storeNibbles(string.format("VPANO%d", zoneIndex + 1), midiService:toNibbles(100))
-    self.kdata:storeNibbles(string.format("VLOUD%d", zoneIndex + 1), midiService:toNibbles(63))
   end
 end
 
 function KeyGroup:replaceWithMonoSample(zoneIndex, sampleName)
   local zone = self.zones[zoneIndex]
   zone:setSample(sampleName)
-  self.kdata:storeNibbles(string.format("VLOUD%d", zoneIndex), midiService:toNibbles(63))
 end
 
 function KeyGroup:setUpdating(updating)

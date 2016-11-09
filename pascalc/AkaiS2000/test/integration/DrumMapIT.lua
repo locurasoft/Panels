@@ -1,6 +1,4 @@
 require("akaiS2kTestUtils")
-require("integration/DrumMapFunctions")
-require("integration/ProgramFunctions")
 require("MockPanel")
 require("json4ctrlr")
 require("cutils")
@@ -12,10 +10,13 @@ require("model/ProgramList")
 require("model/Settings")
 
 require("controller/DrumMapController")
+require("controller/DrumMapControllerAutogen")
 require("controller/SettingsController")
+require("controller/SettingsControllerAutogen")
 require("controller/SampleListController")
 require("controller/ProcessController")
 require("controller/ProgramController")
+require("controller/ProgramControllerAutogen")
 
 require("service/ProgramService")
 require("service/S2kDieService")
@@ -138,17 +139,9 @@ function verifyPads(numKgs, selectedKg, kgTexts)
   end
 end
 
-function testOnFloppyImageCleared()
-  onFloppyImageCleared()
-
-  assertText("loadFloppyImageLabel", "")
-  assertText("lcdLabel", "Select a sample and a key group")
-  assertEnabled("transferSamples")
-end
-
 function testOnKeyGroupNumChange()
   local numKgs = 1
-  onKeyGroupNumChange(numKgs)
+  drumMapController:onKeyGroupNumChange(numKgs)
 
   assertCompProperty("drumMapSelectionLabel", "")
   verifyPads(numKgs, 0, {})
@@ -158,8 +151,8 @@ end
 function testOnKeyGroupChange_MultipleKeyGroups_OneSelected()
   local selectedKg = 4
   local numKgs = 7
-  onKeyGroupNumChange(numKgs)
-  onPadSelected(newKeyGroupComponent(selectedKg))
+  drumMapController:onKeyGroupNumChange(numKgs)
+  drumMapController:onPadSelected(newKeyGroupComponent(selectedKg))
 
   assertCompProperty("drumMapSelectionLabel", "")
   verifyPads(numKgs, selectedKg, {})
@@ -169,7 +162,7 @@ end
 function testOnKeyGroupChange_MultipleKeyGroups_UnselectedPad()
   local selectedKg = 4
   local numKgs = 7
-  onKeyGroupNumChange(numKgs)
+  drumMapController:onKeyGroupNumChange(numKgs)
 
   local comp = newKeyGroupComponent(selectedKg)
   onPadSelected(comp)
@@ -185,14 +178,14 @@ function testOnKeyGroupChange_MultipleKeyGroups_OneSelected_FilesLoaded()
   local numKgs = 7
   local secondKg = 3
 
-  onKeyGroupNumChange(numKgs)
+  drumMapController:onKeyGroupNumChange(numKgs)
 
   local selectedComp = newKeyGroupComponent(selectedKg)
   assignSamples(selectedComp, "Cat-Meow.wav", "Electric-Bass-High-Bb-Staccato.wav")
 
   assignSamples(secondKg, "Casio-CZ-5000-Synth-Bass-C1.wav", "Bowed-Bass-C2.wav")
 
-  onPadSelected(selectedComp)
+  drumMapController:onPadSelected(selectedComp)
 
   assertCompProperty("drumMapSelectionLabel", "")
   verifyPads(numKgs, selectedKg, {
@@ -207,14 +200,14 @@ function testOnKeyGroupClear()
   local numKgs = 15
   local secondKg = 13
 
-  onKeyGroupNumChange(numKgs)
+  drumMapController:onKeyGroupNumChange(numKgs)
 
   local selectedComp = newKeyGroupComponent(selectedKg)
   assignSamples(selectedComp, "Cat-Meow.wav", "Electric-Bass-High-Bb-Staccato.wav")
 
   assignSamples(secondKg, "Casio-CZ-5000-Synth-Bass-C1.wav", "Bowed-Bass-C2.wav")
 
-  onPadSelected(selectedComp)
+  drumMapController:onPadSelected(selectedComp)
 
   assertCompProperty("drumMapSelectionLabel", "")
   verifyPads(numKgs, selectedKg, {
@@ -223,7 +216,7 @@ function testOnKeyGroupClear()
   })
   assertEqual(drumMap.numKgs, numKgs)
 
-  onKeyGroupClear()
+  drumMapController:onKeyGroupClear()
 
   assertCompProperty("drumMapSelectionLabel", "")
   verifyPads(numKgs, selectedKg, {
@@ -237,14 +230,14 @@ function testOnDrumMapClear()
   local numKgs = 6
   local secondKg = 2
 
-  onKeyGroupNumChange(numKgs)
+  drumMapController:onKeyGroupNumChange(numKgs)
 
   local selectedComp = newKeyGroupComponent(selectedKg)
   assignSamples(selectedComp, "Cat-Meow.wav", "Electric-Bass-High-Bb-Staccato.wav")
 
   assignSamples(secondKg, "Casio-CZ-5000-Synth-Bass-C1.wav", "Bowed-Bass-C2.wav")
 
-  onPadSelected(selectedComp)
+  drumMapController:onPadSelected(selectedComp)
 
   assertCompProperty("drumMapSelectionLabel", "")
   verifyPads(numKgs, selectedKg, {
@@ -253,7 +246,7 @@ function testOnDrumMapClear()
   })
   assertEqual(drumMap.numKgs, numKgs)
 
-  onDrumMapClear()
+  drumMapController:onDrumMapClear()
 
   assertCompProperty("drumMapSelectionLabel", "")
   verifyPads(numKgs, selectedKg, {})
@@ -263,25 +256,25 @@ end
 function testOnCreateProgram()
   local numKgs = 2
 
-  onKeyGroupNumChange(numKgs)
+  drumMapController:onKeyGroupNumChange(numKgs)
   local kg1 = newKeyGroupComponent(1)
   local kg2 = newKeyGroupComponent(2)
 
-  onPadSelected(kg1)
-  onFileDoubleClicked(File("test/data/PULL-GTR--G2.wav"))
-  onFileDoubleClicked(File("test/data/DAMP-GBSN-A5.wav"))
+  drumMapController:onPadSelected(kg1)
+  drumMapController:onFileDoubleClicked(File("test/data/PULL-GTR--G2.wav"))
+  drumMapController:onFileDoubleClicked(File("test/data/DAMP-GBSN-A5.wav"))
   local highVal = 25
   local highMod = newModulatorWithCustomIndex("drumMapHighKey", HIGH_INDEX)
-  onDrumMapKeyChange(highMod, highVal)
+  drumMapController:onDrumMapKeyChange(highMod, highVal)
 
-  onPadSelected(kg2)
-  onFileDoubleClicked(File("test/data/DAMP-GBSN-A5.wav"))
+  drumMapController:onPadSelected(kg2)
+  drumMapController:onFileDoubleClicked(File("test/data/DAMP-GBSN-A5.wav"))
 
-  onTransferSamples()
-  midiService:dispatchMidi(newSlistMsg(0))
+  drumMapController:onTransferSamples()
+  globalController:onMidiReceived(newSlistMsg(0))
   writeLauncherLog(2, 4, ctrlrwork, tmpFolderName)
-  midiService:dispatchMidi(newSlistMsg(2))
-  midiService:dispatchMidi(newSlistMsg(4))
+  globalController:onMidiReceived(newSlistMsg(2))
+  globalController:onMidiReceived(newSlistMsg(4))
 
   verifyPads(numKgs, 2, {
     [1] = "PULL-GTR--G2\nDAMP-GBSN--L\nDAMP-GBSN--R",
@@ -292,9 +285,9 @@ function testOnCreateProgram()
   local progName = "ProgName"
   comp:setProperty("uiLabelText", progName)
 
-  onCreateProgram()
+  drumMapController:onCreateProgram()
 
-  assertText("PRNAME", toAkaiString(progName))
+  assertText("PRNAME", midiService:toAkaiString(progName))
   assertText("zone1Selector", "PULL-GTR--G2")
   assertModValue("VPANO1", 0)
   assertModValue("VLOUD1", 63)
@@ -320,7 +313,7 @@ function testOnCreateProgram()
 
   local program = programList:getProgram(1)
   
-  assertEqual(program:getName(), toAkaiString(progName))
+  assertEqual(program:getName(), midiService:toAkaiString(progName))
   assertEqual(program:getProgramNumber(), 0)
   assertEqual(program:getActiveKeyGroupIndex(), 1)
   assertEqual(program:getNumKeyGroups(), 2)
@@ -342,41 +335,41 @@ function testOnFileDoubleClicked()
 
   local secondKg = 1
 
-  onKeyGroupNumChange(numKgs)
+  drumMapController:onKeyGroupNumChange(numKgs)
 
   local selectedComp = newKeyGroupComponent(selectedKg)
 
-  onPadSelected(selectedComp)
-  onFileDoubleClicked(File("test/data/Bowed-Bass-C2.wav"))
+  drumMapController:onPadSelected(selectedComp)
+  drumMapController:onFileDoubleClicked(File("test/data/Bowed-Bass-C2.wav"))
   verifyPads(numKgs, selectedKg, {
     [selectedKg] = "Bowed-Bass-C2.wav"
   })
 
-  onFileDoubleClicked(File("test/data/Cat-Meow.wav"))
+  drumMapController:onFileDoubleClicked(File("test/data/Cat-Meow.wav"))
   verifyPads(numKgs, selectedKg, {
     [selectedKg] = "Bowed-Bass-C2.wav\nCat-Meow.wav"
   })
 
   -- Test when pads are deselected
-  onPadSelected(selectedComp)
-  onFileDoubleClicked(File("test/data/Closed-Hi-Hat-1.wav"))
+  drumMapController:onPadSelected(selectedComp)
+  drumMapController:onFileDoubleClicked(File("test/data/Closed-Hi-Hat-1.wav"))
   verifyPads(numKgs, 0, {
     [selectedKg] = "Bowed-Bass-C2.wav\nCat-Meow.wav"
   })
 
-  onPadSelected(selectedComp)
-  onFileDoubleClicked(File("test/data/Closed-Hi-Hat-1.wav"))
+  drumMapController:onPadSelected(selectedComp)
+  drumMapController:onFileDoubleClicked(File("test/data/Closed-Hi-Hat-1.wav"))
   verifyPads(numKgs, selectedKg, {
     [selectedKg] = "Bowed-Bass-C2.wav\nCat-Meow.wav\nClosed-Hi-Hat-1.wav"
   })
 
-  onFileDoubleClicked(File("test/data/Closed-Hi-Hat-2.wav"))
+  drumMapController:onFileDoubleClicked(File("test/data/Closed-Hi-Hat-2.wav"))
   verifyPads(numKgs, selectedKg, {
     [selectedKg] = "Bowed-Bass-C2.wav\nCat-Meow.wav\nClosed-Hi-Hat-1.wav\nClosed-Hi-Hat-2.wav"
   })
 
   -- Key group full
-  onFileDoubleClicked(File("test/data/Closed-Hi-Hat-3.wav"))
+  drumMapController:onFileDoubleClicked(File("test/data/Closed-Hi-Hat-3.wav"))
   verifyPads(numKgs, selectedKg, {
     [selectedKg] = "Bowed-Bass-C2.wav\nCat-Meow.wav\nClosed-Hi-Hat-1.wav\nClosed-Hi-Hat-2.wav"
   })
@@ -386,17 +379,17 @@ function testOnSampleSelected()
   local numKgs = 16
   local selectedKg = 15
 
-  onKeyGroupNumChange(numKgs)
+  drumMapController:onKeyGroupNumChange(numKgs)
 
-  onFileSelected(File("test/data/Cat-Meow.wav"))
+  drumMapController:onFileSelected(File("test/data/Cat-Meow.wav"))
   assertDisabled("assignSample")
 
-  onFileSelected(File("test/data/Invalid.txt"))
+  drumMapController:onFileSelected(File("test/data/Invalid.txt"))
   assertDisabled("assignSample")
   assertText("lcdLabel", "Please select a wav file")
 
-  onPadSelected(newKeyGroupComponent(selectedKg))
-  onFileSelected(File("test/data/Cat-Meow.wav"))
+  drumMapController:onPadSelected(newKeyGroupComponent(selectedKg))
+  drumMapController:onFileSelected(File("test/data/Cat-Meow.wav"))
   assertEnabled("assignSample")
 end
 
@@ -404,12 +397,12 @@ function testOnPadSelected()
   local numKgs = 15
   local selectedKg = 8
 
-  onKeyGroupNumChange(numKgs)
+  drumMapController:onKeyGroupNumChange(numKgs)
 
-  onPadSelected(newKeyGroupComponent(selectedKg))
+  drumMapController:onPadSelected(newKeyGroupComponent(selectedKg))
   assertDisabled("assignSample")
 
-  onFileSelected(File("test/data/Cat-Meow.wav"))
+  drumMapController:onFileSelected(File("test/data/Cat-Meow.wav"))
   assertEnabled("assignSample")
 end
 
@@ -417,20 +410,20 @@ function testOnTransferSamples_FloppyImgPath()
   local numKgs = 1
   local selectedKg = 1
 
-  onKeyGroupNumChange(numKgs)
+  drumMapController:onKeyGroupNumChange(numKgs)
 
   local selectedComp = newKeyGroupComponent(selectedKg)
 
-  onPadSelected(selectedComp)
-  onFileDoubleClicked(File("test/data/PULL-GTR--G2.wav"))
-  onFileDoubleClicked(File("test/data/DAMP-GBSN-A5.wav"))
+  drumMapController:onPadSelected(selectedComp)
+  drumMapController:onFileDoubleClicked(File("test/data/PULL-GTR--G2.wav"))
+  drumMapController:onFileDoubleClicked(File("test/data/DAMP-GBSN-A5.wav"))
   verifyPads(numKgs, selectedKg, {
     [selectedKg] = "PULL-GTR--G2.wav\nDAMP-GBSN-A5.wav"
   })
 
   settings:setFloppyImgPath(File("test/data/SL1041.img"))
 
-  onTransferSamples()
+  drumMapController:onTransferSamples()
 
   assertFalse(processActive)
 
@@ -448,13 +441,13 @@ function testOnTransferSamples_NextFloppy()
   local numKgs = 1
   local selectedKg = 1
 
-  onKeyGroupNumChange(numKgs)
+  drumMapController:onKeyGroupNumChange(numKgs)
 
   local selectedComp = newKeyGroupComponent(selectedKg)
 
-  onPadSelected(selectedComp)
-  onFileDoubleClicked(File("test/data/PULL-GTR--G2.wav"))
-  onFileDoubleClicked(File("test/data/DAMP-GBSN-A5.wav"))
+  drumMapController:onPadSelected(selectedComp)
+  drumMapController:onFileDoubleClicked(File("test/data/PULL-GTR--G2.wav"))
+  drumMapController:onFileDoubleClicked(File("test/data/DAMP-GBSN-A5.wav"))
   verifyPads(numKgs, selectedKg, {
     [selectedKg] = "PULL-GTR--G2.wav\nDAMP-GBSN-A5.wav"
   })
@@ -462,20 +455,20 @@ function testOnTransferSamples_NextFloppy()
   drumMap:insertToCurrentFloppy(File("test/data/PULL-GTR--G2.wav"))
   drumMap:insertToCurrentFloppy(File("test/data/DAMP-GBSN-A5.wav"))
 
-  onTransferSamples()
+  drumMapController:onTransferSamples()
 
   assertTrue(processActive)
-  midiService:dispatchMidi(newSlistMsg(0))
+  globalController:onMidiReceived(newSlistMsg(0))
 
-  midiService:dispatchMidi(newSlistMsg(1))
+  globalController:onMidiReceived(newSlistMsg(1))
 
   writeLauncherLog(2, 4, ctrlrwork, tmpFolderName)
 
-  midiService:dispatchMidi(newSlistMsg(2))
-  midiService:dispatchMidi(newSlistMsg(2))
-  midiService:dispatchMidi(newSlistMsg(2))
+  globalController:onMidiReceived(newSlistMsg(2))
+  globalController:onMidiReceived(newSlistMsg(2))
+  globalController:onMidiReceived(newSlistMsg(2))
 
-  midiService:dispatchMidi(newSlistMsg(4))
+  globalController:onMidiReceived(newSlistMsg(4))
 
   assertFalse(processActive)
 
@@ -483,9 +476,9 @@ function testOnTransferSamples_NextFloppy()
   assertCompProperty("noSamplesLabel", "componentVisibility", 0)
   assertCompProperty("noSamplesLabel-1", "componentVisibility", 0)
   assertCompProperty("samplerFileList", "componentVisibility", 1)
-  assertCompProperty("samplerFileList-1", "componentVisibility", 1)
   assertCompProperty("samplerFileList", "uiListBoxContent", namesString)
-  assertCompProperty("samplerFileList-1", "uiListBoxContent", namesString)
+  assertCompProperty("samplerSampleList", "componentVisibility", 1)
+  assertCompProperty("samplerSampleList", "uiListBoxContent", namesString)
   assertCompProperty("zone1Selector", "uiComboContent", namesString)
   assertCompProperty("zone2Selector", "uiComboContent", namesString)
   assertCompProperty("zone3Selector", "uiComboContent", namesString)
@@ -500,12 +493,12 @@ function testOnTransferSamples_NextFloppy()
 end
 
 function testOnLoadOs()
-  onLoadOs()
+  drumMapController:onLoadOs()
 
   assertTrue(processActive)
   assertDisabled("loadOsButton")
 
-  midiService:dispatchMidi(MemoryBlock("F0 47 00 01 48 00 11 6E 07 30 06 00 00 00 08 00 32 3E 07 00 F7"))
+  globalController:onMidiReceived(MemoryBlock("F0 47 00 01 48 00 11 6E 07 30 06 00 00 00 08 00 32 3E 07 00 F7"))
 
   assertFalse(processActive)
   assertText("lcdLabel", "Akai S2000 OS loaded.")
@@ -537,40 +530,37 @@ function testOnCancelProcess()
   assertFalse(processActive)
 
   assertTmpFile("scriptAborter.bat", "for /f \"tokens=2 delims=,\" %%a in ('tasklist /v /fo csv ^| findstr /i \"hxcfe\"') do set \"$PID=%%a\"\r\ntaskkill /F /PID %$PID%\r\n\r\nexit\r\n")
-
 end
 
 function testOnRslist()
   local numKgs = 1
   local selectedKg = 1
 
-  onKeyGroupNumChange(numKgs)
+  drumMapController:onKeyGroupNumChange(numKgs)
 
   local selectedComp = newKeyGroupComponent(selectedKg)
 
-  onPadSelected(selectedComp)
-  onFileDoubleClicked(File("test/data/PULL-GTR--G2.wav"))
-  onFileDoubleClicked(File("test/data/DAMP-GBSN-A5.wav"))
+  drumMapController:onPadSelected(selectedComp)
+  drumMapController:onFileDoubleClicked(File("test/data/PULL-GTR--G2.wav"))
+  drumMapController:onFileDoubleClicked(File("test/data/DAMP-GBSN-A5.wav"))
   verifyPads(numKgs, selectedKg, {
     [selectedKg] = "PULL-GTR--G2.wav\nDAMP-GBSN-A5.wav"
   })
 
-  onRslist()
+  drumMapController:onRslist()
 
   assertTrue(processActive)
   assertText("lcdLabel", "Receiving sample list...")
 
   local namesString = "DAMP GBSN A2\nDAMP GBSN A3\nDAMP GBSN C5\nDAMP GBSN E3\nDAMP GBSN E4\nDAMP GTR C5 \nDAMP GTR D3 \nDAMP GTR E4 \nDAMP GTR G2 \nDAMP-GBSN--L\nDAMP-GBSN--R\nGBSN 335 A2 \nGBSN 335 A3 \nGBSN 335 A4 \nGBSN 335 E2 \nGBSN 335 E3 \nGBSN 335 E4 \nGBSN 335 E5 \nGBSN 335 PIK\nGBSN HARMONC\nMUTE GTR C5 \nMUTE GTR D3 \nMUTE GTR E4 \nMUTE GTR G2 \nPULL GTR D3 \nPULL GTR E4 \nPULL-GTR--G2\nSMACKIN     "
-  midiService:dispatchMidi(newSlistMsg(28))
+  globalController:onMidiReceived(newSlistMsg(28))
 
   assertFalse(processActive)
 
   assertCompProperty("noSamplesLabel", "componentVisibility", 0)
   assertCompProperty("noSamplesLabel-1", "componentVisibility", 0)
   assertCompProperty("samplerFileList", "componentVisibility", 1)
-  assertCompProperty("samplerFileList-1", "componentVisibility", 1)
   assertCompProperty("samplerFileList", "uiListBoxContent", namesString)
-  assertCompProperty("samplerFileList-1", "uiListBoxContent", namesString)
   assertCompProperty("zone1Selector", "uiComboContent", namesString)
   assertCompProperty("zone2Selector", "uiComboContent", namesString)
   assertCompProperty("zone3Selector", "uiComboContent", namesString)
@@ -586,16 +576,16 @@ function testOnSampleAssign()
   local numKgs = 10
   local selectedKg = 7
 
-  onKeyGroupNumChange(numKgs)
+  drumMapController:onKeyGroupNumChange(numKgs)
 
-  onPadSelected(newKeyGroupComponent(selectedKg))
+  drumMapController:onPadSelected(newKeyGroupComponent(selectedKg))
 
-  onSampleAssign()
+  drumMapController:onSampleAssign()
   assertText("lcdLabel", "Select a sample and a key group.")
 
-  onFileSelected(File("test/data/Cat-Meow.wav"))
+  drumMapController:onFileSelected(File("test/data/Cat-Meow.wav"))
 
-  onSampleAssign()
+  drumMapController:onSampleAssign()
 
   verifyPads(numKgs, selectedKg, {
     [selectedKg] = "Cat-Meow.wav"
@@ -606,12 +596,12 @@ function testOnDrumMapKeyChange()
   local numKgs = 14
   local selectedKg = 12
 
-  onKeyGroupNumChange(numKgs)
+  drumMapController:onKeyGroupNumChange(numKgs)
 
   assertDisabled("drumMapLowKey")
   assertDisabled("drumMapHighKey")
 
-  onPadSelected(newKeyGroupComponent(selectedKg))
+  drumMapController:onPadSelected(newKeyGroupComponent(selectedKg))
 
   assertEnabled("drumMapLowKey")
   assertEnabled("drumMapHighKey")
@@ -626,7 +616,7 @@ function testOnDrumMapKeyChange()
   local lowMod = newModulatorWithCustomIndex("drumMapLowKey", LOW_INDEX)
   local lowVal = 1
   local highVal = 25
-  onDrumMapKeyChange(lowMod, lowVal)
+  drumMapController:onDrumMapKeyChange(lowMod, lowVal)
 
   assertEnabled("drumMapLowKey")
   assertEnabled("drumMapHighKey")
@@ -640,7 +630,7 @@ function testOnDrumMapKeyChange()
   --  assertModProperty("drumMapHighKey", "modulatorMax", selectedKg - 1)
 
   local highMod = newModulatorWithCustomIndex("drumMapHighKey", HIGH_INDEX)
-  onDrumMapKeyChange(highMod, highVal)
+  drumMapController:onDrumMapKeyChange(highMod, highVal)
 
   assertEnabled("drumMapLowKey")
   assertEnabled("drumMapHighKey")
@@ -673,62 +663,62 @@ function testOnResetAllKeyRanges()
   local secondComp = newKeyGroupComponent(secondKg)
   local thirdComp = newKeyGroupComponent(thirdKg)
 
-  onKeyGroupNumChange(numKgs)
+  drumMapController:onKeyGroupNumChange(numKgs)
 
   -- Try with one kg
 
-  onPadSelected(selectedComp)
-  onDrumMapKeyChange(lowMod, lowVal)
-  onDrumMapKeyChange(highMod, highVal)
+  drumMapController:onPadSelected(selectedComp)
+  drumMapController:onDrumMapKeyChange(lowMod, lowVal)
+  drumMapController:onDrumMapKeyChange(highMod, highVal)
 
   assertModValue("drumMapLowKey", lowVal)
   assertModValue("drumMapHighKey", highVal)
 
-  onResetAllKeyRanges()
+  drumMapController:onResetAllKeyRanges()
 
   assertModValue("drumMapLowKey", selectedKg - 1)
   assertModValue("drumMapHighKey", selectedKg - 1)
 
   -- Try with three kgs
 
-  onDrumMapKeyChange(lowMod, lowVal)
-  onDrumMapKeyChange(highMod, highVal)
+  drumMapController:onDrumMapKeyChange(lowMod, lowVal)
+  drumMapController:onDrumMapKeyChange(highMod, highVal)
 
   assertModValue("drumMapLowKey", lowVal)
   assertModValue("drumMapHighKey", highVal)
 
-  onPadSelected(secondComp)
+  drumMapController:onPadSelected(secondComp)
 
   assertModValue("drumMapLowKey", secondKg - 1)
   assertModValue("drumMapHighKey", secondKg - 1)
 
-  onDrumMapKeyChange(lowMod, lowVal2)
-  onDrumMapKeyChange(highMod, highVal2)
+  drumMapController:onDrumMapKeyChange(lowMod, lowVal2)
+  drumMapController:onDrumMapKeyChange(highMod, highVal2)
 
   assertModValue("drumMapLowKey", lowVal2)
   assertModValue("drumMapHighKey", highVal2)
 
-  onPadSelected(thirdComp)
+  drumMapController:onPadSelected(thirdComp)
 
   assertModValue("drumMapLowKey", thirdKg - 1)
   assertModValue("drumMapHighKey", thirdKg - 1)
 
-  onDrumMapKeyChange(lowMod, lowVal2)
-  onDrumMapKeyChange(highMod, highVal2)
+  drumMapController:onDrumMapKeyChange(lowMod, lowVal2)
+  drumMapController:onDrumMapKeyChange(highMod, highVal2)
 
   assertModValue("drumMapLowKey", lowVal2)
   assertModValue("drumMapHighKey", highVal2)
 
-  onResetAllKeyRanges()
+  drumMapController:onResetAllKeyRanges()
 
   assertModValue("drumMapLowKey", thirdKg - 1)
   assertModValue("drumMapHighKey", thirdKg - 1)
 
-  onPadSelected(secondComp)
+  drumMapController:onPadSelected(secondComp)
   assertModValue("drumMapLowKey", secondKg - 1)
   assertModValue("drumMapHighKey", secondKg - 1)
 
-  onPadSelected(selectedComp)
+  drumMapController:onPadSelected(selectedComp)
   assertModValue("drumMapLowKey", selectedKg - 1)
   assertModValue("drumMapHighKey", selectedKg - 1)
 end
@@ -750,34 +740,34 @@ function testOnResetPadKeyRange()
   local selectedComp = newKeyGroupComponent(selectedKg)
   local secondComp = newKeyGroupComponent(secondKg)
 
-  onKeyGroupNumChange(numKgs)
+  drumMapController:onKeyGroupNumChange(numKgs)
 
-  onPadSelected(selectedComp)
-  onDrumMapKeyChange(lowMod, lowVal)
-  onDrumMapKeyChange(highMod, highVal)
+  drumMapController:onPadSelected(selectedComp)
+  drumMapController:onDrumMapKeyChange(lowMod, lowVal)
+  drumMapController:onDrumMapKeyChange(highMod, highVal)
 
   assertModValue("drumMapLowKey", lowVal)
   assertModValue("drumMapHighKey", highVal)
 
-  onPadSelected(secondComp)
+  drumMapController:onPadSelected(secondComp)
 
   assertModValue("drumMapLowKey", secondKg - 1)
   assertModValue("drumMapHighKey", secondKg - 1)
 
-  onDrumMapKeyChange(lowMod, lowVal2)
-  onDrumMapKeyChange(highMod, highVal2)
+  drumMapController:onDrumMapKeyChange(lowMod, lowVal2)
+  drumMapController:onDrumMapKeyChange(highMod, highVal2)
 
   assertModValue("drumMapLowKey", lowVal2)
   assertModValue("drumMapHighKey", highVal2)
 
-  onPadSelected(selectedComp)
+  drumMapController:onPadSelected(selectedComp)
 
-  onResetPadKeyRange()
+  drumMapController:onResetPadKeyRange()
 
   assertModValue("drumMapLowKey", selectedKg - 1)
   assertModValue("drumMapHighKey", selectedKg - 1)
 
-  onPadSelected(secondComp)
+  drumMapController:onPadSelected(secondComp)
   assertModValue("drumMapLowKey", lowVal2)
   assertModValue("drumMapHighKey", highVal2)
 end

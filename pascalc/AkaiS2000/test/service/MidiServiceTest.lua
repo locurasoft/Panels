@@ -473,44 +473,44 @@ function testToFromNibbles()
   end
 end
 
-function testToFromAkaiString()
+function testTofromAkaiStringBytes()
 	local tested = MidiService()
-	local resultData = tested:toAkaiString("Test")
-	local resultString = tested:fromAkaiString(resultData)
+	local resultData = tested:toAkaiStringBytes("Test")
+	local resultString = tested:fromAkaiStringBytes(resultData)
 	assertEqual(resultString, "TEST        ")
 	
-	resultData = tested:toAkaiString("T")
-  resultString = tested:fromAkaiString(resultData)
+	resultData = tested:toAkaiStringBytes("T")
+  resultString = tested:fromAkaiStringBytes(resultData)
   assertEqual(resultString, "T           ")
   
-  resultData = tested:toAkaiString("ABCDEFGHIJKL")
-  resultString = tested:fromAkaiString(resultData)
+  resultData = tested:toAkaiStringBytes("ABCDEFGHIJKL")
+  resultString = tested:fromAkaiStringBytes(resultData)
   assertEqual(resultString, "ABCDEFGHIJKL")
   
-  resultData = tested:toAkaiString("abcdefghijkl")
-  resultString = tested:fromAkaiString(resultData)
+  resultData = tested:toAkaiStringBytes("abcdefghijkl")
+  resultString = tested:fromAkaiStringBytes(resultData)
   assertEqual(resultString, "ABCDEFGHIJKL")
   
-  resultData = tested:toAkaiString("abcdefghijklmnop")
-  resultString = tested:fromAkaiString(resultData)
+  resultData = tested:toAkaiStringBytes("abcdefghijklmnop")
+  resultString = tested:fromAkaiStringBytes(resultData)
   assertEqual(resultString, "ABCDEFGHIJKL")
   
   local slapBass = "1d 16 0b 1a 0a 0c 0b 1d 1d 0a 0a 0a"
   local percLoop = "1a 0f 1c 0d 0a 16 19 19 1a 0a 0a 0a"
   local dDrumSet = "0e 28 0e 1c 1f 17 0a 1d 0f 1e 0a 0a"
 
-  resultString = tested:fromAkaiString(MemoryBlock(slapBass))
+  resultString = tested:fromAkaiStringBytes(MemoryBlock(slapBass))
   assertEqual(resultString, "SLAP BASS   ")
-  resultString = tested:fromAkaiString(MemoryBlock(percLoop))
+  resultString = tested:fromAkaiStringBytes(MemoryBlock(percLoop))
   assertEqual(resultString, "PERC LOOP   ")
-  resultString = tested:fromAkaiString(MemoryBlock(dDrumSet))
+  resultString = tested:fromAkaiStringBytes(MemoryBlock(dDrumSet))
   assertEqual(resultString, "D.DRUM SET  ")
   
-  resultData = tested:toAkaiString("SLAP BASS")
+  resultData = tested:toAkaiStringBytes("SLAP BASS")
   assertEqual(slapBass, resultData:toHexString(1))
-  resultData = tested:toAkaiString("PERC LOOP")
+  resultData = tested:toAkaiStringBytes("PERC LOOP")
   assertEqual(percLoop, resultData:toHexString(1))
-  resultData = tested:toAkaiString("D.DRUM SET  ")
+  resultData = tested:toAkaiStringBytes("D.DRUM SET  ")
   assertEqual(dDrumSet, resultData:toHexString(1))
   
 end

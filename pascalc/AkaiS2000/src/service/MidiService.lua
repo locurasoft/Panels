@@ -63,7 +63,6 @@ setmetatable(MidiService, {
 --@module __MidiService
 function MidiService:_init()
   LuaObject._init(self)
-  self.on_midi_received_func = nil
   self.alphabet = AKAI_ALPHABET
   self.flipAlphabet = flip(AKAI_ALPHABET)
 end
@@ -81,24 +80,6 @@ end
 function MidiService:sendMidiMessages(msgs)
   for k, nextMsg in pairs(msgs) do
     self:sendMidiMessage(nextMsg)
-  end
-end
-
-function MidiService:clearMidiReceived()
-  self.on_midi_received_func = nil
-end
-
-function MidiService:setMidiReceived(midiCallback)
-  self.on_midi_received_func = midiCallback
-end
-
-function MidiService:dispatchMidi(data)
-  if data:getByte(0) ~= 0xF0 or data:getByte(1) ~= 0x47 then
-    log:info("Invalid S2K Sysex received!")
-    return
-  end
-  if self.on_midi_received_func ~= nil then
-    self.on_midi_received_func(data)
   end
 end
 
@@ -137,18 +118,14 @@ function MidiService:toTuneBytes(value)
 end
 
 function MidiService:toTuneBlock(value)
-  local retval = self:float2nibbles(value / 100)
-  log:info("toTuneBlock %d => %s", value, getFourBytes(retval, 0):toHexString(1))
-  return retval
+  return self:float2nibbles(value / 100)
 end
 
 ---
 -- @function [parent=#MidiService] fromTuneBlock
 --
 function MidiService:fromTuneBlock(block, offset)
-  local retval = self:nibbles2float(block, offset)
-  log:info("fromTuneBlock %s => %d", getFourBytes(block, offset):toHexString(1), retval)
-  return retval * 100
+  return self:nibbles2float(block, offset) * 100
 end
 
 ---
@@ -168,7 +145,6 @@ function MidiService:toVssBlock(value)
     retval:setByte(2, bigInt:getBitRangeAsInt(8, 4))
     retval:setByte(3, bigInt:getBitRangeAsInt(12, 4))
   end
-  --log:info("toVssBlock %d => %s", value, getFourBytes(retval, 0):toHexString(1))
   return retval
 end
 
@@ -186,8 +162,6 @@ function MidiService:fromVssBlock(buffer, offset)
     local invInt = bit.bnot(retval) + 1
     retval = (65536 + invInt) * -1
   end
-  --log:info("fromVssBlock %s => %d", getFourBytes(buffer, offset):toHexString(1), retval)
-
   return retval
 end
 
@@ -195,7 +169,7 @@ end
 -- @function [parent=#MidiService] toStringBlock
 --
 function MidiService:toStringBlock(value)
-  return self:toAkaiString(value)
+  return self:toAkaiStringBytes(value)
 end
 
 ---
@@ -204,7 +178,7 @@ end
 function MidiService:fromStringBlock(buffer, offset)
   local temp = MemoryBlock(12, true)
   buffer:copyTo(temp, offset, 12)
-  return self:fromAkaiString(temp)
+  return self:fromAkaiStringBytes(temp)
 end
 
 ---
@@ -266,9 +240,9 @@ end
 
 ---
 -- Returns a LUA string representation of an Akai sysex string
--- @function [parent=#MidiService] fromAkaiString
+-- @function [parent=#MidiService] fromAkaiStringBytes
 --
-function MidiService:fromAkaiString(bytes)
+function MidiService:fromAkaiStringBytes(bytes)
   local result = ""
 
   for i = 0, (bytes:getSize() - 1) do
@@ -277,12 +251,25 @@ function MidiService:fromAkaiString(bytes)
   return result
 end
 
----
--- @function [parent=#MidiService] toAkaiString
---
-function MidiService:toAkaiString(name)
-  local memBlock = MemoryBlock(SAMPLE_NAME_LENG, true)
+function MidiService:toAkaiString(str)
+  local retval = ""
+  for i = 1, SAMPLE_NAME_LENG do
+    -- Pad with spaces
+    if i > #str then
+      retval = string.format("%s%s", retval, " ")
+    else
+      retval = string.format("%s%s", retval, string.sub(str, i, i):upper())
+    end
+  end
+  return retval
+end
 
+---
+-- @function [parent=#MidiService] toAkaiStringBytes
+--
+function MidiService:toAkaiStringBytes(name)
+  local memBlock = MemoryBlock(SAMPLE_NAME_LENG, true)
+  
   for i = 1, SAMPLE_NAME_LENG do
     -- Pad with spaces
     if i > #name then
@@ -299,7 +286,6 @@ end
 --
 function MidiService:splitBytes(value)
   local split = {}
-  --log:info("splitBytes %d", value)
   local bi = BigInteger(value)
   local LS = bi:getBitRangeAsInt(0, 7)
   local MS = bi:getBitRangeAsInt(8, 7)

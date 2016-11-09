@@ -97,30 +97,25 @@ function DrumMapService:isValidSampleFile(file)
 end
 
 function DrumMapService:assignSample(drumMap)
+  assert(drumMap:isReadyForAssignment(), "Select a sample and a key group.")
+
+  local numSamplesOnKg = drumMap:getNumSamplesOnSelectedKeyGroup()
+  assert(numSamplesOnKg < 4, "You can only add four samples per key group")
+
   local selectedSample = drumMap:getSelectedSample()
   if type(selectedSample) == "string" then
     -- Sample is already on S2k
+    log:info("Assigning sample %s...", selectedSample)
     drumMap:addSampleToSelectedKeyGroup(selectedSample)
   else
+    log:info("Assigning sample %s...", selectedSample:getFullPathName())
+    
     -- Sample is on host
     local sampleSize = cutils.getFileSize(selectedSample)
-    if sampleSize > MAX_FLOPPY_SIZE then
-      return "Samples larger than one floppy are not\nsupported."
-    end
-
-    log:fine("Assigning sample...")
-    local numSamplesOnKg = drumMap:getNumSamplesOnSelectedKeyGroup()
-    if numSamplesOnKg == 4 then
-      return "You can only add four samples per key group"
-    end
+    assert(sampleSize <= MAX_FLOPPY_SIZE, "Samples larger than one floppy are not\nsupported.")
 
     local numFloppies = drumMap:getNumFloppies()
-    if numFloppies == 0 then
-      drumMap:addNewFloppy()
-    end
-
-    log:fine("current usage: %d, sampleSize: %d", drumMap:getCurrentFloppyUsage(), sampleSize)
-    if drumMap:getCurrentFloppyUsage() + sampleSize > MAX_FLOPPY_SIZE then
+    if numFloppies == 0 or drumMap:getCurrentFloppyUsage() + sampleSize > MAX_FLOPPY_SIZE then
       drumMap:addNewFloppy()
     end
 
@@ -128,6 +123,25 @@ function DrumMapService:assignSample(drumMap)
     drumMap:setCurrentFloppyUsage(drumMap:getCurrentFloppyUsage() + sampleSize)
     drumMap:addFileToSelectedKeyGroup(selectedSample)
   end
+end
 
-  return "Transfer samples to sampler by pressing \"Launch\""
+function DrumMapService:updateDrumMapSamples(drumMap, sampleList)
+  local keyGroups = drumMap:getKeyGroups()
+  local list = sampleList:getSampleList()
+  local stereoSampleList = self:generateStereoSampleList(list)
+  for k, stereoSample in pairs(stereoSampleList) do
+    for l, keyGroup in pairs(keyGroups) do
+      local matchingZoneIndex = 0
+      if type(stereoSample) == "string" then
+        -- Mono sample
+        matchingZoneIndex = self:getUnloadedMatchingZoneIndex(keyGroup, stereoSample)
+      else
+        -- Stereo sample
+        matchingZoneIndex = self:getUnloadedMatchingZoneIndex(keyGroup, string.sub(stereoSample[1], 1, #stereoSample[1] - 2))
+      end
+      if matchingZoneIndex > 0 then
+        drumMap:replaceKeyGroupZoneWithSample(l, matchingZoneIndex, stereoSample)
+      end
+    end
+  end
 end

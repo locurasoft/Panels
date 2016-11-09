@@ -1,5 +1,6 @@
 require("LuaObject")
 require("Logger")
+require("cutils")
 
 local log = Logger("Process")
 
@@ -33,7 +34,7 @@ function Process:_init()
   self.id = math.random(100000)
 
   self.suffix = "bat"
-  if OPERATING_SYSTEM == "mac" then
+  if cutils.getOsName() == "mac" then
     self.suffix = "sh"
   end
 end

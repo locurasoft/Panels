@@ -1,6 +1,7 @@
 require("Dispatcher")
 require("Logger")
 require("model/KeyGroup")
+require("model/DrumMapSelectedSample")
 require("model/Zone")
 require("message/KdataMsg")
 
@@ -20,22 +21,30 @@ setmetatable(DrumMap, {
 
 function DrumMap:_init()
   Dispatcher._init(self)
-  self.keyRanges = {}
-  for i = 0,15 do
-    table.insert(self.keyRanges, {i, i})
-  end
 
   self.keyGroups = {}
   self.floppyList = {}
+  self.drumMapSelectedSample = DrumMapSelectedSample()
+  self.drumMapSelectedSample:addListener(self, "updateSampleSelection")
   self.selectedSample = nil
   self.selectedKg = nil
+  self.programName = ""
   self.currentFloppyUsage = 0
   self.numKgs = 16
+
   self[LUA_CONTRUCTOR_NAME] = "DrumMap"
 end
 
+function DrumMap:updateSampleSelection(drumMapSelectedSample)
+  self.selectedSample = drumMapSelectedSample:getSample()
+end
+
+function DrumMap:setSampleSelectType(useSamples)
+  self.drumMapSelectedSample:setUseSample(useSamples)
+end
+
 function DrumMap:setSelectedSample(selectedSample)
-  self.selectedSample = selectedSample
+  self.drumMapSelectedSample:setSample(selectedSample)
   self:notifyListeners()
 end
 
@@ -111,20 +120,26 @@ end
 
 function DrumMap:setNumKeyGroups(numKeyGroups)
   local currKeyGroups = table.getn(self.keyGroups)
-  while currKeyGroups < numKeyGroups do
-    local kg = KeyGroup()
-    kg:setLowNote(currKeyGroups)
-    kg:setHighNote(currKeyGroups)
+  if currKeyGroups ~= numKeyGroups then
+    while currKeyGroups < numKeyGroups do
+      local kg = KeyGroup()
+      kg:setLowNote(currKeyGroups)
+      kg:setHighNote(currKeyGroups)
 
-    table.insert(self.keyGroups, kg)
-    currKeyGroups = table.getn(self.keyGroups)
-  end
+      table.insert(self.keyGroups, kg)
+      currKeyGroups = table.getn(self.keyGroups)
+    end
 
-  while table.getn(self.keyGroups) > numKeyGroups do
-    table.remove(self.keyGroups)
+    while table.getn(self.keyGroups) > numKeyGroups do
+      table.remove(self.keyGroups)
+    end
+    self.numKgs = numKeyGroups
+    
+    if self.selectedKg ~= nil and self.selectedKg > self.numKgs then
+      self.selectedKg = nil
+    end
+    self:notifyListeners()
   end
-  self.numKgs = numKeyGroups
-  self:notifyListeners()
 end
 
 function DrumMap:getKeyGroups()
@@ -132,7 +147,7 @@ function DrumMap:getKeyGroups()
 end
 
 function DrumMap:getNumKeyGroups()
-  return table.getn(self.keyGroups)
+  return self.numKgs
 end
 
 function DrumMap:addSampleToSelectedKeyGroup(sample)
@@ -218,7 +233,7 @@ function DrumMap:setKeyRange(index, value)
   else
     assert(false, string.format("Weird high/low index %d", index))
   end
-  
+
   self:notifyListeners()
 end
 
@@ -292,4 +307,13 @@ function DrumMap:getLaunchButtonState()
       return ""
     end
   end
+end
+
+function DrumMap:setProgramName(programName)
+	self.programName = programName
+	self:notifyListeners()
+end
+
+function DrumMap:getProgramName()
+  return self.programName
 end

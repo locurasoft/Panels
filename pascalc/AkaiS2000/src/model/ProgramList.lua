@@ -1,5 +1,6 @@
 require("Dispatcher")
 require("Logger")
+require("lutils")
 
 local log = Logger("ProgramList")
 
@@ -40,13 +41,7 @@ function ProgramList:removeProgram(index)
   self:notifyListeners()
 end
 
-function ProgramList:activateProgram(index)
-  self.activeProgram = index
-  self:notifyListeners()
-end
-
 function ProgramList:getActiveProgram()
-  log:fine("[getActiveProgram] Active program %d", self.activeProgram)
   if self.activeProgram <= 0 then
     return nil
   else
@@ -68,8 +63,8 @@ function ProgramList:setActiveProgram(activeProgNum)
 end
 
 function ProgramList:hasProgram(programName)
-  for k,program in pairs(self.list) do
-    if program:getName() == programName then
+  for k, program in pairs(self.list) do
+    if lutils.trim(program:getName()) == lutils.trim(midiService:toAkaiString(programName)) then
       return true
     end
   end

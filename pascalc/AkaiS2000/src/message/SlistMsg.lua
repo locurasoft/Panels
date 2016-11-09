@@ -36,7 +36,7 @@ function SlistMsg:getSampleList()
   while offset + SAMPLE_NAME_LENG < self.data:getSize() do
     self.data:copyTo(buf, offset, SAMPLE_NAME_LENG)
     offset = offset + SAMPLE_NAME_LENG
-    local name = midiService:fromAkaiString(buf)
+    local name = midiService:fromAkaiStringBytes(buf)
     table.insert(sampleNames, name)
   end
   return sampleNames

@@ -1,5 +1,6 @@
 require("AbstractController")
 require("Logger")
+require("lutils")
 
 local log = Logger("DrumMapController")
 
@@ -46,18 +47,22 @@ setmetatable(DrumMapController, {
 function DrumMapController:_init(drumMap, sampleList)
   AbstractController._init(self)
   self.drumMap = drumMap
-  drumMap:addListener(self, "updateDrumMap")
+  self.drumMapListenerId = drumMap:addListener(self, "updateDrumMap")
   self.sampleList = sampleList
   sampleList:addListener(self, "updateSampleList")
 end
 
 function DrumMapController:updateDrumMap(drumMap)
+  -- Avoid infinite loops
+  drumMap:removeListener(self.drumMapListenerId)
+
   --
   -- Update pads
   --
   panel:getComponent("drumMapSelectionLabel"):setProperty("uiLabelText", "", false)
 
   local numPads = drumMap:getNumKeyGroups()
+  self:setValueForce("numKeyGroups", numPads)
 
   for i = 1,16 do
     local padName = string.format("drumMap-%d", i)
@@ -121,6 +126,13 @@ function DrumMapController:updateDrumMap(drumMap)
     highKeyMod:setValue(keyRanges[2], false)
     highKeyMod:setProperty("modulatorMin", keyRanges[1], false)
   end
+
+  panel:getComponent("wavSelector"):setProperty("uiFileListCurrentRoot",
+    cutils.getUserHome(), false)
+  panel:getComponent("programCreateNameLbl"):setProperty("uiLabelText", drumMap:getProgramName(), false)
+
+  -- Register listener again
+  self.drumMapListenerId = drumMap:addListener(self, "updateDrumMap")
 end
 
 function DrumMapController:updateStatus(message)
@@ -146,16 +158,18 @@ function DrumMapController:transferSamples()
         expectedNumSamples = s2kDieService:getNumGeneratedSamples(logFilePath)
       elseif numSamples == numSamplesBefore + expectedNumSamples then
         sampleList:addSamples(msg)
-        processController:abort()
-
-        local wavList = drumMap:retrieveNextFloppy()
-        if wavList == nil then
-          self:updateStatus("Data transfer done.")
+        local status, err = pcall(ProcessController.abort, processController)
+        if status then
+          local wavList = drumMap:retrieveNextFloppy()
+          if wavList == nil then
+            self:updateStatus("Data transfer done.")
+          else
+            self:updateStatus(string.format("Transfering 1:st floppy to Akai S2000..."))
+            executeTransfer(wavList)
+          end
         else
-          self:updateStatus(string.format("Transfering 1:st floppy to Akai S2000..."))
-          executeTransfer(wavList)
+          self:updateStatus(lutils.getErrorMessage(err))
         end
-      else
       end
     end
   end
@@ -204,40 +218,125 @@ function DrumMapController:transferFloppyImage()
   local result = processController:execute(transferProc)
   if result then
     utils.infoWindow("Load samples", "Please select to load all from\nfloppy on the Akai S2000.\n\nPress OK when done.")
-    processController:abort()
+    local status, err = pcall(ProcessController.abort, processController)
+    if not status then
+      self:updateStatus(lutils.getErrorMessage(err))
+    end
   else
     self:updateStatus("Failed to transfer data.\nPlease cancel process")
   end
 end
 
-function DrumMapController:requestSampleList()
-  local rslistFunc = function()
-    midiService:sendMidiMessage(RslistMsg())
-  end
-
-  local midiCallbackFunc = function(data)
-    local slist = SlistMsg(data)
-    if slist then
-      processController:abort()
-      sampleList:addSamples(slist)
-    end
-  end
-
-  local rslistProc = Process()
-    :withMidiCallback(midiCallbackFunc)
-    :withMidiSender(rslistFunc, 100)
-    :build()
-
-  local result = processController:execute(rslistProc)
-  if result then
-    self:updateStatus("Receiving sample list...")
-  else
-    self:updateStatus("Failed to receive data.\nPlease cancel process")
-  end
-
+function DrumMapController:updateSampleList(sl)
+  drumMapService:updateDrumMapSamples(self.drumMap, sl)
 end
 
-function DrumMapController:loadOs()
+function DrumMapController:assignFile(file)
+  if file ~= nil then
+    if not drumMapService:isValidSampleFile(file) then
+      self:toggleActivation("assignSample", 1)
+      self:updateStatus("Please select a wav file")
+      return
+    end
+
+    drumMap:setSelectedSample(file)
+  end
+
+  local status, err = pcall(DrumMapService.assignSample, drumMapService, self.drumMap)
+  if status then
+    self:updateStatus("Transfer samples to sampler by pressing \"Launch\"")
+  else
+    self:updateStatus(lutils.getErrorMessage(err))
+  end
+end
+
+function DrumMapController:assignSample()
+  local status, err = pcall(DrumMapService.assignSample, drumMapService, self.drumMap)
+  if status then
+    self:updateStatus("Transfer samples to sampler by pressing \"Launch\"")
+  else
+    self:updateStatus(lutils.getErrorMessage(err))
+  end
+end
+
+function DrumMapController:onKeyGroupNumChange(mod, value)
+  drumMap:setNumKeyGroups(value)
+end
+
+function DrumMapController:onKeyGroupClear(mod, value)
+  drumMap:clearSelectedKeyGroup()
+
+  self:updateStatus("Select a sample and a key group")
+end
+
+function DrumMapController:onDrumMapClear(mod, value)
+  drumMap:resetDrumMap()
+
+  self:updateStatus("Select a sample and a key group")
+end
+
+function DrumMapController:onCreateProgram(mod, value)
+  local status, err = pcall(ProgramService.addNewProgram, programService, programList, drumMap)
+  if status then
+    self:updateStatus("Program created!")
+  else
+    self:updateStatus(lutils.getErrorMessage(err))
+  end
+
+  local highestProg = programList:getNumPrograms()
+  self:setValueForce("programSelector", highestProg)
+end
+
+function DrumMapController:onFileDoubleClicked(mod, file)
+  if not file:isDirectory() then
+    self:assignFile(file)
+  end
+end
+
+function DrumMapController:onFileSelected(mod, file)
+  if drumMapService:isValidSampleFile(file) then
+    drumMap:setSelectedSample(file)
+  else
+    drumMap:setSelectedSample(nil)
+    self:updateStatus("Please select a wav file")
+  end
+end
+
+function DrumMapController:onSampleDoubleClicked(comp, event)
+  self:onSampleSelected(comp, event)
+  self:assignSample()
+end
+
+function DrumMapController:onSampleSelected(comp, event)
+  local sampleName = comp:getComponentText():toUpperCase()
+  drumMap:setSelectedSample(sampleName)
+end
+
+function DrumMapController:onPadSelected(comp, event)
+  local grpName = comp:getProperty("componentGroupName")
+  local kg = string.sub(grpName, 0, string.find(grpName, "-grp") - 1)
+  drumMap:setSelectedKeyGroup(kg)
+end
+
+function DrumMapController:onTransferSamples(mod, value)
+  if not settingsController:verifyTransferSettings() then
+    self:updateStatus("There are config issues.\nPlease verify your settings...")
+    return
+  end
+
+  if settings:floppyImgPathExists() then
+    self:transferFloppyImage()
+  else
+    self:transferSamples()
+  end
+end
+
+function DrumMapController:onLoadOs(mod, value)
+  if not settingsController:verifyTransferSettings() then
+    self:updateStatus("There are config issues.\nPlease verify your settings...")
+    return
+  end
+
   local statCount = 0
 
   local rstatFunc = function()
@@ -250,9 +349,13 @@ function DrumMapController:loadOs()
       if statCount > 20 then
         statCount = statCount + 1
       else
-        processController:abort()
-        self:updateStatus("Akai S2000 OS loaded.")
-        self:toggleActivation("loadOsButton", true)
+        local status, err = pcall(ProcessController.abort, processController)
+        if status then
+          self:updateStatus("Akai S2000 OS loaded.")
+          self:toggleActivation("loadOsButton", true)
+        else
+          self:updateStatus(lutils.getErrorMessage(err))
+        end
       end
     end
   end
@@ -267,65 +370,79 @@ function DrumMapController:loadOs()
 
   self:toggleActivation("loadOsButton", false)
 
-  local result = processController:execute(transferProc)
-  if result then
+  local status, err = pcall(ProcessController.execute, processController, transferProc)
+  if status then
     self:updateStatus("Loading Akai S2000 OS...")
   else
     self:updateStatus("Failed to load OS.\nPlease cancel process")
   end
 end
 
-function DrumMapController:updateSampleList(sl)
-  local keyGroups = self.drumMap:getKeyGroups()
-  local list = sl:getSampleList()
-  local stereoSampleList = drumMapService:generateStereoSampleList(list)
-  for k, stereoSample in pairs(stereoSampleList) do
-    for l, keyGroup in pairs(keyGroups) do
-      local matchingZoneIndex = 0
-      if type(stereoSample) == "string" then
-        -- Mono sample
-        matchingZoneIndex = drumMapService:getUnloadedMatchingZoneIndex(keyGroup, stereoSample)
+function DrumMapController:onCancelProcess(mod, value)
+  self:updateStatus("Select a sample and a key group")
+  local status, err = pcall(ProcessController.abort, processController)
+  if not status then
+    self:updateStatus(lutils.getErrorMessage(err))
+  end
+end
+
+function DrumMapController:onRslist(mod, value)
+  local rslistFunc = function()
+    midiService:sendMidiMessage(RslistMsg())
+  end
+
+  local midiCallbackFunc = function(data)
+    local slist = SlistMsg(data)
+    if slist then
+      local status, err = pcall(ProcessController.abort, processController)
+      if status then
+        sampleList:addSamples(slist)
       else
-        -- Stereo sample
-        matchingZoneIndex = drumMapService:getUnloadedMatchingZoneIndex(keyGroup, string.sub(stereoSample[1], 1, #stereoSample[1] - 2))
-      end
-      if matchingZoneIndex > 0 then
-        self.drumMap:replaceKeyGroupZoneWithSample(l, matchingZoneIndex, stereoSample)
+        self:updateStatus(lutils.getErrorMessage(err))
       end
     end
   end
+
+  local rslistProc = Process()
+    :withMidiCallback(midiCallbackFunc)
+    :withMidiSender(rslistFunc, 100)
+    :build()
+
+  local result = processController:execute(rslistProc)
+  if result then
+    self:updateStatus("Receiving sample list...")
+  else
+    self:updateStatus("Failed to receive data.\nPlease cancel process")
+  end
 end
 
-function DrumMapController:assignFile(file)
-  if file ~= nil then
-    if not drumMapService:isValidSampleFile(file) then
-      self:toggleActivation("assignSample", 1)
-      self:updateStatus("Please select a wav file")
-      return
-    end
-
-    drumMap:setSelectedSample(file)
-  end
-
-  if not drumMap:isReadyForAssignment() then
-    self:updateStatus("Select a sample and a key group.")
-    return
-  end
-
-  local result = drumMapService:assignSample(self.drumMap)
-  self:updateStatus(result)
+function DrumMapController:onSampleAssign(mod, value)
+  self:assignSample()
 end
 
-function DrumMapController:assignSample(sampleName)
-  if sampleName ~= nil then
-    drumMap:setSelectedSample(sampleName)
-  end
+function DrumMapController:onDrumMapKeyChange(mod, value)
+  local customIndex = mod:getProperty("modulatorCustomIndex")
+  drumMap:setKeyRange(customIndex, value)
+end
 
-  if not drumMap:isReadyForAssignment() then
-    self:updateStatus("Select a sample and a key group.")
-    return
-  end
+function DrumMapController:onResetAllKeyRanges(mod, value)
+  drumMap:resetAllRanges()
+end
 
-  local result = drumMapService:assignSample(self.drumMap)
-  self:updateStatus(result)
+function DrumMapController:onResetPadKeyRange(mod, value)
+  drumMap:resetSelectedKeyRange()
+end
+
+function DrumMapController:onSamplesTabChanged(mod, tabIndex)
+  if tabIndex == 0 then
+    self.drumMap:setSampleSelectType(false)
+  elseif tabIndex == 1 then
+    self.drumMap:setSampleSelectType(true)
+  else
+    log:warn("Invalid tab selected %d!", tabIndex)
+  end
+end
+
+function DrumMapController:onDrumMapProgramNameChange(label, content)
+  drumMap:setProgramName(content)
 end

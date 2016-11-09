@@ -273,10 +273,8 @@ function decode_scanObject(s,startPos)
     if (curChar=='}') then
       -- pascalc edit start
       if object[LUA_CONSTRUCTOR_NAME] == nil then
---        base.console(string.format("MISS"))
         return object,startPos+1
       else
---		base.console(string.format("Creating - %s", object[LUA_CONSTRUCTOR_NAME]))
         local temp = base[object[LUA_CONSTRUCTOR_NAME]]()
         for k,v in base.pairs(object)do
           temp[k] = v

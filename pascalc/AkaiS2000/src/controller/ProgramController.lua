@@ -1,7 +1,6 @@
 require("AbstractController")
 require("Logger")
-
---  pIndex = pIndex or self.programList:getActiveProgram()
+require("lutils")
 
 local log = Logger("ProgramController")
 
@@ -36,14 +35,11 @@ function ProgramController:updateProgramList(pl)
     return
   end
 
-  log:fine("Setting program selector max to %s", numPrograms)
   self:setMax("programSelector", numPrograms)
   local activeProgram = pl:getActiveProgram()
   if activeProgram == nil then
     self:setText("PRNAME", "")
-    log:info("Active program is nil!")
   else
-    log:info("Found active program!")
     self:changeProgram(activeProgram)
   end
 end
@@ -58,20 +54,6 @@ function ProgramController:changeProgram(newProgram)
   self.programListenerId = newProgram:addListener(self, "assignProgramValues")
   self.activeProgram = newProgram
   self:assignProgramValues(newProgram)
-end
-
-function ProgramController:changeKeyGroup(keyGroupIndex)
-  if keyGroupIndex == 0 then
-    keyGroupIndex = 1
-  end
-
-  if self.activeProgram == nil then
-    log:info("Active program is nil! Disabling kg selector.")
-    self:toggleActivation("kgSelector", false)
-  else
-    self.activeProgram:setActiveKeyGroupIndex(keyGroupIndex)
-    self:assignKeyGroupValues(self.activeProgram, self.activeProgram:getActiveKeyGroupIndex())
-  end
 end
 
 function ProgramController:assignProgramValues(program)
@@ -97,8 +79,8 @@ function ProgramController:assignProgramValues(program)
       if type(value) == "string" then
         mod:getComponent():setText(value)
       else
-        local absValue = value + mod:getMinNonMapped()
-        mod:setValue(absValue, true)
+        local minValue = mod:getMinNonMapped()
+        mod:setValue(programService:getAbsoluteParamValue(k, value, minValue), true)
       end
     end
   end
@@ -113,8 +95,12 @@ function ProgramController:assignKeyGroupValues(program, kgIndex)
     return
   end
   keyGroup:setUpdating(true)
-  for k,zone in pairs(keyGroup:getZones()) do
-    local sampleName = zone:getSampleName()
+  local zones = keyGroup:getZones()
+  for k = 1, 4 do
+    local sampleName = ""
+    if zones[k] ~= nil then
+      sampleName = zones[k]:getSampleName()
+    end
     local selector = string.format("zone%dSelector", k)
     panel:getComponent(selector):setText(sampleName, true)
   end
@@ -124,12 +110,7 @@ function ProgramController:assignKeyGroupValues(program, kgIndex)
     if mod ~= nil then
       local value = keyGroup:getParamValue(k)
       local minValue = mod:getMinNonMapped()
-      local absValue = value + minValue
-      if math.abs(minValue) > 256 then
-        absValue = value
-      end
-
-      mod:setValue(absValue, true)
+      mod:setValue(programService:getAbsoluteParamValue(k, value, minValue), true)
     end
   end
   keyGroup:setUpdating(false)
@@ -140,11 +121,14 @@ function ProgramController:storeProgParamEdit(blockType, mod, value)
   if program == nil then
     return
   end
-  
-  local phead = programService:phead(program, blockType, mod:getProperty("name"), value)
-  midiService:sendMidiMessage(phead)
 
-  program:storeParamEdit(phead)
+  local status, phead = pcall(ProgramService.phead, programService, program, blockType, mod:getProperty("name"), value)
+  if status then
+    midiService:sendMidiMessage(phead)
+    program:storeParamEdit(phead)
+  else
+    log:warn(lutils.getErrorMessage(phead))
+  end
 end
 
 function ProgramController:storeKgParamEdit(blockType, mod, value)
@@ -152,12 +136,15 @@ function ProgramController:storeKgParamEdit(blockType, mod, value)
   if program == nil then
     return
   end
-  
-  local khead = programService:khead(program, blockType, mod:getProperty("name"), value)
-  midiService:sendMidiMessage(khead)
-  
-  local keyGroup = program:getActiveKeyGroup()
-  keyGroup:storeParamEdit(khead)
+
+  local status, khead = pcall(ProgramService.khead, programService, program, blockType, mod:getProperty("name"), value)
+  if status then
+    midiService:sendMidiMessage(khead)
+    local keyGroup = program:getActiveKeyGroup()
+    keyGroup:storeParamEdit(khead)
+  else
+    log:warn(lutils.getErrorMessage(khead))
+  end
 end
 
 function ProgramController:getActiveKeyGroupMessage()
@@ -174,20 +161,58 @@ end
 
 function ProgramController:getActiveProgramMessagesList()
   local pIndex = self.programList:getActiveProgram()
-  
+
   return self:getProgramMessagesList(pIndex)
 end
 
-function ProgramController:storeParamEdit(indexGroup, headerOffs, values)
-  local activeProg = self.programList:getActiveProgram()
-  if activeProg ~= nil then
-    if indexGroup == 0 then
-      -- Program param
-      activeProg:setPdataByte(mod:getModulatorName(), values[1])
-    else
-      -- Key Group param
-      local activeKg = activeProg:getActiveKeyGroup()
-      activeKg:storeNibbles(mod:getModulatorName(), midiService:toNibbles(values[1]))
-    end
+function ProgramController:onProgramChange(mod, value)
+  programList:setActiveProgram(value)
+end
+
+function ProgramController:onKeyGroupChange(mod, value)
+  if value == 0 then
+    value = 1
   end
+
+  if self.activeProgram == nil then
+    log:info("Active program is nil! Disabling kg selector.")
+    self:toggleActivation("kgSelector", false)
+  else
+    self.activeProgram:setActiveKeyGroupIndex(value)
+    self:assignKeyGroupValues(self.activeProgram, self.activeProgram:getActiveKeyGroupIndex())
+  end
+end
+
+function ProgramController:onVssChange(mod, value)
+  self:storeKgParamEdit(KG_VSS, mod, value)
+end
+
+function ProgramController:onKgDefaultParamChange(mod, value)
+  self:storeKgParamEdit(KG_DEFAULT, mod, value + math.abs(mod:getMinNonMapped()))
+end
+
+function ProgramController:onProgDefaultParamChange(mod, value)
+  self:storeProgParamEdit(PROG_DEFAULT, mod, value - mod:getMinNonMapped())
+end
+
+function ProgramController:onKgTuneChange(mod, value)
+  self:storeKgParamEdit(KG_TUNE, mod, value)
+
+  local ll, mm = midiService:toTuneBytes(value)
+  self:updateTuneLabel(mod:getProperty("name"), mm, ll)
+end
+
+function ProgramController:onProgTuneChange(mod, value)
+  self:storeProgParamEdit(PROG_TUNE, mod, value)
+
+  local ll, mm = midiService:toTuneBytes(value)
+  self:updateTuneLabel(mod:getProperty("name"), mm, ll)
+end
+
+function ProgramController:onKgStringChange(mod, value)
+  self:storeKgParamEdit(KG_STRING, mod, value)
+end
+
+function ProgramController:onProgStringChange(mod, value)
+  self:storeProgParamEdit(PROG_STRING, mod, value)
 end

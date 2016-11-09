@@ -87,11 +87,12 @@ function writeToFile(fileName, contents)
 end
 
 function toFilePath(fileDir, fileName)
-  return string.format("%s%s%s", fileDir, base.PATH_SEPARATOR, fileName)
+  return string.format("%s%s%s", fileDir, getPathSeparator(), fileName)
 end
 
 function getFileName(filePath)
-  local lastSlash = string.find(filePath, string.format("%s[^%s]*$", base.PATH_SEPARATOR, base.PATH_SEPARATOR))
+  local pathSeparator = getPathSeparator()
+  local lastSlash = string.find(filePath, string.format("%s[^%s]*$", pathSeparator, pathSeparator))
   return string.sub(filePath, lastSlash + 1)
 end
 

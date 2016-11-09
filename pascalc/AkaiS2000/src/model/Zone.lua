@@ -1,5 +1,6 @@
 require("LuaObject")
 require("Logger")
+require("lutils")
 
 local log = Logger("Zone")
 
@@ -23,7 +24,6 @@ function Zone:_init()
   self.sampleName = nil
   self[LUA_CONTRUCTOR_NAME] = "Zone"
 end
-local log = Logger("Zone")
 
 function Zone:setSample(sampleName)
   self.sampleLoaded = true
@@ -55,4 +55,12 @@ function Zone:matchesSampleName(sampleName)
   if string.sub(v, #v - 2, #v) == "-L" or string.sub(v, #v - 2, #v) == "-R" then
     monoSampleName = string.sub(v, 1, #v - 2)
   end
+end
+
+function Zone:isLeftSample()
+	return self:isSampleLoaded() and lutils.strEnds(self.sampleName, "-L")
+end
+
+function Zone:isRightSample()
+  return self:isSampleLoaded() and lutils.strEnds(self.sampleName, "-R")
 end

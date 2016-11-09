@@ -1,24 +1,10 @@
 require("ctrlrTestUtils")
 
-function toAkaiString(str)
-  local retval = ""
-  for i = 1, SAMPLE_NAME_LENG do
-    -- Pad with spaces
-    if i > #str then
-      retval = string.format("%s%s", retval, " ")
-    else
-      retval = string.format("%s%s", retval, string.sub(str, i, i):upper())
-    end
-  end
-  return retval
-end
-
 function setupIntegrationTest(tmpFolderName, processListener, midiListener)
-  regGlobal("OPERATING_SYSTEM", "win")
-  regGlobal("PATH_SEPARATOR", "\\")
-  regGlobal("EOL", "\n")
   regGlobal("panel", MockPanel("Akai-S2000.panel", midiListener))
-  regGlobal("LOGGER", Logger("GLOBAL"))
+  local log = Logger("GLOBAL")
+  log:setLevel(3)
+  regGlobal("LOGGER", log)
 
   local settings = Settings()
   settings:setWorkFolder(File(tmpFolderName))
@@ -35,6 +21,7 @@ function setupIntegrationTest(tmpFolderName, processListener, midiListener)
   regGlobal("drumMap", drumMap)
   regGlobal("sampleList", sampleList)
 
+  regGlobal("globalController", GlobalController())
   regGlobal("drumMapController", DrumMapController(drumMap, sampleList))
   regGlobal("settingsController", SettingsController(settings))
   regGlobal("sampleListController", SampleListController(sampleList))
@@ -47,7 +34,6 @@ function setupIntegrationTest(tmpFolderName, processListener, midiListener)
   regGlobal("s2kDieService", S2kDieService(settings))
   regGlobal("hxcService", HxcService(settings))
 
-  panel:getModulatorByName("programSelector"):setProperty("luaModulatorValueChange", "onProgramChange")
   panel:getModulatorByName("kgSelector"):setValue(1)
 end
 
@@ -118,9 +104,9 @@ function assignSamples(selectedComp, ...)
     selectedComp = newKeyGroupComponent(selectedComp)
   end
 
-  onPadSelected(selectedComp)
+  drumMapController:onPadSelected(selectedComp)
   for i,v in ipairs(arg) do
-    onFileDoubleClicked(File(string.format("test/data/%s", v)))
+    drumMapController:onFileDoubleClicked(File(string.format("test/data/%s", v)))
   end
 end
 

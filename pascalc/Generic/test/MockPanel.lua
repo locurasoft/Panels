@@ -1,6 +1,7 @@
 require("PropertyContainer")
 require("Logger")
 require("MockComponent")
+require("MockCanvas")
 require("MockModulator")
 local xml = require("xmlSimple").newParser()
 
@@ -24,6 +25,8 @@ function MockPanel:_init(panelPath, midiListener)
   self.midiListener = midiListener
   self.globalVariables = {}
   
+  self.canvas = MockCanvas()
+   
   local xmlParser = xml:loadFile(panelPath)
   local xmlElements = xmlParser.panel:children()
   for key, xmlElement in ipairs(xmlElements) do
@@ -37,18 +40,25 @@ function MockPanel:_init(panelPath, midiListener)
       if xmlElement["@modulatorMax"] ~= nil then
         modulator:getComponent():setProperty("uiSliderMax", xmlElement["@modulatorMax"])
       end
+      if xmlElement["@modulatorCustomIndex"] ~= nil then
+        modulator:setProperty("modulatorCustomIndex", xmlElement["@modulatorCustomIndex"])
+      end
+      if xmlElement["@luaModulatorValueChange"] ~= nil and xmlElement["@luaModulatorValueChange"] ~= "-- None" then
+        modulator:setProperty("luaModulatorValueChange", xmlElement["@luaModulatorValueChange"])
+      end
+      if xmlElement.component["@componentGroupName"] ~= nil then
+        modulator:getComponent():setProperty("componentGroupName", xmlElement.component["@componentGroupName"])
+      end
       self.modulators[xmlElement["@name"]] = modulator
     end
   end
 end
 
 function MockPanel:getBootstrapState()
-  log:info("MockPanel getBootstrapState")
   return false
 end
 
 function MockPanel:setGlobalVariable()
-  log:info("MockPanel setGlobalVariable")
 end
 
 function MockPanel:sendMidiMessageNow(midiMessage)
@@ -56,12 +66,10 @@ function MockPanel:sendMidiMessageNow(midiMessage)
 end
 
 function MockPanel:getProgramState()
-  log:info("MockPanel getProgramState")
   return false
 end
 
 function MockPanel:getGlobalVariable()
-  log:info("MockPanel getGlobalVariable")
 end
 
 function MockPanel:getModulator(name)
@@ -73,11 +81,9 @@ function MockPanel:getComponent(name)
 end
 
 function MockPanel:getModulatorWithProperty()
-  log:info("MockPanel getModulatorWithProperty")
 end
 
 function MockPanel:getModulatorByName(name)
-  log:info("MockPanel getModulatorByName %s", name)
   return self:getModulator(name)
 end
 
@@ -92,4 +98,8 @@ end
 
 function MockPanel:sendMidiNow(midiMessage)
   self:sendMidiMessageNow(midiMessage)
+end
+
+function MockPanel:getCanvas()
+	return self.canvas
 end

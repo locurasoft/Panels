@@ -1,5 +1,6 @@
 require("LuaObject")
 require("Logger")
+require("cutils")
 
 HxcService = {}
 HxcService.__index = HxcService
@@ -33,15 +34,15 @@ function HxcService:getMacOsXLauncher()
     file:write("set -e\n")
 
     file:write(string.format("pipe=%s", self.hxcPipe))
-    file:write(EOL)
+    file:write(cutils.getEolChar())
     file:write("if [ -p \"${pipe}\" ]; then rm -rf ${pipe}; fi")
-    file:write(EOL)
+    file:write(cutils.getEolChar())
     file:write("mkfifo ${pipe}")
-    file:write(EOL)
+    file:write(cutils.getEolChar())
 
     local hxc_cmd = self:getHxcCommand(imgPath)
     file:write(string.format("./%s < ${pipe}", hxc_cmd))
-    file:write(EOL)
+    file:write(cutils.getEolChar())
     file:close()
   end
   return launcher
@@ -55,9 +56,9 @@ function HxcService:getMacOsXAborter()
     file:write("set -e\n")
 
     file:write("echo \"Attempting to kill hxcfe...\"")
-    file:write(EOL)
+    file:write(cutils.getEolChar())
     file:write(string.format("echo \"q\n\" > %s", self.hxcPipe))
-    file:write(EOL)
+    file:write(cutils.getEolChar())
     file:close()
   end
   return aborter
@@ -67,9 +68,9 @@ function HxcService:getWindowsAborter()
   local aborter = function(scriptPath)
     local file = io.open(scriptPath, "a")
     file:write("for /f \"tokens=2 delims=,\" %%a in ('tasklist /v /fo csv ^| findstr /i \"hxcfe\"') do set \"$PID=%%a\"")
-    file:write(EOL)
+    file:write(cutils.getEolChar())
     file:write("taskkill /F /PID %$PID%")
-    file:write(EOL)
+    file:write(cutils.getEolChar())
     file:close()
   end
   return aborter
@@ -84,9 +85,9 @@ function HxcService:getWindowsLauncher()
 
     local file = io.open(scriptPath, "a")
     file:write(string.format("cd %s", self.settings:getHxcRoot()))
-    file:write(EOL)
+    file:write(cutils.getEolChar())
     file:write(self:getHxcCommand(imgPath))
-    file:write(EOL)
+    file:write(cutils.getEolChar())
     file:close()
   end
   return launcher
@@ -97,7 +98,7 @@ function HxcService:getHxcCommand(imgPath)
 end
 
 function HxcService:getHxcLauncher()
-  if OPERATING_SYSTEM == "win" then
+  if cutils.getOsName() == "win" then
     return self:getWindowsLauncher()
   else
     return self:getMacOsXLauncher()
@@ -105,7 +106,7 @@ function HxcService:getHxcLauncher()
 end
 
 function HxcService:getHxcAborter()
-  if OPERATING_SYSTEM == "win" then
+  if cutils.getOsName() == "win" then
     return self:getWindowsAborter()
   else
     return self:getMacOsXAborter()

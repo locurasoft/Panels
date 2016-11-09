@@ -1,5 +1,6 @@
 require("LuaObject")
 require("Logger")
+require("cutils")
 
 local log = Logger("ProcessController")
 local MIDI_POLL_THREAD_ID = 33
@@ -25,9 +26,9 @@ end
 local windowsExecutor = function(scriptDir, scriptName)
   local scriptPath = string.format("%s\\%s", scriptDir, scriptName)
   local script = io.open(scriptPath, "a")
-  script:write(EOL)
+  script:write(cutils.getEolChar())
   script:write("exit")
-  script:write(EOL)
+  script:write(cutils.getEolChar())
   script:close()
 
   os.execute(string.format("cmd /C start /B %s ^> %s.log", scriptPath, scriptPath))
@@ -52,72 +53,61 @@ function ProcessController:_init(pl)
 end
 
 function ProcessController:execute(proc)
-  if self.curr_transfer_proc == nil then
-    self.curr_transfer_proc = proc
+  assert(self.curr_transfer_proc == nil)
+  self.curr_transfer_proc = proc
 
-    if self.processListener ~= nil then
-      self.processListener(true)
+  if self.processListener ~= nil then
+    self.processListener(true)
+  end
+
+  if proc.midiCallback ~= nil then
+    log:info("Adding midiCallback")
+    globalController:setMidiReceived(proc.midiCallback)
+  end
+
+  if proc.midiSender ~= nil then
+    log:info("Launching midiSender")
+
+    timer:stopTimer(MIDI_POLL_THREAD_ID)
+
+    timer:setCallback (MIDI_POLL_THREAD_ID, proc.midiSender)
+    log:info("Starting timer %d, with interval %d", MIDI_POLL_THREAD_ID, proc.interval)
+    timer:startTimer(MIDI_POLL_THREAD_ID, proc.interval)
+  end
+
+  if proc:hasLauncher() then
+    local scriptPath = proc:getScriptPath()
+    local scriptName = proc:getLaunchName()
+    if cutils.getOsName() == "win" then
+      log:info("[hxcLaunchOnWindows] %s - %s:", scriptPath, scriptName)
+      windowsExecutor(scriptPath, scriptName)
+    else
+      log:info("[hxcLaunchOnMacOsX] %s - %s", scriptPath, scriptName)
+      macOsXExecutor(scriptPath, scriptName)
     end
-
-    log:info("Execute")
-    if proc.midiCallback ~= nil then
-      log:info("Adding midiCallback")
-      midiService:setMidiReceived(proc.midiCallback)
-    end
-
-    if proc.midiSender ~= nil then
-      log:info("Launching midiSender")
-
-      timer:stopTimer(MIDI_POLL_THREAD_ID)
-
-      timer:setCallback (MIDI_POLL_THREAD_ID, proc.midiSender)
-      log:info("Starting timer %d, with interval %d", MIDI_POLL_THREAD_ID, proc.interval)
-      timer:startTimer(MIDI_POLL_THREAD_ID, proc.interval)
-    end
-
-    if proc:hasLauncher() then
-      proc:build()
-      local scriptPath = proc:getScriptPath()
-      local scriptName = proc:getLaunchName()
-      if OPERATING_SYSTEM == "win" then
-        log:info("[hxcLaunchOnWindows] %s - %s:", scriptPath, scriptName)
-        windowsExecutor(scriptPath, scriptName)
-      else
-        log:info("[hxcLaunchOnMacOsX] %s - %s", scriptPath, scriptName)
-        macOsXExecutor(scriptPath, scriptName)
-      end
-    end
-
-    log:info("Done")
-    return true
-  else
-    return false
   end
 end
 
 function ProcessController:abort()
-  if self.curr_transfer_proc == nil then
-    drumMapController:updateStatus("No active process to abort!")
-  else
-    timer:stopTimer(MIDI_POLL_THREAD_ID)
-    midiService:clearMidiReceived()
+  assert(self.curr_transfer_proc ~= nil, "No active process to abort!")
+  timer:stopTimer(MIDI_POLL_THREAD_ID)
+  globalController:clearMidiReceived()
 
-    if self.curr_transfer_proc:hasAborter() then
-      local scriptPath = self.curr_transfer_proc:getScriptPath()
-      local scriptName = self.curr_transfer_proc:getAbortName()
-      if OPERATING_SYSTEM == "win" then
-        log:info("[hxcLaunchOnWindows] %s - %s:", scriptPath, scriptName)
-        windowsExecutor(scriptPath, scriptName)
-      else
-        log:info("[hxcLaunchOnMacOsX] %s - %s", scriptPath, scriptName)
-        macOsXExecutor(scriptPath, scriptName)
-      end
+  if self.curr_transfer_proc:hasAborter() then
+    local scriptPath = self.curr_transfer_proc:getScriptPath()
+    local scriptName = self.curr_transfer_proc:getAbortName()
+    if cutils.getOsName() == "win" then
+      log:info("[hxcLaunchOnWindows] %s - %s:", scriptPath, scriptName)
+      windowsExecutor(scriptPath, scriptName)
+    else
+      log:info("[hxcLaunchOnMacOsX] %s - %s", scriptPath, scriptName)
+      macOsXExecutor(scriptPath, scriptName)
     end
-
-    if self.processListener ~= nil then
-      self.processListener(false)
-    end
-
-    self.curr_transfer_proc = nil
   end
+
+  if self.processListener ~= nil then
+    self.processListener(false)
+  end
+
+  self.curr_transfer_proc = nil
 end

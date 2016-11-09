@@ -1,14 +1,31 @@
 require("akaiS2kTestUtils")
-require("integration/SettingsFunctions")
 require("MockPanel")
 require("json4ctrlr")
 require("cutils")
 
+require("model/Process")
 require("model/DrumMap")
+require("model/SampleList")
+require("model/ProgramList")
 require("model/Settings")
 
 require("controller/DrumMapController")
 require("controller/SettingsController")
+require("controller/SampleListController")
+require("controller/ProcessController")
+require("controller/ProgramController")
+
+require("service/ProgramService")
+require("service/S2kDieService")
+require("service/HxcService")
+require("service/DrumMapService")
+require("service/MidiService")
+
+require("message/StatMsg")
+require("message/RstatMsg")
+require("message/KdataMsg")
+require("message/SlistMsg")
+require("message/RslistMsg")
 
 require 'lunity'
 require 'lemock'
@@ -29,22 +46,8 @@ function assertDisabled(compName)
 end
 
 function setup()
-  regGlobal("OPERATING_SYSTEM", "win")
-  regGlobal("PATH_SEPARATOR", "\\")
-  regGlobal("EOL", "\n")
-
   os.execute("if exist " .. tmpFolderName .. " rmdir /S /Q " .. tmpFolderName)
-
   os.execute("mkdir " .. tmpFolderName)
-  regGlobal("panel", MockPanel())
-  regGlobal("LOGGER", Logger("GLOBAL"))
-
-  local settings = Settings()
-
-  regGlobal("settings", settings)
-
-  regGlobal("settingsController", SettingsController(settings))
-
   tempUtilsDirectoryWindow = utils.getDirectoryWindow
   openedDirectoryWindows = {}
   utils.getDirectoryWindow = function(message) 
@@ -58,24 +61,46 @@ function setup()
     table.insert(openedFileWindows, message)
     return File(tmpFolderName)
   end
+  
 
-  local drumMap = DrumMap()
-  local sampleList = SampleList()
-  regGlobal("drumMap", drumMap)
-  regGlobal("drumMapController", DrumMapController(drumMap, sampleList))
+  processListenerCalls = 0
+  processActive = false
+  local processListener = function(active)
+    processActive = active
+    processListenerCalls = processListenerCalls + 1
+  end
+  
+  midiMessages = {}
+  local midiListener = function(midiMessage)
+    table.insert(midiMessages, midiMessage)
+  end
+
+  tempOsExecute = os.execute
+  executedOsCommands = {}
+  os.execute = function(cmd) table.insert(executedOsCommands, cmd) end
+
+  tempUtilsInfoWindow = utils.infoWindow
+  openedInfoWindows = {}
+  utils.infoWindow = function(title, message) table.insert(openedInfoWindows, message) end
+
+  ctrlrwork = File(tmpFolderName)
+
+  setupIntegrationTest(tmpFolderName, processListener, midiListener)
 end
 
 function teardown()
-  delGlobal("settings")
-  delGlobal("drumMap")
-  delGlobal("drumMapController")
+  os.execute = tempOsExecute
+  utils.infoWindow = tempUtilsInfoWindow
+  
+  tearDownIntegrationTest(tmpFolderName)
+  os.execute("rmdir /S /Q " .. tmpFolderName)
   
   utils.openDirectoryWindow = tempUtilsDirectoryWindow
   utils.openFileWindow = tempUtilsFileWindow
 end
 
 function testOnFloppyImageSelected()
-  onFloppyImageSelected()
+  settingsController:onFloppyImageSelected()
   assertText("loadFloppyImageLabel", File(tmpFolderName):getFullPathName())
   assertEqual(table.getn(openedFileWindows), 1)
   assertEqual(table.getn(openedDirectoryWindows), 0)
@@ -84,21 +109,21 @@ end
 function testOnTransferMethodChange()
   local FLOPPY, HXCFE, MIDI = 0, 1, 2
 
-  onTransferMethodChange(FLOPPY)
+  settingsController:onTransferMethodChange(FLOPPY)
 
   assertDisabled("hxcPathGroup")
   assertDisabled("loadOsButton")
   assertDisabled("loadFloppyImageGroup")
   assertEnabled("setfdprmPathGroup")
 
-  onTransferMethodChange(HXCFE)
+  settingsController:onTransferMethodChange(HXCFE)
 
   assertEnabled("hxcPathGroup")
   assertEnabled("loadOsButton")
   assertEnabled("loadFloppyImageGroup")
   assertDisabled("setfdprmPathGroup")
 
-  onTransferMethodChange(MIDI)
+  settingsController:onTransferMethodChange(MIDI)
 
   assertDisabled("hxcPathGroup")
   assertDisabled("loadOsButton")
@@ -107,31 +132,37 @@ function testOnTransferMethodChange()
 end
 
 function testOnSetfdprmPathChange()
-  onSetfdprmPathChange()
+  settingsController:onSetfdprmPathChange()
   assertText("setfdprmPathLabel", File(tmpFolderName):getFullPathName())
   assertEqual(table.getn(openedFileWindows), 1)
   assertEqual(table.getn(openedDirectoryWindows), 0)
 end
 
 function testOnHxcPathChange()
-  onHxcPathChange()
+  settingsController:onHxcPathChange()
   assertText("hxcPathLabel", File(tmpFolderName):getFullPathName())
   assertEqual(table.getn(openedFileWindows), 1)
   assertEqual(table.getn(openedDirectoryWindows), 0)
 end
 
 function testOnS2kDiePathChange()
-  onS2kDiePathChange()
+  settingsController:onS2kDiePathChange()
   assertText("s2kDiePathLabel", File(tmpFolderName):getFullPathName())
   assertEqual(table.getn(openedFileWindows), 1)
   assertEqual(table.getn(openedDirectoryWindows), 0)
 end
 
 function testOnWorkPathChange()
-  onWorkPathChange()
+  settingsController:onWorkPathChange()
   assertText("workPathLabel", File(tmpFolderName):getFullPathName())
   assertEqual(table.getn(openedFileWindows), 0)
   assertEqual(table.getn(openedDirectoryWindows), 1)
 end
+
+function testOnFloppyImageCleared()
+  settingsController:onFloppyImageCleared()
+  assertText("loadFloppyImageLabel", "")
+end
+
 
 runTests{useANSI = false}

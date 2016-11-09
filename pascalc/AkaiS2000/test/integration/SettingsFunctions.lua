@@ -1,3 +1,21 @@
+function onFloppyImageCleared()
+  -- This variable stops index issues during panel bootup
+  if panel:getBootstrapState() or panel:getProgramState() then
+    return
+  end
+
+  floppyImgPath = nil
+  panel:getComponent("loadFloppyImageLabel"):setText("")
+
+  local launchButtonState = drumMap:getLaunchButtonState()
+
+  drumMapController:toggleActivation("transferSamples", launchButtonState ~= "")
+
+  if launchButtonState  ~= "" then
+    drumMapController:updateStatus(launchButtonState)
+  end
+end
+
 function onFloppyImageSelected()
   -- This variable stops index issues during panel bootup
   if panel:getBootstrapState() or panel:getProgramState() then

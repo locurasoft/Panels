@@ -16,6 +16,8 @@ local rotate = function(compName, rot)
 	end
 end
 
+local NO_LOOPING_TYPE, LP_IN_RELEASE_TYPE, ONE_SHOT_TYPE = 0, 1, 2
+
 SampleEditController = {}
 SampleEditController.__index = SampleEditController
 
@@ -49,12 +51,12 @@ function SampleEditController:updateSampleEdit(sample, updateKnobs)
 	--
 	-- Update trim controls
 	--
-	setValue("trimStart", sample:getTrimStart())
-	setValue("trimEnd", sample:getTrimEnd())
+	self:setValue("trimStart", sample:getTrimStart())
+	self:setValue("trimEnd", sample:getTrimEnd())
 
 	if updateKnobs then
-		setValue("sampleTrimStartKnob", sample:getTrimStart())
-		setValue("sampleTrimEndKnob", sample:getTrimEnd())
+		self:setValue("sampleTrimStartKnob", sample:getTrimStart())
+		self:setValue("sampleTrimEndKnob", sample:getTrimEnd())
 	end
 
 	--
@@ -65,55 +67,55 @@ function SampleEditController:updateSampleEdit(sample, updateKnobs)
 	panel:getComponent("sampleLoop"):repaint()
 
 	if updateKnobs then
-		setValue("sampleLoopType", sample:getLoopType())
-		setValue("sampleLoopTune", sample:getLoopTune())
-		setValue("sampleLoopHold", sample:getLoopHold())
-		setValue("sampleLoopStartMod", sample:getLoopStart())
-		setValue("sampleLoopLength", sample:getLoopLength())
-		setValue("sampleCrossfade", sample:getLoopCrossfade())
+		self:setValue("sampleLoopType", sample:getLoopType())
+		self:setValue("sampleLoopTune", sample:getLoopTune())
+		self:setValue("sampleLoopHold", sample:getLoopHold())
+		self:setValue("sampleLoopStartMod", sample:getLoopStart())
+		self:setValue("sampleLoopLength", sample:getLoopLength())
+		self:setValue("sampleCrossfade", sample:getLoopCrossfade())
 	end
 
 	--
 	-- Update timestretch controls
 	--
-	toggleVisibility("sampleTimestrCyclicGrp", sample:getTimestretchType() ~= INTELL_TYPE)
-	toggleVisibility("sampleTimestrIntellGrp", sample:getTimestretchType() == INTELL_TYPE)
+	self:toggleVisibility("sampleTimestrCyclicGrp", sample:getTimestretchType() ~= INTELL_TYPE)
+	self:toggleVisibility("sampleTimestrIntellGrp", sample:getTimestretchType() == INTELL_TYPE)
 
 	if updateKnobs then
-		setValue("stretch", sample:getTimestretch())
-		setValue("sampleTimestretchType", sample:getTimestretchType())
-		setValue("sampleTimestretchQuality", sample:getTimestretchQuality())
-		setValue("sampleTimestretchXfd", sample:setTimestretchCrossfade())
-		setValue("sampleTimestretchCycleAuto", sample:getTimestretchCycleMode())
-		setText("sampleTimestretchCyclicTime", sample:getTimestretchCycleTime())
+		self:setValue("stretch", sample:getTimestretch())
+		self:setValue("sampleTimestretchType", sample:getTimestretchType())
+		self:setValue("sampleTimestretchQuality", sample:getTimestretchQuality())
+		self:setValue("sampleTimestretchXfd", sample:setTimestretchCrossfade())
+		self:setValue("sampleTimestretchCycleAuto", sample:getTimestretchCycleMode())
+		self:setText("sampleTimestretchCyclicTime", sample:getTimestretchCycleTime())
 	end
 
 	--
 	-- Update resample controls
 	--
 	if updateKnobs then
-		setValue("sampleResampleQuality", sample:getResampleQuality())
-		setValue("sampleResampleBandwidth", sample:getResampleBandwidth())
+		self:setValue("sampleResampleQuality", sample:getResampleQuality())
+		self:setValue("sampleResampleBandwidth", sample:getResampleBandwidth())
 	end
 
 	--
 	-- Update waveform controls
 	--
 	if sample:getWaveform() == nil then
-		setText("editWaveformPathLbl", "Select a wav file...")
+		self:setText("editWaveformPathLbl", "Select a wav file...")
 	else
-		setText("editWaveformPathLbl", sample:getWaveform():getFullPath())
+		self:setText("editWaveformPathLbl", sample:getWaveform():getFullPath())
 		panel:getWaveformComponent("waveEditor"):loadFromFile(sample:getWaveform())
 	end
 
 	--
 	-- Update file controls
 	--
-	setText("sampleName", sample:getName())
+	self:setText("sampleName", sample:getName())
 	rotate("trimEnd", true)
 	rotate("waveEditor", sample:getReverse())
 	if updateKnobs then
-		setValue("samplePitch", sample:getPitch())
+		self:setValue("samplePitch", sample:getPitch())
 	end
 
 	-- Done updating knobs

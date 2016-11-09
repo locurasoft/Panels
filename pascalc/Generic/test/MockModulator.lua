@@ -20,7 +20,7 @@ function MockModulator:_init(name)
   self:setProperty("name", name)
   self.value = 0
   self.vstIndex = 0
-  self.component = MockComponent(name)
+  self.component = MockComponent(name, self)
 end
 
 function MockModulator:getComponent()

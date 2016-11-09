@@ -35,3 +35,24 @@ function flipTable(t)
   end
   return r
 end
+
+function getErrorMessage(err)
+  base.debug.traceback()
+  if base.type(err) == "string" then
+    return err:gsub(".*:%d+:%s*", "")
+  else
+    return "Unknown error occurred"
+  end
+end
+
+function trim(s)
+  return s:match "^%s*(.-)%s*$"
+end
+
+function strStarts(str, prefix)
+  return string.sub(str, 1, string.len(prefix)) == prefix
+end
+
+function strEnds(str, suffix)
+  return suffix == '' or string.sub(str, -string.len(suffix)) == suffix
+end

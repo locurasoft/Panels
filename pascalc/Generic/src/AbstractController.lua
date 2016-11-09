@@ -31,6 +31,10 @@ function AbstractController:setValue(modName, value)
 	panel:getModulatorByName(modName):setValue(value, false)
 end
 
+function AbstractController:setValueForce(modName, value)
+  panel:getModulatorByName(modName):setValue(value, true)
+end
+
 function AbstractController:getValue(modName)
 	return panel:getModulatorByName(modName):getValue()
 end

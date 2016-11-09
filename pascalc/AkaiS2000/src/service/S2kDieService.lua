@@ -54,20 +54,20 @@ function S2kDieService:s2kDieLauncher()
     local filePath = cutils.toFilePath(scriptDir, fileName)
     local file = io.open(filePath, "w+")
     file:write("BLANK S2000")
-    file:write(EOL)
+    file:write(cutils.getEolChar())
     file:write(string.format("VOL %s", fileName))
-    file:write(EOL)
+    file:write(cutils.getEolChar())
 
     for key, wavFile in pairs(wavFiles) do
       file:write(string.format("WLOAD %s", cutils.getFileName(wavFile:getFullPathName())))
-      file:write(EOL)
+      file:write(cutils.getEolChar())
     end
 
     local imgPath = cutils.toFilePath(scriptDir, string.format("floppy-%d.img", scriptIndex))
     file:write(string.format("SAVE %s", imgPath))
-    file:write(EOL)
+    file:write(cutils.getEolChar())
     file:write("DIR")
-    file:write(EOL)
+    file:write(cutils.getEolChar())
     file:close()
     variables["imgPath"] = imgPath
 
@@ -77,13 +77,13 @@ function S2kDieService:s2kDieLauncher()
       local wavPath = wavFile:getFullPathName()
       script:write(string.format("cp %s %s", wavPath, 
         cutils.toFilePath(scriptDir, cutils.getFileName(wavPath))))
-      script:write(EOL)
+      script:write(cutils.getEolChar())
     end
 
     script:write(string.format("cd %s", scriptDir))
-    script:write(EOL)
+    script:write(cutils.getEolChar())
     script:write(string.format("php %s %s", s2kDiePath, filePath, filePath))
-    script:write(EOL)
+    script:write(cutils.getEolChar())
     script:close()
   end
   return launcher

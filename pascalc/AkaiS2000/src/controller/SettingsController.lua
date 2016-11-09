@@ -55,21 +55,25 @@ function SettingsController:verifyTransferSettings()
   local retval = true
   
   markGroup("s2kDiePathGroup", not self.settings:s2kDiePathExists())
+  retval = retval and self.settings:s2kDiePathExists()
   markGroup("workPathGroup", not self.settings:workFolderExists())
+  retval = retval and self.settings:workFolderExists()
 
   -- Reset all values
   markGroup("hxcPathGroup", false)
   markGroup("setfdprmPathGroup", false)
   markGroup("transferMethodGroup", false)
 
-  local loadMethod = panel:getModulatorByName("transferMethod"):getValue()
+  local transferMethod = self.settings:getTransferMethod()
 
-  if loadMethod == 0 then
+  if transferMethod == 0 then
     -- Floppy
     markGroup("setfdprmPathGroup", not self.settings:setfdprmPathExists())
-  elseif loadMethod == 1 then
+    retval = retval and self.settings:setfdprmPathExists()
+  elseif transferMethod == 1 then
     -- HxC
     markGroup("hxcPathGroup", not self.settings:hxcPathExists())
+    retval = retval and self.settings:hxcPathExists()
   else
     -- MIDI -> unsupported
     markGroup("transferMethodGroup", true)
@@ -77,26 +81,41 @@ function SettingsController:verifyTransferSettings()
   return retval
 end
 
-function SettingsController:selectFloppyImage(floppyImgPath)
+function SettingsController:onFloppyImageCleared(mod, value)
+  self.settings:setFloppyImgPath(nil)
+end
+
+function SettingsController:onFloppyImageSelected(mod, value)
+  local floppyImgPath = utils.openFileWindow("Select floppy image", File.getSpecialLocation(File.userHomeDirectory), "*.img", true)
   self.settings:setFloppyImgPath(floppyImgPath)
 end
 
-function SettingsController:changeTransferMethod(xferMethod)
-  self.settings:setTransferMethod(xferMethod)
+function SettingsController:onTransferMethodChange(mod, value)
+  self.settings:setTransferMethod(value)
 end
 
-function SettingsController:changeSetfdprmPath(setfdprmPath)
+function SettingsController:onSetfdprmPathChange(mod, value)
+  local setfdprmPath = utils.openFileWindow("Select setfdprm path", File.getSpecialLocation(File.userHomeDirectory), "*", true)
   self.settings:setSetfdprmPath(setfdprmPath)
 end
 
-function SettingsController:changeHxcPath(hxcPath)
+function SettingsController:onHxcPathChange(mod, value)
+  local filePatternsAllowed = "*"
+  if operatingsystem == "win" then
+    filePatternsAllowed = "*.exe"
+  end
+
+  local hxcPath = utils.openFileWindow("Select hxcfe executable", File.getSpecialLocation(File.userHomeDirectory),
+    filePatternsAllowed, true)
   self.settings:setHxcPath(hxcPath)
 end
 
-function SettingsController:changeS2kDiePath(s2kDiePath)
+function SettingsController:onS2kDiePathChange(mod, value)
+  local s2kDiePath = utils.openFileWindow("Select s2kDie folder", File.getSpecialLocation(File.userHomeDirectory), "*.php", true)
   self.settings:setS2kDiePath(s2kDiePath)
 end
 
-function SettingsController:changeWorkPath(workPath)
-  self.settings:setWorkFolder(workPath)
+function SettingsController:onWorkPathChange(mod, value)
+  local workFolder = utils.getDirectoryWindow("Select work folder", File.getSpecialLocation(File.userHomeDirectory))
+  self.settings:setWorkFolder(workFolder)
 end

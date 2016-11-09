@@ -32,6 +32,10 @@ function SampleList:getSampleList()
   return self.list
 end
 
+function SampleList:getSampleName(index)
+	return table.get(self.list, index)
+end
+
 function SampleList:getSampleNames()
   local sampleListString = ""
   for k,v in pairs(self.list) do
