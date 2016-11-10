@@ -46,10 +46,13 @@ setmetatable(ProcessController, {
   end,
 })
 
-function ProcessController:_init(pl)
+function ProcessController:_init()
   LuaObject._init(self)
-  self.processListener = pl
   self.curr_transfer_proc = nil
+end
+
+function ProcessController:setProcessListener(processListener)
+  self.processListener = processListener
 end
 
 function ProcessController:execute(proc)

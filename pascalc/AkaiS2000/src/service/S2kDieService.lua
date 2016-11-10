@@ -18,10 +18,13 @@ setmetatable(S2kDieService, {
   end,
 })
 
-function S2kDieService:_init(settings)
+function S2kDieService:_init()
   LuaObject._init(self)
-  self.settings = settings
   self.log = Logger("S2kDieService")
+end
+
+function S2kDieService:setSettings(settings)
+  self.settings = settings
 end
 
 function S2kDieService:getNumGeneratedSamples(logFilePath)

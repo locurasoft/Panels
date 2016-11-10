@@ -16,8 +16,11 @@ setmetatable(ProgramController, {
   end,
 })
 
-function ProgramController:_init(programList)
+function ProgramController:_init()
   AbstractController._init(self)
+end
+
+function ProgramController:setProgramList(programList)
   self.programList = programList
   programList:addListener(self, "updateProgramList")
 end

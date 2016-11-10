@@ -286,13 +286,28 @@ function onPanelBeforeLoad(type)
   midiService    = MidiService()
   drumMapService = DrumMapService()
   programService = ProgramService()
-  hxcService     = HxcService(settings)
-  s2kDieService  = S2kDieService(settings)
 
-  processController     = ProcessController(processListener)
-  drumMapController     = DrumMapController(drumMap, sampleList)
-  programController     = ProgramController(programList)
-  sampleListController  = SampleListController(sampleList)
-  settingsController    = SettingsController(settings)
+  hxcService     = HxcService()
+  hxcService:setSettings(settings)
+
+  s2kDieService  = S2kDieService()
+  s2kDieService:setSettings(settings)
+
+  processController     = ProcessController()
+  processController:setProcessListener(processListener)
+
+  drumMapController     = DrumMapController()
+  drumMapController:setDrumMap(drumMap)
+  drumMapController:setSampleList(sampleList)
+  
+  programController     = ProgramController()
+  programController:setProgramList(programList)
+
+  sampleListController  = SampleListController()
+  sampleListController:setSampleList(sampleList)
+
+  settingsController    = SettingsController()
+  settingsController:setSettings(settings)
+
   globalController      = GlobalController()
 end

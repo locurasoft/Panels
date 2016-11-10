@@ -23,8 +23,11 @@ setmetatable(SettingsController, {
   end,
 })
 
-function SettingsController:_init(settings)
+function SettingsController:_init()
   AbstractController._init(self)
+end
+
+function SettingsController:setSettings(settings)
   self.settings = settings
   settings:addListener(self, "updateSettings")
 end

@@ -15,9 +15,12 @@ setmetatable(SampleListController, {
   end,
 })
 
-function SampleListController:_init(sampleList)
+function SampleListController:_init()
   AbstractController._init(self)
-  sampleList:addListener(self, "updateSampleLists")
+end
+
+function SampleListController:setSampleList(sampleList)
+  sampleList:addListener(self, "updateSampleLists")	
 end
 
 function SampleListController:updateSampleLists(sampleList)

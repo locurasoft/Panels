@@ -14,13 +14,16 @@ setmetatable(HxcService, {
   end,
 })
 
-function HxcService:_init(settings)
+function HxcService:_init()
   LuaObject._init(self)
   
   self.log = Logger("HxcService")
-  self.settings = settings
   self.hxcPipe = "HXC_PIPE"
   self.log:info("HxC constants initialised.")
+end
+
+function HxcService:setSettings(settings)
+  self.settings = settings
 end
 
 function HxcService:getMacOsXLauncher()

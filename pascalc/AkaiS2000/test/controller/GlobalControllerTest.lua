@@ -1,5 +1,6 @@
 require("akaiS2kTestUtils")
 require("MockPanel")
+require("MockValueTree")
 require("json4ctrlr")
 require("cutils")
 
@@ -19,6 +20,8 @@ require("controller/SampleListController")
 require("controller/ProcessController")
 require("controller/ProgramController")
 require("controller/ProgramControllerAutogen")
+require("controller/onPanelSaveState")
+require("controller/onPanelRestoreState")
 
 require("service/ProgramService")
 require("service/S2kDieService")
@@ -48,19 +51,28 @@ function setup()
     processActive = active
     processListenerCalls = processListenerCalls + 1
   end
-  
+
   midiMessages = {}
   local midiListener = function(midiMessage)
     table.insert(midiMessages, midiMessage)
   end
 
---  tempOsExecute = os.execute
---  executedOsCommands = {}
---  os.execute = function(cmd) table.insert(executedOsCommands, cmd) end
---
---  tempUtilsInfoWindow = utils.infoWindow
---  openedInfoWindows = {}
---  utils.infoWindow = function(title, message) table.insert(openedInfoWindows, message) end
+  regGlobal("MODEL_NAMES", {
+    "DrumMap",
+    "Settings",
+    "ProgramList",
+    "SampleList",
+    "SampleEdit"
+  })
+
+
+  --  tempOsExecute = os.execute
+  --  executedOsCommands = {}
+  --  os.execute = function(cmd) table.insert(executedOsCommands, cmd) end
+  --
+  --  tempUtilsInfoWindow = utils.infoWindow
+  --  openedInfoWindows = {}
+  --  utils.infoWindow = function(title, message) table.insert(openedInfoWindows, message) end
 
   ctrlrwork = File(tmpFolderName)
 
@@ -68,17 +80,17 @@ function setup()
 end
 
 function teardown()
---  os.execute = tempOsExecute
---  utils.infoWindow = tempUtilsInfoWindow
-  
+  --  os.execute = tempOsExecute
+  --  utils.infoWindow = tempUtilsInfoWindow
+
   tearDownIntegrationTest(tmpFolderName)
   os.execute("rmdir /S /Q " .. tmpFolderName)
 end
 
-function testOnTest1()
-	local tested = GlobalController()
-	tested:onTest1()
-end
+--function testOnTest1()
+--	local tested = GlobalController()
+--	tested:onTest1()
+--end
 
 --function test2()
 --  function f()
@@ -92,5 +104,16 @@ end
 --    console(err:gsub(".*:%d+:%s*", ""))
 --  end
 --end
+
+
+function testOnPanelSaveState()
+  regGlobal("drumMap", DrumMap())
+  local stateData = MockValueTree()
+  onPanelSaveState(stateData)
+  print(stateData:getProperty("drumMap"))
+  
+  
+  onPanelRestoreState(stateData)
+end
 
 runTests{useANSI = false}

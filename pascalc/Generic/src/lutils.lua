@@ -56,3 +56,7 @@ end
 function strEnds(str, suffix)
   return suffix == '' or string.sub(str, -string.len(suffix)) == suffix
 end
+
+function strNotEmpty(str)
+  return str ~= nil and trim(str) ~= ""
+end

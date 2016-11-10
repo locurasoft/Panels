@@ -69,7 +69,6 @@ function encode (v)
   if v==nil then
     return "null"
   end
-  
   local vtype = base.type(v)  
 
   -- Handle strings
@@ -442,6 +441,9 @@ end
 -- @return boolean True if the object should be JSON encoded, false if it should be ignored.
 function isEncodable(o)
   local t = base.type(o)
+  if t == "string" and o == "listeners" then
+    return false
+  end
   local nativeName = getNativeName(o)
   return (t=='string' or t=='boolean' or t=='number' or t=='nil' or t=='table') or (t=='function' and o==null)
     or nativeName == "MemoryBlock" or nativeName == "File"

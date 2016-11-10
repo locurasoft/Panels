@@ -1,7 +1,6 @@
 require("Dispatcher")
 require("Logger")
 require("model/KeyGroup")
-require("model/DrumMapSelectedSample")
 require("model/Zone")
 require("message/KdataMsg")
 
@@ -24,9 +23,10 @@ function DrumMap:_init()
 
   self.keyGroups = {}
   self.floppyList = {}
-  self.drumMapSelectedSample = DrumMapSelectedSample()
-  self.drumMapSelectedSample:addListener(self, "updateSampleSelection")
   self.selectedSample = nil
+  self.selectedFile = nil
+  self.useSample = true
+
   self.selectedKg = nil
   self.programName = ""
   self.currentFloppyUsage = 0
@@ -35,16 +35,19 @@ function DrumMap:_init()
   self[LUA_CONTRUCTOR_NAME] = "DrumMap"
 end
 
-function DrumMap:updateSampleSelection(drumMapSelectedSample)
-  self.selectedSample = drumMapSelectedSample:getSample()
-end
-
-function DrumMap:setSampleSelectType(useSamples)
-  self.drumMapSelectedSample:setUseSample(useSamples)
+function DrumMap:setSampleSelectType(useSample)
+  self.useSample = useSample
 end
 
 function DrumMap:setSelectedSample(selectedSample)
-  self.drumMapSelectedSample:setSample(selectedSample)
+  if type(selectedSample) == "string" and self.useSample then
+    self.selectedSample = selectedSample
+  elseif type(selectedSample) ~= "string" and not self.useSample then
+    self.selectedFile = selectedSample
+  else
+    assert(false, "Invalid sample selection state")
+  end
+
   self:notifyListeners()
 end
 
@@ -73,15 +76,20 @@ function DrumMap:isSelectedKeyGroup(padName)
 end
 
 function DrumMap:getSelectedSample()
-  return self.selectedSample
+  if self.useSample then
+    return self.selectedSample
+  else
+    return self.selectedFile
+  end
 end
+
 
 function DrumMap:getSelectedKeyGroup()
   return self.selectedKg
 end
 
 function DrumMap:isReadyForAssignment()
-  return self.selectedSample ~= nil and self.selectedKg ~= nil
+  return self:getSelectedSample() ~= nil and self.selectedKg ~= nil
 end
 
 function DrumMap:getCurrentFloppyUsage()
@@ -134,7 +142,7 @@ function DrumMap:setNumKeyGroups(numKeyGroups)
       table.remove(self.keyGroups)
     end
     self.numKgs = numKeyGroups
-    
+
     if self.selectedKg ~= nil and self.selectedKg > self.numKgs then
       self.selectedKg = nil
     end
@@ -301,7 +309,7 @@ function DrumMap:getLaunchButtonState()
       return "Select a sample and a key group"
     end
   else
-    if self.selectedKg ~= nil or self.selectedSample ~= nil then
+    if self.selectedKg ~= nil or self:getSelectedSample() ~= nil then
       return "You cannot load both an image and samples.\nPlease clear some data"
     else
       return ""
@@ -310,8 +318,8 @@ function DrumMap:getLaunchButtonState()
 end
 
 function DrumMap:setProgramName(programName)
-	self.programName = programName
-	self:notifyListeners()
+  self.programName = programName
+  self:notifyListeners()
 end
 
 function DrumMap:getProgramName()

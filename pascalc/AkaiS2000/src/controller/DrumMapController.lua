@@ -44,10 +44,16 @@ setmetatable(DrumMapController, {
   end,
 })
 
-function DrumMapController:_init(drumMap, sampleList)
+function DrumMapController:_init()
   AbstractController._init(self)
+end
+
+function DrumMapController:setDrumMap(drumMap)
   self.drumMap = drumMap
   self.drumMapListenerId = drumMap:addListener(self, "updateDrumMap")
+end
+
+function DrumMapController:setSampleList(sampleList)
   self.sampleList = sampleList
   sampleList:addListener(self, "updateSampleList")
 end

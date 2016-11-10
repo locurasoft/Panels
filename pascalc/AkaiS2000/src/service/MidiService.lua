@@ -1,5 +1,6 @@
 require("LuaObject")
 require("Logger")
+require("lutils")
 
 SAMPLE_NAME_LENG  = 12
 PROGRAM_NAME_LENG = 12
@@ -33,20 +34,6 @@ local NEGATIVE_NUMBERS = {
 
 local log = Logger("MidiService")
 
-local flip = function(t)
-  local r = { }
-  for k, v in pairs(t) do
-    r[v] = k -- overrides duplicate values if any
-  end
-  return r
-end
-
-local getFourBytes = function(buffer, offset)
-  local block = MemoryBlock(4, true)
-  buffer:copyTo(block, offset, 4)
-  return block
-end
-
 MidiService = {}
 MidiService.__index = MidiService
 
@@ -64,7 +51,7 @@ setmetatable(MidiService, {
 function MidiService:_init()
   LuaObject._init(self)
   self.alphabet = AKAI_ALPHABET
-  self.flipAlphabet = flip(AKAI_ALPHABET)
+  self.flipAlphabet = lutils.flipTable(AKAI_ALPHABET)
 end
 
 ---
