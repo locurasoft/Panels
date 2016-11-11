@@ -1,4 +1,4 @@
-require("AbstractController")
+require("controller/AbstractS2kController")
 require("Logger")
 
 local log = Logger("SampleListController")
@@ -7,7 +7,7 @@ SampleListController = {}
 SampleListController.__index = SampleListController
 
 setmetatable(SampleListController, {
-  __index = AbstractController, -- this is what makes the inheritance work
+  __index = AbstractS2kController, -- this is what makes the inheritance work
   __call = function (cls, ...)
     local self = setmetatable({}, cls)
     self:_init(...)
@@ -16,7 +16,7 @@ setmetatable(SampleListController, {
 })
 
 function SampleListController:_init()
-  AbstractController._init(self)
+  AbstractS2kController._init(self)
 end
 
 function SampleListController:setSampleList(sampleList)

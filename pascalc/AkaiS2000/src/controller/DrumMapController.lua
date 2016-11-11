@@ -1,4 +1,4 @@
-require("AbstractController")
+require("controller/AbstractS2kController")
 require("Logger")
 require("lutils")
 
@@ -36,7 +36,7 @@ DrumMapController = {}
 DrumMapController.__index = DrumMapController
 
 setmetatable(DrumMapController, {
-  __index = AbstractController, -- this is what makes the inheritance work
+  __index = AbstractS2kController, -- this is what makes the inheritance work
   __call = function (cls, ...)
     local self = setmetatable({}, cls)
     self:_init(...)
@@ -45,7 +45,7 @@ setmetatable(DrumMapController, {
 })
 
 function DrumMapController:_init()
-  AbstractController._init(self)
+  AbstractS2kController._init(self)
 end
 
 function DrumMapController:setDrumMap(drumMap)
@@ -139,10 +139,6 @@ function DrumMapController:updateDrumMap(drumMap)
 
   -- Register listener again
   self.drumMapListenerId = drumMap:addListener(self, "updateDrumMap")
-end
-
-function DrumMapController:updateStatus(message)
-  panel:getComponent("lcdLabel"):setText(message)
 end
 
 function DrumMapController:transferSamples()

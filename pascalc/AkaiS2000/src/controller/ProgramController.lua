@@ -1,4 +1,4 @@
-require("AbstractController")
+require("controller/AbstractS2kController")
 require("Logger")
 require("lutils")
 
@@ -8,7 +8,7 @@ ProgramController = {}
 ProgramController.__index = ProgramController
 
 setmetatable(ProgramController, {
-  __index = AbstractController, -- this is what makes the inheritance work
+  __index = AbstractS2kController, -- this is what makes the inheritance work
   __call = function (cls, ...)
     local self = setmetatable({}, cls)
     self:_init(...)
@@ -17,7 +17,7 @@ setmetatable(ProgramController, {
 })
 
 function ProgramController:_init()
-  AbstractController._init(self)
+  AbstractS2kController._init(self)
 end
 
 function ProgramController:setProgramList(programList)
@@ -34,7 +34,7 @@ function ProgramController:updateProgramList(pl)
   local numPrograms = pl:getNumPrograms()
   if numPrograms < 1 then
     self:toggleActivation("programSelector", false)
-    self:setText("PRNAME", "Please load a program")
+    self:updateStatus("Please load a program")
     return
   end
 
@@ -42,6 +42,7 @@ function ProgramController:updateProgramList(pl)
   local activeProgram = pl:getActiveProgram()
   if activeProgram == nil then
     self:setText("PRNAME", "")
+    self:updateStatus("Please load a program")
   else
     self:changeProgram(activeProgram)
   end
@@ -51,6 +52,7 @@ function ProgramController:changeProgram(newProgram)
   if self.activeProgram == nil then
     log:info("Active program is nil! Disabling prog selector.")
     self:toggleActivation("programSelector", false)
+    self:updateStatus("Please load a program")
   else
     self.activeProgram:removeListener(self.programListenerId)
   end
@@ -180,6 +182,7 @@ function ProgramController:onKeyGroupChange(mod, value)
   if self.activeProgram == nil then
     log:info("Active program is nil! Disabling kg selector.")
     self:toggleActivation("kgSelector", false)
+    self:updateStatus("Please load a program")
   else
     self.activeProgram:setActiveKeyGroupIndex(value)
     self:assignKeyGroupValues(self.activeProgram, self.activeProgram:getActiveKeyGroupIndex())

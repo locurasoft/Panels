@@ -20,10 +20,9 @@ function onPanelBeforeLoad(type)
   end
 
   LUA_CONTRUCTOR_NAME = "LUA_CLASS_NAME"
-  
+
   MODEL_NAMES = {
     "DrumMap",
-    "Settings",
     "ProgramList",
     "SampleList",
     "SampleEdit"
@@ -264,15 +263,12 @@ function onPanelBeforeLoad(type)
 
   for key, modelName in ipairs(MODEL_NAMES) do
     local varName = modelName:sub(1, 1):lower() .. modelName:sub(2)
-    if _G[varName] == nil then
-      LOGGER:info("Initialising new %s...", modelName)
-     _G[varName] = _G[modelName]()
-    else
-      LOGGER:info("Using %s: %s", varName, _G[varName])
-      _G[varName] = cson.decode(_G[varName])
-    end
+    LOGGER:info("Initialising new %s...", modelName)
+    _G[varName] = _G[modelName]()
   end
-    
+  
+  settings = Settings()
+
   local processListener = function(running)
     if running then
       drumMapController:updateStatus("Running process...")
@@ -286,12 +282,8 @@ function onPanelBeforeLoad(type)
   midiService    = MidiService()
   drumMapService = DrumMapService()
   programService = ProgramService()
-
   hxcService     = HxcService()
-  hxcService:setSettings(settings)
-
   s2kDieService  = S2kDieService()
-  s2kDieService:setSettings(settings)
 
   processController     = ProcessController()
   processController:setProcessListener(processListener)
@@ -299,7 +291,7 @@ function onPanelBeforeLoad(type)
   drumMapController     = DrumMapController()
   drumMapController:setDrumMap(drumMap)
   drumMapController:setSampleList(sampleList)
-  
+
   programController     = ProgramController()
   programController:setProgramList(programList)
 
@@ -307,7 +299,5 @@ function onPanelBeforeLoad(type)
   sampleListController:setSampleList(sampleList)
 
   settingsController    = SettingsController()
-  settingsController:setSettings(settings)
-
   globalController      = GlobalController()
 end

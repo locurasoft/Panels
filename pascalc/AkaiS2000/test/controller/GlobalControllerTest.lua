@@ -106,14 +106,25 @@ end
 --end
 
 
-function testOnPanelSaveState()
-  regGlobal("drumMap", DrumMap())
-  local stateData = MockValueTree()
-  onPanelSaveState(stateData)
-  print(stateData:getProperty("drumMap"))
-  
-  
-  onPanelRestoreState(stateData)
+--function testOnPanelSaveState()
+--  regGlobal("drumMap", DrumMap())
+--  local stateData = MockValueTree()
+--  onPanelSaveState(stateData)
+--  print(stateData:getProperty("drumMap"))
+--  
+--  onPanelRestoreState(stateData)
+--end
+
+--function testJson()
+--	local t = '{"s2kDiePath":{"nativeName":"File","fullPathName":"C:/ctrlr/s2kdie/s2kdie.php"},"transferMethod":1,"LUA_CLASS_NAME":"Settings"}'
+--	local result = cson.decode(t)
+--	print(result["LUA_CLASS_NAME"])
+--	print(result["s2kDiePath"]:getFullPathName())
+--end
+
+function testGsub()
+  local a = "C:\\ctrlr\\s2kdie\\s2kdie.php"
+  print(string.format('{"nativeName":"File","fullPathName":"%s"}', a:gsub("\\", "/")))
 end
 
 runTests{useANSI = false}

@@ -1,4 +1,4 @@
-require("AbstractController")
+require("controller/AbstractS2kController")
 require("Logger")
 
 local log = Logger("GlobalController")
@@ -9,7 +9,7 @@ GlobalController = {}
 GlobalController.__index = GlobalController
 
 setmetatable(GlobalController, {
-  __index = AbstractController, -- this is what makes the inheritance work
+  __index = AbstractS2kController, -- this is what makes the inheritance work
   __call = function (cls, ...)
     local self = setmetatable({}, cls)
     self:_init(...)
@@ -18,7 +18,7 @@ setmetatable(GlobalController, {
 })
 
 function GlobalController:_init()
-  AbstractController._init(self)
+  AbstractS2kController._init(self)
   self.on_midi_received_func = nil
 end
 

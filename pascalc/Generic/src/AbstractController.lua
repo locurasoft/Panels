@@ -27,6 +27,10 @@ function AbstractController:setText(compName, text)
 	panel:getComponent(compName):setText(text)
 end
 
+function AbstractController:getText(compName)
+	return panel:getComponent(compName):getProperty("uiLabelText")
+end
+
 function AbstractController:setValue(modName, value)
 	panel:getModulatorByName(modName):setValue(value, false)
 end

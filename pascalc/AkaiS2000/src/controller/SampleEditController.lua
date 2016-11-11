@@ -1,4 +1,4 @@
-require("AbstractController")
+require("controller/AbstractS2kController")
 require("Logger")
 
 local rotate = function(compName, rot)
@@ -22,7 +22,7 @@ SampleEditController = {}
 SampleEditController.__index = SampleEditController
 
 setmetatable(SampleEditController, {
-  __index = AbstractController, -- this is what makes the inheritance work
+  __index = AbstractS2kController, -- this is what makes the inheritance work
   __call = function (cls, ...)
     local self = setmetatable({}, cls)
     self:_init(...)
@@ -31,7 +31,7 @@ setmetatable(SampleEditController, {
 })
 
 function SampleEditController:_init()
-  AbstractController._init(self)
+  AbstractS2kController._init(self)
 end
 
 function SampleEditController:setSampleList(sampleList)

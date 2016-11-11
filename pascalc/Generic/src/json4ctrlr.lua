@@ -114,7 +114,7 @@ function encode (v)
   end
 
   if vNativeName == "File" then
-    return string.format('{"nativeName":"File","fullPathName":"%s"}', v:getFullPathName())
+    return string.format('{"nativeName":"File","fullPathName":"%s"}', v:getFullPathName():gsub("\\", "/"))
   end
   -- pascalc edit end
 
@@ -271,14 +271,20 @@ function decode_scanObject(s,startPos)
     local curChar = string.sub(s,startPos,startPos)
     if (curChar=='}') then
       -- pascalc edit start
-      if object[LUA_CONSTRUCTOR_NAME] == nil then
-        return object,startPos+1
-      else
+      if object[LUA_CONSTRUCTOR_NAME] ~= nil then
         local temp = base[object[LUA_CONSTRUCTOR_NAME]]()
         for k,v in base.pairs(object)do
           temp[k] = v
         end
         return temp,startPos+1
+      elseif object["nativeName"] ~= nil then
+        if object["nativeName"] == "File" then
+          return base.File(object["fullPathName"]),startPos+1
+        elseif object["nativeName"] == "MemoryBlock" then
+          return base.MemoryBlock(object["hexString"]),startPos+1
+        end
+      else
+        return object,startPos+1
       end
       -- pascalc edit end
     end

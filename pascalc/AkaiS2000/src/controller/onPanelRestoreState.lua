@@ -10,14 +10,10 @@ function onPanelRestoreState(stateData)
     end
   end
 
-  hxcService:setSettings(settings)
-  s2kDieService:setSettings(settings)
-
   drumMapController:setDrumMap(drumMap)
   drumMapController:setSampleList(sampleList)
   programController:setProgramList(programList)
   sampleListController:setSampleList(sampleList)
-  settingsController:setSettings(settings)
 
   onPanelLoaded()
 end

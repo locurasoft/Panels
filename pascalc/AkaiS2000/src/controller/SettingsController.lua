@@ -1,4 +1,4 @@
-require("AbstractController")
+require("controller/AbstractS2kController")
 require("Logger")
 
 local log = Logger("SettingsController")
@@ -15,7 +15,7 @@ SettingsController = {}
 SettingsController.__index = SettingsController
 
 setmetatable(SettingsController, {
-  __index = AbstractController, -- this is what makes the inheritance work
+  __index = AbstractS2kController, -- this is what makes the inheritance work
   __call = function (cls, ...)
     local self = setmetatable({}, cls)
     self:_init(...)
@@ -24,7 +24,7 @@ setmetatable(SettingsController, {
 })
 
 function SettingsController:_init()
-  AbstractController._init(self)
+  AbstractS2kController._init(self)
 end
 
 function SettingsController:setSettings(settings)
