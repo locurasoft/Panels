@@ -36,15 +36,6 @@ function flipTable(t)
   return r
 end
 
-function getErrorMessage(err)
-  base.debug.traceback()
-  if base.type(err) == "string" then
-    return err:gsub(".*:%d+:%s*", "")
-  else
-    return "Unknown error occurred"
-  end
-end
-
 function trim(s)
   return s:match "^%s*(.-)%s*$"
 end

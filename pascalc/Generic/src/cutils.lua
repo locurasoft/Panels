@@ -23,6 +23,8 @@ local base = _G
 -----------------------------------------------------------------------------
 module("cutils")
 
+STATE_PROD, STATE_DEV = 0, 1
+
 -- Private functions
 
 
@@ -109,3 +111,14 @@ function getRotationTransform(angle, x, y, w, h)
   end
 end
 
+function getErrorMessage(err)
+  if base.PANEL_STATE == STATE_DEBUG then
+    base.debug.traceback()
+  end
+
+  if base.type(err) == "string" then
+    return err:gsub(".*:%d+:%s*", "")
+  else
+    return "Unknown error occurred"
+  end
+end

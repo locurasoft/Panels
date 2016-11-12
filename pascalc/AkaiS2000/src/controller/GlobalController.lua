@@ -86,65 +86,65 @@ end
 --
 function GlobalController:onPanelStateChanged(mod, value)
   panelState = value
-  log:warn("[onPanelStateChanged] %d", panelState)
+  log:info("[onPanelStateChanged] %d", panelState)
 end
 
+----
+---- Called when a modulator value changes
+---- @mod   http://ctrlr.org/api/class_ctrlr_modulator.html
+---- @value    new numeric value of the modulator
+----
+--function GlobalController:onTest1(mod, value)
+--  local getModulator = function(modName)
+--    return panel:getModulatorByName(modName)
+--  end
 --
--- Called when a modulator value changes
--- @mod   http://ctrlr.org/api/class_ctrlr_modulator.html
--- @value    new numeric value of the modulator
+--  local json = "{'apa':[" ..
+--    "{'methodName':'onToggleEditor', 'modulator':'editorSelector', 'value':2}," ..
+--    "{'methodName':'onKeyGroupNumChange', 'modulator':'numKeyGroups', 'value':16}," ..
+--    "{'methodName':'onKeyGroupNumChange', 'modulator':'numKeyGroups', 'value':16}," ..
+--    "{'methodName':'onDrumMapProgramNameChange', 'component':'programCreateNameLbl', 'content':'Test2'}," ..
+--    "{'methodName':'onKeyGroupNumChange', 'modulator':'numKeyGroups', 'value':16}," ..
+--    "{'methodName':'onPadSelected', 'component':'drumMap-1'}," ..
+--    "{'methodName':'onKeyGroupNumChange', 'modulator':'numKeyGroups', 'value':16}," ..
+--    "{'methodName':'onSamplesTabChanged', 'modulator':'sampleTabs', 'value':1}," ..
+--    "{'methodName':'onSampleSelected', 'component':'samplerSampleList'}," ..
+--    "{'methodName':'onKeyGroupNumChange', 'modulator':'numKeyGroups', 'value':16}," ..
+--    "{'methodName':'onSampleSelected', 'component':'samplerSampleList'}," ..
+--    "{'methodName':'onKeyGroupNumChange', 'modulator':'numKeyGroups', 'value':16}," ..
+--    "{'methodName':'loadstring', 'code':'panel:getComponent(\"samplerSampleList\"):setComponentText(\"DRILL.WAV -R\")'}," ..
+--    "{'methodName':'onSampleDoubleClicked', 'component':'samplerSampleList'}," ..
+--    "{'methodName':'onKeyGroupNumChange', 'modulator':'numKeyGroups', 'value':16}," ..
+--    "{'methodName':'onSampleSelected', 'component':'samplerSampleList'}," ..
+--    "{'methodName':'onKeyGroupNumChange', 'modulator':'numKeyGroups', 'value':16}," ..
+--    "{'methodName':'onSampleSelected', 'component':'samplerSampleList'}," ..
+--    "{'methodName':'onKeyGroupNumChange', 'modulator':'numKeyGroups', 'value':16}," ..
+--    "{'methodName':'onSampleDoubleClicked', 'component':'samplerSampleList'}," ..
+--    "{'methodName':'onKeyGroupNumChange', 'modulator':'numKeyGroups', 'value':16}," ..
+--    "{'methodName':'onCreateProgram', 'modulator':'createProgramBtn', 'value':0}," ..
+--    "{'methodName':'onProgramChange', 'modulator':'programSelector', 'value':0}" ..
+--    "]}"
 --
-function GlobalController:onTest1(mod, value)
-  local getModulator = function(modName)
-    return panel:getModulatorByName(modName)
-  end
-
-  local json = "{'apa':[" ..
-    "{'methodName':'onToggleEditor', 'modulator':'editorSelector', 'value':2}," ..
-    "{'methodName':'onKeyGroupNumChange', 'modulator':'numKeyGroups', 'value':16}," ..
-    "{'methodName':'onKeyGroupNumChange', 'modulator':'numKeyGroups', 'value':16}," ..
-    "{'methodName':'onDrumMapProgramNameChange', 'component':'programCreateNameLbl', 'content':'Test2'}," ..
-    "{'methodName':'onKeyGroupNumChange', 'modulator':'numKeyGroups', 'value':16}," ..
-    "{'methodName':'onPadSelected', 'component':'drumMap-1'}," ..
-    "{'methodName':'onKeyGroupNumChange', 'modulator':'numKeyGroups', 'value':16}," ..
-    "{'methodName':'onSamplesTabChanged', 'modulator':'sampleTabs', 'value':1}," ..
-    "{'methodName':'onSampleSelected', 'component':'samplerSampleList'}," ..
-    "{'methodName':'onKeyGroupNumChange', 'modulator':'numKeyGroups', 'value':16}," ..
-    "{'methodName':'onSampleSelected', 'component':'samplerSampleList'}," ..
-    "{'methodName':'onKeyGroupNumChange', 'modulator':'numKeyGroups', 'value':16}," ..
-    "{'methodName':'loadstring', 'code':'panel:getComponent(\"samplerSampleList\"):setComponentText(\"DRILL.WAV -R\")'}," ..
-    "{'methodName':'onSampleDoubleClicked', 'component':'samplerSampleList'}," ..
-    "{'methodName':'onKeyGroupNumChange', 'modulator':'numKeyGroups', 'value':16}," ..
-    "{'methodName':'onSampleSelected', 'component':'samplerSampleList'}," ..
-    "{'methodName':'onKeyGroupNumChange', 'modulator':'numKeyGroups', 'value':16}," ..
-    "{'methodName':'onSampleSelected', 'component':'samplerSampleList'}," ..
-    "{'methodName':'onKeyGroupNumChange', 'modulator':'numKeyGroups', 'value':16}," ..
-    "{'methodName':'onSampleDoubleClicked', 'component':'samplerSampleList'}," ..
-    "{'methodName':'onKeyGroupNumChange', 'modulator':'numKeyGroups', 'value':16}," ..
-    "{'methodName':'onCreateProgram', 'modulator':'createProgramBtn', 'value':0}," ..
-    "{'methodName':'onProgramChange', 'modulator':'programSelector', 'value':0}" ..
-    "]}"
-
-  local callObject = cson.decode(json)
-  local callQueue = callObject['apa']
-  for k, v in ipairs(callQueue) do
-    local methodName = v['methodName']
-    if methodName == "sleep" then
-      io.write("Waiting for <ENTER>...\n")
-      local s = io.read()
-      console(s)
-    elseif methodName == "loadstring" then
-      loadstring(v['code'])()
-    elseif v['modulator'] ~= nil and v['value'] ~= nil then
-      _G[methodName](getModulator(v['modulator']), tonumber(v['value']))
-    elseif v['modulator'] ~= nil and v['file'] ~= nil then
-      _G[methodName](getModulator(v['modulator']), File(v['file']))
-    elseif v['modulator'] ~= nil and v['sample'] ~= nil then
-      _G[methodName](getModulator(v['modulator']), v['sample'])
-    elseif v['component'] ~= nil and v['content'] ~= nil then
-      _G[methodName](getModulator(v['component']):getComponent(), v['content'])
-    elseif v['component'] ~= nil then
-      _G[methodName](getModulator(v['component']):getComponent())
-    end
-  end
-end
+--  local callObject = cson.decode(json)
+--  local callQueue = callObject['apa']
+--  for k, v in ipairs(callQueue) do
+--    local methodName = v['methodName']
+--    if methodName == "sleep" then
+--      io.write("Waiting for <ENTER>...\n")
+--      local s = io.read()
+--      console(s)
+--    elseif methodName == "loadstring" then
+--      loadstring(v['code'])()
+--    elseif v['modulator'] ~= nil and v['value'] ~= nil then
+--      _G[methodName](getModulator(v['modulator']), tonumber(v['value']))
+--    elseif v['modulator'] ~= nil and v['file'] ~= nil then
+--      _G[methodName](getModulator(v['modulator']), File(v['file']))
+--    elseif v['modulator'] ~= nil and v['sample'] ~= nil then
+--      _G[methodName](getModulator(v['modulator']), v['sample'])
+--    elseif v['component'] ~= nil and v['content'] ~= nil then
+--      _G[methodName](getModulator(v['component']):getComponent(), v['content'])
+--    elseif v['component'] ~= nil then
+--      _G[methodName](getModulator(v['component']):getComponent())
+--    end
+--  end
+--end

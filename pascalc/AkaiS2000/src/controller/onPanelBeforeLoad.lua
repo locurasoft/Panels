@@ -14,10 +14,7 @@
 function onPanelBeforeLoad(type)
 
   -- Init global constants
-  STATE_DEV, STATE_PROD = 1, 2
-  if PANEL_STATE == 0 then
-    PANEL_STATE = STATE_PROD
-  end
+  PANEL_STATE = cutils.STATE_PROD
 
   LUA_CONTRUCTOR_NAME = "LUA_CLASS_NAME"
 

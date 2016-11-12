@@ -1,6 +1,6 @@
 require("controller/AbstractS2kController")
 require("Logger")
-require("lutils")
+require("cutils")
 
 local log = Logger("ProgramController")
 
@@ -132,7 +132,7 @@ function ProgramController:storeProgParamEdit(blockType, mod, value)
     midiService:sendMidiMessage(phead)
     program:storeParamEdit(phead)
   else
-    log:warn(lutils.getErrorMessage(phead))
+    log:warn(cutils.getErrorMessage(phead))
   end
 end
 
@@ -148,7 +148,7 @@ function ProgramController:storeKgParamEdit(blockType, mod, value)
     local keyGroup = program:getActiveKeyGroup()
     keyGroup:storeParamEdit(khead)
   else
-    log:warn(lutils.getErrorMessage(khead))
+    log:warn(cutils.getErrorMessage(khead))
   end
 end
 

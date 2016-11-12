@@ -1,6 +1,6 @@
 require("controller/AbstractS2kController")
 require("Logger")
-require("lutils")
+require("cutils")
 
 local log = Logger("DrumMapController")
 
@@ -170,7 +170,7 @@ function DrumMapController:transferSamples()
             executeTransfer(wavList)
           end
         else
-          self:updateStatus(lutils.getErrorMessage(err))
+          self:updateStatus(cutils.getErrorMessage(err))
         end
       end
     end
@@ -222,7 +222,7 @@ function DrumMapController:transferFloppyImage()
     utils.infoWindow("Load samples", "Please select to load all from\nfloppy on the Akai S2000.\n\nPress OK when done.")
     local status, err = pcall(ProcessController.abort, processController)
     if not status then
-      self:updateStatus(lutils.getErrorMessage(err))
+      self:updateStatus(cutils.getErrorMessage(err))
     end
   else
     self:updateStatus("Failed to transfer data.\nPlease cancel process")
@@ -248,7 +248,7 @@ function DrumMapController:assignFile(file)
   if status then
     self:updateStatus("Transfer samples to sampler by pressing \"Launch\"")
   else
-    self:updateStatus(lutils.getErrorMessage(err))
+    self:updateStatus(cutils.getErrorMessage(err))
   end
 end
 
@@ -257,7 +257,7 @@ function DrumMapController:assignSample()
   if status then
     self:updateStatus("Transfer samples to sampler by pressing \"Launch\"")
   else
-    self:updateStatus(lutils.getErrorMessage(err))
+    self:updateStatus(cutils.getErrorMessage(err))
   end
 end
 
@@ -282,7 +282,7 @@ function DrumMapController:onCreateProgram(mod, value)
   if status then
     self:updateStatus("Program created!")
   else
-    self:updateStatus(lutils.getErrorMessage(err))
+    self:updateStatus(cutils.getErrorMessage(err))
   end
 
   local highestProg = programList:getNumPrograms()
@@ -356,7 +356,7 @@ function DrumMapController:onLoadOs(mod, value)
           self:updateStatus("Akai S2000 OS loaded.")
           self:toggleActivation("loadOsButton", true)
         else
-          self:updateStatus(lutils.getErrorMessage(err))
+          self:updateStatus(cutils.getErrorMessage(err))
         end
       end
     end
@@ -384,7 +384,7 @@ function DrumMapController:onCancelProcess(mod, value)
   self:updateStatus("Select a sample and a key group")
   local status, err = pcall(ProcessController.abort, processController)
   if not status then
-    self:updateStatus(lutils.getErrorMessage(err))
+    self:updateStatus(cutils.getErrorMessage(err))
   end
 end
 
@@ -400,7 +400,7 @@ function DrumMapController:onRslist(mod, value)
       if status then
         sampleList:addSamples(slist)
       else
-        self:updateStatus(lutils.getErrorMessage(err))
+        self:updateStatus(cutils.getErrorMessage(err))
       end
     end
   end
