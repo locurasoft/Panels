@@ -265,17 +265,6 @@ function onPanelBeforeLoad(type)
   end
   
   settings = Settings()
-
-  local processListener = function(running)
-    if running then
-      drumMapController:updateStatus("Running process...")
-      drumMapController:toggleActivation("cancelTransfer", true)
-    else
-      drumMapController:updateStatus("Ready.")
-      drumMapController:toggleActivation("cancelTransfer", false)
-    end
-  end
-
   midiService    = MidiService()
   drumMapService = DrumMapService()
   programService = ProgramService()
@@ -283,7 +272,8 @@ function onPanelBeforeLoad(type)
   s2kDieService  = S2kDieService()
 
   processController     = ProcessController()
-  processController:setProcessListener(processListener)
+  settingsController    = SettingsController()
+  globalController      = GlobalController()
 
   drumMapController     = DrumMapController()
   drumMapController:setDrumMap(drumMap)
@@ -294,7 +284,4 @@ function onPanelBeforeLoad(type)
 
   sampleListController  = SampleListController()
   sampleListController:setSampleList(sampleList)
-
-  settingsController    = SettingsController()
-  globalController      = GlobalController()
 end

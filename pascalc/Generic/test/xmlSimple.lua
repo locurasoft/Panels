@@ -117,7 +117,7 @@ function newParser()
             io.close(hFile);
             return self:ParseXmlText(xmlText), nil;
         else
-            print(err)
+            base.print(err)
             return nil
         end
     end

@@ -44,7 +44,7 @@ end
 
 function Program:setActiveKeyGroupIndex(index)
   self.activeKg = index
-  --self:notifyListeners()
+  -- No listener notification. Instead handled by controller
 end
 
 function Program:getActiveKeyGroupIndex()
@@ -84,6 +84,10 @@ function Program:getParamValue(blockId)
   return self.pdata:getPdataValue(blockId)
 end
 
+function Program:getPdata()
+	return self.pdata
+end
+
 function Program:setUpdating(updating)
   self.updating = updating
 end
@@ -94,23 +98,4 @@ end
 
 function Program:toString()
   return self.pdata:toString()
-end
-
-function Program:toJson()
-  local base = json.encode(self)
-  -- Replace pdata
-  base = string.gsub(
-    base, "\"pdata\":{[^}]+}", string.format("\"pdata\":%s", self.pdata:toJson()),	1)
-  -- Replace keygroups
-  local kgs = ""
-  for k,v in pairs(self.keyGroups) do
-    if kgs == "" then
-      kgs = string.format("%s", v:toJson())
-    else
-      kgs = string.format("%s,%s", kgs, v:toJson())
-    end
-  end
-  base = string.gsub(
-    base, "\"keyGroups\":\[[^]+\]", string.format("\"keyGroups\":[%s]", kgs),	1)
-  return base
 end

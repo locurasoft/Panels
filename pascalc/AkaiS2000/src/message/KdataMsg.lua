@@ -1,13 +1,20 @@
 require("SyxMsg")
 
-KDATA_HEADER_SIZE = 9
-KDATA_SIZE = 393
+local KDATA_HEADER_SIZE = 8
+local KDATA_SIZE = 393
 
 local tuneBlocks = {
   ["VTUNO1"] = true,
   ["VTUNO2"] = true,
   ["VTUNO3"] = true,
   ["VTUNO4"] = true
+}
+
+local stringBlocks = {
+  ["SNAME1"] = true,
+  ["SNAME2"] = true,
+  ["SNAME3"] = true,
+  ["SNAME4"] = true
 }
 
 local vssBlocks = {
@@ -46,30 +53,30 @@ function KdataMsg:_init(bytes)
 
   if bytes == nil then
     self.data = defaultBytes()
-    self:storeNibbles("MODVFILT1", midiService:toNibbles(50))
-    self:storeNibbles("MODVFILT2", midiService:toNibbles(50))
-    self:storeNibbles("MODVFILT3", midiService:toNibbles(50))
-    self:storeNibbles("K_FREQ", midiService:toNibbles(50))
-    self:storeNibbles("MODVAMP3", midiService:toNibbles(50))
-    self:storeNibbles("K_DAR1", midiService:toNibbles(50))
-    self:storeNibbles("V_ATT1", midiService:toNibbles(50))
-    self:storeNibbles("V_REL1", midiService:toNibbles(50))
-    self:storeNibbles("V_ENV2", midiService:toNibbles(50))
-    self:storeNibbles("K_DAR2", midiService:toNibbles(50))
-    self:storeNibbles("V_ATT2", midiService:toNibbles(50))
-    self:storeNibbles("V_REL2", midiService:toNibbles(50))
-    self:storeNibbles("V_ENV2", midiService:toNibbles(50))
-    self:storeNibbles("V_ENV2", midiService:toNibbles(50))
-    self:storeNibbles("DECAY1", midiService:toNibbles(50))
-    self:storeNibbles("SUSTN1", midiService:toNibbles(50))
-    self:storeNibbles("ENV2R2", midiService:toNibbles(50))
-    self:storeNibbles("ENV2R3", midiService:toNibbles(50))
-    self:storeNibbles("ENV2L2", midiService:toNibbles(50))
-    self:storeNibbles("ENV2L3", midiService:toNibbles(50))
+    self:storeNibbles("MODVFILT1", mutils.d2n(50))
+    self:storeNibbles("MODVFILT2", mutils.d2n(50))
+    self:storeNibbles("MODVFILT3", mutils.d2n(50))
+    self:storeNibbles("K_FREQ", mutils.d2n(50))
+    self:storeNibbles("MODVAMP3", mutils.d2n(50))
+    self:storeNibbles("K_DAR1", mutils.d2n(50))
+    self:storeNibbles("V_ATT1", mutils.d2n(50))
+    self:storeNibbles("V_REL1", mutils.d2n(50))
+    self:storeNibbles("V_ENV2", mutils.d2n(50))
+    self:storeNibbles("K_DAR2", mutils.d2n(50))
+    self:storeNibbles("V_ATT2", mutils.d2n(50))
+    self:storeNibbles("V_REL2", mutils.d2n(50))
+    self:storeNibbles("V_ENV2", mutils.d2n(50))
+    self:storeNibbles("V_ENV2", mutils.d2n(50))
+    self:storeNibbles("DECAY1", mutils.d2n(50))
+    self:storeNibbles("SUSTN1", mutils.d2n(50))
+    self:storeNibbles("ENV2R2", mutils.d2n(50))
+    self:storeNibbles("ENV2R3", mutils.d2n(50))
+    self:storeNibbles("ENV2L2", mutils.d2n(50))
+    self:storeNibbles("ENV2L3", mutils.d2n(50))
 
     for i = 1,4 do
-      self:storeNibbles(string.format("VFREQ%d", i), midiService:toNibbles(50))
-      self:storeNibbles(string.format("VPANO%d", i), midiService:toNibbles(50))
+      self:storeNibbles(string.format("VFREQ%d", i), mutils.d2n(50))
+      self:storeNibbles(string.format("VPANO%d", i), mutils.d2n(50))
     end
   else
     assert(bytes:getByte(3) == 0x09, "Invalid Kdata message")
@@ -79,27 +86,37 @@ function KdataMsg:_init(bytes)
 end
 
 function KdataMsg:getOffset(blockIndex)
-	return KDATA_HEADER_SIZE + blockIndex * 2
+  return KDATA_HEADER_SIZE + blockIndex * 2
 end
 
 function KdataMsg:storeNibbles(blockId, valBlock)
-	self.data:copyFrom(valBlock, self:getOffset(KEY_GROUP_BLOCK[blockId]), valBlock:getSize())
+  self.data:copyFrom(valBlock, self:getOffset(KEY_GROUP_BLOCK[blockId]), valBlock:getSize())
 end
 
 function KdataMsg:storeKhead(khead)
-	local valBlock = khead:getValueBlock()
-	local offset = khead:getOffset()
-	local kdataOffs = self:getOffset(offset)
-	self.data:copyFrom(valBlock, kdataOffs, valBlock:getSize())
+  local valBlock = khead:getValueBlock()
+  local offset = khead:getOffset()
+  local kdataOffs = self:getOffset(offset)
+  self.data:copyFrom(valBlock, kdataOffs, valBlock:getSize())
 end
 
 function KdataMsg:getKdataValue(blockId)
-	local offset = self:getOffset(KEY_GROUP_BLOCK[blockId])
-	if tuneBlocks[blockId] then
-		return midiService:fromTuneBlock(self.data, offset)
-	elseif vssBlocks[blockId] then
-		return midiService:fromVssBlock(self.data, offset)
-	else
-		return midiService:fromDefaultBlock(self.data, offset)
-	end
+  local offset = self:getOffset(KEY_GROUP_BLOCK[blockId])
+  if tuneBlocks[blockId] then
+    return midiService:fromTuneBlock(self.data, offset)
+  elseif stringBlocks[blockId] then
+    return midiService:fromStringBlock(self.data, offset)
+  elseif vssBlocks[blockId] then
+    return midiService:fromVssBlock(self.data, offset)
+  else
+    return midiService:fromDefaultBlock(self.data, offset)
+  end
+end
+
+function KdataMsg:getProgramNumber()
+  return midiService:fromDefaultBlock(self.data, 5)
+end
+
+function KdataMsg:getKeygroupNumber()
+  return self.data:getByte(7)
 end

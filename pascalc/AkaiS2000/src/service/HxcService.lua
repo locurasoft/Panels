@@ -5,28 +5,14 @@ require("cutils")
 HxcService = {}
 HxcService.__index = HxcService
 
-setmetatable(HxcService, {
-  __index = LuaObject, -- this is what makes the inheritance work
-  __call = function (cls, ...)
-    local self = setmetatable({}, cls)
-    self:_init(...)
-    return self
-  end,
-})
+local log = Logger("HxcService")
+local hxcPipe = "HXC_PIPE"
 
-function HxcService:_init()
-  LuaObject._init(self)
-  
-  self.log = Logger("HxcService")
-  self.hxcPipe = "HXC_PIPE"
-  self.log:info("HxC constants initialised.")
+local getHxcCommand = function(settings, imgPath)
+  return string.format("%s -uselayout:AKAIS3000_HD -finput:%s -usb:", settings:getHxcPath(), imgPath)
 end
 
-function HxcService:setSettings(settings)
-  self.settings = settings
-end
-
-function HxcService:getMacOsXLauncher()
+local getMacOsXLauncher = function(settings)
   local launcher = function (variables)
     local scriptPath = variables["scriptPath"]
     local imgPath = variables["imgPath"]
@@ -36,22 +22,22 @@ function HxcService:getMacOsXLauncher()
     --file:write("set -x -v\n")
     file:write("set -e\n")
 
-    file:write(string.format("pipe=%s", self.hxcPipe))
+    file:write(string.format("pipe=%s", hxcPipe))
     file:write(cutils.getEolChar())
     file:write("if [ -p \"${pipe}\" ]; then rm -rf ${pipe}; fi")
     file:write(cutils.getEolChar())
     file:write("mkfifo ${pipe}")
     file:write(cutils.getEolChar())
 
-    local hxc_cmd = self:getHxcCommand(imgPath)
-    file:write(string.format("./%s < ${pipe}", hxc_cmd))
+    local hxc_cmd = getHxcCommand(settings, imgPath)
+    file:write(string.format("%s < ${pipe}", hxc_cmd))
     file:write(cutils.getEolChar())
     file:close()
   end
   return launcher
 end
 
-function HxcService:getMacOsXAborter()
+local getMacOsXAborter = function(settings)
   local aborter = function (scriptPath)
     local file = io.open(scriptPath, "a")
     file:write("#!/bin/bash\n")
@@ -60,14 +46,14 @@ function HxcService:getMacOsXAborter()
 
     file:write("echo \"Attempting to kill hxcfe...\"")
     file:write(cutils.getEolChar())
-    file:write(string.format("echo \"q\n\" > %s", self.hxcPipe))
+    file:write(string.format("echo \"q\n\" > %s", hxcPipe))
     file:write(cutils.getEolChar())
     file:close()
   end
   return aborter
 end
 
-function HxcService:getWindowsAborter()
+local getWindowsAborter = function(settings)
   local aborter = function(scriptPath)
     local file = io.open(scriptPath, "a")
     file:write("for /f \"tokens=2 delims=,\" %%a in ('tasklist /v /fo csv ^| findstr /i \"hxcfe\"') do set \"$PID=%%a\"")
@@ -79,39 +65,53 @@ function HxcService:getWindowsAborter()
   return aborter
 end
 
-function HxcService:getWindowsLauncher()
+local getWindowsLauncher = function(settings)
   local launcher = function(variables)
     local scriptPath = variables["scriptPath"]
     local imgPath = variables["imgPath"]
 
-    self.log:info("Generating %s with image %s", scriptPath, imgPath)
+    log:info("Generating %s with image %s", scriptPath, imgPath)
 
     local file = io.open(scriptPath, "a")
-    file:write(string.format("cd %s", self.settings:getHxcRoot()))
+    file:write(string.format("cd %s", settings:getHxcRoot()))
     file:write(cutils.getEolChar())
-    file:write(self:getHxcCommand(imgPath))
+    file:write(getHxcCommand(settings, imgPath))
     file:write(cutils.getEolChar())
     file:close()
   end
   return launcher
 end
 
-function HxcService:getHxcCommand(imgPath)
-  return string.format("%s -uselayout:AKAIS3000_HD -finput:%s -usb:", self.settings:getHxcPath(), imgPath)
+setmetatable(HxcService, {
+  __index = LuaObject, -- this is what makes the inheritance work
+  __call = function (cls, ...)
+    local self = setmetatable({}, cls)
+    self:_init(...)
+    return self
+  end,
+})
+
+function HxcService:_init()
+  LuaObject._init(self)
+  log:info("HxC constants initialised.")
+end
+
+function HxcService:setSettings(settings)
+  self.settings = settings
 end
 
 function HxcService:getHxcLauncher()
   if cutils.getOsName() == "win" then
-    return self:getWindowsLauncher()
+    return getWindowsLauncher(self.settings)
   else
-    return self:getMacOsXLauncher()
+    return getMacOsXLauncher(self.settings)
   end
 end
 
 function HxcService:getHxcAborter()
   if cutils.getOsName() == "win" then
-    return self:getWindowsAborter()
+    return getWindowsAborter(self.settings)
   else
-    return self:getMacOsXAborter()
+    return getMacOsXAborter(self.settings)
   end
 end

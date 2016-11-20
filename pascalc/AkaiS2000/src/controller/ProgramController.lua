@@ -25,8 +25,13 @@ function ProgramController:setProgramList(programList)
   programList:addListener(self, "updateProgramList")
 end
 
-function ProgramController:updateTuneLabel(modName, semi, cent)
-  self:setText(string.format("%s-LBL", modName), string.format("%02d.%02d", semi, cent))
+function ProgramController:updateTuneLabel(modName, value)
+  local cent, semi = midiService:toTuneBytes(value)
+  local sign = ""
+  if semi == 0 and value < 0 then
+    sign = "-"
+  end
+  self:setText(string.format("%s-LBL", modName), string.format("%s%02d.%02d", sign, semi, cent))
 end
 
 function ProgramController:updateProgramList(pl)
@@ -36,16 +41,12 @@ function ProgramController:updateProgramList(pl)
     self:toggleActivation("programSelector", false)
     self:updateStatus("Please load a program")
     return
+  elseif pl:getActiveProgram() == nil then
+    pl:setActiveProgram(1)
   end
 
   self:setMax("programSelector", numPrograms)
-  local activeProgram = pl:getActiveProgram()
-  if activeProgram == nil then
-    self:setText("PRNAME", "")
-    self:updateStatus("Please load a program")
-  else
-    self:changeProgram(activeProgram)
-  end
+  self:changeProgram(pl:getActiveProgram())
 end
 
 function ProgramController:changeProgram(newProgram)
@@ -100,22 +101,17 @@ function ProgramController:assignKeyGroupValues(program, kgIndex)
     return
   end
   keyGroup:setUpdating(true)
-  local zones = keyGroup:getZones()
-  for k = 1, 4 do
-    local sampleName = ""
-    if zones[k] ~= nil then
-      sampleName = zones[k]:getSampleName()
-    end
-    local selector = string.format("zone%dSelector", k)
-    panel:getComponent(selector):setText(sampleName, true)
-  end
 
   for k,v in pairs(KEY_GROUP_BLOCK) do
     local mod = panel:getModulatorByName(k)
     if mod ~= nil then
       local value = keyGroup:getParamValue(k)
-      local minValue = mod:getMinNonMapped()
-      mod:setValue(programService:getAbsoluteParamValue(k, value, minValue), true)
+      if type(value) == "string" then
+        mod:getComponent():setText(value, true)
+      else
+        local minValue = mod:getMinNonMapped()
+        mod:setValue(programService:getAbsoluteParamValue(k, value, minValue), true)
+      end
     end
   end
   keyGroup:setUpdating(false)
@@ -194,31 +190,66 @@ function ProgramController:onVssChange(mod, value)
 end
 
 function ProgramController:onKgDefaultParamChange(mod, value)
-  self:storeKgParamEdit(KG_DEFAULT, mod, value + math.abs(mod:getMinNonMapped()))
+  if mod:getMinNonMapped() > 0 then
+    value = value - mod:getMinNonMapped()
+  elseif mod:getProperty("name") == "LONOTE" or mod:getProperty("name") == "HINOTE" then
+    value = value + 24
+  end
+  self:storeKgParamEdit(KG_DEFAULT, mod, value)
 end
 
 function ProgramController:onProgDefaultParamChange(mod, value)
-  self:storeProgParamEdit(PROG_DEFAULT, mod, value - mod:getMinNonMapped())
+  if mod:getMinNonMapped() > 0 then
+    value = value - mod:getMinNonMapped()
+  end
+  self:storeProgParamEdit(PROG_DEFAULT, mod, value)
 end
 
 function ProgramController:onKgTuneChange(mod, value)
   self:storeKgParamEdit(KG_TUNE, mod, value)
 
-  local ll, mm = midiService:toTuneBytes(value)
-  self:updateTuneLabel(mod:getProperty("name"), mm, ll)
+  self:updateTuneLabel(mod:getProperty("name"), value)
 end
 
 function ProgramController:onProgTuneChange(mod, value)
   self:storeProgParamEdit(PROG_TUNE, mod, value)
 
-  local ll, mm = midiService:toTuneBytes(value)
-  self:updateTuneLabel(mod:getProperty("name"), mm, ll)
+  self:updateTuneLabel(mod:getProperty("name"), value)
 end
 
 function ProgramController:onKgStringChange(mod, value)
   self:storeKgParamEdit(KG_STRING, mod, value)
 end
 
+function ProgramController:onKgFilqChange(mod, value)
+  self:storeKgParamEdit(KG_FILQ, mod, value)
+end
+
+
 function ProgramController:onProgStringChange(mod, value)
   self:storeProgParamEdit(PROG_STRING, mod, value)
+end
+
+function ProgramController:rpListProcessUpdate(process)
+  self:toggleActivation("receiveSampleList", not process:isRunning())
+  if process:getState() == RECEIVING_PROGRAMS then
+    self:updateStatus("Receiving programs...")
+  elseif process:getState() == PROGRAMS_RECEIVED then
+    local progs = process:getPrograms()
+    for k, v in ipairs(progs) do
+      programList:addProgram(v)
+    end
+    self:updateStatus("Programs received.")
+  else
+  end
+end
+
+function ProgramController:onRpList(mod, value)
+  local proc = ReceivedProgramsProcess()
+  proc:addListener(self, "rpListProcessUpdate")
+  
+  local status, err = pcall(ProcessController.execute, processController, proc)
+  if not status then
+    self:updateStatus(cutils.getErrorMessage(err))
+  end
 end

@@ -33,11 +33,11 @@ local cloneKeyGroup = function(origKg)
   for i = 1, 4 do
     local zone = zones[i]
     if zone ~= nil then
-      kg["kdata"]:storeNibbles(string.format("VLOUD%d", i), midiService:toNibbles(63))
+      kg["kdata"]:storeNibbles(string.format("VLOUD%d", i), mutils.d2n(63))
       if zone:isLeftSample() then
-        kg["kdata"]:storeNibbles(string.format("VPANO%d", i), midiService:toNibbles(0))
+        kg["kdata"]:storeNibbles(string.format("VPANO%d", i), mutils.d2n(0))
       elseif zone:isRightSample() then
-        kg["kdata"]:storeNibbles(string.format("VPANO%d", i), midiService:toNibbles(100))
+        kg["kdata"]:storeNibbles(string.format("VPANO%d", i), mutils.d2n(100))
       end
     end
   end
@@ -46,7 +46,7 @@ local cloneKeyGroup = function(origKg)
 end
 
 PROG_TUNE, PROG_STRING, PROG_DEFAULT = 0, 1, 2
-KG_TUNE, KG_STRING, KG_DEFAULT, KG_VSS = 3, 4, 5, 6
+KG_TUNE, KG_STRING, KG_DEFAULT, KG_VSS, KG_FILQ = 3, 4, 5, 6, 7
 
 ProgramService = {}
 ProgramService.__index = ProgramService
@@ -138,11 +138,12 @@ function ProgramService:addNewProgram(programList, drumMap)
     program:addKeyGroup(cloneKeyGroup(v))
   end
   programList:addProgram(program)
+  return program
 end
 
 function ProgramService:khead(program, blockType, blockName, value)
   local prog = program:getProgramNumber()
-  local kg = program:getActiveKeyGroupIndex()
+  local kg = program:getActiveKeyGroupIndex() - 1
 
   local offset = KEY_GROUP_BLOCK[blockName]
   local valueBlock = -1
@@ -154,6 +155,12 @@ function ProgramService:khead(program, blockType, blockName, value)
     valueBlock = midiService:toTuneBlock(value)
   elseif blockType == KG_VSS then
     valueBlock = midiService:toVssBlock(value)
+    local msg = KheadMsg(prog, kg, offset, valueBlock)
+    msg.data:setByte(8, 0x15)
+    msg.data:setByte(9, 0x01)
+    return msg
+  elseif blockType == KG_FILQ then
+    valueBlock = midiService:toFilqBlock(value)
   else
     assert(false, "Invalid keygroup modulator type " .. blockType)
   end
@@ -181,7 +188,11 @@ end
 function ProgramService:getAbsoluteParamValue(blockName, value, minValue)
   if absoluteValueParams[blockName] then
     return value
-  else
+  elseif blockName == "LONOTE" or blockName == "HINOTE" then
+    return value - 24
+  elseif minValue > 0 then
     return value + minValue
+  else
+    return value
   end
 end

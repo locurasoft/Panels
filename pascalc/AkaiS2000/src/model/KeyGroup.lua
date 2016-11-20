@@ -43,12 +43,12 @@ function KeyGroup:storeParamEdit(khead)
 end
 
 function KeyGroup:setLowNote(lowNote)
-  local nibbles = midiService:toNibbles(lowNote)
+  local nibbles = mutils.d2n(lowNote)
   self.kdata:storeNibbles("LONOTE", nibbles)
 end
 
 function KeyGroup:setHighNote(highNote)
-  local nibbles = midiService:toNibbles(highNote)
+  local nibbles = mutils.d2n(highNote)
   self.kdata:storeNibbles("HINOTE", nibbles)
 end
 

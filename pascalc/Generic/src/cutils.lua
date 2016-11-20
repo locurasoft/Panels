@@ -39,11 +39,11 @@ end
 --- Returns the opertaing system name as string.
 -- @return the opertaing system name as string
 function getOsName()
-  local osName = "win"
   if getPathSeparator() == "/" then
-    local osName = "mac"
+    return "mac"
+  else
+    return "win"
   end
-  return osName
 end
 
 ---

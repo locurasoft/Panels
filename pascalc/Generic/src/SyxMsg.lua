@@ -24,11 +24,3 @@ end
 function SyxMsg:toString()
 	return self.data:toHexString(1)
 end
-
-function SyxMsg:toJson()
-	return string.gsub(
-		json.encode(self), 
-		"^{", 
-		string.format("{data = \"%s\",", self.data:toHexString(1)), 
-		1)
-end

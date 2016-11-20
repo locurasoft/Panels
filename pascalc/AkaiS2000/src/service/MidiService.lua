@@ -1,6 +1,7 @@
 require("LuaObject")
 require("Logger")
 require("lutils")
+require("mutils")
 
 SAMPLE_NAME_LENG  = 12
 PROGRAM_NAME_LENG = 12
@@ -50,9 +51,30 @@ setmetatable(MidiService, {
 --@module __MidiService
 function MidiService:_init()
   LuaObject._init(self)
+  self.onMidiReceivedFunc = nil
   self.alphabet = AKAI_ALPHABET
   self.flipAlphabet = lutils.flipTable(AKAI_ALPHABET)
 end
+
+function MidiService:dispatchMidi(data)
+  if data:getByte(0) ~= 0xF0 or data:getByte(1) ~= 0x47 then
+    log:info("Invalid S2K Sysex received!")
+    return
+  end
+
+  if self.onMidiReceivedFunc ~= nil then
+    self.onMidiReceivedFunc(data)
+  end
+end
+
+function MidiService:clearMidiReceived()
+  self.onMidiReceivedFunc = nil
+end
+
+function MidiService:setMidiReceived(midiCallback)
+  self.onMidiReceivedFunc = midiCallback
+end
+
 
 ---
 -- @function [parent=#MidiService] sendMidiMessage
@@ -70,31 +92,6 @@ function MidiService:sendMidiMessages(msgs)
   end
 end
 
-function MidiService:float2nibbles(value)
-  local nibbles = MemoryBlock(4, true)
-  local n = math.floor(math.abs(value) * 256 + 0.13)
-  n = value < 0 and 0x10000 - n or n
-  for pos = 0, 3 do
-    nibbles:setByte(pos, n % 16)
-    n = math.floor(n / 16)
-  end
-  return nibbles
-end
-
-function MidiService:nibbles2float(memBlock, offset)
-  local bi = BigInteger(0)
-  bi:setBitRangeAsInt(0, 4, memBlock:getByte(offset))
-  bi:setBitRangeAsInt(4, 4, memBlock:getByte(offset + 1))
-  bi:setBitRangeAsInt(8, 4, memBlock:getByte(offset + 2))
-  bi:setBitRangeAsInt(12, 4, memBlock:getByte(offset + 3))
-  local n = 0
-  for i = 0, 15 do
-    local factor = math.pow(2, i - 8)
-    n = n + bi:getBitRangeAsInt(i, 1) * factor
-  end
-  return memBlock:getByte(offset + 3) >= 0x8 and n - 256 or n
-end
-
 function MidiService:toTuneBytes(value)
   local mm = math.floor(value / 100)
   if value < 0 then
@@ -105,14 +102,14 @@ function MidiService:toTuneBytes(value)
 end
 
 function MidiService:toTuneBlock(value)
-  return self:float2nibbles(value / 100)
+  return mutils.f2n(value / 100)
 end
 
 ---
 -- @function [parent=#MidiService] fromTuneBlock
 --
 function MidiService:fromTuneBlock(block, offset)
-  return self:nibbles2float(block, offset) * 100
+  return mutils.n2f(block, offset) * 100
 end
 
 ---
@@ -132,6 +129,19 @@ function MidiService:toVssBlock(value)
     retval:setByte(2, bigInt:getBitRangeAsInt(8, 4))
     retval:setByte(3, bigInt:getBitRangeAsInt(12, 4))
   end
+  return retval
+end
+
+---
+-- @function [parent=#MidiService] toFilqBlock
+--
+function MidiService:toFilqBlock(value)
+  local retval = MemoryBlock(4, true)
+  local values = mutils.d2n(value)
+  retval:setByte(0, values:getByte(0))
+  retval:setByte(1, values:getByte(1))
+  retval:setByte(2, 0x03)
+  retval:setByte(3, 0x06)
   return retval
 end
 
@@ -156,73 +166,30 @@ end
 -- @function [parent=#MidiService] toStringBlock
 --
 function MidiService:toStringBlock(value)
-  return self:toAkaiStringBytes(value)
+  return self:toAkaiStringNibbles(value)
 end
 
 ---
 -- @function [parent=#MidiService] fromStringBlock
 --
 function MidiService:fromStringBlock(buffer, offset)
-  local temp = MemoryBlock(12, true)
-  buffer:copyTo(temp, offset, 12)
-  return self:fromAkaiStringBytes(temp)
+  local temp = MemoryBlock(PROGRAM_NAME_LENG * 2, true)
+  buffer:copyTo(temp, offset, PROGRAM_NAME_LENG * 2)
+  return self:fromAkaiStringNibbles(temp)
 end
 
 ---
 -- @function [parent=#MidiService] toDefaultBlock
 --
 function MidiService:toDefaultBlock(value)
-  return self:toNibbles(value)
+  return mutils.d2n(value)
 end
 
 ---
 -- @function [parent=#MidiService] fromDefaultBlock
 --
 function MidiService:fromDefaultBlock(buffer, offset)
-  return self:fromNibbles(buffer:getByte(offset), buffer:getByte(offset + 1))
-end
-
----
--- @function [parent=#MidiService] fromNibbles
---
-function MidiService:fromNibbles(ls, ms)
-  local bi = BigInteger(0)
-  bi:setBitRangeAsInt(0, 4, ls)
-  bi:setBitRangeAsInt(4, 7, ms)
-  return bi:getBitRangeAsInt(0, 15)
-end
-
----
--- @function [parent=#MidiService] toNibbles
---
-function MidiService:toNibbles(x)
-  local nibbles = MemoryBlock(2, true)
-
-  local internalX = x
-  if x < 0 then
-    local hex = bit.tohex(x, 2)
-    internalX = tonumber(hex, 16)
-  end
-  local bi = BigInteger(internalX)
-  local LS = bi:getBitRangeAsInt(0, 4)
-  local MS = bi:getBitRangeAsInt(4, 7)
-
-  nibbles:setByte(0, LS)
-  nibbles:setByte(1, MS)
-  return nibbles
-end
-
----
--- @function [parent=#MidiService] arrayToNibbles
---
-function MidiService:arrayToNibbles(values)
-  -- calculate the akai-splitted parameter value,returns table named split with two values
-  local memBlock = MemoryBlock(#values * 2, true)
-  for i = 0, (#values - 1) do
-    local nibbles = self:toNibbles(values[i + 1])
-    memBlock:copyFrom(nibbles, i * 2, 2)
-  end
-  return memBlock
+  return mutils.n2d(buffer:getByte(offset), buffer:getByte(offset + 1))
 end
 
 ---
@@ -231,12 +198,21 @@ end
 --
 function MidiService:fromAkaiStringBytes(bytes)
   local result = ""
-
-  for i = 0, (bytes:getSize() - 1) do
-    result = string.format("%s%s", result, self.alphabet[bytes:getByte(i) + 1])
+  for i = 1, bytes:getSize() do
+    result = string.format("%s%s", result, self.alphabet[bytes:getByte(i - 1) + 1])
   end
   return result
 end
+
+---
+-- Returns a LUA string representation of an Akai sysex string
+-- @function [parent=#MidiService] fromAkaiStringNibbles
+--
+function MidiService:fromAkaiStringNibbles(nibbles)
+  local bytes = mutils.n2a(nibbles)
+  return self:fromAkaiStringBytes(bytes)
+end
+
 
 function MidiService:toAkaiString(str)
   local retval = ""
@@ -252,31 +228,13 @@ function MidiService:toAkaiString(str)
 end
 
 ---
--- @function [parent=#MidiService] toAkaiStringBytes
+-- @function [parent=#MidiService] toAkaiStringNibbles
 --
-function MidiService:toAkaiStringBytes(name)
-  local memBlock = MemoryBlock(SAMPLE_NAME_LENG, true)
-  
+function MidiService:toAkaiStringNibbles(name)
+  local akaiString = self:toAkaiString(name)
+  local akaiStringBytes = MemoryBlock(SAMPLE_NAME_LENG, true)
   for i = 1, SAMPLE_NAME_LENG do
-    -- Pad with spaces
-    if i > #name then
-      memBlock:setByte(i - 1, self.flipAlphabet[" "] - 1)
-    else
-      memBlock:setByte(i - 1, self.flipAlphabet[string.sub(name, i, i):upper()] - 1)
-    end
+    akaiStringBytes:setByte(i - 1, self.flipAlphabet[string.sub(akaiString, i, i)] - 1)
   end
-  return memBlock
-end
-
----
--- @function [parent=#MidiService] splitBytes
---
-function MidiService:splitBytes(value)
-  local split = {}
-  local bi = BigInteger(value)
-  local LS = bi:getBitRangeAsInt(0, 7)
-  local MS = bi:getBitRangeAsInt(8, 7)
-  table.insert(split, 1, LS)
-  table.insert(split, 2, MS)
-  return (split)
+  return mutils.a2n(akaiStringBytes)
 end

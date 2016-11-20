@@ -32,6 +32,7 @@ function ProgramList:getProgram(index)
 end
 
 function ProgramList:addProgram(program)
+  log:warn("Adding prog %s (%d)", program:getName(), self:getNumPrograms())
   table.insert(self.list, program)
   self:notifyListeners()
 end

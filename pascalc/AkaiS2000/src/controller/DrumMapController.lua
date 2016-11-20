@@ -141,90 +141,37 @@ function DrumMapController:updateDrumMap(drumMap)
   self.drumMapListenerId = drumMap:addListener(self, "updateDrumMap")
 end
 
+function DrumMapController:transferProcessUpdate(process)
+  self:toggleActivation("transferSamples", not process:isRunning())
+  if process:getState() == TRANSFERING_FLOPPY then
+    self:updateStatus("Transfering floppy image...")
+    utils.infoWindow("Load samples", "Please select to load all from nfloppy on the\Akai S2000 and press OK when the process has finished.")
+  elseif process:getState() == SAMPLES_FLOPPY_TRANSFER_DONE then
+    self:updateStatus("Data transfer done.")
+  elseif process:getState() == TRANSFERRING_SAMPLES_FLOPPY then
+    self:updateStatus("Transfering 1:st floppy to Akai S2000...")
+    utils.infoWindow("Load samples", "Please select to load all from\nfloppy on the Akai S2000.")
+  end
+end
+
 function DrumMapController:transferSamples()
-  local logFilePath
-  local numSamplesBefore = -1
-  local expectedNumSamples = -1
+  self:updateStatus(string.format("Transfering samples to Akai S2000..."))
 
-  local rslistFunc = function()
-    midiService:sendMidiMessage(RslistMsg())
-  end
-
-  local midiCallbackFunc = function(data)
-    local msg = SlistMsg(data)
-    if msg ~= nil then
-      local numSamples = msg:getNumSamples()
-      if numSamplesBefore == -1 then
-        numSamplesBefore = numSamples
-      elseif expectedNumSamples == -1 then
-        expectedNumSamples = s2kDieService:getNumGeneratedSamples(logFilePath)
-      elseif numSamples == numSamplesBefore + expectedNumSamples then
-        sampleList:addSamples(msg)
-        local status, err = pcall(ProcessController.abort, processController)
-        if status then
-          local wavList = drumMap:retrieveNextFloppy()
-          if wavList == nil then
-            self:updateStatus("Data transfer done.")
-          else
-            self:updateStatus(string.format("Transfering 1:st floppy to Akai S2000..."))
-            executeTransfer(wavList)
-          end
-        else
-          self:updateStatus(cutils.getErrorMessage(err))
-        end
-      end
-    end
-  end
-
-  local executeTransfer = function(wavList)
-    local transferProc = Process()
-      :withPath(settings:getWorkFolder())
-      :withLaunchVariable("wavFiles", wavList)
-      :withLaunchGenerator(s2kDieService:s2kDieLauncher())
-      :withLaunchGenerator(hxcService:getHxcLauncher())
-      :withAbortGenerator(hxcService:getHxcAborter())
-      :withMidiCallback(midiCallbackFunc)
-      :withMidiSender(rslistFunc, 1000)
-      :build()
-
-    logFilePath = transferProc:getLogFilePath()
-
-    local result = processController:execute(transferProc)
-    if result then
-      utils.infoWindow("Load samples", "Please select to load all from\nfloppy on the Akai S2000.")
-      self:updateStatus("Transfering samples...")
-    else
-      self:updateStatus("Failed to transfer data.\nPlease cancel process")
-    end
-  end
-
-  local wavList = drumMap:retrieveNextFloppy()
-  if wavList == nil then
-    drumMapController:updateStatus("Data transfer done.")
-  else
-    drumMapController:updateStatus(string.format("Transfering 1:st floppy to Akai S2000..."))
-    executeTransfer(wavList)
+  local proc = TransferSamplesProcess()
+  proc:addListener(self, "transferProcessUpdate")
+  local status, err = pcall(ProcessController.execute, processController, proc)
+  if not status then
+    self:updateStatus("Failed to transfer data.\nPlease cancel process")
   end
 end
 
 function DrumMapController:transferFloppyImage()
-  self:updateStatus(string.format("Transfering floppy image\nto Akai S2000..."))
+  self:updateStatus(string.format("Transfering floppy image to Akai S2000..."))
 
-  local transferProc = Process()
-    :withPath(settings:getWorkFolder())
-    :withLaunchVariable("imgPath", settings:getFloppyImgPath())
-    :withLaunchGenerator(hxcService:getHxcLauncher())
-    :withAbortGenerator(hxcService:getHxcAborter())
-    :build()
-
-  local result = processController:execute(transferProc)
-  if result then
-    utils.infoWindow("Load samples", "Please select to load all from\nfloppy on the Akai S2000.\n\nPress OK when done.")
-    local status, err = pcall(ProcessController.abort, processController)
-    if not status then
-      self:updateStatus(cutils.getErrorMessage(err))
-    end
-  else
+  local proc = TransferFloppyProcess()
+  proc:addListener(self, "transferProcessUpdate")
+  local status, err = pcall(ProcessController.execute, processController, proc)
+  if not status then
     self:updateStatus("Failed to transfer data.\nPlease cancel process")
   end
 end
@@ -281,6 +228,8 @@ function DrumMapController:onCreateProgram(mod, value)
   local status, err = pcall(ProgramService.addNewProgram, programService, programList, drumMap)
   if status then
     self:updateStatus("Program created!")
+    LOGGER:info(err:getPdata():getData():toHexString(1))
+    midiService:sendMidiMessage(err:getPdata())
   else
     self:updateStatus(cutils.getErrorMessage(err))
   end
@@ -333,49 +282,27 @@ function DrumMapController:onTransferSamples(mod, value)
   end
 end
 
+function DrumMapController:toggleLoadOsButton(process)
+  self:toggleActivation("loadOsButton", not process:isRunning())
+  if process:getState() == OS_LOADING then
+    self:updateStatus("Loading Akai S2000 OS...")
+  elseif process:getState() == OS_LOADED then
+    self:updateStatus("Akai S2000 OS loaded.")
+  else 
+  end
+end
+
 function DrumMapController:onLoadOs(mod, value)
   if not settingsController:verifyTransferSettings() then
     self:updateStatus("There are config issues.\nPlease verify your settings...")
     return
   end
 
-  local statCount = 0
-
-  local rstatFunc = function()
-    midiService:sendMidiMessage(Rstat())
-  end
-
-  local statFunc = function(data)
-    local statMsg = StatMsg(data)
-    if statMsg ~= nil then
-      if statCount > 20 then
-        statCount = statCount + 1
-      else
-        local status, err = pcall(ProcessController.abort, processController)
-        if status then
-          self:updateStatus("Akai S2000 OS loaded.")
-          self:toggleActivation("loadOsButton", true)
-        else
-          self:updateStatus(cutils.getErrorMessage(err))
-        end
-      end
-    end
-  end
-
-  local transferProc = Process()
-    :withPath(settings:getWorkFolder())
-    :withLaunchVariable("imgPath", cutils.toFilePath(settings:getWorkFolder(), "osimage.img"))
-    :withLaunchGenerator(hxcService:getHxcLauncher())
-    :withAbortGenerator(hxcService:getHxcAborter())
-    :withMidiCallback(statFunc)
-    :withMidiSender(rstatFunc, 1000)
-
-  self:toggleActivation("loadOsButton", false)
-
-  local status, err = pcall(ProcessController.execute, processController, transferProc)
-  if status then
-    self:updateStatus("Loading Akai S2000 OS...")
-  else
+  local loadOsProc = LoadOsProcess()
+  loadOsProc:addListener(self, "toggleLoadOsButton")
+  local status, err = pcall(ProcessController.execute, processController, loadOsProc)
+  if not status then
+    log:warn(cutils.getErrorMessage(err))
     self:updateStatus("Failed to load OS.\nPlease cancel process")
   end
 end
@@ -384,37 +311,8 @@ function DrumMapController:onCancelProcess(mod, value)
   self:updateStatus("Select a sample and a key group")
   local status, err = pcall(ProcessController.abort, processController)
   if not status then
+    log:warn(cutils.getErrorMessage(err))
     self:updateStatus(cutils.getErrorMessage(err))
-  end
-end
-
-function DrumMapController:onRslist(mod, value)
-  local rslistFunc = function()
-    midiService:sendMidiMessage(RslistMsg())
-  end
-
-  local midiCallbackFunc = function(data)
-    local slist = SlistMsg(data)
-    if slist then
-      local status, err = pcall(ProcessController.abort, processController)
-      if status then
-        sampleList:addSamples(slist)
-      else
-        self:updateStatus(cutils.getErrorMessage(err))
-      end
-    end
-  end
-
-  local rslistProc = Process()
-    :withMidiCallback(midiCallbackFunc)
-    :withMidiSender(rslistFunc, 100)
-    :build()
-
-  local result = processController:execute(rslistProc)
-  if result then
-    self:updateStatus("Receiving sample list...")
-  else
-    self:updateStatus("Failed to receive data.\nPlease cancel process")
   end
 end
 

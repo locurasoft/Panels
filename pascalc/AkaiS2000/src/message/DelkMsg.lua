@@ -14,6 +14,6 @@ setmetatable(DelkMsg, {
 
 function DelkMsg:_init(programNumber, kgNumber)
   SyxMsg._init(self)
-  local pb = midiService:splitBytes(programNumber)
-  self.data = {0xf0, 0x47, 0x00, 0x13, 0x48, pb[1], pb[2], kgNumber, 0xf7}
+  local pb = mutils.d2b(programNumber)
+  self.data = MemoryBlock({0xf0, 0x47, 0x00, 0x13, 0x48, pb[1], pb[2], kgNumber, 0xf7})
 end

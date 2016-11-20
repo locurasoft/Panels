@@ -40,7 +40,9 @@ function DrumMap:setSampleSelectType(useSample)
 end
 
 function DrumMap:setSelectedSample(selectedSample)
-  if type(selectedSample) == "string" and self.useSample then
+  if selectedSample == nil then
+    self.selectedFile = nil
+  elseif type(selectedSample) == "string" and self.useSample then
     self.selectedSample = selectedSample
   elseif type(selectedSample) ~= "string" and not self.useSample then
     self.selectedFile = selectedSample

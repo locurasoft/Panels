@@ -12,18 +12,22 @@ function setup()
   settings:setHxcPath(File("c:\\temp\\hxc.exe"))
 
   regGlobal("EOL", "\r\n")
-  underTest = HxcService(settings)
+  underTest = HxcService()
+  underTest:setSettings(settings)
   scriptPath = "my_script.bat"
+  packageConfigBak = package.config
 end
 
 function teardown()
   os.remove(scriptPath)
+  package.config = packageConfigBak
 end
 
 function testWindowsLauncher()
+  package.config = "\\"
   local imgPath = "c:\\temp\\my_image.img"
   
-  local windowsLauncher = underTest:getWindowsLauncher()
+  local windowsLauncher = underTest:getHxcLauncher()
   windowsLauncher({
     ["scriptPath"] = scriptPath,
     ["imgPath"] = imgPath
@@ -40,9 +44,10 @@ function testWindowsLauncher()
 end
 
 function testMacOsXLauncher()
+  package.config = "/"
   local imgPath = "/User/test/my_image.img"
   
-  local macOsXLauncher = underTest:getMacOsXLauncher()
+  local macOsXLauncher = underTest:getHxcLauncher()
   macOsXLauncher({
     ["scriptPath"] = scriptPath,
     ["imgPath"] = imgPath
@@ -59,9 +64,10 @@ function testMacOsXLauncher()
 end
 
 function testWindowsAborter()
+  package.config = "\\"
   local imgPath = "c:\\temp\\my_image.img"
   
-  local windowsAborter = underTest:getWindowsAborter()
+  local windowsAborter = underTest:getHxcAborter()
   windowsAborter(scriptPath)
   local result = io.open(scriptPath,"r")
   assertNotNil(result)
@@ -72,9 +78,10 @@ function testWindowsAborter()
 end
 
 function testMacOsXAborter()
+  package.config = "/"
   local imgPath = "/User/test/my_image.img"
   
-  local macOsXAborter = underTest:getMacOsXAborter()
+  local macOsXAborter = underTest:getHxcAborter()
   macOsXAborter(scriptPath)
   local result = io.open(scriptPath,"r")
   assertNotNil(result)

@@ -14,7 +14,6 @@ setmetatable(RkdataMsg, {
 
 function RkdataMsg:_init(programNumber, kgNumber)
   SyxMsg._init(self)
-  local pb = midiService:splitBytes(programNumber)
-  local bytes = {0xf0, 0x47, 0x00, 0x08, 0x48, pb[1], pb[2], kgNumber, 0xf7}
-  self.data = bytes
+  local pb = mutils.d2b(programNumber)
+  self.data = MemoryBlock({0xf0, 0x47, 0x00, 0x08, 0x48, pb[1], pb[2], kgNumber, 0xf7})
 end

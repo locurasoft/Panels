@@ -4,7 +4,7 @@ require("MockValueTree")
 require("json4ctrlr")
 require("cutils")
 
-require("model/Process")
+require("model/process/Process")
 require("model/DrumMap")
 require("model/SampleList")
 require("model/ProgramList")
@@ -87,10 +87,10 @@ function teardown()
   os.execute("rmdir /S /Q " .. tmpFolderName)
 end
 
---function testOnTest1()
---	local tested = GlobalController()
---	tested:onTest1()
---end
+function testOnTest1()
+	local tested = GlobalController()
+	tested:onTest1()
+end
 
 --function test2()
 --  function f()
@@ -121,10 +121,5 @@ end
 --	print(result["LUA_CLASS_NAME"])
 --	print(result["s2kDiePath"]:getFullPathName())
 --end
-
-function testGsub()
-  local a = "C:\\ctrlr\\s2kdie\\s2kdie.php"
-  print(string.format('{"nativeName":"File","fullPathName":"%s"}', a:gsub("\\", "/")))
-end
 
 runTests{useANSI = false}

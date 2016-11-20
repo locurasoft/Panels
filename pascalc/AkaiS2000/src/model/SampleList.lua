@@ -33,7 +33,7 @@ function SampleList:getSampleList()
 end
 
 function SampleList:getSampleName(index)
-	return table.get(self.list, index)
+  return table.get(self.list, index)
 end
 
 function SampleList:getSampleNames()
@@ -70,4 +70,13 @@ function SampleList:addSamples(slist)
   if modified then
     self:notifyListeners()
   end
+end
+
+function SampleList:indexOf(sampleName)
+  for k,v in pairs(self.list) do
+    if v == sampleName then
+      return k
+    end
+  end
+  error("Sample not loaded.\nPlease make sure the sample is loaded on your sampler and run RsList")
 end

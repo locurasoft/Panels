@@ -6,13 +6,7 @@ require 'lemock'
 module( 'PdataMsgTest', lunity )
 
 function setup()
-  -- code here will be run before each test
-  --console("setup")
   regGlobal("midiService", MidiService())
-end
-
-function teardown()
-  -- code here will be run after each test
 end
 
 function testConstructor_withoutBytes()
@@ -21,11 +15,7 @@ function testConstructor_withoutBytes()
   assertNotNil(data)
   assertEqual(data:getByte(0), 0xF0)
   assertEqual(pdata:getName(), "EMPTYPROGRAM")
-  assertEqual(data:getSize(), 232)
-end
-
-function testConstructor_withBytes()
-  
+  assertEqual(data:getSize(), 292)
 end
 
 function testProgramNumber()
@@ -47,16 +37,16 @@ function testProgramNumber()
   assertEqual(pdata:getProgramNumber(), pn)
   
   pdata:setMaxProgramNumber()
-  assertEqual(pdata:getProgramNumber(), 255)
+  assertEqual(pdata:getProgramNumber(), 127)
   
   pdata:setProgramNumber(256)
-  assertEqual(pdata:getProgramNumber(), 255)
+  assertEqual(pdata:getProgramNumber(), 127)
   
   pdata:setProgramNumber(-1)
   assertEqual(pdata:getProgramNumber(), 0)
   
   pdata:setProgramNumber(1000)
-  assertEqual(pdata:getProgramNumber(), 255)
+  assertEqual(pdata:getProgramNumber(), 127)
 end
 
 function testName()

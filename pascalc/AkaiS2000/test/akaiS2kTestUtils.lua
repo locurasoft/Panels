@@ -1,7 +1,7 @@
 require("ctrlrTestUtils")
 
 function setupIntegrationTest(tmpFolderName, processListener, midiListener)
-  regGlobal("panel", MockPanel("Akai-S2000.panel", midiListener))
+  regGlobal("panel", MockPanel("AkaiS2000/Akai-S2000.panel", midiListener))
   local log = Logger("GLOBAL")
   log:setLevel(3)
   regGlobal("LOGGER", log)
@@ -9,7 +9,7 @@ function setupIntegrationTest(tmpFolderName, processListener, midiListener)
   local settings = Settings()
   settings:setWorkFolder(File(tmpFolderName))
   settings:setS2kDiePath(File("c:\\ctrlr\\s2kdie\\s2kdie.php"))
-  settings:setHxcPath(File("hxc.exe"))
+  settings:setHxcPath(File("c:\\ctrlr\\tools\\HxCFloppyEmulator_soft_beta\\Windows\\hxcfe.exe"))
   settings:setTransferMethod(1)
 
   local programList = ProgramList()
@@ -22,17 +22,38 @@ function setupIntegrationTest(tmpFolderName, processListener, midiListener)
   regGlobal("sampleList", sampleList)
 
   regGlobal("globalController", GlobalController())
-  regGlobal("drumMapController", DrumMapController(drumMap, sampleList))
-  regGlobal("settingsController", SettingsController(settings))
-  regGlobal("sampleListController", SampleListController(sampleList))
-  regGlobal("processController", ProcessController(processListener))
-  regGlobal("programController", ProgramController(programList))
+
+  local drumMapController = DrumMapController()
+  drumMapController:setDrumMap(drumMap)
+  drumMapController:setSampleList(sampleList)
+  regGlobal("drumMapController", drumMapController)
+
+  local settingsController = SettingsController()
+  settingsController:setSettings(settings)
+  regGlobal("settingsController", settingsController)
+
+  local sampleListController = SampleListController()
+  sampleListController:setSampleList(sampleList)
+  regGlobal("sampleListController", sampleListController)
+  
+  local processController = ProcessController()
+  regGlobal("processController", processController)
+  
+  local programController = ProgramController()
+  programController:setProgramList(programList)
+  regGlobal("programController", programController)
 
   regGlobal("programService", ProgramService())
   regGlobal("drumMapService", DrumMapService())
   regGlobal("midiService", MidiService())
-  regGlobal("s2kDieService", S2kDieService(settings))
-  regGlobal("hxcService", HxcService(settings))
+  
+  local s2kDieService = S2kDieService()
+  s2kDieService:setSettings(settings)
+  regGlobal("s2kDieService", s2kDieService)
+  
+  local hxcService = HxcService()
+  hxcService:setSettings(settings)
+  regGlobal("hxcService", hxcService)
 
   panel:getModulatorByName("kgSelector"):setValue(1)
 end

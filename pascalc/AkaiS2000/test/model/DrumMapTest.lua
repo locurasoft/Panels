@@ -21,31 +21,6 @@ function teardown()
   delGlobal("midiService")
 end
 
-function testConstructor()
-  local tested = DrumMap()
-  assertEqual(table.getn(tested.keyRanges), 16)
-
-  local item = tested.keyRanges[1]
-  assertEqual(type(item), "table")
-  assertEqual(item[1], 0)
-  assertEqual(item[2], 0)
-
-  item = tested.keyRanges[8]
-  assertEqual(type(item), "table")
-  assertEqual(item[1], 7)
-  assertEqual(item[2], 7)
-
-  item = tested.keyRanges[13]
-  assertEqual(type(item), "table")
-  assertEqual(item[1], 12)
-  assertEqual(item[2], 12)
-
-  item = tested.keyRanges[16]
-  assertEqual(type(item), "table")
-  assertEqual(item[1], 15)
-  assertEqual(item[2], 15)
-end
-
 function testSetSelectedSample()
   local tested = DrumMap()
   listenerMock:notify(tested);mc:times(2)
@@ -190,9 +165,9 @@ function testSetNumKeyGroups()
   listenerMock:notify(tested);mc:times(2)
   listener2Mock:notify(tested);mc:times(1)
 
---  midiService:toNibbles(0);mc:returns(MemoryBlock("1"));mc:anytimes()
---  midiService:toNibbles(7);mc:returns(MemoryBlock("8"));mc:anytimes()
---  midiService:toNibbles(15);mc:returns(MemoryBlock("16"));mc:anytimes()
+--  mutils.d2n(0);mc:returns(MemoryBlock("1"));mc:anytimes()
+--  mutils.d2n(7);mc:returns(MemoryBlock("8"));mc:anytimes()
+--  mutils.d2n(15);mc:returns(MemoryBlock("16"));mc:anytimes()
   
   mc:replay()
 

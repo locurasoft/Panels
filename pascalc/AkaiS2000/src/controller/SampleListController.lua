@@ -20,19 +20,39 @@ function SampleListController:_init()
 end
 
 function SampleListController:setSampleList(sampleList)
-  sampleList:addListener(self, "updateSampleLists")	
+  self.sampleList = sampleList
+  sampleList:addListener(self, "updateSampleLists")
 end
 
 function SampleListController:updateSampleLists(sampleList)
-	local sampleNames = sampleList:getSampleNames()
-	self:toggleVisibility("noSamplesLabel", sampleNames == "")
-	self:toggleVisibility("noSamplesLabel-1", sampleNames == "")
-	self:toggleVisibility("samplerFileList", sampleNames ~= "")
-	self:toggleVisibility("samplerSampleList", sampleNames ~= "")
-	self:setListBoxContents("samplerFileList", sampleNames)
-	self:setListBoxContents("samplerSampleList", sampleNames)
-	self:setComboBoxContents("zone1Selector", sampleNames)
-	self:setComboBoxContents("zone2Selector", sampleNames)
-	self:setComboBoxContents("zone3Selector", sampleNames)
-	self:setComboBoxContents("zone4Selector", sampleNames)
+  local sampleNames = sampleList:getSampleNames()
+  self:toggleVisibility("noSamplesLabel", sampleNames == "")
+  self:toggleVisibility("noSamplesLabel-1", sampleNames == "")
+  self:toggleVisibility("samplerFileList", sampleNames ~= "")
+  self:toggleVisibility("samplerSampleList", sampleNames ~= "")
+  self:setListBoxContents("samplerFileList", sampleNames)
+  self:setListBoxContents("samplerSampleList", sampleNames)
+  for k = 1, 4 do
+    self:setComboBoxContents(string.format("SNAME%d", k), sampleNames)
+  end
+end
+
+function SampleListController:toggleRsListButton(process)
+  self:toggleActivation("receiveSampleList", not process:isRunning())
+  if process:getState() == RECEIVING_SAMPLE_LIST then
+    self:updateStatus("Receiving sample list...")
+  elseif process:getState() == SAMPLE_LIST_RECEIVED then
+    self:updateStatus("Sample list received.")
+  else
+  end
+end
+
+function SampleListController:onRslist(mod, value)
+  local proc = RsListProcess(sampleList)
+  proc:addListener(self, "toggleRsListButton")
+  
+  local status, err = pcall(ProcessController.execute, processController, proc)
+  if not status then
+    self:updateStatus(cutils.getErrorMessage(err))
+  end
 end

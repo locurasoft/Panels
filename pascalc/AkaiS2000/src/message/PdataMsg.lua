@@ -2,9 +2,9 @@ require("SyxMsg")
 require("Logger")
 require("mutils")
 
-local PDATA_HEADER_SIZE = 4
-local PDATA_SIZE = 232
-local MAX_PROG_NBR = 255
+local PDATA_HEADER_SIZE = 7
+local PDATA_SIZE = 292
+local MAX_PROG_NBR = 127
 local log = Logger("PdataMsg")
 
 PdataMsg = {}
@@ -32,21 +32,21 @@ function PdataMsg:_init(bytes)
     self[LUA_CONTRUCTOR_NAME] = "Pdata"
     self:storeNibbles("PTUNO", midiService:toTuneBlock(0))
     self:setName("EMPTYPROGRAM")
-    self:storeNibbles("MODVLFOR", mutils.toNibbles(50))
-    self:storeNibbles("MODVLVOL", mutils.toNibbles(50))
-    self:storeNibbles("MODVLFOD", mutils.toNibbles(50))
-    self:storeNibbles("MODVAMP1", mutils.toNibbles(50))
-    self:storeNibbles("MODVAMP2", mutils.toNibbles(50))
-    self:storeNibbles("MODVPAN1", mutils.toNibbles(50))
-    self:storeNibbles("MODVPAN2", mutils.toNibbles(50))
-    self:storeNibbles("MODVPAN3", mutils.toNibbles(50))
-    self:storeNibbles("V_LOUD", mutils.toNibbles(50))
-    self:storeNibbles("STEREO", mutils.toNibbles(50))
-    self:storeNibbles("PANPOS", mutils.toNibbles(50))
-    self:storeNibbles("TRANSPOSE", mutils.toNibbles(50))
-    self:storeNibbles("POLYPH", mutils.toNibbles(15))
-    self:storeNibbles("PRIORT", mutils.toNibbles(2))
-    self:storeNibbles("P_PTCH", mutils.toNibbles(12))
+    self:storeNibbles("MODVLFOR", mutils.d2n(50))
+    self:storeNibbles("MODVLVOL", mutils.d2n(50))
+    self:storeNibbles("MODVLFOD", mutils.d2n(50))
+    self:storeNibbles("MODVAMP1", mutils.d2n(50))
+    self:storeNibbles("MODVAMP2", mutils.d2n(50))
+    self:storeNibbles("MODVPAN1", mutils.d2n(50))
+    self:storeNibbles("MODVPAN2", mutils.d2n(50))
+    self:storeNibbles("MODVPAN3", mutils.d2n(50))
+    self:storeNibbles("V_LOUD", mutils.d2n(50))
+    self:storeNibbles("STEREO", mutils.d2n(50))
+    self:storeNibbles("PANPOS", mutils.d2n(50))
+    self:storeNibbles("TRANSPOSE", mutils.d2n(50))
+    self:storeNibbles("POLYPH", mutils.d2n(15))
+    self:storeNibbles("PRIORT", mutils.d2n(2))
+    self:storeNibbles("P_PTCH", mutils.d2n(12))
   else
     assert(bytes:getByte(3) == 0x07, "Invalid pdata message")
     self.data = bytes
@@ -80,7 +80,7 @@ function PdataMsg:getPdataValue(blockId)
 end
 
 function PdataMsg:setName(programName)
-	self:storeNibbles("PRNAME", midiService:toAkaiStringBytes(programName))
+	self:storeNibbles("PRNAME", midiService:toAkaiStringNibbles(programName))
 end
 
 function PdataMsg:getName()
@@ -88,7 +88,7 @@ function PdataMsg:getName()
 end
 
 function PdataMsg:setNumKeyGroups(numKeyGroups)
-	self:storeNibbles("GROUPS", mutils.toNibbles(numKeyGroups))
+	self:storeNibbles("GROUPS", mutils.d2n(numKeyGroups))
 end
 
 function PdataMsg:setMaxProgramNumber()
@@ -101,7 +101,7 @@ function PdataMsg:setProgramNumber(programNumber)
   elseif programNumber < 0 then
     programNumber = 0
   end
-	self:storeNibbles("PRGNUM", mutils.toNibbles(programNumber))
+	self:storeNibbles("PRGNUM", mutils.d2n(programNumber))
 end
 
 function PdataMsg:getProgramNumber()
@@ -110,4 +110,8 @@ end
 
 function PdataMsg:getData()
   return self.data
+end
+
+function PdataMsg:getNumKeyGroups()
+  return self:getPdataValue("GROUPS")
 end
