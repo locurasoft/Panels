@@ -8,6 +8,7 @@ local log = Logger("ReceivedProgramsProcess")
 
 RECEIVING_PROGRAMS = 25
 PROGRAMS_RECEIVED  = 24
+RECEIVING_PROGRAMS_FAILED = 26
 
 ReceivedProgramsProcess = {}
 ReceivedProgramsProcess.__index = ReceivedProgramsProcess
@@ -33,10 +34,12 @@ end
 
 function ReceivedProgramsProcess:execute()
   local midiCallback
+  local request
+  local errorCount = 0
 
   local executeNextTransfer = function()
     self:registerMidiCallback(midiCallback)
-    local request = self.requestQueue:popFirst()
+    request = self.requestQueue:popFirst()
     if request ~= nil then
       midiService:sendMidiMessage(request)
     else
@@ -56,6 +59,7 @@ function ReceivedProgramsProcess:execute()
         self.requestQueue:pushLast(RpdataMsg(i - 1))
       end
       executeNextTransfer()
+      return
     end
 
     local status, pdata = pcall(PdataMsg, data)
@@ -71,6 +75,7 @@ function ReceivedProgramsProcess:execute()
         self.requestQueue:pushLast(RkdataMsg(programIndex - 1, i - 1))
       end
       executeNextTransfer()
+      return
     end
 
     local status, kdata = pcall(KdataMsg, data)
@@ -78,6 +83,20 @@ function ReceivedProgramsProcess:execute()
       local prog = self.programs[kdata:getProgramNumber() + 1]
       prog:addKeyGroup(KeyGroup(kdata))
       executeNextTransfer()
+      return
+    end
+
+    if request ~= nil then
+      -- Something went wrong resend last message
+      if errorCount < 5 then
+        errorCount = errorCount + 1
+        self.requestQueue:pushFirst(request)
+        executeNextTransfer()
+      else
+        self.state = RECEIVING_PROGRAMS_FAILED
+        self:stopAll()
+        self:notifyListeners()
+      end
     end
   end
 

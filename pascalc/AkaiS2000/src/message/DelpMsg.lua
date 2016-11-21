@@ -15,5 +15,5 @@ setmetatable(DelpMsg, {
 function DelpMsg:_init(programNumber)
   SyxMsg._init(self)
   local pb = mutils.d2b(programNumber)
-  self.data = MemoryBlock({0xf0, 0x47, 0x00, 0x12, 0x48, pb[1], pb[2], 0xf7})
+  self.data = MemoryBlock(string.format("f0 47 00 12 48 %s f7", pb:toHexString(1)))
 end

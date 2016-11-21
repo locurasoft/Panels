@@ -19,9 +19,8 @@ function PheadMsg:_init(progNbr, headerOffset, valuesMemBlock)
   local numBytesArray = mutils.d2n(valuesMemBlock:getSize() / 2)
 
   local memBlock = MemoryBlock(13 + valuesMemBlock:getSize(), true)
-  memBlock:loadFromHexString(string.format("F0 47 00 28 48 %s 00 %.2x %.2x %.2x %.2x%s F7",
-    pgm:toHexString(1), headerOffsArray[1], headerOffsArray[2],
-    numBytesArray[1], numBytesArray[2], valuesMemBlock:toHexString(1)))
+  memBlock:loadFromHexString(string.format("F0 47 00 28 48 %s 00 %s %s %s F7",
+    pgm:toHexString(1), headerOffsArray:toHexString(1), numBytesArray:toHexString(1), valuesMemBlock:toHexString(1)))
 
   self.data = memBlock
   self.offset = headerOffset

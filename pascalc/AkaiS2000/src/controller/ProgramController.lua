@@ -240,7 +240,8 @@ function ProgramController:rpListProcessUpdate(process)
       programList:addProgram(v)
     end
     self:updateStatus("Programs received.")
-  else
+  elseif process:getState() == RECEIVING_PROGRAMS_FAILED then
+    self:updateStatus("Receiving programs failed!")
   end
 end
 
