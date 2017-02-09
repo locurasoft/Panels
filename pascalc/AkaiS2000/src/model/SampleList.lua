@@ -80,3 +80,7 @@ function SampleList:indexOf(sampleName)
   end
   error("Sample not loaded.\nPlease make sure the sample is loaded on your sampler and run RsList")
 end
+
+function SampleList:isEmpty()
+	return table.getn(self.list) == 0
+end

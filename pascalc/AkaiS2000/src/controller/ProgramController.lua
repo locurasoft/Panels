@@ -236,6 +236,7 @@ function ProgramController:rpListProcessUpdate(process)
     self:updateStatus("Receiving programs...")
   elseif process:getState() == PROGRAMS_RECEIVED then
     local progs = process:getPrograms()
+    programList:clear()
     for k, v in ipairs(progs) do
       programList:addProgram(v)
     end
@@ -246,11 +247,14 @@ function ProgramController:rpListProcessUpdate(process)
 end
 
 function ProgramController:onRpList(mod, value)
-  local proc = ReceivedProgramsProcess()
-  proc:addListener(self, "rpListProcessUpdate")
-  
-  local status, err = pcall(ProcessController.execute, processController, proc)
-  if not status then
-    self:updateStatus(cutils.getErrorMessage(err))
+  local q = utils.questionWindow("Clear memory", "This action will clear the panel's program list", "OK", "Cancel")
+  if q then
+    local proc = ReceivedProgramsProcess()
+    proc:addListener(self, "rpListProcessUpdate")
+
+    local status, err = pcall(ProcessController.execute, processController, proc)
+    if not status then
+      self:updateStatus(cutils.getErrorMessage(err))
+    end
   end
 end

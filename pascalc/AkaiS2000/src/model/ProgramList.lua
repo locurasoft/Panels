@@ -71,3 +71,9 @@ function ProgramList:hasProgram(programName)
   end
   return false
 end
+
+function ProgramList:clear()
+  self.list = {}	
+  self.activeProgram = -1
+  self:notifyListeners()
+end

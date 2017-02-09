@@ -139,6 +139,14 @@ function DrumMapController:updateDrumMap(drumMap)
 
   -- Register listener again
   self.drumMapListenerId = drumMap:addListener(self, "updateDrumMap")
+
+  if not settings:getSampleTabsSelected() then
+    if sampleList:isEmpty() then
+      panel:getComponent("sampleTabs"):setProperty("uiTabsCurrentTab", 0, false)
+    else
+      panel:getComponent("sampleTabs"):setProperty("uiTabsCurrentTab", 1, false)
+    end
+  end
 end
 
 function DrumMapController:transferProcessUpdate(process)
@@ -334,6 +342,7 @@ function DrumMapController:onResetPadKeyRange(mod, value)
 end
 
 function DrumMapController:onSamplesTabChanged(mod, tabIndex)
+  settings:setSampleTabsSelected(true)
   if tabIndex == 0 then
     self.drumMap:setSampleSelectType(false)
   elseif tabIndex == 1 then

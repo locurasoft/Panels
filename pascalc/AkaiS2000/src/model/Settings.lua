@@ -5,6 +5,7 @@ require("model/Zone")
 require("message/KdataMsg")
 
 local log = Logger("Settings")
+local sampleTabsSelected = false
 
 local getPath = function(value)
   if value == nil then
@@ -120,4 +121,12 @@ end
 function Settings:setTransferMethod(transferMethod)
   self.transferMethod = transferMethod
   self:notifyListeners()
+end
+
+function Settings:setSampleTabsSelected(value)
+	sampleTabsSelected = value
+end
+
+function Settings:getSampleTabsSelected()
+	return sampleTabsSelected
 end

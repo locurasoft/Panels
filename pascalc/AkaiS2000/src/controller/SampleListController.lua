@@ -26,14 +26,22 @@ end
 
 function SampleListController:updateSampleLists(sampleList)
   local sampleNames = sampleList:getSampleNames()
-  self:toggleVisibility("noSamplesLabel", sampleNames == "")
-  self:toggleVisibility("noSamplesLabel-1", sampleNames == "")
-  self:toggleVisibility("samplerFileList", sampleNames ~= "")
-  self:toggleVisibility("samplerSampleList", sampleNames ~= "")
+  self:toggleVisibility("noSamplesLabel", sampleList:isEmpty())
+  self:toggleVisibility("noSamplesLabel-1", sampleList:isEmpty())
+  self:toggleVisibility("samplerFileList", not sampleList:isEmpty())
+  self:toggleVisibility("samplerSampleList", not sampleList:isEmpty())
   self:setListBoxContents("samplerFileList", sampleNames)
   self:setListBoxContents("samplerSampleList", sampleNames)
   for k = 1, 4 do
     self:setComboBoxContents(string.format("SNAME%d", k), sampleNames)
+  end
+
+  if not settings:getSampleTabsSelected() then
+    if sampleList:isEmpty() then
+      panel:getComponent("sampleTabs"):setProperty("uiTabsCurrentTab", 0, false)
+    else
+      panel:getComponent("sampleTabs"):setProperty("uiTabsCurrentTab", 1, false)
+    end
   end
 end
 
@@ -50,7 +58,7 @@ end
 function SampleListController:onRslist(mod, value)
   local proc = RsListProcess(sampleList)
   proc:addListener(self, "toggleRsListButton")
-  
+
   local status, err = pcall(ProcessController.execute, processController, proc)
   if not status then
     self:updateStatus(cutils.getErrorMessage(err))
