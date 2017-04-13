@@ -82,7 +82,6 @@ function KdataMsg:_init(bytes)
     assert(bytes:getByte(3) == 0x09, "Invalid Kdata message")
     self.data = bytes
   end
-
 end
 
 function KdataMsg:getOffset(blockIndex)
