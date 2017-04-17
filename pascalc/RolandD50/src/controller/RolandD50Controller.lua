@@ -93,14 +93,20 @@ function RolandD50Controller:onMidiReceived(midi)
   local midiSize = data:getSize()
   if midiSize == 458 then
     -------------------- process Voice patch data ----------------------------------------
-    self:assignValues(data, false)
+    self:p2v(data, false)
     self.bank = nil
     self:toggleActivation("Voice_PatchSelectControl", false)
   end
   ---------------------------------------------------------------------------------
   if midiSize == 36048 then
     -------------------- process Voice bank data ----------------------------------------
-    self:assignBank(data)
+    local status, bank = pcall(Bank, data)
+    if status then
+      self:assignBank(bank)
+    else
+      log:warn(cutils.getErrorMessage(bank))
+      utils.warnWindow ("Load Bank", cutils.getErrorMessage(bank))
+    end
   end
   ---------------------------------------------------------------------------------
 end
@@ -166,6 +172,16 @@ function RolandD50Controller:onStructureChange(mod, value)
   self:toggleLayerVisibility(string.format("%sP2PCM", tone), p2)
 end
 
+function RolandD50Controller:assignBank(bank)
+  if self.bank ~= nil then
+    self.bank:removeListener(self.bankListenerId)
+  end
+  self.bank = bank
+  self.bankListenerId = bank:addListener(self, "updatePatchSelect")
+  self.bank:setSelectedPatchIndex(0)
+  self:p2v(bank:getSelectedPatch(), true)
+end
+
 -- This method assigns the selected patch to the panel modulators
 function RolandD50Controller:onPatchSelect(mod, value)
   self:toggleActivation(mod:getName(), not self:hasLoadedBank())
@@ -183,17 +199,17 @@ function RolandD50Controller:onPatchSelect(mod, value)
     return
   end
 
-  if value ~= self.bank:getSelectedPatchIndex() then
-    patchService:putPatch(self.bank, self:assembleValues(), self.bank:getSelectedPatchIndex())
+  if not self.bank:isSelectedPatch(value) then
+    self:v2p(self.bank:getSelectedPatch())
 
     self.bank:setSelectedPatchIndex(value)
-    self:assignValues(patchService:getPatch(self.bank, value), true)
+    self:p2v(self.bank:getSelectedPatch(), true)
   end
 end
 
 -- This method assigns patch data from a memory block
 -- to all modulators in the panel
-function RolandD50Controller:assignValues(patch, sendMidi)
+function RolandD50Controller:p2v(patch, sendMidi)
   local midiSize = patch:getSize()
   for i = 0, midiSize - 1 do -- gets the voice parameter values
     local mod = panel:getModulatorWithProperty("modulatorCustomName", string.format("Voice%d", i))
@@ -218,18 +234,9 @@ function RolandD50Controller:assignValues(patch, sendMidi)
   end
 end
 
-function RolandD50Controller:assignBank(bank)
-  self.bank = bank
-  self:assignValues(bank:getPatch(0), true)
-  self:setComboBoxContents("Voice_PatchSelectControl", patchService:getNumberedPatchNamesList(bank))
-  self:setValue("Voice_PatchSelectControl", 0)
-  self:setActivation("Voice_PatchSelectControl", true)
-end
-
 -- This method assembles the param values from
 -- all modulators and stores them in a memory block
-function RolandD50Controller:assembleValues()
-  local patch = Patch()
+function RolandD50Controller:v2p(patch)
   for i = 0, Voice_singleSize - 1 do -- run through all modulators and fetch their value
     local mod = panel:getModulatorWithProperty("modulatorCustomName", string.format("Voice%d", i))
     if mod ~= nil then
@@ -251,7 +258,7 @@ function RolandD50Controller:onSetPatchName(mod, patchName)
 
   if modulatorName == "Name1" then
     local pIndex = self.bank:getSelectedPatchIndex()
-    
+    self.bank:getPatch(pIndex):setPatchName(patchName)
   elseif modulatorName == "VoiceName12" then
   elseif modulatorName == "VoiceName123" then
   end
@@ -278,14 +285,14 @@ function RolandD50Controller:onSaveMenu(mod, value)
     return
   end
   if ret == 1 then
-    savePatch(self:assembleValues())
+    -- TODO: Add patch argument
+    savePatch(self:v2p())
   elseif ret == 2 then
     if not self:hasLoadedBank() then
       utils.warnWindow ("No bank loaded", "You must load a bank in order to perform this action.")
       return
     end
-    patchService:putPatch(self.bank, self:assembleValues(), self:getValue("Voice_PatchSelectControl"))
-
+    self:v2p(self.bank:getSelectedPatch())
     saveBank(self.bank)
   elseif ret == 3 then
     -- This method instructs the user or synth to
@@ -297,7 +304,7 @@ function RolandD50Controller:onSaveMenu(mod, value)
 
     AlertWindow.showMessageBox(AlertWindow.InfoIcon, "Information", "Hold down the \"DATA TRANSFER\" button then press \"(B.LOAD)\".\nRelease the two buttons and press \"ENTER\".\nOnce the D-50 is in waiting for data press \"OK\" to close this popup.", "OK")
 
-    patchService:putPatch(self.bank, self:assembleValues(), self:getValue("Voice_PatchSelectControl"))
+    self:v2p(self.bank:getSelectedPatch())
     midiService:sendMidiMessages(self.bank:toSyxMessages())
   end
 end
@@ -328,9 +335,9 @@ function RolandD50Controller:onLoadMenu(mod, value)
     if f:existsAsFile() then
       local loadedData = MemoryBlock()
       f:loadFileAsData(loadedData)
-      local status, patch = pcall(PatchService.newPatch, patchService, loadedData)
+      local status, patch = pcall(Patch, loadedData)
       if status then
-        self:assignValues(patch, true)
+        self:p2v(patch, true)
         if alertValue == 2 then
           patchService:putPatch(self.bank, patch, Voice_SelectedPatchIndex)
         else
@@ -338,8 +345,8 @@ function RolandD50Controller:onLoadMenu(mod, value)
           self:setActivation("Voice_PatchSelectControl", false)
         end
       else
-        log:warn(cutils.getErrorMessage(phead))
-        utils.warnWindow ("Load Patch", cutils.getErrorMessage(self.bank))
+        log:warn(cutils.getErrorMessage(patch))
+        utils.warnWindow ("Load Patch", cutils.getErrorMessage(patch))
       end
     end
   elseif menuSelect == 2 then   -- Load Bank
@@ -350,11 +357,11 @@ function RolandD50Controller:onLoadMenu(mod, value)
       local loadedData = MemoryBlock()
       f:loadFileAsData(loadedData)
 
-      local status, bank = pcall(PatchService.newBank, patchService, loadedData)
+      local status, bank = pcall(Bank, loadedData)
       if status then
         self:assignBank(bank)
       else
-        log:warn(cutils.getErrorMessage(phead))
+        log:warn(cutils.getErrorMessage(bank))
         utils.warnWindow ("Load Bank", cutils.getErrorMessage(bank))
       end
     end
@@ -365,4 +372,10 @@ function RolandD50Controller:onLoadMenu(mod, value)
 
     AlertWindow.showMessageBox(AlertWindow.InfoIcon, "Information", "Perform a Bulk dump for the Roland D-50 Voice Bank by pressing the \"B.Dump\" button whie holding down \"Data Transfer\".\n\nPress OK when D-50 says \"Complete.\"", "OK")
   end
+end
+
+function RolandD50Controller:updatePatchSelect(bank)
+  self:setComboBoxContents("Voice_PatchSelectControl", bank:getNumberedPatchNamesList())
+  self:setValue("Voice_PatchSelectControl", bank:getSelectedPatchIndex())
+  self:setActivation("Voice_PatchSelectControl", true)  
 end

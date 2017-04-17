@@ -1,6 +1,11 @@
-require("LuaObject")
+require("Dispatcher")
+require("model/Patch")
 require("Logger")
 require("lutils")
+
+Voice_singleSize = 448
+
+local BANK_BUFFER_SIZE = 28672
 
 local log = Logger("Bank")
 
@@ -17,7 +22,7 @@ Bank = {}
 Bank.__index = Bank
 
 setmetatable(Bank, {
-  __index = LuaObject, -- this is what makes the inheritance work
+  __index = Dispatcher, -- this is what makes the inheritance work
   __call = function (cls, ...)
     local self = setmetatable({}, cls)
     self:_init(...)
@@ -26,23 +31,49 @@ setmetatable(Bank, {
 })
 
 function Bank:_init(bankData)
-  LuaObject._init(self)
+  Dispatcher._init(self)
 
+  self.selectedPatchIndex = 0
+  self.patches = {}
   if bankData == nil then
-    self.data  = MemoryBlock(Voice_singleSize * 64, true)
-  else
-    self.data = bankData
-    local reverbSize = self.data:getSize() - patchDataSize
-    VoiceBankData = MemoryBlock(patchDataSize, true)
-    VoiceBankData:copyFrom(self.data, 0, patchDataSize)
+    self.data = MemoryBlock(BANK_BUFFER_SIZE, true)
 
-    VoiceReverbData = MemoryBlock(reverbSize, true)
-    self.data:copyTo(VoiceReverbData, patchDataSize, reverbSize)
+    for i = 0, 63 do
+      local p = Patch(self.data, i * Voice_singleSize)
+      p:setPatchName("NEW PATCH")
+      table.insert(self.patches, p)
+    end
+  else
+    local data = midiService:trimSyxData(bankData)
+    assert(data:getSize() ~= Voice_singleSize * 64, string.format("Data does not contain a Roland D50 bank"))
+
+    local reverbSize = self.data:getSize() - patchDataSize
+    self.data = MemoryBlock(patchDataSize, true)
+    self.data:copyFrom(bankData, 0, patchDataSize)
+
+    self.VoiceReverbData = MemoryBlock(reverbSize, true)
+    bankData:copyTo(self.VoiceReverbData, patchDataSize, reverbSize)
+
+    for i = 0, 63 do
+      table.insert(self.patches, Patch(self.data, i * Voice_singleSize))
+    end
   end
 end
 
 function Bank:getSelectedPatchIndex()
-	return self.selectedPatchIndex
+  return self.selectedPatchIndex
+end
+
+function Bank:getSelectedPatch()
+  return self.patches[self.selectedPatchIndex + 1]
+end
+
+function Bank:selectPatch(patchIndex)
+  self.selectedPatchIndex = patchIndex
+end
+
+function Bank:isSelectedPatch(patchIndex)
+  return self.selectedPatchIndex == patchIndex
 end
 
 function Bank:setSelectedPatchIndex(selectedPatchIndex)
@@ -50,7 +81,7 @@ function Bank:setSelectedPatchIndex(selectedPatchIndex)
 end
 
 function Bank:toStandaloneData()
-  local splitData = splitData(self.data, VoiceReverbData)
+  local splitData = splitData(self.data, self.VoiceReverbData)
 
   local splitDataSize = 0
   for i, data in ipairs(splitData) do
@@ -68,11 +99,22 @@ function Bank:toStandaloneData()
 end
 
 function Bank:toSyxMessages()
-  local splitData = splitData(self.data, VoiceReverbData)
+  local splitData = splitData(self.data, self.VoiceReverbData)
 
   local msgs = {}
   for data in ipairs(splitData) do
     table.insert(msgs, D50SyxMsg(data))
   end
   return msgs
+end
+
+function Bank:getNumberedPatchNamesList()
+  local patchNames = ""
+  for i = 0, 63 do
+    if i > 0 then
+      patchNames = string.format("%s\n", patchNames)
+    end
+    patchNames = string.format("%s%d %s=%d", patchNames, i, self.patches[i + 1]:getPatchName(), i)
+  end
+  return patchNames:gsub("'", "")
 end
