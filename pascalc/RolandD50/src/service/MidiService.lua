@@ -5,8 +5,7 @@ require("mutils")
 
 local log = Logger("MidiService")
 
-local ChecksumStart = 5
-
+local CHECKSUM_START = 5
 
 MidiService = {}
 MidiService.__index = MidiService
@@ -28,7 +27,7 @@ end
 
 function MidiService:calculateChecksum(sysex, csEnd)
   local sum = 0
-  for i = ChecksumStart, csEnd do
+  for i = CHECKSUM_START, csEnd do
     sum = sum + sysex:getByte(i)
   end
   sum = sum * -1
@@ -40,16 +39,17 @@ function MidiService:trimSyxData(data)
   local cleanIndex = 0
   local cleanData = MemoryBlock(dataSize, true)
   local i = 0
-  while i < dataSize do -- gets the voice parameter values
+  while i < dataSize do
+    -- gets the voice parameter values
     if bit.band(data:getByte(i), 0xFF) == 0xF0 then
       i = i + 8
-  elseif bit.band(data:getByte(i+1), 0xFF) == 0xF7 then
-    i = i + 2
-  else
-    cleanData:setByte(cleanIndex, data:getByte(i))
-    cleanIndex = cleanIndex + 1
-    i = i + 1
-  end
+    elseif bit.band(data:getByte(i+1), 0xFF) == 0xF7 then
+      i = i + 2
+    else
+      cleanData:setByte(cleanIndex, data:getByte(i))
+      cleanIndex = cleanIndex + 1
+      i = i + 1
+    end
   end
   local trimmedData = MemoryBlock(cleanIndex, true)
   trimmedData:copyFrom(cleanData, 0, cleanIndex)
@@ -94,7 +94,7 @@ function MidiService:splitIntoSysexMessages(data)
     local offset = Voice_HeaderSize + msgSize
     splitMessageData:copyFrom(Voice_Footer, offset, Voice_FooterSize)
 
-    local cs = self:calculateChecksum(splitMessageData, ChecksumStart + msgSize + 3)
+    local cs = self:calculateChecksum(splitMessageData, CHECKSUM_START + msgSize + 3)
     splitMessageData:setByte(wholeMsgSize - 2, cs)
     table.insert(messages, splitMessageData)
     address = address + msgSize

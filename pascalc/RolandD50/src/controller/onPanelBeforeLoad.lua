@@ -22,9 +22,12 @@ function onPanelBeforeLoad(type)
 
   Voice_PartialMuteUpdating = false
   Voice_SelectedPatchIndex = 0
-  
-  patchService = PatchService()
+
+  -- Init logger
+  LOGGER = Logger("Global")
+  LOGGER:info("[initPanel] Initializing...")
+
   midiService = MidiService()
-  
-  voiceController = VoiceController()
+
+  rolandD50Controller = RolandD50Controller()
 end

@@ -48,43 +48,8 @@ local setD50String = function(data, value, start, length)
   end
 end
 
---  for i = start, patchNameEnd do
---    local name = "Voice"..i
---    local mod = panel:getModulatorWithProperty("modulatorCustomName", name)
---    if strLength > patchNameIndex then
---      local caracter = string.sub(value, patchNameIndex + 1, patchNameIndex + 1)
---      mod:setValue(symbols[caracter], true)
---    else
---      mod:setValue(emptyChar, true)
---    end
---    patchNameIndex = patchNameIndex + 1
---  end
-
---  local patchSelectMod = panel:getModulatorByName("Voice_PatchSelectControl")
---  local patchSelect = patchSelectMod:getComponent()
---  if modulatorName == "Name1"
---    and VoiceBankData ~= nil
---    and patchSelect:getProperty("componentDisabled") == 0
---    and Voice_SelectedPatchIndex >= 0
---    and table.getn(VoicePatchNames) > 0
---    and VoicePatchNames[Voice_SelectedPatchIndex + 1] ~= patchName  then
---    VoicePatchNames[Voice_SelectedPatchIndex + 1] = patchName
---  end
-
-Patch = {}
-Patch.__index = Patch
-
-setmetatable(Patch, {
-  __index = LuaObject, -- this is what makes the inheritance work
-  __call = function (cls, ...)
-    local self = setmetatable({}, cls)
-    self:_init(...)
-    return self
-  end,
-})
-
 local getPartial1Value = function(value)
-  if value - math.floor(value / 2) * 2 == 1 then
+  if value == 1 or value == 3 then
     return 1
   else
     return 0
@@ -99,14 +64,25 @@ local getPartial2Value = function(value)
   end
 end
 
+Patch = {}
+Patch.__index = Patch
+
+setmetatable(Patch, {
+  __index = LuaObject, -- this is what makes the inheritance work
+  __call = function (cls, ...)
+    local self = setmetatable({}, cls)
+    self:_init(...)
+    return self
+  end,
+})
+
 function Patch:_init(bankData, patchOffset)
   LuaObject._init(self)
 
---  local data = midiService:trimSyxData(patchData)
---  assert(data:getSize() ~= Voice_singleSize, string.format("midiSize %d is invalid and cannot be assigned to controllers", data:getSize()))
-
-  self.data = bankData
-  self.patchOffset = patchOffset
+  if bankData ~= nil then
+    self.data = bankData
+    self.patchOffset = patchOffset
+  end
 end
 
 function Patch:getValueOffset(relativeOffset)
@@ -169,19 +145,21 @@ function Patch:getLowerPartial2Value()
 end
 
 function Patch:setUpperPartialValue(p1, p2)
-  patch:setValue(self:getValueOffset(UpperPartialSelectIndex), p1 + p2 * 2)
+  self:setValue(UpperPartialSelectIndex, p1 + p2 * 2)
 end
 
 function Patch:setLowerPartialValue(p1, p2)
-  patch:setValue(self:getValueOffset(LowerPartialSelectIndex), p1 + p2 * 2)
+  self:setValue(LowerPartialSelectIndex, p1 + p2 * 2)
 end
 
 function Patch:toStandaloneData()
   local sData = MemoryBlock(Voice_singleSize + Voice_HeaderSize + Voice_FooterSize, true)
+  local tmp = MemoryBlock(Voice_singleSize, true)
   sData:copyFrom(Voice_Header, 0, Voice_HeaderSize)
   sData:copyFrom(Voice_Footer, Voice_singleSize + Voice_HeaderSize, Voice_FooterSize)
-  sData:copyFrom(self.data, Voice_HeaderSize, self.data:getSize())
-
+  self.data:copyTo(tmp, Voice_HeaderSize + self.patchOffset, Voice_singleSize)
+  sData:copyFrom(tmp, Voice_HeaderSize, Voice_singleSize)
+  
   local cs = midiService:calculateChecksum(sData, Voice_singleSize + 3)
   sData:setByte(sData:getSize() - 2, cs)
   return sData

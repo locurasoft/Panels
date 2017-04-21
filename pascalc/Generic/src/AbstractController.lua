@@ -53,6 +53,10 @@ function AbstractController:getValue(modName)
   return panel:getModulatorByName(modName):getValue()
 end
 
+function AbstractController:getValueByCustomName(modName)
+  return panel:getModulatorWithProperty("modulatorCustomName", modName):getValue()
+end
+
 function AbstractController:toggleVisibility(name, visible)
   if visible then
     panel:getComponent(name):setProperty("componentVisibility", 1, false)
