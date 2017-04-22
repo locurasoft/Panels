@@ -1,8 +1,10 @@
 require("AbstractController")
 require("Logger")
+require("cutils")
 
 local log = Logger("RolandD50Controller")
 local UPPER, LOWER = 0, 1
+local BANK_BUFFER_SIZE = 36048
 
 RolandD50Controller = {}
 RolandD50Controller.__index = RolandD50Controller
@@ -64,6 +66,8 @@ setmetatable(RolandD50Controller, {
 function RolandD50Controller:_init()
   AbstractController._init(self)
   self.bank = Bank()
+  self.receiveBuffer = nil
+  self.receiveBankOffset = -1
 end
 
 function RolandD50Controller:assignBank(bank)
@@ -85,7 +89,7 @@ function RolandD50Controller:p2v(patch, sendMidi)
       mod:setModulatorValue(patch:getValue(i), false, false, false)
     end
   end
-  
+
   self:setValue("UpperPartial1", patch:getUpperPartial1Value())
   self:setValue("UpperPartial2", patch:getUpperPartial2Value())
   self:setValue("LowerPartial1", patch:getLowerPartial1Value())
@@ -153,25 +157,42 @@ end
 function RolandD50Controller:onMidiReceived(midi)
   local data = midi:getData()
   local midiSize = data:getSize()
-  if midiSize == 458 then
-    -------------------- process Voice patch data ----------------------------------------
-    local status, patch = pcall(StandalonePatch, data)
-    if status then
-      self:p2v(patch, false)
-    else
-      log:warn(cutils.getErrorMessage(patch))
-      utils.warnWindow ("Load Patch", cutils.getErrorMessage(patch))
-    end
-  elseif midiSize == 36048 then
-    -------------------- process Voice bank data ----------------------------------------
-    local status, bank = pcall(Bank, data)
-    if status then
-      self:assignBank(bank)
-    else
-      log:warn(cutils.getErrorMessage(bank))
-      utils.warnWindow ("Load Bank", cutils.getErrorMessage(bank))
+  log:warn("onMidiReceived %d + %d = %d", midiSize, self.receiveBankOffset, midiSize + self.receiveBankOffset)
+  if self.receiveBuffer ~= nil then
+    self.receiveBuffer:copyFrom(data, self.receiveBankOffset, midiSize)
+    self.receiveBankOffset = self.receiveBankOffset + midiSize
+
+    if self.receiveBankOffset == BANK_BUFFER_SIZE then
+      local status, bank = pcall(Bank, self.receiveBuffer)
+      if status then
+        self:assignBank(bank)
+      else
+        log:warn(cutils.getErrorMessage(bank))
+        utils.warnWindow ("Load Bank", cutils.getErrorMessage(bank))
+      end
+      self.receiveBuffer = nil
+      self.receiveBankOffset = -1
     end
   end
+  --  if midiSize == 458 then
+  --    -------------------- process Voice patch data ----------------------------------------
+  --    local status, patch = pcall(StandalonePatch, data)
+  --    if status then
+  --      self:p2v(patch, false)
+  --    else
+  --      log:warn(cutils.getErrorMessage(patch))
+  --      utils.warnWindow ("Load Patch", cutils.getErrorMessage(patch))
+  --    end
+  --  elseif midiSize == BANK_BUFFER_SIZE then
+  --    -------------------- process Voice bank data ----------------------------------------
+  --    local status, bank = pcall(Bank, data)
+  --    if status then
+  --      self:assignBank(bank)
+  --    else
+  --      log:warn(cutils.getErrorMessage(bank))
+  --      utils.warnWindow ("Load Bank", cutils.getErrorMessage(bank))
+  --    end
+  --  end
 end
 
 --
@@ -319,6 +340,9 @@ function RolandD50Controller:onLoadMenu(mod, value)
     if not AlertWindow.showOkCancelBox(AlertWindow.InfoIcon, "Overwrite bank?", "You have loaded a bank. The current action will overwrite your existing bank. Are you sure you want to continue?", "OK", "Cancel") then
       return
     end
+
+    self.receiveBuffer = MemoryBlock(BANK_BUFFER_SIZE, true)
+    self.receiveBankOffset = 0
 
     AlertWindow.showMessageBox(AlertWindow.InfoIcon, "Information", "Perform a Bulk dump for the Roland D-50 Voice Bank by pressing the \"B.Dump\" button whie holding down \"Data Transfer\".\n\nPress OK when D-50 says \"Complete.\"", "OK")
   else
