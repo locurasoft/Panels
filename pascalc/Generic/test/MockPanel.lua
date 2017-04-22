@@ -43,6 +43,9 @@ function MockPanel:_init(panelPath, midiListener)
       if xmlElement["@modulatorCustomIndex"] ~= nil then
         modulator:setProperty("modulatorCustomIndex", xmlElement["@modulatorCustomIndex"])
       end
+      if xmlElement["@modulatorCustomName"] ~= nil then
+        modulator:setProperty("modulatorCustomName", xmlElement["@modulatorCustomName"])
+      end
       if xmlElement["@luaModulatorValueChange"] ~= nil and xmlElement["@luaModulatorValueChange"] ~= "-- None" then
         modulator:setProperty("luaModulatorValueChange", xmlElement["@luaModulatorValueChange"])
       end
@@ -80,7 +83,13 @@ function MockPanel:getComponent(name)
   return self:getModulator(name):getComponent()
 end
 
-function MockPanel:getModulatorWithProperty()
+function MockPanel:getModulatorWithProperty(propName, propValue)
+  for key, mod in pairs(self.modulators) do
+    if mod:getProperty(propName) == propValue then
+      return mod
+    end
+  end
+  return nil
 end
 
 function MockPanel:getModulatorByName(name)

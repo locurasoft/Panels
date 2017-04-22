@@ -5,6 +5,16 @@ LOG_LEVEL = WARN
 
 local GLOBAL_LOG_FILE = io.open("akaiS2000Panel.log", "w")
 
+function flushLogFile()
+  GLOBAL_LOG_FILE:flush()
+end
+
+local writeLogFile = function(line)
+  if GLOBAL_LOG_FILE ~= nil then  
+    GLOBAL_LOG_FILE:write(line)
+  end
+end
+
 Logger = {}
 Logger.__index = Logger
 
@@ -34,7 +44,7 @@ function Logger:warn(log, ...)
   if LOG_LEVEL >= WARN then
     local line = string.format("[WARN] [%s] - %s", self.name, string.format(log, ...))
     console(line)
-    GLOBAL_LOG_FILE:write(line)
+    writeLogFile(line)
   end
 end
 
@@ -42,7 +52,7 @@ function Logger:info(log, ...)
   if LOG_LEVEL >= INFO then
     local line = string.format("[INFO] [%s] - %s", self.name, string.format(log, ...))
     console(line)
-    GLOBAL_LOG_FILE:write(line)
+    writeLogFile(line)
   end
 end
 
@@ -50,10 +60,6 @@ function Logger:fine(log, ...)
   if LOG_LEVEL >= FINE then
     local line = string.format("[FINE] [%s] - %s", self.name, string.format(log, ...))
     console(line)
-    GLOBAL_LOG_FILE:write(line)
+    writeLogFile(line)
   end
-end
-
-function flushLogFile()
-  GLOBAL_LOG_FILE:flush()
 end

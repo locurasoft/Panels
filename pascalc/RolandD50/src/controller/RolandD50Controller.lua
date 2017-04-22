@@ -83,6 +83,8 @@ end
 -- to all modulators in the panel
 function RolandD50Controller:p2v(patch, sendMidi)
   -- gets the voice parameter values
+  self:setValue("toneSelector", 0)
+
   for i = 0, Voice_singleSize do
     local mod = panel:getModulatorWithProperty("modulatorCustomName", string.format("Voice%d", i))
     if mod ~= nil and i ~= 174 and i ~= 366 then
@@ -96,6 +98,7 @@ function RolandD50Controller:p2v(patch, sendMidi)
   self:setValue("LowerPartial2", patch:getLowerPartial2Value())
 
   -- Set Patch name
+  log:warn("p2v %s 138: %d", patch:getPatchName(), self:getValueByCustomName("Voice138"))
   self:setText("Name1", patch:getPatchName())
   self:setText("VoiceName12", patch:getUpperToneName())
   self:setText("VoiceName123", patch:getLowerToneName())
@@ -144,10 +147,10 @@ function RolandD50Controller:updateStructures(tone, value)
     log:warn("Invalid structure value %d", value)
   end
 
-  self:toggleLayerVisibility(string.format("UP1PCM", tone), p1 and tone == UPPER)
-  self:toggleLayerVisibility(string.format("UP2PCM", tone), p2 and tone == UPPER)
-  self:toggleLayerVisibility(string.format("LP1PCM", tone), p1 and tone == LOWER)
-  self:toggleLayerVisibility(string.format("LP2PCM", tone), p2 and tone == LOWER)
+  self:toggleLayerVisibility("UP1PCM", p1 and tone == UPPER)
+  self:toggleLayerVisibility("UP2PCM", p2 and tone == UPPER)
+  self:toggleLayerVisibility("LP1PCM", p1 and tone == LOWER)
+  self:toggleLayerVisibility("LP2PCM", p2 and tone == LOWER)
 end
 
 --
@@ -157,7 +160,6 @@ end
 function RolandD50Controller:onMidiReceived(midi)
   local data = midi:getData()
   local midiSize = data:getSize()
-  log:warn("onMidiReceived %d + %d = %d", midiSize, self.receiveBankOffset, midiSize + self.receiveBankOffset)
   if self.receiveBuffer ~= nil then
     self.receiveBuffer:copyFrom(data, self.receiveBankOffset, midiSize)
     self.receiveBankOffset = self.receiveBankOffset + midiSize
@@ -174,25 +176,6 @@ function RolandD50Controller:onMidiReceived(midi)
       self.receiveBankOffset = -1
     end
   end
-  --  if midiSize == 458 then
-  --    -------------------- process Voice patch data ----------------------------------------
-  --    local status, patch = pcall(StandalonePatch, data)
-  --    if status then
-  --      self:p2v(patch, false)
-  --    else
-  --      log:warn(cutils.getErrorMessage(patch))
-  --      utils.warnWindow ("Load Patch", cutils.getErrorMessage(patch))
-  --    end
-  --  elseif midiSize == BANK_BUFFER_SIZE then
-  --    -------------------- process Voice bank data ----------------------------------------
-  --    local status, bank = pcall(Bank, data)
-  --    if status then
-  --      self:assignBank(bank)
-  --    else
-  --      log:warn(cutils.getErrorMessage(bank))
-  --      utils.warnWindow ("Load Bank", cutils.getErrorMessage(bank))
-  --    end
-  --  end
 end
 
 --
@@ -226,12 +209,10 @@ end
 -- @value    new numeric value of the modulator
 --
 function RolandD50Controller:onStructureChange(mod, value)
-  if mod:getProperty("modulatorCustomName") == "Voice138" then
+  if mod:getProperty("modulatorCustomName") == "Voice138" and self:getValue("toneSelector") == UPPER then
     self:updateStructures(UPPER, value)
-  elseif mod:getProperty("modulatorCustomName") == "Voice330" then
+  elseif mod:getProperty("modulatorCustomName") == "Voice330" and self:getValue("toneSelector") == LOWER then
     self:updateStructures(LOWER, value)
-  else
-    log:warn("Wrong modulator trigger called %s", mod:getName())
   end
 end
 
@@ -344,7 +325,9 @@ function RolandD50Controller:onLoadMenu(mod, value)
     self.receiveBuffer = MemoryBlock(BANK_BUFFER_SIZE, true)
     self.receiveBankOffset = 0
 
-    AlertWindow.showMessageBox(AlertWindow.InfoIcon, "Information", "Perform a Bulk dump for the Roland D-50 Voice Bank by pressing the \"B.Dump\" button whie holding down \"Data Transfer\".\n\nPress OK when D-50 says \"Complete.\"", "OK")
+    AlertWindow.showOkCancelBox(AlertWindow.InfoIcon, "Information", "Perform a Bulk dump for the Roland D-50 Voice Bank by pressing the \"B.Dump\" button whie holding down \"Data Transfer\".\n\nPress OK when D-50 says \"Complete.\"", "OK", "Cancel")
+    self.receiveBuffer = nil
+    self.receiveBankOffset = -1
   else
     return
   end
