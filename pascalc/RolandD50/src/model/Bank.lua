@@ -1,4 +1,4 @@
-require("LuaObject")
+require("AbstractBank")
 require("model/Patch")
 require("Logger")
 require("lutils")
@@ -15,7 +15,7 @@ Bank = {}
 Bank.__index = Bank
 
 setmetatable(Bank, {
-  __index = LuaObject, -- this is what makes the inheritance work
+  __index = AbstractBank, -- this is what makes the inheritance work
   __call = function (cls, ...)
     local self = setmetatable({}, cls)
     self:_init(...)
@@ -24,11 +24,10 @@ setmetatable(Bank, {
 })
 
 function Bank:_init(bankData)
-  LuaObject._init(self)
+  AbstractBank._init(self)
 
   local defaultReverbData = MemoryBlock(REVERB_DATA)
 
-  self.selectedPatchIndex = 0
   self.patches = {}
   if bankData == nil then
     self.data = MemoryBlock(Voice_singleSize * 64 + defaultReverbData:getSize(), true)
@@ -49,24 +48,8 @@ function Bank:_init(bankData)
   end
 end
 
-function Bank:getSelectedPatchIndex()
-  return self.selectedPatchIndex
-end
-
 function Bank:getSelectedPatch()
   return self.patches[self.selectedPatchIndex + 1]
-end
-
-function Bank:selectPatch(patchIndex)
-  self.selectedPatchIndex = patchIndex
-end
-
-function Bank:isSelectedPatch(patchIndex)
-  return self.selectedPatchIndex == patchIndex
-end
-
-function Bank:setSelectedPatchIndex(selectedPatchIndex)
-  self.selectedPatchIndex = selectedPatchIndex
 end
 
 function Bank:toStandaloneData()
@@ -95,15 +78,4 @@ function Bank:toSyxMessages()
     table.insert(msgs, D50SyxMsg(data))
   end
   return msgs
-end
-
-function Bank:getNumberedPatchNamesList()
-  local patchNames = ""
-  for i = 0, 63 do
-    if i > 0 then
-      patchNames = string.format("%s\n", patchNames)
-    end
-    patchNames = string.format("%s%d %s=%d", patchNames, i, self.patches[i + 1]:getPatchName(), i)
-  end
-  return patchNames:gsub("'", "")
 end

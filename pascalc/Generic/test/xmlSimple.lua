@@ -76,7 +76,7 @@ function newParser()
             if not ni then break end
             local text = string.sub(xmlText, i, ni - 1);
             if not string.find(text, "^%s*$") then
-                local lVal = (top:value() or "") .. self:FromXmlString(text)
+                local lVal = (top:getValue() or "") .. self:FromXmlString(text)
                 stack[#stack]:setValue(lVal)
             end
             if empty == "/" then -- empty element tag
@@ -132,7 +132,7 @@ function newNode(name)
     node.___children = {}
     node.___props = {}
 
-    function node:value() return self.___value end
+    function node:getValue() return self.___value end
     function node:setValue(val) self.___value = val end
     function node:name() return self.___name end
     function node:setName(name) self.___name = name end

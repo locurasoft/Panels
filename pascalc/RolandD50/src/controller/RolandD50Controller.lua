@@ -1,5 +1,7 @@
 require("AbstractController")
 require("Logger")
+require("model/Bank")
+require("model/Patch")
 require("cutils")
 
 local log = Logger("RolandD50Controller")
@@ -104,7 +106,7 @@ function RolandD50Controller:p2v(patch, sendMidi)
   self:setText("VoiceName123", patch:getLowerToneName())
 
   if sendMidi == true then
-    midiService:sendMidiMessage(patch:toSyxMsg())
+    self:sendMidiMessage(patch:toSyxMsg())
   end
 end
 
@@ -265,7 +267,7 @@ function RolandD50Controller:onSaveMenu(mod, value)
     AlertWindow.showMessageBox(AlertWindow.InfoIcon, "Information", "Hold down the \"DATA TRANSFER\" button then press \"(B.LOAD)\".\nRelease the two buttons and press \"ENTER\".\nOnce the D-50 is in waiting for data press \"OK\" to close this popup.", "OK")
 
     self:v2p(self.bank:getSelectedPatch())
-    midiService:sendMidiMessages(self.bank:toSyxMessages())
+    self:sendMidiMessages(self.bank:toSyxMessages())
   else
     return
   end
@@ -330,5 +332,21 @@ function RolandD50Controller:onLoadMenu(mod, value)
     self.receiveBankOffset = -1
   else
     return
+  end
+end
+
+---
+-- @function [parent=#RolandD50Controller] sendMidiMessage
+--
+function RolandD50Controller:sendMidiMessage(syxMsg)
+  panel:sendMidiMessageNow(syxMsg:toMidiMessage())
+end
+
+---
+-- @function [parent=#RolandD50Controller] sendMidiMessages
+--
+function RolandD50Controller:sendMidiMessages(msgs)
+  for k, nextMsg in pairs(msgs) do
+    self:sendMidiMessage(nextMsg)
   end
 end

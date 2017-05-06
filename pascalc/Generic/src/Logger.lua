@@ -63,3 +63,27 @@ function Logger:fine(log, ...)
     writeLogFile(line)
   end
 end
+
+function Logger:warnIf(condition, log, ...)
+  if LOG_LEVEL >= WARN and condition then
+    local line = string.format("[WARN] [%s] - %s", self.name, string.format(log, ...))
+    console(line)
+    writeLogFile(line)
+  end
+end
+
+function Logger:infoIf(condition, log, ...)
+  if LOG_LEVEL >= INFO and condition then
+    local line = string.format("[INFO] [%s] - %s", self.name, string.format(log, ...))
+    console(line)
+    writeLogFile(line)
+  end
+end
+
+function Logger:fineIf(condition, log, ...)
+  if LOG_LEVEL >= FINE and condition then
+    local line = string.format("[FINE] [%s] - %s", self.name, string.format(log, ...))
+    console(line)
+    writeLogFile(line)
+  end
+end

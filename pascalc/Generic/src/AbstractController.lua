@@ -28,8 +28,23 @@ function AbstractController:setText(compName, text)
 end
 
 function AbstractController:getText(compName)
-  return panel:getComponent(compName):getProperty("uiLabelText")
+  local temp = panel:getComponent(compName):getProperty("uiLabelText")
+  if temp == nil then
+    return ""
+  else
+    return temp
+  end
 end
+
+function AbstractController:setValueByCustomName(modName, value)
+  local mod = panel:getModulatorWithProperty("modulatorCustomName", modName)
+  if mod == nil then
+    LOGGER:warn("Could not find modulator %s", modName)
+  else
+    mod:setValue(value, false)
+  end
+end
+
 
 function AbstractController:setValue(modName, value)
   local mod = panel:getModulatorByName(modName)
@@ -56,6 +71,11 @@ end
 function AbstractController:getValueByCustomName(modName)
   return panel:getModulatorWithProperty("modulatorCustomName", modName):getValue()
 end
+
+function AbstractController:getModulatorByCustomName(modName)
+  return panel:getModulatorWithProperty("modulatorCustomName", modName)
+end
+
 
 function AbstractController:toggleVisibility(name, visible)
   if visible then

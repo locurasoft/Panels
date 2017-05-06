@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>EnsoniqEsq1</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.dltk.core.scriptbuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.eclipse.ldt.nature</nature>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>Generic-src</name>
+			<type>2</type>
+			<location>C:/ctrlr/Panels/pascalc/Generic/src</location>
+		</link>
+		<link>
+			<name>Generic-test</name>
+			<type>2</type>
+			<location>C:/ctrlr/Panels/pascalc/Generic/test</location>
+		</link>
+	</linkedResources>
+</projectDescription>

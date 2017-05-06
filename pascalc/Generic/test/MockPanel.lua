@@ -83,6 +83,10 @@ function MockPanel:getComponent(name)
   return self:getModulator(name):getComponent()
 end
 
+function MockPanel:getModulatorByIndex(index)
+  return self.modulators[index]
+end
+
 function MockPanel:getModulatorWithProperty(propName, propValue)
   for key, mod in pairs(self.modulators) do
     if mod:getProperty(propName) == propValue then

@@ -102,19 +102,3 @@ function MidiService:splitIntoSysexMessages(data)
   log:fine("MsgSplit: Num messages %d", table.getn(messages))
   return messages
 end
-
----
--- @function [parent=#MidiService] sendMidiMessage
---
-function MidiService:sendMidiMessage(syxMsg)
-  panel:sendMidiMessageNow(syxMsg:toMidiMessage())
-end
-
----
--- @function [parent=#MidiService] sendMidiMessages
---
-function MidiService:sendMidiMessages(msgs)
-  for k, nextMsg in pairs(msgs) do
-    self:sendMidiMessage(nextMsg)
-  end
-end
