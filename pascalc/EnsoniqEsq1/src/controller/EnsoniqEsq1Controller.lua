@@ -196,13 +196,11 @@ function EnsoniqEsq1Controller:onSaveMenu(mod, value)
     self:v2p(self.bank:getSelectedPatch())
     saveBank(self.bank)
   elseif ret == 3 then
---    panel:sendMidiMessageNow(CtrlrMidiMessage({0xF0, 0x0F, 0x02, 0x00, 0x0E, 0x26, 0x59, 0xF7}))
     local patch = self.bank:getSelectedPatch()
     self:v2p(patch)
     self:sendMidiMessage(patch:toSyxMsg())
---    panel:sendMidiMessageNow(CtrlrMidiMessage({0xF0, 0x0F, 0x02, 0x00, 0x0E, 0x26, 0x59, 0x22, 0x2A, 0x5D, 0x5D, 0xF7}))
   elseif ret == 4 then
-  --    Voice_SaveBank()
+    self:sendMidiMessage(self.bank:toSyxMessage())
   end
 end
 

@@ -19,6 +19,9 @@ function onPanelBeforeLoad(type)
   PATCH_BUFFER_SIZE = 210
   SINGLE_DATA_SIZE = 204
   NUM_PATCHES = 40
+  ESQ1_EXCL_HEADER = MemoryBlock({ 0xF0, 0x0F, 0x02, 0x00 })
+  HEADER_SIZE = ESQ1_EXCL_HEADER:getSize()
+  COMPLETE_HEADER_SIZE = HEADER_SIZE + 1
 
   -- Init logger
   LOGGER = Logger("Global")

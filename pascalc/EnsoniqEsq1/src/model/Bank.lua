@@ -27,7 +27,7 @@ function Bank:_init(bankData)
     self.data = MemoryBlock(BANK_BUFFER_SIZE, true)
 
     for i = 0, NUM_PATCHES - 1 do
-      local p = Patch(self.data, HEADER_SIZE + i * SINGLE_DATA_SIZE)
+      local p = Patch(self.data, COMPLETE_HEADER_SIZE + i * SINGLE_DATA_SIZE)
       p:setPatchName("INIT")
       table.insert(self.patches, p)
     end
@@ -37,7 +37,7 @@ function Bank:_init(bankData)
     self.data:copyFrom(bankData, 0, BANK_BUFFER_SIZE)
 
     for i = 0, NUM_PATCHES - 1 do
-      table.insert(self.patches, Patch(self.data, HEADER_SIZE + i * SINGLE_DATA_SIZE))
+      table.insert(self.patches, Patch(self.data, COMPLETE_HEADER_SIZE + i * SINGLE_DATA_SIZE))
     end
   end
 end

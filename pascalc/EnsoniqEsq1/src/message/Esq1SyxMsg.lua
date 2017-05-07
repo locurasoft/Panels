@@ -1,8 +1,6 @@
 require("SyxMsg")
 
 -- , 0x01
-local ESQ1_EXCL_HEADER = MemoryBlock({ 0xF0, 0x0F, 0x02, 0x00 })
-local HEADER_SIZE = ESQ1_EXCL_HEADER:getSize()
 local END_OF_EXCL = MemoryBlock({ 0xF7 })
 local END_OF_EXCL_SIZE = END_OF_EXCL:getSize()
 
