@@ -225,7 +225,6 @@ function ProgramController:onKgFilqChange(mod, value)
   self:storeKgParamEdit(KG_FILQ, mod, value)
 end
 
-
 function ProgramController:onProgStringChange(mod, value)
   self:storeProgParamEdit(PROG_STRING, mod, value)
 end

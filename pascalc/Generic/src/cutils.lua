@@ -83,10 +83,17 @@ function getFileContents(filepath)
 end
 
 function writeToFile(fileName, contents)
-  file = io.open(fileName, "w+")
+  local file = io.open(fileName, "w+")
   file:write(contents)
   file:close()
 end
+
+function writeDataToFile(fileName, data)
+  local file = io.open(fileName, "w+")
+  file:write(data:toHexString(1))
+  file:close()
+end
+
 
 function toFilePath(fileDir, fileName)
   return string.format("%s%s%s", fileDir, getPathSeparator(), fileName)
@@ -102,7 +109,7 @@ function getRotationTransform(angle, x, y, w, h)
   local timesPi = angle / 180
   local xRot = x + w / 2
   local yRot = y + h / 2
-  transform = AffineTransform.rotation(timesPi * 3.1415926536, xRot, yRot)
+  local transform = AffineTransform.rotation(timesPi * 3.1415926536, xRot, yRot)
 
   if transform:isSingularity() ~= true then
     return transform

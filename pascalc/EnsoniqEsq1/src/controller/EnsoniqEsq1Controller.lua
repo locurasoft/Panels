@@ -1,18 +1,19 @@
 require("AbstractController")
 require("Logger")
+require("model/StandalonePatch")
 require("model/Patch")
 require("model/Bank")
+require("message/AllProgDumpRequest")
+require("message/SingleProgDumpRequest")
 require("cutils")
 
 local log = Logger("EnsoniqEsq1Controller")
-local UPPER, LOWER = 0, 1
-local BANK_BUFFER_SIZE = 36048
 
 EnsoniqEsq1Controller = {}
 EnsoniqEsq1Controller.__index = EnsoniqEsq1Controller
 
 local getPatchStart = function (patchNum)
-  return Voice_SingleDataSize * patchNum + Voice_HeaderSize
+  return SINGLE_DATA_SIZE * patchNum + HEADER_SIZE
 end
 
 -- This method saves the current patch to file
@@ -52,16 +53,7 @@ local saveBank = function(bank)
 
   f:create()
   if f:existsAsFile() then
-
     local dataToWrite = bank:toStandaloneData()
-    --                local PatchDataCurrent = Voice_AssembleValues()
-    --                local patchSelectMod = panel:getModulatorByName("patchSelect")
-    --                Voice_putPatch(PatchDataCurrent, patchSelectMod:getModulatorValue())
-    --
-    --                if f:replaceWithData (VoiceBankData) == false then
-    --                        utils.warnWindow ("File write", "Sorry, the Editor failed to\nwrite the data to file!")
-    --                end
-    --                log:warn("File save complete, Editor patch saved to disk")
     if f:replaceWithData (dataToWrite) == false then
       utils.warnWindow ("File write", "Sorry, the Editor failed to\nwrite the data to file!")
     end
@@ -77,6 +69,9 @@ setmetatable(EnsoniqEsq1Controller, {
   end,
 })
 
+---
+-- @function [parent=#EnsoniqEsq1Controller] _init
+--
 function EnsoniqEsq1Controller:_init()
   AbstractController._init(self)
   self.bank = Bank()
@@ -84,6 +79,9 @@ function EnsoniqEsq1Controller:_init()
   self.receiveBankOffset = -1
 end
 
+---
+-- @function [parent=#EnsoniqEsq1Controller] p2v
+--
 -- This method assigns patch data from a patch
 -- to all modulators in the panel
 function EnsoniqEsq1Controller:p2v(patch, midi)
@@ -98,13 +96,9 @@ function EnsoniqEsq1Controller:p2v(patch, midi)
   self:setText("Name1", patch:getPatchName())
 end
 
-
---function EnsoniqEsq1Controller:p2v(p, patchNum)
---  local trimmedData = p:getRange(Voice_HeaderSize, Voice_SingleDataSize)
---  local offset = Voice_getPatchStart(patchNum)
---  VoiceBankData:copyFrom(trimmedData, offset, Voice_SingleDataSize)
---end
-
+---
+-- @function [parent=#EnsoniqEsq1Controller] v2p
+--
 -- This method assembles the param values from
 -- all modulators and stores them in a patch
 function EnsoniqEsq1Controller:v2p(patch)
@@ -119,15 +113,9 @@ function EnsoniqEsq1Controller:v2p(patch)
   patch:setPatchName(self:getText("Name1"))
 end
 
---function EnsoniqEsq1Controller:v2p(patchNum)
---  local sysex = MemoryBlock(Voice_singleSize, true)
+---
+-- @function [parent=#EnsoniqEsq1Controller] assignBank
 --
---  local offset = Voice_getPatchStart(patchNum)
---  local trimmedData = VoiceBankData:getRange(offset, Voice_SingleDataSize)
---  sysex:copyFrom(trimmedData, Voice_HeaderSize, Voice_SingleDataSize)
---  return sysex
---end
-
 -- This method stores the param values from all modulators
 -- and stores them in a specified patch location of a bank
 function EnsoniqEsq1Controller:assignBank(bank)
@@ -139,23 +127,34 @@ function EnsoniqEsq1Controller:assignBank(bank)
   self:toggleActivation("patchSelect", true)
 end
 
+---
+-- @function [parent=#EnsoniqEsq1Controller] onMidiReceived
 --
 -- Called when a panel receives a midi message (does not need to match any modulator mask)
 -- @midi   http://ctrlr.org/api/class_ctrlr_midi_message.html
 function EnsoniqEsq1Controller:onMidiReceived(midi)
   local midiSize = midi:getData():getSize()
-  if midiSize == 8166 then
-    -------------------- process Voice bank data ----------------------------------------
-    Voice_AssignBank(midi:getData())
+  if midiSize == BANK_BUFFER_SIZE then
+    local status, bank = pcall(Bank, midi:getData())
+    if status then
+      self:assignBank(bank)
+    else
+      log:warn(cutils.getErrorMessage(bank))
+      utils.warnWindow ("Load Bank", cutils.getErrorMessage(bank))
+    end
+  elseif midiSize == PATCH_BUFFER_SIZE then
+    local status, patch = pcall(StandalonePatch, midi:getData())
+    if status then
+      self:p2v(patch, true)
+    else
+      log:warn(cutils.getErrorMessage(patch))
+      utils.warnWindow ("Load Patch", cutils.getErrorMessage(patch))
+    end
   end
-  ---------------------------------------------------------------------------------
-  if midiSize == 210 then
-    -------------------- process Voice patch data ----------------------------------------
-    Voice_AssignValues(midi:getData(), false)
-  end
-  ---------------------------------------------------------------------------------
 end
 
+---
+-- @function [parent=#EnsoniqEsq1Controller] onLogLevelChanged
 --
 -- Called when a modulator value changes
 -- @mod   http://ctrlr.org/api/class_ctrlr_modulator.html
@@ -165,6 +164,9 @@ function EnsoniqEsq1Controller:onLogLevelChanged(mod, value)
   log:setLevel(value)
 end
 
+---
+-- @function [parent=#EnsoniqEsq1Controller] onPatchSelect
+--
 -- This method assigns the selected patch to the panel modulators
 function EnsoniqEsq1Controller:onPatchSelect(mod, value)
   if self.bank:isSelectedPatch(value) then
@@ -177,12 +179,15 @@ function EnsoniqEsq1Controller:onPatchSelect(mod, value)
   self:p2v(self.bank:getSelectedPatch(), true)
 end
 
+---
+-- @function [parent=#EnsoniqEsq1Controller] onSaveMenu
+--
 function EnsoniqEsq1Controller:onSaveMenu(mod, value)
   local menu = PopupMenu()
   menu:addItem(1, "Patch to file", true, false, Image())
   menu:addItem(2, "Bank to file", true, false, Image())
   menu:addItem(3, "Patch to ESQ-1", true, false, Image())
---  menu:addItem(4, "Bank to ESQ-1", true, false, Image())
+  menu:addItem(4, "Bank to ESQ-1", true, false, Image())
   local ret = menu:show(0,0,0,0)
   if ret == 1 then
     local patch = self.bank:getSelectedPatch()
@@ -191,22 +196,25 @@ function EnsoniqEsq1Controller:onSaveMenu(mod, value)
     self:v2p(self.bank:getSelectedPatch())
     saveBank(self.bank)
   elseif ret == 3 then
-    panel:sendMidiMessageNow(CtrlrMidiMessage({0xF0, 0x0F, 0x02, 0x00, 0x0E, 0x26, 0x59, 0xF7}))
+--    panel:sendMidiMessageNow(CtrlrMidiMessage({0xF0, 0x0F, 0x02, 0x00, 0x0E, 0x26, 0x59, 0xF7}))
     local patch = self.bank:getSelectedPatch()
     self:v2p(patch)
-    panel:sendMidiMessageNow(patch:toSyxMsg())
-    panel:sendMidiMessageNow(CtrlrMidiMessage({0xF0, 0x0F, 0x02, 0x00, 0x0E, 0x26, 0x59, 0x22, 0x2A, 0x5D, 0x5D, 0xF7}))
---  elseif ret == 4 then
---    Voice_SaveBank()
+    self:sendMidiMessage(patch:toSyxMsg())
+--    panel:sendMidiMessageNow(CtrlrMidiMessage({0xF0, 0x0F, 0x02, 0x00, 0x0E, 0x26, 0x59, 0x22, 0x2A, 0x5D, 0x5D, 0xF7}))
+  elseif ret == 4 then
+  --    Voice_SaveBank()
   end
 end
 
+---
+-- @function [parent=#EnsoniqEsq1Controller] onLoadMenu
+--
 function EnsoniqEsq1Controller:onLoadMenu(mod, value)
   local menu = PopupMenu()
   menu:addItem(1, "Patch from file", true, false, Image())
   menu:addItem(2, "Bank from file", true, false, Image())
   menu:addItem(3, "Patch from ESQ-1", true, false, Image())
---  menu:addItem(4, "Bank from ESQ-1", true, false, Image())
+  menu:addItem(4, "Bank from ESQ-1", true, false, Image())
   local menuSelect = menu:show(0,0,0,0)
   if menuSelect == 1 then
     -- Load Patch
@@ -218,13 +226,6 @@ function EnsoniqEsq1Controller:onLoadMenu(mod, value)
       local loadedData = MemoryBlock()
       f:loadFileAsData(loadedData)
       local status, patch = pcall(StandalonePatch, loadedData)
-      --      Voice_AssignValues(loadedData, true)
-      --      if ret == 1 then
-      --        VoiceBankData = nil
-      --        patchSelectComp:setPropertyInt("componentDisabled", 1)
-      --      else
-      --        Voice_putPatch(loadedData, Voice_SelectedPatchIndex)
-      --      end
       if status then
         self:p2v(patch, true)
       else
@@ -259,14 +260,24 @@ function EnsoniqEsq1Controller:onLoadMenu(mod, value)
     if not AlertWindow.showOkCancelBox(AlertWindow.InfoIcon, "Overwrite bank?", "You have loaded a bank. The current action will overwrite your existing bank. Are you sure you want to continue?", "OK", "Cancel") then
       return
     end
-    --      Voice_AssignBank(loadedData)
-    --
-    --      patchSelectMod:setValue(0, false)
-    --      patchSelectComp:setPropertyInt("componentDisabled", 0)
+    self:sendMidiMessage(AllProgDumpRequest())
+  elseif menuSelect == 4 then
+    self:sendMidiMessage(SingleProgDumpRequest())
+  end
+end
 
-    self.receiveBuffer = MemoryBlock(BANK_BUFFER_SIZE, true)
-    self.receiveBankOffset = 0
+---
+-- @function [parent=#EnsoniqEsq1Controller] sendMidiMessage
+--
+function EnsoniqEsq1Controller:sendMidiMessage(syxMsg)
+  panel:sendMidiMessageNow(syxMsg:toMidiMessage())
+end
 
---  elseif menuSelect == 4 then
+---
+-- @function [parent=#EnsoniqEsq1Controller] sendMidiMessages
+--
+function EnsoniqEsq1Controller:sendMidiMessages(msgs)
+  for k, nextMsg in pairs(msgs) do
+    self:sendMidiMessage(nextMsg)
   end
 end

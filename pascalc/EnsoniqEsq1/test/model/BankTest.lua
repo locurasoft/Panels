@@ -49,16 +49,7 @@ local PATCH_NAMES =   {
 local bankData = nil
 
 function setup()
-  --  mc = lemock.controller()
-  --
-  --  midiServiceMock = mc:mock()
   regGlobal("midiService", MidiService())
-  --  regGlobal("Voice_singleSize", 448)
-  --  regGlobal("Voice_Header", MemoryBlock({ 0xF0, 0x41, 0x00, 0x14, 0x12, 0x00, 0x00, 0x00 }))
-  --  regGlobal("Voice_HeaderSize", Voice_Header:getSize())
-  --  regGlobal("Voice_Footer", MemoryBlock({ 0x00, 0xF7 }))
-  --  regGlobal("Voice_FooterSize", Voice_Footer:getSize())
-  --
 
   local f = io.open("test/data/Esqhits^2.txt", "rb")
   local content = f:read("*all")
@@ -74,7 +65,7 @@ end
 function testConstructorWithoutData()
   local tested = Bank()
   assertEqual(tested:getSelectedPatchIndex(), 0)
-  assertEqual(tested.data:getSize(), 8166)
+  assertEqual(tested.data:getSize(), BANK_BUFFER_SIZE)
 
   local p = tested:getSelectedPatch()
   assertNotNil(p)
@@ -88,7 +79,7 @@ function testConstructorWithoutData()
   assertNotNil(p)
   assertEqual(p:getPatchName(), "PATCH")
 
-  assertEqual(p.patchOffset, 35 * Voice_singleSize)
+  assertEqual(p.patchOffset, 35 * PATCH_BUFFER_SIZE)
 end
 
 function testConstructorWithData()

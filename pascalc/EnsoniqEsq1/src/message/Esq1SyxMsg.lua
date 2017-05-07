@@ -1,5 +1,12 @@
 require("SyxMsg")
 
+-- , 0x01
+local ESQ1_EXCL_HEADER = MemoryBlock({ 0xF0, 0x0F, 0x02, 0x00 })
+local HEADER_SIZE = ESQ1_EXCL_HEADER:getSize()
+local END_OF_EXCL = MemoryBlock({ 0xF7 })
+local END_OF_EXCL_SIZE = END_OF_EXCL:getSize()
+
+
 Esq1SyxMsg = {}
 Esq1SyxMsg.__index = Esq1SyxMsg
 
@@ -12,7 +19,14 @@ setmetatable(Esq1SyxMsg, {
   end,
 })
 
-function Esq1SyxMsg:_init(data)
+function Esq1SyxMsg:_init(msgCode, dataSize)
   SyxMsg._init(self)
-  self.data = data
+  self.data = MemoryBlock(HEADER_SIZE + 1 + dataSize + END_OF_EXCL_SIZE, true)
+  self.data:copyFrom(ESQ1_EXCL_HEADER, 0, HEADER_SIZE)
+  self.data:setByte(HEADER_SIZE, msgCode)
+  self.data:copyFrom(END_OF_EXCL, self.data:getSize() - 1, END_OF_EXCL_SIZE)
+end
+
+function Esq1SyxMsg:setPayload(payload)
+  payload:copyTo(self.data, HEADER_SIZE + 1, payload:getSize())
 end

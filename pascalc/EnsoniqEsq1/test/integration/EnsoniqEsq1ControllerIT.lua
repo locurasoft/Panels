@@ -1,4 +1,5 @@
 require("ctrlrTestUtils")
+require("PopupMenu")
 require("MockPanel")
 require("json4ctrlr")
 require("cutils")
@@ -18,6 +19,11 @@ module( 'EnsoniqEsq1ControllerIT', lunity )
 
 local bankData = nil
 
+local saveBank = function(bank, filename)
+  local dataToWrite = bank:toStandaloneData()
+  cutils.writeDataToFile(filename, dataToWrite)
+end
+
 function assertText(compName, expectedText)
   assertEqual(panel:getComponent(compName):getText(), expectedText)
 end
@@ -35,6 +41,16 @@ function setup()
   local midiListener = function(midiMessage)
     table.insert(midiMessages, midiMessage)
   end
+  
+  openedAlertWindows = {}
+  _G["AlertWindow"] = {
+    InfoIcon = "APA",
+    showOkCancelBox = function(title, message) 
+      table.insert(openedAlertWindows, message)
+      return true
+    end
+  }
+  
 
   regGlobal("panel", MockPanel("Ensoniq-ESQ1.panel", midiListener))
   local log = Logger("GLOBAL")
@@ -89,26 +105,37 @@ end
 --  assertEqual(ensoniqEsq1Controller:getText("Name1"), "CLAV #")
 --end
 
-function testV2p()
-  local mod = panel:getModulatorByName("patchSelect")
+--function testV2p()
+--  local max = 5
+--  local mod = panel:getModulatorByName("patchSelect")
+--
+--  local bank = Bank(bankData)
+--  ensoniqEsq1Controller:assignBank(bank)
+--
+--  assertEqual(bank:getSelectedPatchIndex(), 0)
+--
+--  for i = 0, max do
+--    ensoniqEsq1Controller:onPatchSelect(mod, i)
+--    assertEqual(bank:getSelectedPatchIndex(), i)
+--    --    ensoniqEsq1Controller:v2p(bank:getSelectedPatch())
+--  end
+--  
+--  saveBank(bank, "syx1.syx")
+--
+--  for i = 0, max do
+--    ensoniqEsq1Controller:onPatchSelect(mod, 39 - i)
+--    assertEqual(bank:getSelectedPatchIndex(), 39 - i)
+--    --    ensoniqEsq1Controller:v2p(bank:getSelectedPatch())
+--  end
+--  
+--  saveBank(bank, "syx2.syx")
+--end
 
-  local bank = Bank(bankData)
-  ensoniqEsq1Controller:assignBank(bank)
-
-  assertEqual(bank:getSelectedPatchIndex(), 0)
-
-  for i = 0, 39 do
-    ensoniqEsq1Controller:onPatchSelect(mod, i)
-    assertEqual(bank:getSelectedPatchIndex(), i)
---    ensoniqEsq1Controller:v2p(bank:getSelectedPatch())
-  end
-
-  for i = 0, 39 do
-    ensoniqEsq1Controller:onPatchSelect(mod, 39 - i)
-    assertEqual(bank:getSelectedPatchIndex(), 39 - i)
---    ensoniqEsq1Controller:v2p(bank:getSelectedPatch())
-  end
-
+function testReceiveBank()
+  _G["POPUP_MENU_SHOW_RETVAL"] = 3
+  ensoniqEsq1Controller:onLoadMenu()
+  assertEqual(table.getn(midiMessages), 1)
+  ensoniqEsq1Controller:onMidiReceived(CtrlrMidiMessage(bankData))
 end
 
 runTests{useANSI = false}

@@ -15,15 +15,10 @@ function onPanelBeforeLoad(type)
 
   -- Init global constants
   LUA_CONTRUCTOR_NAME = "LUA_CLASS_NAME"
-  Voice_singleSize = 210
-  Voice_SingleDataSize = 204
-  Voice_NumPatches = 40
-  Voice_Header = MemoryBlock({ 0xF0, 0x0F, 0x02, 0x00, 0x01 })
-  Voice_HeaderSize = Voice_Header:getSize()
-  Voice_Footer = MemoryBlock({ 0xF7 })
-  Voice_FooterSize = Voice_Footer:getSize()
-
-  Voice_PartialMuteUpdating = false
+  BANK_BUFFER_SIZE = 8166
+  PATCH_BUFFER_SIZE = 210
+  SINGLE_DATA_SIZE = 204
+  NUM_PATCHES = 40
 
   -- Init logger
   LOGGER = Logger("Global")

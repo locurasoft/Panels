@@ -45,6 +45,14 @@ function AbstractController:setValueByCustomName(modName, value)
   end
 end
 
+function AbstractController:setValueByCustomNameMapped(modName, value)
+  local mod = panel:getModulatorWithProperty("modulatorCustomName", modName)
+  if mod == nil then
+    LOGGER:warn("Could not find modulator %s", modName)
+  else
+    mod:setValueMapped(value, false)
+  end
+end
 
 function AbstractController:setValue(modName, value)
   local mod = panel:getModulatorByName(modName)
@@ -76,6 +84,9 @@ function AbstractController:getModulatorByCustomName(modName)
   return panel:getModulatorWithProperty("modulatorCustomName", modName)
 end
 
+function AbstractController:getModulatorName(mod)
+  return mod:getProperty("name")
+end
 
 function AbstractController:toggleVisibility(name, visible)
   if visible then

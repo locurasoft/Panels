@@ -2,9 +2,7 @@ require("LuaObject")
 require("Logger")
 require("lutils")
 
-local SPECIAL_OFFSETS = { [6]=64, [8]=64, [12]=64, [14]=64, [21]=64, [23]=64, [28]=64, [30]=64, [36]=64, [38]=64, [42]=64, [44]=64, [49]=64, [51]=64, [55]=64, [70]=64, [72]=64, [74]=64, [80]=64, [82]=64, [84]=64, [90]=64, [92]=64, [94]=64, [100]=64, [102]=64, [104]=64, }
-local Voice_HeaderSize = 8
-local Voice_FooterSize = 2
+local ADD_SUBT_OFFSETS = { [6]=64, [8]=64, [12]=64, [14]=64, [21]=64, [23]=64, [28]=64, [30]=64, [36]=64, [38]=64, [42]=64, [44]=64, [49]=64, [51]=64, [55]=64, [70]=64, [72]=64, [74]=64, [80]=64, [82]=64, [84]=64, [90]=64, [92]=64, [94]=64, [100]=64, [102]=64, [104]=64, }
 local paramSpecifications = {
   { 1, 0, 127, false, 0, 121 },
   { 2, 0, 127, false, 0, 121 },
@@ -140,7 +138,6 @@ local paramSpecifications = {
   { 0, 0, 63, false, 32, 117 }
 }
 
-
 local log = Logger("Patch")
 
 Patch = {}
@@ -195,6 +192,11 @@ function Patch:setPatchName(patchName)
   end
 end
 
+function Patch:setDataByte(offset, value)
+  log:warnIf(self.data:getByte(offset) ~= value, "changing byte! offset: %d from val: %.2X to val: %.2X", offset, self.data:getByte(offset), value)
+  self.data:setByte(offset, value)
+end
+
 function Patch:setValue(index, value)
   local spec = paramSpecifications[index]
   local type = spec[1]
@@ -203,12 +205,10 @@ function Patch:setValue(index, value)
   local signed = spec[4]
   local offset = self:getValueOffset(spec[6]) - 5
 
-  if SPECIAL_OFFSETS[index] ~= nil then
-    value = value - SPECIAL_OFFSETS[index]
+  if ADD_SUBT_OFFSETS[index] ~= nil then
+    value = value - ADD_SUBT_OFFSETS[index]
   end
-
-  log:warnIf(index == 18, "setValue off: %d ind: %d, val: %d (%.2X %.2X)", offset, index, value, self.data:getByte(offset), self.data:getByte(offset + 1))
-
+  
   local j = self.data:getByte(offset) + self.data:getByte(offset + 1) * 16
 
   if type == 0 then
@@ -305,16 +305,22 @@ function Patch:getValue(index)
     else
       modValue = 2
     end
-
   else
     log:warn("Weird param type %d", type)
     return
   end
 
-  if SPECIAL_OFFSETS[index] ~= nil then
-    modValue = modValue + SPECIAL_OFFSETS[index]
+  if ADD_SUBT_OFFSETS[index] ~= nil then
+    modValue = modValue + ADD_SUBT_OFFSETS[index]
   end
   
-  log:warnIf(index == 18, "getValue off: %d ind: %d, val: %d (%.2X %.2X)", offset, index, modValue, self.data:getByte(offset), self.data:getByte(offset + 1))
   return modValue
+end
+
+function Patch:toSyxMsg()
+  local msg = Esq1SyxMsg(1, SINGLE_DATA_SIZE)
+  local tmp = MemoryBlock(SINGLE_DATA_SIZE, true)
+  tmp:copyFrom(self.data, self:getValueOffset(0), SINGLE_DATA_SIZE)
+  msg:setPayload(tmp)
+  return msg
 end
