@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <panel name="Ensoniq ESQ1" panelShowDialogs="1" panelMessageTime="10000"
-       panelAuthorName="JaseFOS" panelAuthorEmail="jasefos@hotmail.com"
-       panelAuthorUrl="ww.soundcloud.com/jasefos" panelAuthorDesc=""
+       panelAuthorName="JaseFOS, Johan Schultz, pascalc" panelAuthorEmail="jasefos@hotmail.com, pascalc@locurasoft.com"
+       panelAuthorUrl="www.soundcloud.com/jasefos" panelAuthorDesc=""
        panelVersionMajor="1" panelVersionMinor="1" panelVersionName="Ensoniq ESQ1"
        panelVendor="Ensoniq" panelDevice="ESQ1" panelMidiSnapshotAfterLoad="0"
        panelMidiSnapshotAfterProgramChange="0" panelMidiSnapshotDelay="70"
@@ -1929,7 +1929,7 @@
   <uiPanelEditor uiPanelCanvasRectangle="0 0 1600 700" uiPanelSnapSize="0" uiPanelBackgroundColour="0xffffffff"
                  uiPanelBackgroundColour1="ff747373" uiPanelBackgroundColour2="ff6d6d6d"
                  uiPanelBackgroundGradientType="0" uiPanelImageResource="ensoniq-esq1-background"
-                 uiPanelEditMode="0" uiPanelViewPortSize="1530" uiPanelPropertiesSize="382"
+                 uiPanelEditMode="0" uiPanelViewPortSize="1528" uiPanelPropertiesSize="382"
                  uiPanelLock="1" uiPanelDisabledOnEdit="1" uiPanelMenuBarVisible="1"
                  uiPanelWidth="1600" uiPanelHeight="700" name="Ensoniq ESQ1" uiPanelImageAlpha="255"
                  uiPanelImageLayout="8192" uiPanelSnapActive="1" uiPanelPropertiesOnRight="0"
@@ -1953,9 +1953,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice45" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="FILTER-Frequency" modulatorMin="0" modulatorValue="37">
+             name="FILTER-Frequency" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="110" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="110" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -1992,9 +1992,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice9" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="DCA1-Level" modulatorMin="0" modulatorValue="56">
+             name="DCA1-Level" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="88" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="88" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="1"
@@ -2031,9 +2031,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice4" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="OSC1-Wave" modulatorMin="0" modulatorValue="9">
+             name="OSC1-Wave" modulatorMin="0" modulatorValue="18">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="67" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="67" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="left"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="1"
@@ -2069,9 +2069,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice1" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="OSC1-Octave" modulatorMin="0" modulatorValue="2">
+             name="OSC1-Octave" modulatorMin="0" modulatorValue="3">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="64" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="64" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="left"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="1"
@@ -2107,9 +2107,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice10" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="DCA1-Enable" modulatorMin="0" modulatorValue="1">
+             name="DCA1-Enable" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="89" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="89" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="right"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -2139,7 +2139,7 @@
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
              name="OSC1-Mod1Amount" modulatorMin="0" modulatorValue="64">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="69" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="69" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -2177,9 +2177,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice2" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="OSC1-Semi" modulatorMin="0" modulatorValue="0">
+             name="OSC1-Semi" modulatorMin="0" modulatorValue="11">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="65" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="65" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="left"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -2215,9 +2215,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice52" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="DCA4-Pan" modulatorMin="0" modulatorValue="8">
+             name="DCA4-Pan" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="107" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="107" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -2254,9 +2254,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice53" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="DCA4-Env4Amount" modulatorMin="0" modulatorValue="126">
+             name="DCA4-Env4Amount" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="106" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="106" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="1"
@@ -2293,9 +2293,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice47" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="FILTER-KeyTrack" modulatorMin="0" modulatorValue="7">
+             name="FILTER-KeyTrack" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="112" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="112" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -2334,7 +2334,7 @@
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
              name="FILTER-Q" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="111" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="111" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -2371,9 +2371,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice5" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="OSC1-Mod1Source" modulatorMin="0" modulatorValue="15">
+             name="OSC1-Mod1Source" modulatorMin="0" modulatorValue="8">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="68" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="68" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="left"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -2409,9 +2409,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice7" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="OSC1-Mod2Source" modulatorMin="0" modulatorValue="15">
+             name="OSC1-Mod2Source" modulatorMin="0" modulatorValue="10">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="70" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="70" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="left"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -2449,7 +2449,7 @@
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
              name="OSC1-Mod2Amount" modulatorMin="0" modulatorValue="64">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="71" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="71" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="14" componentLabelWidth="0" componentLabelVisible="0"
@@ -2487,9 +2487,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice13" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="DCA1-Mod2Source" modulatorMin="0" modulatorValue="15">
+             name="DCA1-Mod2Source" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="92" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="92" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="left"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -2525,9 +2525,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice11" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="DCA1-Mod1Source" modulatorMin="0" modulatorValue="4">
+             name="DCA1-Mod1Source" modulatorMin="0" modulatorValue="10">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="90" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="90" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="left"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -2565,7 +2565,7 @@
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
              name="DCA1-Mod1Amount" modulatorMin="0" modulatorValue="64">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="91" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="91" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="14" componentLabelWidth="0" componentLabelVisible="0"
@@ -2605,7 +2605,7 @@
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
              name="DCA1-Mod2Amount" modulatorMin="0" modulatorValue="64">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="93" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="93" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="14" componentLabelWidth="0" componentLabelVisible="0"
@@ -2645,7 +2645,7 @@
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
              name="MODES-AM" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="117" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="117" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="14" componentLabelWidth="0" componentLabelVisible="0"
@@ -2673,9 +2673,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="3610" modulatorCustomIndex="0"
              modulatorCustomName="Voice48" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="FILTER-Mod1Source" modulatorMin="0" modulatorValue="5">
+             name="FILTER-Mod1Source" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="113" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="113" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="left"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -2711,9 +2711,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice49" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="FILTER-Mod1Amount" modulatorMin="0" modulatorValue="126">
+             name="FILTER-Mod1Amount" modulatorMin="0" modulatorValue="64">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="114" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="114" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -2751,9 +2751,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice50" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="FILTER-Mod2Source" modulatorMin="0" modulatorValue="10">
+             name="FILTER-Mod2Source" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="115" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="115" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="left"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -2789,9 +2789,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice51" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="FILTER-Mod2Amount" modulatorMin="0" modulatorValue="74">
+             name="FILTER-Mod2Amount" modulatorMin="0" modulatorValue="64">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="116" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="116" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -2831,7 +2831,7 @@
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
              name="MODES-Sync" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="120" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="120" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="14" componentLabelWidth="0" componentLabelVisible="0"
@@ -2861,7 +2861,7 @@
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
              name="MODES-Glide" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="118" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="118" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="1"
@@ -2900,7 +2900,7 @@
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
              name="MODES-Mono" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="119" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="119" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="right"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="1"
@@ -2928,9 +2928,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice58" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="MODES-Rotate" modulatorMin="0" modulatorValue="1">
+             name="MODES-Rotate" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="121" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="121" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centredRight"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="1"
@@ -2958,9 +2958,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice59" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="MODES-EnvReset" modulatorMin="0" modulatorValue="1">
+             name="MODES-EnvReset" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="122" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="122" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="right" componentLabelJustification="right"
                componentLabelHeight="14" componentLabelWidth="0" componentLabelVisible="1"
@@ -2988,9 +2988,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice60" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="MODES-WaveReset" modulatorMin="0" modulatorValue="1">
+             name="MODES-WaveReset" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="123" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="123" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="right"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="1"
@@ -3020,7 +3020,7 @@
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
              name="MODES-Cycle" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="124" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="124" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="left"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="1"
@@ -3050,7 +3050,7 @@
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
              name="OSC1-Fine" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="66" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="66" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="14" componentLabelWidth="0" componentLabelVisible="1"
@@ -3087,9 +3087,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice40" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="DCA3-Enable" modulatorMin="0" modulatorValue="1">
+             name="DCA3-Enable" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="101" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="101" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="right"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -3117,9 +3117,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice54" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="DCA4-PanModSource" modulatorMin="0" modulatorValue="10">
+             name="DCA4-PanModSource" modulatorMin="0" modulatorValue="12">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="108" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="108" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="left"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -3155,9 +3155,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice55" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="DCA4-PanModAmount" modulatorMin="0" modulatorValue="91">
+             name="DCA4-PanModAmount" modulatorMin="0" modulatorValue="64">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="109" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="109" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -3195,9 +3195,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice112" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="LFO1-Reset" modulatorMin="0" modulatorValue="1">
+             name="LFO1-Reset" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="41" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="41" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centredRight"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="1"
@@ -3227,7 +3227,7 @@
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
              name="LFO1-Human" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="42" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="42" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centredRight"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -3257,7 +3257,7 @@
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
              name="LFO1-L1" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="44" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="44" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -3294,9 +3294,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice115" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="LFO1-Delay" modulatorMin="0" modulatorValue="1">
+             name="LFO1-Delay" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="45" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="45" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -3335,7 +3335,7 @@
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
              name="LFO1-L2" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="46" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="46" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -3372,9 +3372,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice110" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="LFO1-Wave" modulatorMin="0" modulatorValue="0">
+             name="LFO1-Wave" modulatorMin="0" modulatorValue="1">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="43" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="43" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="left"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="1"
@@ -3410,9 +3410,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice109" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="LFO1-Freq" modulatorMin="0" modulatorValue="20">
+             name="LFO1-Freq" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="40" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="40" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -3449,9 +3449,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice113" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="LFO1-ModSource" modulatorMin="0" modulatorValue="11">
+             name="LFO1-ModSource" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="47" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="47" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="left"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -3511,7 +3511,7 @@
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
              name="ENV2-TKey" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="19" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="19" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="1"
@@ -3550,7 +3550,7 @@
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
              name="ENV2-T4" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="18" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="18" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -3587,9 +3587,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice83" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="ENV2-T3" modulatorMin="0" modulatorValue="63">
+             name="ENV2-T3" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="17" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="17" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -3626,9 +3626,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice81" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="ENV2-T2" modulatorMin="0" modulatorValue="13">
+             name="ENV2-T2" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="16" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="16" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -3667,7 +3667,7 @@
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
              name="ENV2-T1" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="15" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="15" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -3704,9 +3704,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice80" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="ENV2-L1" modulatorMin="0" modulatorValue="127">
+             name="ENV2-L1" modulatorMin="0" modulatorValue="64">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="10" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="10" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -3746,7 +3746,7 @@
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
              name="ENV2-T1Vel" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="14" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="14" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -3783,9 +3783,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice86" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="ENV2-LVel" modulatorMin="0" modulatorValue="30">
+             name="ENV2-LVel" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="13" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="13" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -3824,7 +3824,7 @@
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
              name="ENV2-L3" modulatorMin="0" modulatorValue="64">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="12" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="12" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -3862,9 +3862,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice82" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="ENV2-L2" modulatorMin="0" modulatorValue="65">
+             name="ENV2-L2" modulatorMin="0" modulatorValue="64">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="11" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="11" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -3924,9 +3924,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice98" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="ENV3-TKey" modulatorMin="0" modulatorValue="56">
+             name="ENV3-TKey" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="29" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="29" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -3963,9 +3963,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice95" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="ENV3-T4" modulatorMin="0" modulatorValue="26">
+             name="ENV3-T4" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="28" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="28" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -4002,9 +4002,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice93" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="ENV3-T3" modulatorMin="0" modulatorValue="63">
+             name="ENV3-T3" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="27" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="27" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -4041,9 +4041,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice91" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="ENV3-T2" modulatorMin="0" modulatorValue="44">
+             name="ENV3-T2" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="26" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="26" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -4082,7 +4082,7 @@
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
              name="ENV3-T1" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="25" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="25" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -4121,7 +4121,7 @@
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
              name="ENV3-T1Vel" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="24" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="24" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -4158,9 +4158,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice96" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="ENV3-LVel" modulatorMin="0" modulatorValue="63">
+             name="ENV3-LVel" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="23" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="23" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -4197,9 +4197,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice94" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="ENV3-L3" modulatorMin="0" modulatorValue="70">
+             name="ENV3-L3" modulatorMin="0" modulatorValue="64">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="22" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="22" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -4237,9 +4237,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice92" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="ENV3-L2" modulatorMin="0" modulatorValue="100">
+             name="ENV3-L2" modulatorMin="0" modulatorValue="64">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="21" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="21" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -4277,9 +4277,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice90" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="ENV3-L1" modulatorMin="0" modulatorValue="127">
+             name="ENV3-L1" modulatorMin="0" modulatorValue="64">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="20" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="20" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -4339,9 +4339,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice106" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="ENV4-LVel" modulatorMin="0" modulatorValue="51">
+             name="ENV4-LVel" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="33" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="33" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -4380,7 +4380,7 @@
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
              name="ENV4-T1Vel" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="34" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="34" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -4419,7 +4419,7 @@
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
              name="ENV4-T1" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="35" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="35" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -4456,9 +4456,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice101" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="ENV4-T2" modulatorMin="0" modulatorValue="44">
+             name="ENV4-T2" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="36" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="36" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -4495,9 +4495,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice103" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="ENV4-T3" modulatorMin="0" modulatorValue="63">
+             name="ENV4-T3" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="37" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="37" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -4534,9 +4534,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice105" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="ENV4-T4" modulatorMin="0" modulatorValue="24">
+             name="ENV4-T4" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="38" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="38" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -4573,9 +4573,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice108" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="ENV4-TKey" modulatorMin="0" modulatorValue="46">
+             name="ENV4-TKey" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="39" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="39" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -4612,9 +4612,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice100" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="ENV4-L1" modulatorMin="0" modulatorValue="127">
+             name="ENV4-L1" modulatorMin="0" modulatorValue="64">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="30" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="30" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -4652,9 +4652,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice102" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="ENV4-L2" modulatorMin="0" modulatorValue="107">
+             name="ENV4-L2" modulatorMin="0" modulatorValue="64">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="31" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="31" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -4694,7 +4694,7 @@
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
              name="ENV4-L3" modulatorMin="0" modulatorValue="64">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="32" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="32" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -4778,7 +4778,7 @@
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
              name="LFO2-Reset" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="49" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="49" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centredRight"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="1"
@@ -4808,7 +4808,7 @@
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
              name="LFO2-Human" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="50" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="50" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centredRight"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -4836,9 +4836,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice121" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="LFO2-ModSource" modulatorMin="0" modulatorValue="11">
+             name="LFO2-ModSource" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="55" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="55" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="left"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -4876,7 +4876,7 @@
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
              name="LFO2-L1" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="52" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="52" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -4913,9 +4913,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice123" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="LFO2-Delay" modulatorMin="0" modulatorValue="1">
+             name="LFO2-Delay" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="53" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="53" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -4952,9 +4952,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice124" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="LFO2-L2" modulatorMin="0" modulatorValue="20">
+             name="LFO2-L2" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="54" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="54" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -4991,9 +4991,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice118" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="LFO2-Wave" modulatorMin="0" modulatorValue="2">
+             name="LFO2-Wave" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="51" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="51" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="left"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="1"
@@ -5029,9 +5029,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice117" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="LFO2-Freq" modulatorMin="0" modulatorValue="1">
+             name="LFO2-Freq" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="48" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="48" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -5092,7 +5092,7 @@
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
              name="LFO3-Freq" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="56" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="56" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -5129,9 +5129,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice129" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="LFO3-ModSource" modulatorMin="0" modulatorValue="15">
+             name="LFO3-ModSource" modulatorMin="0" modulatorValue="2">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="63" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="63" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="left"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -5167,9 +5167,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice132" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="LFO3-L2" modulatorMin="0" modulatorValue="20">
+             name="LFO3-L2" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="62" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="62" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -5208,7 +5208,7 @@
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
              name="LFO3-Delay" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="61" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="61" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -5245,9 +5245,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice130" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="LFO3-L1" modulatorMin="0" modulatorValue="63">
+             name="LFO3-L1" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="60" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="60" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -5284,9 +5284,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice126" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="LFO3-Wave" modulatorMin="0" modulatorValue="2">
+             name="LFO3-Wave" modulatorMin="0" modulatorValue="3">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="59" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="59" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="left"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="1"
@@ -5324,7 +5324,7 @@
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
              name="LFO3-Human" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="58" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="58" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centredRight"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -5352,9 +5352,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice128" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="LFO3-Reset" modulatorMin="0" modulatorValue="1">
+             name="LFO3-Reset" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="57" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="57" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centredRight"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="1"
@@ -5404,9 +5404,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice78" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="ENV1-TKey" modulatorMin="0" modulatorValue="9">
+             name="ENV1-TKey" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="9" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="9" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="1"
@@ -5443,9 +5443,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice75" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="ENV1-T4" modulatorMin="0" modulatorValue="20">
+             name="ENV1-T4" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="8" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="8" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -5482,9 +5482,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice73" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="ENV1-T3" modulatorMin="0" modulatorValue="63">
+             name="ENV1-T3" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="7" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="7" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -5521,9 +5521,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice71" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="ENV1-T2" modulatorMin="0" modulatorValue="50">
+             name="ENV1-T2" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="6" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="6" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -5562,7 +5562,7 @@
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
              name="ENV1-T1" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="5" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="5" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -5599,9 +5599,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice70" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="ENV1-L1" modulatorMin="0" modulatorValue="127">
+             name="ENV1-L1" modulatorMin="0" modulatorValue="64">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="0" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="0" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -5641,7 +5641,7 @@
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
              name="ENV1-T1Vel" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="4" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="4" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -5680,7 +5680,7 @@
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
              name="ENV1-LVel" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="3" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="3" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -5717,9 +5717,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice74" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="ENV1-L3" modulatorMin="0" modulatorValue="84">
+             name="ENV1-L3" modulatorMin="0" modulatorValue="64">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="2" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="2" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -5757,9 +5757,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice72" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="ENV1-L2" modulatorMin="0" modulatorValue="72">
+             name="ENV1-L2" modulatorMin="0" modulatorValue="64">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -5885,9 +5885,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice27" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="DCA2-Mod1Source" modulatorMin="0" modulatorValue="4">
+             name="DCA2-Mod1Source" modulatorMin="0" modulatorValue="15">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="96" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="96" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="left"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -5923,9 +5923,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice25" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="DCA2-Level" modulatorMin="0" modulatorValue="56">
+             name="DCA2-Level" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="94" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="94" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="1"
@@ -5964,7 +5964,7 @@
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
              name="DCA2-Mod2Amount" modulatorMin="0" modulatorValue="64">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="99" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="99" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="14" componentLabelWidth="0" componentLabelVisible="0"
@@ -6002,9 +6002,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice29" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="DCA2-Mod2Source" modulatorMin="0" modulatorValue="15">
+             name="DCA2-Mod2Source" modulatorMin="0" modulatorValue="8">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="98" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="98" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="left"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -6042,7 +6042,7 @@
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
              name="DCA2-Mod1Amount" modulatorMin="0" modulatorValue="64">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="97" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="97" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="14" componentLabelWidth="0" componentLabelVisible="0"
@@ -6080,9 +6080,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice26" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="DCA2-Enable" modulatorMin="0" modulatorValue="1">
+             name="DCA2-Enable" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="95" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="95" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="right"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -6134,7 +6134,7 @@
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
              name="DCA3-Level" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="100" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="100" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="1"
@@ -6171,9 +6171,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice41" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="DCA3-Mod1Source" modulatorMin="0" modulatorValue="4">
+             name="DCA3-Mod1Source" modulatorMin="0" modulatorValue="7">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="102" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="102" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="left"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -6211,7 +6211,7 @@
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
              name="DCA3-Mod2Amount" modulatorMin="0" modulatorValue="64">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="105" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="105" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="14" componentLabelWidth="0" componentLabelVisible="0"
@@ -6249,9 +6249,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice43" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="DCA3-Mod2Source" modulatorMin="0" modulatorValue="15">
+             name="DCA3-Mod2Source" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="104" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="104" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="left"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -6287,9 +6287,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice42" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="DCA3-Mod1Amount" modulatorMin="0" modulatorValue="124">
+             name="DCA3-Mod1Amount" modulatorMin="0" modulatorValue="64">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="103" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="103" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="14" componentLabelWidth="0" componentLabelVisible="0"
@@ -6371,9 +6371,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice18" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="OSC2-Wave" modulatorMin="0" modulatorValue="9">
+             name="OSC2-Wave" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="75" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="75" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="left"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="1"
@@ -6409,9 +6409,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice21" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="OSC2-Mod1Amount" modulatorMin="0" modulatorValue="65">
+             name="OSC2-Mod1Amount" modulatorMin="0" modulatorValue="64">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="77" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="77" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -6449,9 +6449,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice17" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="OSC2-Fine" modulatorMin="0" modulatorValue="1">
+             name="OSC2-Fine" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="74" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="74" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="14" componentLabelWidth="0" componentLabelVisible="1"
@@ -6490,7 +6490,7 @@
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
              name="OSC2-Mod2Amount" modulatorMin="0" modulatorValue="64">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="79" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="79" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="14" componentLabelWidth="0" componentLabelVisible="0"
@@ -6528,9 +6528,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice15" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="OSC2-Octave" modulatorMin="0" modulatorValue="2">
+             name="OSC2-Octave" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="72" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="72" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="left"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="1"
@@ -6568,7 +6568,7 @@
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
              name="OSC2-Semi" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="73" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="73" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="left"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -6604,9 +6604,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice22" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="OSC2-Mod2Source" modulatorMin="0" modulatorValue="15">
+             name="OSC2-Mod2Source" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="78" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="78" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="left"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -6642,9 +6642,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice20" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="OSC2-Mod1Source" modulatorMin="0" modulatorValue="11">
+             name="OSC2-Mod1Source" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="76" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="76" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="left"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -6702,9 +6702,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice38" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="OSC3-Mod2Amount" modulatorMin="0" modulatorValue="1">
+             name="OSC3-Mod2Amount" modulatorMin="0" modulatorValue="64">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="87" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="87" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="14" componentLabelWidth="0" componentLabelVisible="0"
@@ -6742,9 +6742,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice37" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="OSC3-Mod2Source" modulatorMin="0" modulatorValue="10">
+             name="OSC3-Mod2Source" modulatorMin="0" modulatorValue="15">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="86" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="86" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="left"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -6782,7 +6782,7 @@
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
              name="OSC3-Mod1Amount" modulatorMin="0" modulatorValue="64">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="85" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="85" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -6820,9 +6820,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice35" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="OSC3-Mod1Source" modulatorMin="0" modulatorValue="15">
+             name="OSC3-Mod1Source" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="84" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="84" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="left"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -6860,7 +6860,7 @@
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
              name="OSC3-Fine" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="82" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="82" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="centred"
                componentLabelHeight="14" componentLabelWidth="0" componentLabelVisible="1"
@@ -6899,7 +6899,7 @@
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
              name="OSC3-Semi" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="81" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="81" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="left"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -6937,7 +6937,7 @@
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
              name="OSC3-Octave" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="80" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="80" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="left"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="1"
@@ -6973,9 +6973,9 @@
              modulatorLinkedToComponent="0" modulatorBaseValue="0" modulatorCustomIndex="0"
              modulatorCustomName="Voice34" modulatorCustomIndexGroup="0" modulatorCustomNameGroup=""
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
-             name="OSC3-Wave" modulatorMin="0" modulatorValue="18">
+             name="OSC3-Wave" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="83" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="83" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="left"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="1"
@@ -7036,7 +7036,7 @@
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
              name="Split" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="101" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="101" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="right"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -7067,7 +7067,7 @@
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
              name="SplitProg" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="115" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="115" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="left"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -7149,7 +7149,7 @@
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
              name="Layer" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="101" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="101" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="right"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -7180,7 +7180,7 @@
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
              name="Split-LayerProg" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="115" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="115" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="left"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -7240,7 +7240,7 @@
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
              name="Split-Layer" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="101" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="101" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="right"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -7271,7 +7271,7 @@
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
              name="LayerProg" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="115" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="115" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="left"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -7377,7 +7377,7 @@
              modulatorLinkedToComponent="Modulator" modulatorBaseValue="0"
              modulatorCustomIndex="0" modulatorCustomName="" modulatorCustomIndexGroup="0"
              modulatorCustomNameGroup="" modulatorVstNameFormat="%n" luaModulatorValueChange="onPatchSelect"
-             name="patchSelect" modulatorMin="0" modulatorValue="0">
+             name="patchSelect" modulatorMin="0" modulatorValue="1">
     <midi midiMessageType="7" midiMessageChannelOverride="0" midiMessageChannel="1"
           midiMessageCtrlrNumber="1" midiMessageCtrlrValue="0" midiMessageMultiList=""
           midiMessageSysExFormula=""/>
@@ -7421,7 +7421,7 @@
                componentLuaMouseDoubleClick="-- None" uiLabelBgColour="ff000000"
                uiLabelTextColour="ff00ff00" uiLabelOutline="0" uiLabelOutlineColour="0x00000000"
                uiLabelJustification="centred" uiLabelFitFont="0" uiLabelFont="&lt;Sans-Serif&gt;;14;1;0;0;0;1;3"
-               uiLabelText="PIANO2" uiLabelDisplaysAllValues="0" uiLabelDisplayFormat="%n(%N) = %v(%h)"
+               uiLabelText="INIT" uiLabelDisplaysAllValues="0" uiLabelDisplayFormat="%n(%N) = %v(%h)"
                uiLabelInputHighlightTextColour="ff000000" uiLabelInputHighlightColour="ff00ff00"
                uiLabelEditOnSingleClick="1" uiLabelEditOnDoubleClick="0" uiLabelEditFocusDiscardsChanges="1"
                uiLabelInputAllowedChars="" uiLabelInputMaxLength="1024" uiLabelChangedCbk="-- None"
@@ -7439,7 +7439,7 @@
              modulatorVstNameFormat="%n" luaModulatorValueChange="-- None"
              name="SplitPnt" modulatorMin="0" modulatorValue="0">
     <midi midiMessageType="6" midiMessageChannelOverride="0" midiMessageChannel="1"
-          midiMessageCtrlrNumber="115" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1"
+          midiMessageCtrlrNumber="115" midiMessageCtrlrValue="0" midiMessageMultiList="CC,ByteValue,MSB7bitValue,99,-2:CC,ByteValue,LSB7bitValue,98,-2:CC,ByteValue,LSB7bitValue,6,-1:CC,ByteValue,LSB7bitValue,38,-1"
           midiMessageSysExFormula=""/>
     <component componentLabelPosition="none" componentLabelJustification="left"
                componentLabelHeight="0" componentLabelWidth="0" componentLabelVisible="0"
@@ -7465,4 +7465,5 @@
                uiComboSelectedIndex="-1" uiType="uiCombo" uiLabelFont="&lt;Sans-Serif&gt;;14;1;0;0;0;1;3"
                componentRectangle="201 83 40 24" componentLayerUid="7aa52ed08600000040ec242201000000"/>
   </modulator>
+  <panelCustomData/>
 </panel>
