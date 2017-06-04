@@ -16,5 +16,5 @@ function StandalonePatch:_init(patchData)
   Patch._init(self)
 
   self.data = patchData
-  assert(self.data:getSize() ~= PATCH_BUFFER_SIZE, string.format("midiSize %d is invalid and cannot be assigned to controllers", self.data:getSize()))
+  assert(self.data:getSize() == PATCH_BUFFER_SIZE, string.format("midiSize %d is invalid and cannot be assigned to controllers", self.data:getSize()))
 end

@@ -258,9 +258,9 @@ function EnsoniqEsq1Controller:onLoadMenu(mod, value)
     if not AlertWindow.showOkCancelBox(AlertWindow.InfoIcon, "Overwrite bank?", "You have loaded a bank. The current action will overwrite your existing bank. Are you sure you want to continue?", "OK", "Cancel") then
       return
     end
-    self:sendMidiMessage(AllProgDumpRequest())
-  elseif menuSelect == 4 then
     self:sendMidiMessage(SingleProgDumpRequest())
+  elseif menuSelect == 4 then
+    self:sendMidiMessage(AllProgDumpRequest())
   end
 end
 
