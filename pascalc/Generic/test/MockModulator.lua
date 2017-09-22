@@ -109,3 +109,13 @@ end
 function MockModulator:setModulatorValue()
   return self.value
 end
+
+function MockModulator:debugPrint()
+  if self:getProperty("name") == nil then
+    log:info("noname")
+  elseif self.value == nil then
+    log:info("%s;nil", self:getProperty("name"))
+  else
+    log:info("%s;%d", self:getProperty("name"), self.value)
+  end
+end

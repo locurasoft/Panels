@@ -116,3 +116,9 @@ end
 function MockPanel:getCanvas()
 	return self.canvas
 end
+
+function MockPanel:debugPrint()
+  for key, mod in pairs(self.modulators) do
+    mod:debugPrint()
+  end
+end

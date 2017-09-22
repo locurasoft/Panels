@@ -3,24 +3,25 @@ require("Logger")
 require("MockPanel")
 require("controller/EnsoniqEsq1Controller")
 require("controller/EnsoniqEsq1ControllerAutogen")
+require("controller/onFilesDroppedToPanel")
 require 'lunity'
 require 'lemock'
 module( 'EnsoniqEsq1ControllerTest', lunity )
 
 local BANK_BUFFER_SIZE = 36048
 
-local log = Logger("RolandD50ControllerTest")
+local log = Logger("EnsoniqEsq1ControllerTest")
 
 function setup()
   local log = Logger("GLOBAL")
   log:setLevel(3)
   regGlobal("LOGGER", log)
   
---  midiMessages = {}
---  local midiListener = function(midiMessage)
---    table.insert(midiMessages, midiMessage)
---  end
---  regGlobal("panel", MockPanel("Roland-D50.panel", midiListener))
+  midiMessages = {}
+  local midiListener = function(midiMessage)
+    table.insert(midiMessages, midiMessage)
+  end
+  regGlobal("panel", MockPanel("Ensoniq-ESQ1.panel", midiListener))
 --  regGlobal("midiService", MidiService())
   regGlobal("BANK_BUFFER_SIZE", 8166)
   regGlobal("PATCH_BUFFER_SIZE", 210)
@@ -31,11 +32,18 @@ function setup()
   regGlobal("HEADER_SIZE", ESQ1_EXCL_HEADER:getSize())
   regGlobal("COMPLETE_HEADER_SIZE", HEADER_SIZE + 1)
   
---  regGlobal("rolandD50Controller", RolandD50Controller())
+  regGlobal("ensoniqEsq1Controller", EnsoniqEsq1Controller())
 end
 
 function teardown()
   delGlobal("midiService")
+end
+
+function testOnFilesDroppedToPanel()
+  local sa = StringArray()
+  sa:add("test/data/SNADRM-ESQ1.syx")
+  onFilesDroppedToPanel(sa, 0, 0)
+  panel:debugPrint()
 end
 
 function testOnMidiReceived()

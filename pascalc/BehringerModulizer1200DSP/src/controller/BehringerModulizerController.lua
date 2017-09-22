@@ -163,6 +163,29 @@ function BehringerModulizerController:_init()
   AbstractController._init(self)
 end
 
+function BehringerModulizerController:loadVoiceFromFile(file)
+  if file:existsAsFile() then
+    local data = MemoryBlock()
+    file:loadFileAsData(data)
+    if data:getSize() ~= 10 then
+      error("The loaded file does not contain a Behringer Modulizer patch")
+      return
+    end
+
+    -- Assign values
+    self:setValue("variation", data:getByte(0))
+    self:setValue("editA", data:getByte(1))
+    self:setValue("editB", data:getByte(2))
+    self:setValue("editC", data:getByte(3))
+    self:setValue("editD", data:getByte(4))
+    self:setValue("effect", data:getByte(5))
+    self:setValue("eqLow", data:getByte(6))
+    self:setValue("eqHigh", data:getByte(7))
+    self:setValue("mix", data:getByte(8))
+    self:setValue("inOut", data:getByte(9))
+  end
+end
+
 ---
 -- Called when a modulator value changes
 -- @mod   http://ctrlr.org/api/class_ctrlr_modulator.html
@@ -188,30 +211,10 @@ end
 
 function BehringerModulizerController:onLoadVoice(mod, value)
   local file = utils.openFileWindow ("Open Patch", File(""), "*.syx", true)
-  if file:existsAsFile() then
-    local data = MemoryBlock()
-    file:loadFileAsData(data)
-    if data:getSize() ~= 10 then
-      error("The loaded file does not contain a Behringer Modulizer patch")
-      return
-    end
-
-    -- Assign values
-    self:setValue("variation", data:getByte(0))
-    self:setValue("editA", data:getByte(1))
-    self:setValue("editB", data:getByte(2))
-    self:setValue("editC", data:getByte(3))
-    self:setValue("editD", data:getByte(4))
-    self:setValue("effect", data:getByte(5))
-    self:setValue("eqLow", data:getByte(6))
-    self:setValue("eqHigh", data:getByte(7))
-    self:setValue("mix", data:getByte(8))
-    self:setValue("inOut", data:getByte(9))
-
-  end
+  self:loadVoiceFromFile(file)
 end
 
-function BehringerModulizerController:onSaveVoice()
+function BehringerModulizerController:onSaveVoice(mod, value)
   local f = utils.saveFileWindow ("Save patch", File(""), "*.syx", true)
   if f:isValid() == false then
     return

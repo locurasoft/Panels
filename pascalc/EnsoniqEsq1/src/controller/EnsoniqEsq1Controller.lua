@@ -82,7 +82,7 @@ end
 ---
 -- @function [parent=#EnsoniqEsq1Controller] p2v
 --
--- This method assigns patch data from a patch
+-- This method assigns modulators from a patch
 -- to all modulators in the panel
 function EnsoniqEsq1Controller:p2v(patch, midi)
   -- gets the voice parameter values
@@ -231,7 +231,7 @@ function EnsoniqEsq1Controller:onLoadMenu(mod, value)
         utils.warnWindow ("Load Patch", cutils.getErrorMessage(patch))
       end
     end
-    -- Load Bank
+  -- Load Bank
   elseif menuSelect == 2 then
     -- Prompt user to save bank
     if not AlertWindow.showOkCancelBox(AlertWindow.InfoIcon, "Overwrite bank?", "You have loaded a bank. The current action will overwrite your existing bank. Are you sure you want to continue?", "OK", "Cancel") then

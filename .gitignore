@@ -1,3 +1,4 @@
 *.log
 *Autogen.lua
 *-new.panel
+.project

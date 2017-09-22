@@ -65,6 +65,9 @@ setmetatable(RolandD50Controller, {
   end,
 })
 
+---
+-- @function [parent=#RolandD50Controller] _init
+--
 function RolandD50Controller:_init()
   AbstractController._init(self)
   self.bank = Bank()
@@ -72,14 +75,21 @@ function RolandD50Controller:_init()
   self.receiveBankOffset = -1
 end
 
-function RolandD50Controller:assignBank(bank)
-  self.bank = bank
-  self.bank:setSelectedPatchIndex(0)
-  self:p2v(bank:getSelectedPatch(), true)
-
-  self:setValue("Voice_PatchSelectControl", bank:getSelectedPatchIndex())
-  self:toggleActivation("Voice_PatchSelectControl", true)
+function RolandD50Controller:loadVoiceFromFile(file)
+  if file:existsAsFile() then
+    local data = MemoryBlock()
+    file:loadFileAsData(data)
+    -- Assign values
+    local status, patch = pcall(StandalonePatch, loadedData)
+    if status then
+      self:p2v(patch, true)
+    else
+      LOGGER:warn(cutils.getErrorMessage(patch))
+      utils.warnWindow ("Load Patch", cutils.getErrorMessage(patch))
+    end
+  end
 end
+
 
 -- This method assigns patch data from a memory block
 -- to all modulators in the panel
@@ -130,6 +140,20 @@ function RolandD50Controller:v2p(patch)
   return patch
 end
 
+---
+-- @function [parent=#RolandD50Controller] assignBank
+--
+-- This method stores the param values from all modulators
+-- and stores them in a specified patch location of a bank
+function RolandD50Controller:assignBank(bank)
+  self.bank = bank
+  self.bank:setSelectedPatchIndex(0)
+  self:p2v(bank:getSelectedPatch(), true)
+
+  self:setValue("Voice_PatchSelectControl", bank:getSelectedPatchIndex())
+  self:toggleActivation("Voice_PatchSelectControl", true)
+end
+
 function RolandD50Controller:updateStructures(tone, value)
   local p1 = false
   local p2 = false
@@ -155,10 +179,10 @@ function RolandD50Controller:updateStructures(tone, value)
   self:toggleLayerVisibility("LP2PCM", p2 and tone == LOWER)
 end
 
+-- @function [parent=#RolandD50Controller] onMidiReceived
 --
 -- Called when a panel receives a midi message (does not need to match any modulator mask)
--- @midi   CtrlrMidiMessage object
---
+-- @midi   http://ctrlr.org/api/class_ctrlr_midi_message.html
 function RolandD50Controller:onMidiReceived(midi)
   local data = midi:getData()
   local midiSize = data:getSize()

@@ -16,5 +16,6 @@ function StandalonePatch:_init(patchData)
   Patch._init(self)
 
   self.data = midiService:trimSyxData(patchData)
-  assert(self.data:getSize() ~= Voice_singleSize, string.format("midiSize %d is invalid and cannot be assigned to controllers", self.data:getSize()))
+  self.patchOffset = 0
+  assert(self.data:getSize() == Voice_singleSize, string.format("midiSize %d is invalid and cannot be assigned to controllers", self.data:getSize()))
 end
