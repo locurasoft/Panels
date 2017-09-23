@@ -146,7 +146,6 @@ local setComponentProperties = function(mod, dataString)
   end
 end
 
-
 setmetatable(BehringerModulizerController, {
   __index = AbstractController, -- this is what makes the inheritance work
   __call = function (cls, ...)

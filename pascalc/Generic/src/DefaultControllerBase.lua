@@ -1,54 +1,11 @@
 require("AbstractController")
 require("Logger")
+require("cutils")
 
 local log = Logger("DefaultControllerBase")
 
 DefaultControllerBase = {}
 DefaultControllerBase.__index = DefaultControllerBase
-
--- This method saves the current patch to file
-local savePatch = function(patch)
-  local f = utils.saveFileWindow ("Save patch", File(""), "*.syx", true)
-  if f:isValid() == false then
-    return
-  end
-  f:create()
-  if f:existsAsFile() then
-    -- Check if the file exists
-    if f:existsAsFile() == false then
-      -- If file does not exist, then create it
-      if f:create() == false then
-        -- If file cannot be created, then fail here
-        utils.warnWindow ("\n\nSorry, the Editor failed to\nsave the patch to disk!", "The file does not exist.")
-        return
-      end
-    end
-    -- If we reached this point, we have a valid file we can try to write to
-    if f:replaceWithData (patch:toStandaloneData()) == false then
-      utils.warnWindow ("File write", "Sorry, the Editor failed to\nwrite the data to file!")
-    end
-  end
-end
-
--- This method saves the current bank to file
-local saveBank = function(bank)
-  local f = utils.saveFileWindow ("Save Bank", File(""), "*.syx", true)
-  if f:isValid() == false then
-    return
-  end
-
-  if f:existsAsFile() then
-    f:deleteFile()
-  end
-
-  f:create()
-  if f:existsAsFile() then
-    local dataToWrite = bank:toStandaloneData()
-    if f:replaceWithData (dataToWrite) == false then
-      utils.warnWindow ("File write", "Sorry, the Editor failed to\nwrite the data to file!")
-    end
-  end
-end
 
 setmetatable(DefaultControllerBase, {
   __index = AbstractController, -- this is what makes the inheritance work
@@ -81,7 +38,7 @@ end
 function DefaultControllerBase:p2v(patch, sendMidi)
   for i = 0, self.voiceSize do -- gets the voice parameter values
     local mod = self:getModulatorByCustomName(string.format("Voice%d", i))
-    if mod ~= nil then
+    if mod ~= nil and mod:getProperty("modulatorCustomName") ~= nil then
       mod:setValue(patch:getValue(i), false)
     end
 
@@ -98,7 +55,7 @@ function DefaultControllerBase:v2p(patch)
   -- run through all modulators and fetch their value
   for i = 0, self.voiceSize do
     local mod = self:getModulatorByCustomName(string.format("Voice%d", i))
-    if mod ~= nil then
+    if mod ~= nil and mod:getProperty("modulatorCustomName") ~= nil then
       patch:setValue(i, mod:getValue())
     end
   end
@@ -121,7 +78,6 @@ function DefaultControllerBase:assignBank(bank)
 end
 
 function DefaultControllerBase:loadData(data)
-  local patch = nil
   local midiSize = data:getSize()
   if midiSize == self.bankSize then
     local status, bank = pcall(self.bankPointer, data)
@@ -132,22 +88,20 @@ function DefaultControllerBase:loadData(data)
       utils.warnWindow ("Load Bank", cutils.getErrorMessage(bank))
       return
     end
-    patch = bank:getSelectedPatch()
   elseif midiSize == self.voiceSize then
-    local status, tmp = pcall(self.standAlonePatchPointer, data)
+    local status, patch = pcall(self.standAlonePatchPointer, data)
     if not status then
-      log:warn(cutils.getErrorMessage(tmp))
-      utils.warnWindow ("Load Patch", cutils.getErrorMessage(tmp))
+      log:warn(cutils.getErrorMessage(patch))
+      utils.warnWindow ("Load Patch", cutils.getErrorMessage(patch))
       return
     end
-    patch = tmp
+    -- Assign values
+    self:p2v(patch, true)
   else
     error("The loaded file does not contain valid sysex data")
     return
   end
 
-  -- Assign values
-  self:p2v(patch, true)
 end
 
 ---
@@ -177,8 +131,57 @@ end
 ---
 -- @function [parent=#DefaultControllerBase] sendMidiMessages
 --
-function DefaultControllerBase:sendMidiMessages(msgs)
+function DefaultControllerBase:sendMidiMessages(msgs, interval)
   for k, nextMsg in pairs(msgs) do
-    self:sendMidiMessage(nextMsg)
+    panel:sendMidi(nextMsg, interval)
+  end
+end
+
+---
+-- @function [parent=#DefaultControllerBase] onLogLevelChanged
+--
+-- Called when a modulator value changes
+-- @mod   http://ctrlr.org/api/class_ctrlr_modulator.html
+-- @value    new numeric value of the modulator
+--
+function DefaultControllerBase:onLogLevelChanged(mod, value)
+  log:setLevel(value)
+end
+
+---
+-- @function [parent=#DefaultControllerBase] onPatchSelect
+--
+-- This method assigns the selected patch to the panel modulators
+function DefaultControllerBase:onPatchSelect(mod, value)
+  if self.bank:isSelectedPatch(value) then
+    return
+  end
+
+  self:v2p(self.bank:getSelectedPatch())
+
+  self.bank:setSelectedPatchIndex(value)
+  self:p2v(self.bank:getSelectedPatch(), true)
+end
+
+---
+-- @function [parent=#DefaultControllerBase] saveBankToFile
+--
+-- Saves the current bank to file
+function DefaultControllerBase:saveBankToFile()
+  self:v2p(self.bank:getSelectedPatch())
+  cutils.writeSyxDataToFile(self.bank:toStandaloneData())
+end
+
+function DefaultControllerBase:loadBankFromFile()
+  -- Prompt user to save bank
+  if not AlertWindow.showOkCancelBox(AlertWindow.InfoIcon, "Overwrite bank?", "You have loaded a bank. The current action will overwrite your existing bank. Are you sure you want to continue?", "OK", "Cancel") then
+    return
+  end
+
+  local file = utils.openFileWindow ("Open Bank", File(""), "*.syx", true)
+  if file:existsAsFile() then
+    local data = MemoryBlock()
+    file:loadFileAsData(data)
+    self:loadData(data)
   end
 end

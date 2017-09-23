@@ -19,11 +19,6 @@ module( 'EnsoniqEsq1ControllerIT', lunity )
 
 local bankData = nil
 
-local saveBank = function(bank, filename)
-  local dataToWrite = bank:toStandaloneData()
-  cutils.writeDataToFile(filename, dataToWrite)
-end
-
 function assertText(compName, expectedText)
   assertEqual(panel:getComponent(compName):getText(), expectedText)
 end

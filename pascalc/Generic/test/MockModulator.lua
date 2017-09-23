@@ -106,8 +106,8 @@ function MockModulator:setValue(value)
   end
 end
 
-function MockModulator:setModulatorValue()
-  return self.value
+function MockModulator:setModulatorValue(value)
+  self:setValue(value)
 end
 
 function MockModulator:debugPrint()

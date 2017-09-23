@@ -88,10 +88,27 @@ function writeToFile(fileName, contents)
   file:close()
 end
 
-function writeDataToFile(fileName, data)
-  local file = io.open(fileName, "w+")
-  file:write(data:toHexString(1))
-  file:close()
+function writeSyxDataToFile(data)
+  local f = utils.saveFileWindow ("Save file", File(""), "*.syx", true)
+  if f:isValid() == false then
+    return
+  end
+  f:create()
+  if f:existsAsFile() then
+    -- Check if the file exists
+    if f:existsAsFile() == false then
+      -- If file does not exist, then create it
+      if f:create() == false then
+        -- If file cannot be created, then fail here
+        utils.warnWindow ("\n\nSorry, the Editor failed to\nsave the data to disk!", "The file does not exist.")
+        return
+      end
+    end
+    -- If we reached this point, we have a valid file we can try to write to
+    if f:replaceWithData (data) == false then
+      utils.warnWindow ("File write", "Sorry, the Editor failed to\nwrite the data to file!")
+    end
+  end
 end
 
 

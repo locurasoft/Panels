@@ -162,7 +162,7 @@
                  uiPanelMenuBarVisible="1" uiPanelMenuBarHideOnExport="0" uiPanelWidth="400"
                  uiPanelHeight="400" name="Behringer Modulizer 1200DSP" uiPanelImageAlpha="255"
                  uiPanelImageLayout="1" uiPanelSnapActive="1" uiPanelPropertiesOnRight="0"
-                 luaPanelPaintBackground="-- None" luaPanelResized="-- None" luaPanelFileDragDropHandler="onFilesDroppedToPanel"
+                 luaPanelPaintBackground="-- None" luaPanelResized="-- None" luaPanelFileDragDropHandler=""
                  luaPanelFileDragEnterHandler="-- None" luaPanelFileDragExitHandler="-- None"
                  uiPanelInvisibleComponentAlpha="0.5" uiPanelTooltipBackgroundColour="0xffeeeebb"
                  uiPanelTooltipOutlineColour="0xff000000" uiPanelTooltipColour="0xff000000"

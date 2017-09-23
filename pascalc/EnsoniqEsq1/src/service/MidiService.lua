@@ -26,13 +26,9 @@ function MidiService:_init()
 end
 
 function MidiService:v2n(value, data, offset)
-  local tmp = mutils.d2n(value)
-  data:copyFrom(tmp, offset, 2)
---    self.data:setByte(offset, value % 16)
---    self.data:setByte(offset + 1, math.floor(value / 16))
+  data:copyFrom(mutils.d2n(value), offset, 2)
 end
 
 function MidiService:n2v(data, offset)
   return mutils.n2d(data:getByte(offset), data:getByte(offset + 1))
---  return data:getByte(offset) + data:getByte(offset + 1) * 16
 end

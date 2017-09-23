@@ -1,63 +1,20 @@
-require("AbstractController")
+require("DefaultControllerBase")
 require("Logger")
 require("model/Bank")
 require("model/Patch")
+require("model/StandalonePatch")
 require("cutils")
 
 local log = Logger("RolandD50Controller")
 local UPPER, LOWER = 0, 1
 local BANK_BUFFER_SIZE = 36048
+local PATCH_BUFFER_SIZE = 458
 
 RolandD50Controller = {}
 RolandD50Controller.__index = RolandD50Controller
 
--- This method saves the current patch to file
-local savePatch = function(patch)
-  local f = utils.saveFileWindow ("Save patch", File(""), "*.syx", true)
-  if f:isValid() == false then
-    return
-  end
-  f:create()
-  if f:existsAsFile() then
-    -- Check if the file exists
-    if f:existsAsFile() == false then
-      -- If file does not exist, then create it
-      if f:create() == false then
-        -- If file cannot be created, then fail here
-        utils.warnWindow ("\n\nSorry, the Editor failed to\nsave the patch to disk!", "The file does not exist.")
-        return
-      end
-    end
-    -- If we reached this point, we have a valid file we can try to write to
-    if f:replaceWithData (patch:toStandaloneData()) == false then
-      utils.warnWindow ("File write", "Sorry, the Editor failed to\nwrite the data to file!")
-    end
-  end
-end
-
--- This method saves the current bank to file
-local saveBank = function(bank)
-  local f = utils.saveFileWindow ("Save Bank", File(""), "*.syx", true)
-  if f:isValid() == false then
-    return
-  end
-
-  if f:existsAsFile() then
-    f:deleteFile()
-  end
-
-  f:create()
-  if f:existsAsFile() then
-
-    local dataToWrite = bank:toStandaloneData()
-    if f:replaceWithData (dataToWrite) == false then
-      utils.warnWindow ("File write", "Sorry, the Editor failed to\nwrite the data to file!")
-    end
-  end
-end
-
 setmetatable(RolandD50Controller, {
-  __index = AbstractController, -- this is what makes the inheritance work
+  __index = DefaultControllerBase, -- this is what makes the inheritance work
   __call = function (cls, ...)
     local self = setmetatable({}, cls)
     self:_init(...)
@@ -69,27 +26,11 @@ setmetatable(RolandD50Controller, {
 -- @function [parent=#RolandD50Controller] _init
 --
 function RolandD50Controller:_init()
-  AbstractController._init(self)
+  DefaultControllerBase._init(self, PATCH_BUFFER_SIZE, BANK_BUFFER_SIZE, StandalonePatch, Bank)
   self.bank = Bank()
   self.receiveBuffer = nil
   self.receiveBankOffset = -1
 end
-
-function RolandD50Controller:loadVoiceFromFile(file)
-  if file:existsAsFile() then
-    local data = MemoryBlock()
-    file:loadFileAsData(data)
-    -- Assign values
-    local status, patch = pcall(StandalonePatch, loadedData)
-    if status then
-      self:p2v(patch, true)
-    else
-      LOGGER:warn(cutils.getErrorMessage(patch))
-      utils.warnWindow ("Load Patch", cutils.getErrorMessage(patch))
-    end
-  end
-end
-
 
 -- This method assigns patch data from a memory block
 -- to all modulators in the panel
@@ -110,7 +51,6 @@ function RolandD50Controller:p2v(patch, sendMidi)
   self:setValue("LowerPartial2", patch:getLowerPartial2Value())
 
   -- Set Patch name
-  log:warn("p2v %s 138: %d", patch:getPatchName(), self:getValueByCustomName("Voice138"))
   self:setText("Name1", patch:getPatchName())
   self:setText("VoiceName12", patch:getUpperToneName())
   self:setText("VoiceName123", patch:getLowerToneName())
@@ -138,20 +78,6 @@ function RolandD50Controller:v2p(patch)
   patch:setLowerToneName(self:getText("VoiceName123"))
 
   return patch
-end
-
----
--- @function [parent=#RolandD50Controller] assignBank
---
--- This method stores the param values from all modulators
--- and stores them in a specified patch location of a bank
-function RolandD50Controller:assignBank(bank)
-  self.bank = bank
-  self.bank:setSelectedPatchIndex(0)
-  self:p2v(bank:getSelectedPatch(), true)
-
-  self:setValue("Voice_PatchSelectControl", bank:getSelectedPatchIndex())
-  self:toggleActivation("Voice_PatchSelectControl", true)
 end
 
 function RolandD50Controller:updateStructures(tone, value)
@@ -209,15 +135,6 @@ end
 -- @mod   http://ctrlr.org/api/class_ctrlr_modulator.html
 -- @value    new numeric value of the modulator
 --
-function RolandD50Controller:onLogLevelChanged(mod, value)
-  log:setLevel(value)
-end
-
---
--- Called when a modulator value changes
--- @mod   http://ctrlr.org/api/class_ctrlr_modulator.html
--- @value    new numeric value of the modulator
---
 function RolandD50Controller:onToggleTone(mod, value)
   self:toggleLayerVisibility("UpperTone", value == UPPER)
   self:toggleLayerVisibility("LowerTone", value == LOWER)
@@ -240,18 +157,6 @@ function RolandD50Controller:onStructureChange(mod, value)
   elseif mod:getProperty("modulatorCustomName") == "Voice330" and self:getValue("toneSelector") == LOWER then
     self:updateStructures(LOWER, value)
   end
-end
-
--- This method assigns the selected patch to the panel modulators
-function RolandD50Controller:onPatchSelect(mod, value)
-  if self.bank:isSelectedPatch(value) then
-    return
-  end
-
-  self:v2p(self.bank:getSelectedPatch())
-
-  self.bank:setSelectedPatchIndex(value)
-  self:p2v(self.bank:getSelectedPatch(), true)
 end
 
 -- This method set the values of the hidden char modulators
@@ -277,21 +182,21 @@ function RolandD50Controller:onSaveMenu(mod, value)
   if ret == 1 then
     local status, patch = pcall(Patch)
     if status then
-      savePatch(self:v2p(patch))
+      self:v2p(patch)
+      cutils.writeSyxDataToFile(patch:toStandaloneData())
     else
       log:warn(cutils.getErrorMessage(patch))
       utils.warnWindow ("Save Patch", cutils.getErrorMessage(patch))
     end
   elseif ret == 2 then
-    self:v2p(self.bank:getSelectedPatch())
-    saveBank(self.bank)
+    self:saveBankTofile()
   elseif ret == 3 then
     -- This method instructs the user or synth to
     -- store the current patch
     AlertWindow.showMessageBox(AlertWindow.InfoIcon, "Information", "Hold down the \"DATA TRANSFER\" button then press \"(B.LOAD)\".\nRelease the two buttons and press \"ENTER\".\nOnce the D-50 is in waiting for data press \"OK\" to close this popup.", "OK")
 
     self:v2p(self.bank:getSelectedPatch())
-    self:sendMidiMessages(self.bank:toSyxMessages())
+    self:sendMidiMessages(self.bank:toSyxMessages(), 10)
   else
     return
   end
@@ -322,24 +227,7 @@ function RolandD50Controller:onLoadMenu(mod, value)
     end
     -- Load Bank
   elseif menuSelect == 2 then
-    -- Prompt user to save bank
-    if not AlertWindow.showOkCancelBox(AlertWindow.InfoIcon, "Overwrite bank?", "You have loaded a bank. The current action will overwrite your existing bank. Are you sure you want to continue?", "OK", "Cancel") then
-      return
-    end
-
-    local f = utils.openFileWindow ("Open Bank", File(""), "*.syx", true)
-    if f:existsAsFile() then
-      local loadedData = MemoryBlock()
-      f:loadFileAsData(loadedData)
-
-      local status, bank = pcall(Bank, loadedData)
-      if status then
-        self:assignBank(bank)
-      else
-        log:warn(cutils.getErrorMessage(bank))
-        utils.warnWindow ("Load Bank", cutils.getErrorMessage(bank))
-      end
-    end
+    self:loadBankFromFile()
   elseif menuSelect == 3 then
     -- This method instructs the synth or user
     -- to perform a single patch dump
@@ -356,21 +244,5 @@ function RolandD50Controller:onLoadMenu(mod, value)
     self.receiveBankOffset = -1
   else
     return
-  end
-end
-
----
--- @function [parent=#RolandD50Controller] sendMidiMessage
---
-function RolandD50Controller:sendMidiMessage(syxMsg)
-  panel:sendMidiMessageNow(syxMsg:toMidiMessage())
-end
-
----
--- @function [parent=#RolandD50Controller] sendMidiMessages
---
-function RolandD50Controller:sendMidiMessages(msgs)
-  for k, nextMsg in pairs(msgs) do
-    self:sendMidiMessage(nextMsg)
   end
 end
