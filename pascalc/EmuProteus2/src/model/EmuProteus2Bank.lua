@@ -1,16 +1,16 @@
 require("AbstractBank")
 require("message/Proteus2SyxMsg")
 require("SyxMsg")
-require("model/Patch")
+require("model/EmuProteus2Patch")
 require("Logger")
 require("lutils")
 
-local log = Logger("Bank")
+local log = Logger("EmuProteus2Bank")
 
-Bank = {}
-Bank.__index = Bank
+EmuProteus2Bank = {}
+EmuProteus2Bank.__index = EmuProteus2Bank
 
-setmetatable(Bank, {
+setmetatable(EmuProteus2Bank, {
   __index = AbstractBank, -- this is what makes the inheritance work
   __call = function (cls, ...)
     local self = setmetatable({}, cls)
@@ -19,7 +19,7 @@ setmetatable(Bank, {
   end,
 })
 
-function Bank:_init(bankData)
+function EmuProteus2Bank:_init(bankData)
   AbstractBank._init(self)
 
   self.patches = {}
@@ -27,7 +27,7 @@ function Bank:_init(bankData)
     self.data = MemoryBlock(BANK_BUFFER_SIZE, true)
 
     for i = 0, NUM_PATCHES - 1 do
-      local p = Patch(self.data, i * SINGLE_DATA_SIZE)
+      local p = EmuProteus2Patch(self.data, i * SINGLE_DATA_SIZE)
       p:setPatchName("INIT")
       table.insert(self.patches, p)
     end
@@ -37,21 +37,7 @@ function Bank:_init(bankData)
     self.data:copyFrom(bankData, 0, BANK_BUFFER_SIZE)
 
     for i = 0, NUM_PATCHES - 1 do
-      table.insert(self.patches, Patch(self.data, i * SINGLE_DATA_SIZE))
+      table.insert(self.patches, EmuProteus2Patch(self.data, i * SINGLE_DATA_SIZE))
     end
   end
-end
-
-function Bank:getSelectedPatch()
-  return self.patches[self.selectedPatchIndex + 1]
-end
-
-function Bank:toStandaloneData()
-  return self.data
-end
-
-function Bank:toSyxMessage()
-  local m = SyxMsg()
-  m.data = self.data
-  return m
 end

@@ -41,3 +41,13 @@ end
 function AbstractBank:setSelectedPatchIndex(selectedPatchIndex)
   self.selectedPatchIndex = selectedPatchIndex
 end
+
+function AbstractBank:toStandaloneData()
+  return self.data
+end
+
+function AbstractBank:toSyxMessages()
+  local m = SyxMsg()
+  m.data = self.data
+  return {m}
+end

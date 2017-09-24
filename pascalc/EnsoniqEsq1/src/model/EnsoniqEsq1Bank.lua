@@ -1,16 +1,16 @@
 require("AbstractBank")
 require("message/Esq1SyxMsg")
 require("SyxMsg")
-require("model/Patch")
+require("model/EnsoniqEsq1Patch")
 require("Logger")
 require("lutils")
 
-local log = Logger("Bank")
+local log = Logger("EnsoniqEsq1Bank")
 
-Bank = {}
-Bank.__index = Bank
+EnsoniqEsq1Bank = {}
+EnsoniqEsq1Bank.__index = EnsoniqEsq1Bank
 
-setmetatable(Bank, {
+setmetatable(EnsoniqEsq1Bank, {
   __index = AbstractBank, -- this is what makes the inheritance work
   __call = function (cls, ...)
     local self = setmetatable({}, cls)
@@ -19,7 +19,7 @@ setmetatable(Bank, {
   end,
 })
 
-function Bank:_init(bankData)
+function EnsoniqEsq1Bank:_init(bankData)
   AbstractBank._init(self)
 
   self.patches = {}
@@ -27,7 +27,7 @@ function Bank:_init(bankData)
     self.data = MemoryBlock(BANK_BUFFER_SIZE, true)
 
     for i = 0, NUM_PATCHES - 1 do
-      local p = Patch(self.data, COMPLETE_HEADER_SIZE + i * SINGLE_DATA_SIZE)
+      local p = EnsoniqEsq1Patch(self.data, COMPLETE_HEADER_SIZE + i * SINGLE_DATA_SIZE)
       p:setPatchName("INIT")
       table.insert(self.patches, p)
     end
@@ -37,21 +37,7 @@ function Bank:_init(bankData)
     self.data:copyFrom(bankData, 0, BANK_BUFFER_SIZE)
 
     for i = 0, NUM_PATCHES - 1 do
-      table.insert(self.patches, Patch(self.data, COMPLETE_HEADER_SIZE + i * SINGLE_DATA_SIZE))
+      table.insert(self.patches, EnsoniqEsq1Patch(self.data, COMPLETE_HEADER_SIZE + i * SINGLE_DATA_SIZE))
     end
   end
-end
-
-function Bank:getSelectedPatch()
-  return self.patches[self.selectedPatchIndex + 1]
-end
-
-function Bank:toStandaloneData()
-  return self.data
-end
-
-function Bank:toSyxMessage()
-  local m = SyxMsg()
-  m.data = self.data
-  return m
 end

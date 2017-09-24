@@ -386,4 +386,14 @@ function testOnBankDroppedToPanel()
   loadBankFromFile(emuProteus2Controller, "test/data/PR2_BRAS.SYX", panel, trps8vaMap, "Name1", {"2 Eng.Hns.  ", "2 Trps 8va  "})
 end
 
+function testLoadAndSendBank()
+  compareLoadedBankWithFile(emuProteus2Controller, "test/data/PR2_BRAS.SYX", panel, NUM_PATCHES)
+end
+
+function testEditAndSendBank()
+  compareEditedBankWithFile(emuProteus2Controller, "c:/ctrlr/syxfiles/emuProteus2/PR2_BNK1.SYX", panel, 
+    {  ["priVolume"] = 0 }, "C:/ctrlr/syxfiles/emuProteus2/PR2_BNK1-2.SYX")
+end
+
+
 runTests{useANSI = false}

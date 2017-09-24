@@ -17,7 +17,7 @@ local LowerPartialSelectIndex = 366
 local Voice_HeaderSize = 8
 local Voice_FooterSize = 2
 
-local log = Logger("Patch")
+local log = Logger("RolandD50Patch")
 
 -- This method fetches the patch name from the hidden
 -- char modulators and returns it as a string
@@ -65,10 +65,10 @@ local getPartial2Value = function(value)
   end
 end
 
-Patch = {}
-Patch.__index = Patch
+RolandD50Patch = {}
+RolandD50Patch.__index = RolandD50Patch
 
-setmetatable(Patch, {
+setmetatable(RolandD50Patch, {
   __index = LuaObject, -- this is what makes the inheritance work
   __call = function (cls, ...)
     local self = setmetatable({}, cls)
@@ -77,7 +77,7 @@ setmetatable(Patch, {
   end,
 })
 
-function Patch:_init(bankData, patchOffset)
+function RolandD50Patch:_init(bankData, patchOffset)
   LuaObject._init(self)
 
   if bankData ~= nil then
@@ -86,18 +86,18 @@ function Patch:_init(bankData, patchOffset)
   end
 end
 
-function Patch:getValueOffset(relativeOffset)
+function RolandD50Patch:getValueOffset(relativeOffset)
   return self.patchOffset + relativeOffset
 end
 
-function Patch:setValue(offset, value)
+function RolandD50Patch:setValue(offset, value)
   if SPECIAL_OFFSETS[offset] ~= nil then
     value = value + SPECIAL_OFFSETS[offset]
   end
   self.data:setByte(self:getValueOffset(offset), value)
 end
 
-function Patch:getValue(offset)
+function RolandD50Patch:getValue(offset)
   local value = self.data:getByte(self:getValueOffset(offset))
   if SPECIAL_OFFSETS[offset] ~= nil then
     value = value - SPECIAL_OFFSETS[offset]
@@ -105,55 +105,55 @@ function Patch:getValue(offset)
   return value
 end
 
-function Patch:getPatchName()
+function RolandD50Patch:getPatchName()
   return getD50String(self.data, self:getValueOffset(PATCH_NAME_OFFSET), PATCH_NAME_LENGTH)
 end
 
-function Patch:getUpperToneName()
+function RolandD50Patch:getUpperToneName()
   return getD50String(self.data, self:getValueOffset(UPPER_TONE_OFFSET), TONE_NAME_LENGTH)
 end
 
-function Patch:getLowerToneName()
+function RolandD50Patch:getLowerToneName()
   return getD50String(self.data, self:getValueOffset(LOWER_TONE_OFFSET), TONE_NAME_LENGTH)
 end
 
-function Patch:setPatchName(value)
+function RolandD50Patch:setPatchName(value)
   return setD50String(self.data, value, self:getValueOffset(PATCH_NAME_OFFSET), PATCH_NAME_LENGTH)
 end
 
-function Patch:setUpperToneName(value)
+function RolandD50Patch:setUpperToneName(value)
   return setD50String(self.data, value, self:getValueOffset(UPPER_TONE_OFFSET), TONE_NAME_LENGTH)
 end
 
-function Patch:setLowerToneName(value)
+function RolandD50Patch:setLowerToneName(value)
   return setD50String(self.data, value, self:getValueOffset(LOWER_TONE_OFFSET), TONE_NAME_LENGTH)
 end
 
-function Patch:getUpperPartial1Value()
+function RolandD50Patch:getUpperPartial1Value()
   return getPartial1Value(self.data:getByte(self:getValueOffset(UpperPartialSelectIndex)))
 end
 
-function Patch:getUpperPartial2Value()
+function RolandD50Patch:getUpperPartial2Value()
   return getPartial2Value(self.data:getByte(self:getValueOffset(UpperPartialSelectIndex)))
 end
 
-function Patch:getLowerPartial1Value()
+function RolandD50Patch:getLowerPartial1Value()
   return getPartial1Value(self.data:getByte(self:getValueOffset(LowerPartialSelectIndex)))
 end
 
-function Patch:getLowerPartial2Value()
+function RolandD50Patch:getLowerPartial2Value()
   return getPartial2Value(self.data:getByte(self:getValueOffset(LowerPartialSelectIndex)))
 end
 
-function Patch:setUpperPartialValue(p1, p2)
+function RolandD50Patch:setUpperPartialValue(p1, p2)
   self:setValue(UpperPartialSelectIndex, p1 + p2 * 2)
 end
 
-function Patch:setLowerPartialValue(p1, p2)
+function RolandD50Patch:setLowerPartialValue(p1, p2)
   self:setValue(LowerPartialSelectIndex, p1 + p2 * 2)
 end
 
-function Patch:toStandaloneData()
+function RolandD50Patch:toStandaloneData()
   local sData = MemoryBlock(Voice_singleSize + Voice_HeaderSize + Voice_FooterSize, true)
   local tmp = MemoryBlock(Voice_singleSize, true)
   sData:copyFrom(Voice_Header, 0, Voice_HeaderSize)
@@ -166,6 +166,6 @@ function Patch:toStandaloneData()
   return sData
 end
 
-function Patch:toSyxMsg()
+function RolandD50Patch:toSyxMsg()
   return D50SyxMsg(self.data)
 end

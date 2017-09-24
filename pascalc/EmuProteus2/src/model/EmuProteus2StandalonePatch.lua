@@ -1,10 +1,10 @@
-require("model/Patch")
+require("model/EmuProteus2Patch")
 
-StandalonePatch = {}
-StandalonePatch.__index = StandalonePatch
+EmuProteus2StandalonePatch = {}
+EmuProteus2StandalonePatch.__index = EmuProteus2StandalonePatch
 
-setmetatable(StandalonePatch, {
-  __index = Patch, -- this is what makes the inheritance work
+setmetatable(EmuProteus2StandalonePatch, {
+  __index = EmuProteus2Patch, -- this is what makes the inheritance work
   __call = function (cls, ...)
     local self = setmetatable({}, cls)
     self:_init(...)
@@ -12,8 +12,8 @@ setmetatable(StandalonePatch, {
   end,
 })
 
-function StandalonePatch:_init(patchData)
-  Patch._init(self)
+function EmuProteus2StandalonePatch:_init(patchData)
+  EmuProteus2Patch._init(self)
 
   assert(patchData:getSize() == SINGLE_DATA_SIZE, string.format("midiSize %d is invalid and cannot be assigned to controllers", patchData:getSize()))
 --    -- Set header and footer

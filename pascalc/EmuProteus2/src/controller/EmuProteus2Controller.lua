@@ -1,8 +1,8 @@
 require("DefaultControllerBase")
 require("Logger")
-require("model/Bank")
-require("model/Patch")
-require("model/StandalonePatch")
+require("model/EmuProteus2Bank")
+require("model/EmuProteus2Patch")
+require("model/EmuProteus2StandalonePatch")
 require("cutils")
 
 local log = Logger("EmuProteus2Controller")
@@ -30,7 +30,7 @@ setmetatable(EmuProteus2Controller, {
 -- @function [parent=#EmuProteus2Controller] _init
 --
 function EmuProteus2Controller:_init()
-  DefaultControllerBase._init(self, SINGLE_DATA_SIZE, BANK_BUFFER_SIZE, StandalonePatch, Bank)
+  DefaultControllerBase._init(self, SINGLE_DATA_SIZE, BANK_BUFFER_SIZE, EmuProteus2StandalonePatch, EmuProteus2Bank)
 end
 
 ---
@@ -47,7 +47,7 @@ function EmuProteus2Controller:onSaveMenu(mod, value)
     self:v2p(patch)
     cutils.writeSyxDataToFile(patch:toStandaloneData())
   elseif ret == 2 then
-    self:saveBankTofile()
+    self:saveBankToFile()
   elseif ret == 3 then
     -- This method instructs the user or synth to
     -- store the current patch

@@ -3,7 +3,7 @@ require("Logger")
 require("message/Proteus2SyxMsg")
 require("lutils")
 
-local log = Logger("Patch")
+local log = Logger("EmuProteus2Patch")
 
 local Voice_Instruments = { "2-0", "2-1", "2-2", "2-3", "2-4", "2-5", "2-6", "2-7", "2-8", "2-9", "2-10", "2-13", "2-11", "2-12",
   "2-14", "4-1", "4-2", "4-3", "4-5", "4-6", "4-7", "4-8", "4-4", "4-9", "4-10", "4-11", "4-12", "4-13", "2-15",
@@ -69,10 +69,10 @@ local calculateChecksum = function(sysex, csStart, csEnd)
   return sum % 128
 end
 
-Patch = {}
-Patch.__index = Patch
+EmuProteus2Patch = {}
+EmuProteus2Patch.__index = EmuProteus2Patch
 
-setmetatable(Patch, {
+setmetatable(EmuProteus2Patch, {
   __index = LuaObject, -- this is what makes the inheritance work
   __call = function (cls, ...)
     local self = setmetatable({}, cls)
@@ -81,7 +81,7 @@ setmetatable(Patch, {
   end,
 })
 
-function Patch:_init(bankData, patchOffset)
+function EmuProteus2Patch:_init(bankData, patchOffset)
   LuaObject._init(self)
 
   if bankData ~= nil then
@@ -90,13 +90,13 @@ function Patch:_init(bankData, patchOffset)
   end
 end
 
-function Patch:getValueOffset(relativeOffset)
+function EmuProteus2Patch:getValueOffset(relativeOffset)
   return self.patchOffset + relativeOffset
 end
 
 -- This method fetches the patch name from the hidden
 -- char modulators and returns it as a string
-function Patch:getPatchName()
+function EmuProteus2Patch:getPatchName()
   local char0 = self.data:getByte(self:getValueOffset(7))
   local char1 = self.data:getByte(self:getValueOffset(9))
   local char2 = self.data:getByte(self:getValueOffset(11))
@@ -114,7 +114,7 @@ end
 
 -- This method set the values of the hidden char modulators
 -- to match the given name
-function Patch:setPatchName(patchName)
+function EmuProteus2Patch:setPatchName(patchName)
   local patchNameStart = 7
 
   for i = 0, 11 do
@@ -126,12 +126,12 @@ function Patch:setPatchName(patchName)
   end
 end
 
-function Patch:setDataByte(offset, value)
+function EmuProteus2Patch:setDataByte(offset, value)
   log:warnIf(self.data:getByte(offset) ~= value, "changing byte! offset: %d from val: %.2X to val: %.2X", offset, self.data:getByte(self:getValueOffset(offset)), value)
   self.data:setByte(self:getValueOffset(offset), value)
 end
 
-function Patch:setValue(index, value)
+function EmuProteus2Patch:setValue(index, value)
   if index == 53 or index == 89 then
     value = instrumentConrollerValueChanged(value + 1)
   end
@@ -148,7 +148,7 @@ function Patch:setValue(index, value)
   self.data:setByte(self:getValueOffset(index + 1), math.floor(value / 128))
 end
 
-function Patch:getValue(index)
+function EmuProteus2Patch:getValue(index)
   local ll = self.data:getByte(self:getValueOffset(index))
   local mm = self.data:getByte(self:getValueOffset(index + 1))
   local value = ll + (mm * 128)
@@ -165,7 +165,7 @@ function Patch:getValue(index)
   end
 end
 
-function Patch:toSyxMsg()
+function EmuProteus2Patch:toSyxMsg()
   self.data:setByte(self:getValueOffset(SINGLE_DATA_SIZE - 2), calculateChecksum(self.data, 7, 261))
   return Proteus2SyxMsg(self.data)
 end

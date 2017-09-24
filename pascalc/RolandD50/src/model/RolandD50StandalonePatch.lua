@@ -1,10 +1,10 @@
-require("model/Patch")
+require("model/RolandD50Patch")
 
-StandalonePatch = {}
-StandalonePatch.__index = StandalonePatch
+RolandD50StandalonePatch = {}
+RolandD50StandalonePatch.__index = RolandD50StandalonePatch
 
-setmetatable(StandalonePatch, {
-  __index = Patch, -- this is what makes the inheritance work
+setmetatable(RolandD50StandalonePatch, {
+  __index = RolandD50Patch, -- this is what makes the inheritance work
   __call = function (cls, ...)
     local self = setmetatable({}, cls)
     self:_init(...)
@@ -12,8 +12,8 @@ setmetatable(StandalonePatch, {
   end,
 })
 
-function StandalonePatch:_init(patchData)
-  Patch._init(self)
+function RolandD50StandalonePatch:_init(patchData)
+  RolandD50Patch._init(self)
 
   self.data = midiService:trimSyxData(patchData)
   self.patchOffset = 0

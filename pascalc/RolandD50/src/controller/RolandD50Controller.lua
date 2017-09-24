@@ -1,8 +1,8 @@
 require("DefaultControllerBase")
 require("Logger")
-require("model/Bank")
-require("model/Patch")
-require("model/StandalonePatch")
+require("model/RolandD50Bank")
+require("model/RolandD50Patch")
+require("model/RolandD50StandalonePatch")
 require("cutils")
 
 local log = Logger("RolandD50Controller")
@@ -26,10 +26,7 @@ setmetatable(RolandD50Controller, {
 -- @function [parent=#RolandD50Controller] _init
 --
 function RolandD50Controller:_init()
-  DefaultControllerBase._init(self, PATCH_BUFFER_SIZE, BANK_BUFFER_SIZE, StandalonePatch, Bank)
-  self.bank = Bank()
-  self.receiveBuffer = nil
-  self.receiveBankOffset = -1
+  DefaultControllerBase._init(self, PATCH_BUFFER_SIZE, BANK_BUFFER_SIZE, RolandD50StandalonePatch, RolandD50Bank)
 end
 
 -- This method assigns patch data from a memory block
@@ -117,7 +114,7 @@ function RolandD50Controller:onMidiReceived(midi)
     self.receiveBankOffset = self.receiveBankOffset + midiSize
 
     if self.receiveBankOffset == BANK_BUFFER_SIZE then
-      local status, bank = pcall(Bank, self.receiveBuffer)
+      local status, bank = pcall(RolandD50Bank, self.receiveBuffer)
       if status then
         self:assignBank(bank)
       else
@@ -180,7 +177,7 @@ function RolandD50Controller:onSaveMenu(mod, value)
   menu:addItem(3, "Bank to D-50", true, false, Image())
   local ret = menu:show(0,0,0,0)
   if ret == 1 then
-    local status, patch = pcall(Patch)
+    local status, patch = pcall(RolandD50Patch)
     if status then
       self:v2p(patch)
       cutils.writeSyxDataToFile(patch:toStandaloneData())
@@ -189,7 +186,7 @@ function RolandD50Controller:onSaveMenu(mod, value)
       utils.warnWindow ("Save Patch", cutils.getErrorMessage(patch))
     end
   elseif ret == 2 then
-    self:saveBankTofile()
+    self:saveBankToFile()
   elseif ret == 3 then
     -- This method instructs the user or synth to
     -- store the current patch
@@ -217,7 +214,7 @@ function RolandD50Controller:onLoadMenu(mod, value)
     if f:existsAsFile() then
       local loadedData = MemoryBlock()
       f:loadFileAsData(loadedData)
-      local status, patch = pcall(StandalonePatch, loadedData)
+      local status, patch = pcall(RolandD50StandalonePatch, loadedData)
       if status then
         self:p2v(patch, true)
       else

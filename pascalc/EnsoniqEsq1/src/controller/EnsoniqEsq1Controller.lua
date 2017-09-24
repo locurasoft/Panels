@@ -1,8 +1,8 @@
 require("DefaultControllerBase")
 require("Logger")
-require("model/StandalonePatch")
-require("model/Patch")
-require("model/Bank")
+require("model/EnsoniqEsq1StandalonePatch")
+require("model/EnsoniqEsq1Patch")
+require("model/EnsoniqEsq1Bank")
 require("message/AllProgDumpRequest")
 require("message/SingleProgDumpRequest")
 require("cutils")
@@ -25,7 +25,7 @@ setmetatable(EnsoniqEsq1Controller, {
 -- @function [parent=#EnsoniqEsq1Controller] _init
 --
 function EnsoniqEsq1Controller:_init()
-  DefaultControllerBase._init(self, PATCH_BUFFER_SIZE, BANK_BUFFER_SIZE, StandalonePatch, Bank)
+  DefaultControllerBase._init(self, PATCH_BUFFER_SIZE, BANK_BUFFER_SIZE, EnsoniqEsq1StandalonePatch, EnsoniqEsq1Bank)
 end
 
 
@@ -40,17 +40,13 @@ function EnsoniqEsq1Controller:onSaveMenu(mod, value)
   menu:addItem(4, "Bank to ESQ-1", true, false, Image())
   local ret = menu:show(0,0,0,0)
   if ret == 1 then
-    local patch = self.bank:getSelectedPatch()
-    self:v2p(patch)
-    cutils.writeSyxDataToFile(patch:toStandaloneData())
+    self:savePatchToFile()
   elseif ret == 2 then
-    self:saveBankTofile()
+    self:saveBankToFile()
   elseif ret == 3 then
-    local patch = self.bank:getSelectedPatch()
-    self:v2p(patch)
-    self:sendMidiMessage(patch:toSyxMsg())
+    self:writePatchToSynth()  
   elseif ret == 4 then
-    self:sendMidiMessage(self.bank:toSyxMessage())
+    self:writeBankToSynth(10)
   end
 end
 
@@ -73,7 +69,7 @@ function EnsoniqEsq1Controller:onLoadMenu(mod, value)
     if f:existsAsFile() then
       local loadedData = MemoryBlock()
       f:loadFileAsData(loadedData)
-      local status, patch = pcall(StandalonePatch, loadedData)
+      local status, patch = pcall(EnsoniqEsq1StandalonePatch, loadedData)
       if status then
         self:p2v(patch, true)
       else

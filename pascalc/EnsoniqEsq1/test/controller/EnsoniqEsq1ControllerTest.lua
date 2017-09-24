@@ -358,4 +358,14 @@ function testOnMidiReceived()
   tested:onMidiReceived(CtrlrMidiMessage(MemoryBlock("f0 0f 02 00 01 0d 04 09 04 08 05 05 04 04 04 00 02 0e 07 02 08 00 00 00 00 0f 00 07 02 07 02 02 00 00 00 09 00 0e 07 00 00 00 00 00 00 06 02 01 00 0a 02 00 00 00 00 00 00 0e 07 0e 07 0e 07 0e 00 02 03 0f 03 0b 02 00 00 00 00 09 00 0a 07 08 07 0e 06 09 01 08 01 0f 03 04 02 06 03 01 01 00 00 08 01 00 08 0f 0f 00 04 05 01 00 00 0f 03 0f 07 0a 00 0f 0f 0f 0f 0f 07 04 02 00 02 01 00 02 00 02 00 0b 00 08 0f 04 0f 0e 07 00 00 04 02 08 01 01 00 04 00 06 00 0b 00 08 0f 0f 0f 00 00 00 00 04 02 00 00 01 00 0e 0f 04 00 0b 00 08 0f 0f 0f 00 00 00 00 0c 06 00 00 00 00 06 05 0b 0a 0f 03 06 05 00 00 0e 03 03 06 0e 06 00 00 02 08 0e 01 f7")))
 end
 
+function testLoadAndSendBank()
+  compareLoadedBankWithFile(ensoniqEsq1Controller, "C:/ctrlr/syxfiles/EnsoniqESQ1/Esqhits^2.syx", panel, NUM_PATCHES)
+end
+
+function testEditAndSendBank()
+  compareEditedBankWithFile(ensoniqEsq1Controller, "C:/ctrlr/syxfiles/EnsoniqESQ1/Esqhits^2.syx", panel,
+    {  ["DCA1-Level"] = 0 }, "C:/ctrlr/syxfiles/EnsoniqESQ1/Esqhits^2-2.syx")
+end
+
+
 runTests{useANSI = false}

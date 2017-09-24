@@ -1,5 +1,5 @@
 require("AbstractBank")
-require("model/Patch")
+require("model/RolandD50Patch")
 require("Logger")
 require("lutils")
 
@@ -9,12 +9,12 @@ Voice_singleSize = 448
 
 local BANK_BUFFER_SIZE = 28672
 
-local log = Logger("Bank")
+local log = Logger("RolandD50Bank")
 
-Bank = {}
-Bank.__index = Bank
+RolandD50Bank = {}
+RolandD50Bank.__index = RolandD50Bank
 
-setmetatable(Bank, {
+setmetatable(RolandD50Bank, {
   __index = AbstractBank, -- this is what makes the inheritance work
   __call = function (cls, ...)
     local self = setmetatable({}, cls)
@@ -23,36 +23,32 @@ setmetatable(Bank, {
   end,
 })
 
-function Bank:_init(bankData)
+function RolandD50Bank:_init(bankData)
   AbstractBank._init(self)
 
   local defaultReverbData = MemoryBlock(REVERB_DATA)
 
   self.patches = {}
   if bankData == nil then
-    self.data = MemoryBlock(Voice_singleSize * 64 + defaultReverbData:getSize(), true)
-    self.data:copyFrom(defaultReverbData, Voice_singleSize * 64, defaultReverbData:getSize())
+    self.data = MemoryBlock(Voice_singleSize * NUM_PATCHES_IN_BANK + defaultReverbData:getSize(), true)
+    self.data:copyFrom(defaultReverbData, Voice_singleSize * NUM_PATCHES_IN_BANK, defaultReverbData:getSize())
 
-    for i = 0, 63 do
-      local p = Patch(self.data, i * Voice_singleSize)
+    for i = 0, NUM_PATCHES_IN_BANK - 1 do
+      local p = RolandD50Patch(self.data, i * Voice_singleSize)
       p:setPatchName("NEW PATCH")
       table.insert(self.patches, p)
     end
   else
     self.data = midiService:trimSyxData(bankData)
-    assert(self.data:getSize() == Voice_singleSize * 64 + defaultReverbData:getSize(), string.format("Data does not contain a Roland D50 bank"))
+    assert(self.data:getSize() == Voice_singleSize * NUM_PATCHES_IN_BANK + defaultReverbData:getSize(), string.format("Data does not contain a Roland D50 bank"))
 
-    for i = 0, 63 do
-      table.insert(self.patches, Patch(self.data, i * Voice_singleSize))
+    for i = 0, NUM_PATCHES_IN_BANK - 1 do
+      table.insert(self.patches, RolandD50Patch(self.data, i * Voice_singleSize))
     end
   end
 end
 
-function Bank:getSelectedPatch()
-  return self.patches[self.selectedPatchIndex + 1]
-end
-
-function Bank:toStandaloneData()
+function RolandD50Bank:toStandaloneData()
   local splitData = midiService:splitIntoSysexMessages(self.data)
 
   local splitDataSize = 0
@@ -70,7 +66,7 @@ function Bank:toStandaloneData()
   return dataToWrite
 end
 
-function Bank:toSyxMessages()
+function RolandD50Bank:toSyxMessages()
   local splitData = midiService:splitIntoSysexMessages(self.data)
 
   local msgs = {}

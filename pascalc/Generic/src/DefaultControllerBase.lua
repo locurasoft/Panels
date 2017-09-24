@@ -172,6 +172,35 @@ function DefaultControllerBase:saveBankToFile()
   cutils.writeSyxDataToFile(self.bank:toStandaloneData())
 end
 
+---
+-- @function [parent=#DefaultControllerBase] writeBankToSynth
+--
+-- Saves the current bank to file
+function DefaultControllerBase:writeBankToSynth(interval)
+  self:v2p(self.bank:getSelectedPatch())
+  self:sendMidiMessages(self.bank:toSyxMessages(), interval)
+end
+
+---
+-- @function [parent=#DefaultControllerBase] savePatchToFile
+--
+-- Saves the current bank to file
+function DefaultControllerBase:savePatchToFile()
+  local patch = self.bank:getSelectedPatch()
+  self:v2p(patch)
+  cutils.writeSyxDataToFile(patch:toStandaloneData())
+end
+
+---
+-- @function [parent=#DefaultControllerBase] writePatchToSynth
+--
+-- Saves the current bank to file
+function DefaultControllerBase:writePatchToSynth()
+  local patch = self.bank:getSelectedPatch()
+  self:v2p(patch)
+  self:sendMidiMessage(patch:toSyxMsg())
+end
+
 function DefaultControllerBase:loadBankFromFile()
   -- Prompt user to save bank
   if not AlertWindow.showOkCancelBox(AlertWindow.InfoIcon, "Overwrite bank?", "You have loaded a bank. The current action will overwrite your existing bank. Are you sure you want to continue?", "OK", "Cancel") then

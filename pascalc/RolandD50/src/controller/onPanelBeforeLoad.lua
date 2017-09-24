@@ -22,6 +22,7 @@ function onPanelBeforeLoad(type)
 
   Voice_PartialMuteUpdating = false
   Voice_SelectedPatchIndex = 0
+  NUM_PATCHES_IN_BANK = 64
 
   -- Init logger
   LOGGER = Logger("Global")

@@ -89,7 +89,7 @@ function writeToFile(fileName, contents)
 end
 
 function writeSyxDataToFile(data)
-  local f = utils.saveFileWindow ("Save file", File(""), "*.syx", true)
+  local f = base.utils.saveFileWindow ("Save file", base.File(""), "*.syx", true)
   if f:isValid() == false then
     return
   end
@@ -100,17 +100,16 @@ function writeSyxDataToFile(data)
       -- If file does not exist, then create it
       if f:create() == false then
         -- If file cannot be created, then fail here
-        utils.warnWindow ("\n\nSorry, the Editor failed to\nsave the data to disk!", "The file does not exist.")
+        base.utils.warnWindow ("\n\nSorry, the Editor failed to\nsave the data to disk!", "The file does not exist.")
         return
       end
     end
     -- If we reached this point, we have a valid file we can try to write to
     if f:replaceWithData (data) == false then
-      utils.warnWindow ("File write", "Sorry, the Editor failed to\nwrite the data to file!")
+      base.utils.warnWindow ("File write", "Sorry, the Editor failed to\nwrite the data to file!")
     end
   end
 end
-
 
 function toFilePath(fileDir, fileName)
   return string.format("%s%s%s", fileDir, getPathSeparator(), fileName)

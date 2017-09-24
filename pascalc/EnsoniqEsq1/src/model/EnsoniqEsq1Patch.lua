@@ -138,12 +138,12 @@ local paramSpecifications = {
   { 0, 0, 63, false, 32, 117 }
 }
 
-local log = Logger("Patch")
+local log = Logger("EnsoniqEsq1Patch")
 
-Patch = {}
-Patch.__index = Patch
+EnsoniqEsq1Patch = {}
+EnsoniqEsq1Patch.__index = EnsoniqEsq1Patch
 
-setmetatable(Patch, {
+setmetatable(EnsoniqEsq1Patch, {
   __index = LuaObject, -- this is what makes the inheritance work
   __call = function (cls, ...)
     local self = setmetatable({}, cls)
@@ -152,7 +152,7 @@ setmetatable(Patch, {
   end,
 })
 
-function Patch:_init(bankData, patchOffset)
+function EnsoniqEsq1Patch:_init(bankData, patchOffset)
   LuaObject._init(self)
 
   if bankData ~= nil then
@@ -161,13 +161,13 @@ function Patch:_init(bankData, patchOffset)
   end
 end
 
-function Patch:getValueOffset(relativeOffset)
+function EnsoniqEsq1Patch:getValueOffset(relativeOffset)
   return self.patchOffset + relativeOffset
 end
 
 -- This method fetches the patch name from the hidden
 -- char modulators and returns it as a string
-function Patch:getPatchName()
+function EnsoniqEsq1Patch:getPatchName()
   -- This method fetches the patch name from the hidden
 
   local patchName = ""
@@ -180,7 +180,7 @@ end
 
 -- This method set the values of the hidden char modulators
 -- to match the given name
-function Patch:setPatchName(patchName)
+function EnsoniqEsq1Patch:setPatchName(patchName)
   for i = 1, 6 do
     local char = patchName:byte(i, i + 1)
     if char == nil then
@@ -192,12 +192,12 @@ function Patch:setPatchName(patchName)
   end
 end
 
-function Patch:setDataByte(offset, value)
+function EnsoniqEsq1Patch:setDataByte(offset, value)
   log:warnIf(self.data:getByte(offset) ~= value, "changing byte! offset: %d from val: %.2X to val: %.2X", offset, self.data:getByte(offset), value)
   self.data:setByte(offset, value)
 end
 
-function Patch:setValue(index, value)
+function EnsoniqEsq1Patch:setValue(index, value)
   local spec = paramSpecifications[index]
   local type = spec[1]
   local shift = spec[2]
@@ -262,7 +262,7 @@ function Patch:setValue(index, value)
   self.data:setByte(offset + 1, bit.band(bit.rshift(j, 4), 0x0F))
 end
 
-function Patch:getValue(index)
+function EnsoniqEsq1Patch:getValue(index)
   local spec = paramSpecifications[index]
   local type = spec[1]
   local shift = spec[2]
@@ -317,7 +317,7 @@ function Patch:getValue(index)
   return modValue
 end
 
-function Patch:toSyxMsg()
+function EnsoniqEsq1Patch:toSyxMsg()
   local msg = Esq1SyxMsg(1, SINGLE_DATA_SIZE)
   local tmp = MemoryBlock(SINGLE_DATA_SIZE, true)
   tmp:copyFrom(self.data, self:getValueOffset(0), SINGLE_DATA_SIZE)
