@@ -65,18 +65,8 @@ function EnsoniqEsq1Controller:onLoadMenu(mod, value)
     local alertValue = AlertWindow.showYesNoCancelBox(AlertWindow.InfoIcon, "Load patch", "Load patch.\nWhat do you want to do?", "Discard bank and load patch", "Insert patch in bank", "Cancel")
     if alertValue == false then return end
 
-    local f = utils.openFileWindow ("Open Patch", File(""), "*.syx", true)
-    if f:existsAsFile() then
-      local loadedData = MemoryBlock()
-      f:loadFileAsData(loadedData)
-      local status, patch = pcall(EnsoniqEsq1StandalonePatch, loadedData)
-      if status then
-        self:p2v(patch, true)
-      else
-        log:warn(cutils.getErrorMessage(patch))
-        utils.warnWindow ("Load Patch", cutils.getErrorMessage(patch))
-      end
-    end
+    local loadedData = cutils.getSyxAsMemBlock(utils.openFileWindow ("Open Patch", File(""), "*.syx", true))
+    self:loadData(loadedData)
   -- Load Bank
   elseif menuSelect == 2 then
     self:loadBankFromFile()

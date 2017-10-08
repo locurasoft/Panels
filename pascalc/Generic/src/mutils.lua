@@ -68,8 +68,21 @@ function n2d(ls, ms)
   end
 end
 
+function n2d2(byte1, byte2)
+  return byte1 * 16 + byte2
+end
+
+function d2n2(value)
+  local msb = math.floor(value / 16)
+  local lsb = value - (msb * 16)
+  local nibbles = base.MemoryBlock(2, true)
+  nibbles:setByte(0, msb)
+  nibbles:setByte(1, lsb)
+  return nibbles
+end
+
 ---
--- @function [parent=#__MidiService] d2n
+-- @function [parent=#mutils] d2n
 --
 function d2n(x)
   local internalX = x
@@ -111,11 +124,25 @@ end
 ---
 -- @function [parent=#mutils] d2b
 --
-function d2b(value)
+function d2b(value, msbFirst)
   local MS = math.floor(value / 128)
 
   local bytes = base.MemoryBlock(2, true)
-  bytes:setByte(0, value - (MS * 128))
-  bytes:setByte(1, MS)
+  if msbFirst then
+    bytes:setByte(0, MS)
+    bytes:setByte(1, value - (MS * 128))
+  else
+    bytes:setByte(0, value - (MS * 128))
+    bytes:setByte(1, MS)
+  end
+  return bytes
+end
+
+function b2d(value)
+  local msb = math.floor(value / 128)
+  local lsb = value - (msb * 128)
+  local bytes = base.MemoryBlock(2, true)
+  bytes:setByte(0, msb)
+  bytes:setByte(1, lsb)
   return bytes
 end

@@ -90,7 +90,7 @@ function YamahaDX7Patch:getValue(index)
 end
 
 function YamahaDX7Patch:toSyxMsg()
-  local msg = Esq1SyxMsg(1, SINGLE_DATA_SIZE)
+  local msg = DX7SyxMsg(1, SINGLE_DATA_SIZE)
   local tmp = MemoryBlock(SINGLE_DATA_SIZE, true)
   tmp:copyFrom(self.data, self:getValueOffset(0), SINGLE_DATA_SIZE)
   msg:setPayload(tmp)

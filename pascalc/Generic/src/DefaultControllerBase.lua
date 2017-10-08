@@ -169,7 +169,7 @@ end
 -- Saves the current bank to file
 function DefaultControllerBase:saveBankToFile()
   self:v2p(self.bank:getSelectedPatch())
-  cutils.writeSyxDataToFile(self.bank:toStandaloneData())
+  cutils.writeSyxDataToFile(self.bank:toStandaloneData(), utils.saveFileWindow ("Save bank", File(""), "*.syx", true))
 end
 
 ---
@@ -188,7 +188,7 @@ end
 function DefaultControllerBase:savePatchToFile()
   local patch = self.bank:getSelectedPatch()
   self:v2p(patch)
-  cutils.writeSyxDataToFile(patch:toStandaloneData())
+  cutils.writeSyxDataToFile(patch:toStandaloneData(), utils.saveFileWindow ("Save patch", File(""), "*.syx", true))
 end
 
 ---

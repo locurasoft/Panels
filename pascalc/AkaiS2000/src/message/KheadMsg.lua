@@ -15,7 +15,7 @@ setmetatable(KheadMsg, {
 function KheadMsg:_init(prog, kg, headerOffset, valuesMemBlock)
   SyxMsg._init(self)
   local pgm = mutils.d2n(prog)
-  local headerOffsArray = mutils.d2b(headerOffset)
+  local headerOffsArray = mutils.d2b(headerOffset, false)
   local numBytesArray = mutils.d2n(valuesMemBlock:getSize() / 2)
 
   local memBlock = MemoryBlock(13 + valuesMemBlock:getSize(), true)

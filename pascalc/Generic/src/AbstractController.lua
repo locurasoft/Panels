@@ -120,3 +120,15 @@ function AbstractController:toggleActivation(name, enabled)
     panel:getComponent(name):setProperty("componentDisabled", 1, false)
   end
 end
+
+function AbstractController:setVisibleName(name, visibleName)
+    panel:getComponent(name):setProperty("componentVisibleName", visibleName, false)
+end
+
+function AbstractController:setVisibleName(name, visibleName)
+    panel:getComponent(name):setProperty("componentVisibleName", visibleName, false)
+end
+
+function AbstractController:setFixedSliderContent(name, content)
+    panel:getComponent(name):setProperty("uiFixedSliderContent", content, false)
+end

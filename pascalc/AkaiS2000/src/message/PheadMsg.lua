@@ -15,7 +15,7 @@ setmetatable(PheadMsg, {
 function PheadMsg:_init(progNbr, headerOffset, valuesMemBlock)
   SyxMsg._init(self)
   local pgm = mutils.d2n(progNbr)
-  local headerOffsArray = mutils.d2b(headerOffset)
+  local headerOffsArray = mutils.d2b(headerOffset, false)
   local numBytesArray = mutils.d2n(valuesMemBlock:getSize() / 2)
 
   local memBlock = MemoryBlock(13 + valuesMemBlock:getSize(), true)

@@ -3,4 +3,6 @@
 	<buildpathentry kind="con" path="org.eclipse.ldt.ExecutionEnvironmentContainer/lua/5.1"/>
 	<buildpathentry kind="src" path="src"/>
 	<buildpathentry kind="src" path="test"/>
+	<buildpathentry kind="src" path="Generic-src"/>
+	<buildpathentry kind="src" path="Generic-test"/>
 </buildpath>

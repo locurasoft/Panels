@@ -25,7 +25,7 @@ function YamahaDX7Controller:_init()
   DefaultControllerBase._init(self, PATCH_BUFFER_SIZE, BANK_BUFFER_SIZE, YamahaDX7Patch, YamahaDX7Bank)
 end
 
-function Voice_CalculateChecksum (sysex, csStart, csEnd, csOfs)
+local Voice_CalculateChecksum = function(sysex, csStart, csEnd, csOfs)
   csStart = csStart or Voice_checksumStart
   csEnd = csEnd or Voice_checksumEnd
   csOfs = csOfs or Voice_checksumOffset

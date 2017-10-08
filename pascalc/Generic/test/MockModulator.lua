@@ -19,6 +19,7 @@ function MockModulator:_init(name)
   PropertyContainer._init(self)
   self:setProperty("name", name)
   self.value = 0
+  self.valueMapped = 0
   self.vstIndex = 0
   self.component = MockComponent(name, self)
 end
@@ -36,7 +37,7 @@ function MockModulator:getMaxMapped()
 end
 
 function MockModulator:setValueMapped(value)
-  self:setValue(value)
+  self.valueMapped = value
 end
 
 function MockModulator:getValueNonMapped()
@@ -48,7 +49,7 @@ function MockModulator:getValue()
 end
 
 function MockModulator:getValueMapped()
-  return self.value
+  return self.valueMapped
 end
 
 function MockModulator:getMaxModulatorValue()

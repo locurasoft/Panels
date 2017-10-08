@@ -14,6 +14,6 @@ setmetatable(DelsMsg, {
 
 function DelsMsg:_init(sampleNumber)
   SyxMsg._init(self)
-  local sb = mutils.d2b(sampleNumber)
+  local sb = mutils.d2b(sampleNumber, false)
   self.data = MemoryBlock(string.format("f0 47 00 14 48 %s f7", sb:toHexString(1)))
 end

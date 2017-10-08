@@ -71,6 +71,14 @@ function getFileSize(file)
   return size
 end
 
+function getSyxAsMemBlock(file)
+  local loadedData = MemoryBlock()
+  if file:existsAsFile() then
+    file:loadFileAsData(loadedData)
+  end
+  return loadedData
+end
+
 function getFileContents(filepath)
   local f = io.open(filepath, "rb")
   local content = ""
@@ -88,26 +96,22 @@ function writeToFile(fileName, contents)
   file:close()
 end
 
-function writeSyxDataToFile(data)
-  local f = base.utils.saveFileWindow ("Save file", base.File(""), "*.syx", true)
-  if f:isValid() == false then
+function writeSyxDataToFile(data, outfile)
+  if not outfile:isValid() then
     return
   end
-  f:create()
-  if f:existsAsFile() then
-    -- Check if the file exists
-    if f:existsAsFile() == false then
-      -- If file does not exist, then create it
-      if f:create() == false then
-        -- If file cannot be created, then fail here
-        base.utils.warnWindow ("\n\nSorry, the Editor failed to\nsave the data to disk!", "The file does not exist.")
-        return
-      end
+  -- Check if the file exists
+  if not outfile:existsAsFile() then
+    -- If file does not exist, then create it
+    if not outfile:create() then
+      -- If file cannot be created, then fail here
+      base.utils.warnWindow ("\n\nSorry, the Editor failed to\nsave the data to disk!", "The file does not exist.")
+      return
     end
-    -- If we reached this point, we have a valid file we can try to write to
-    if f:replaceWithData (data) == false then
-      base.utils.warnWindow ("File write", "Sorry, the Editor failed to\nwrite the data to file!")
-    end
+  end
+  -- If we reached this point, we have a valid file we can try to write to
+  if outfile:replaceWithData (data) == false then
+    base.utils.warnWindow ("File write", "Sorry, the Editor failed to\nwrite the data to file!")
   end
 end
 
@@ -144,4 +148,18 @@ function getErrorMessage(err)
   else
     return "Unknown error occurred"
   end
+end
+
+function mergeArrayOfMemBlocks(memBlockArray)
+  local size = 0
+  for k, memBlock in pairs(memBlockArray) do
+    size = size + memBlock:getsize()
+  end
+  local buffer = base.MemoryBlock(size, true)
+  local offset = 0
+  for k, memBlock in pairs(memBlockArray) do
+    memBlock:copyTo(buffer, offset, memBlock:getsize())
+    offset = offset + memBlock:getsize()
+  end
+  return buffer
 end
