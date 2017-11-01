@@ -72,7 +72,7 @@ function getFileSize(file)
 end
 
 function getSyxAsMemBlock(file)
-  local loadedData = MemoryBlock()
+  local loadedData = base.MemoryBlock()
   if file:existsAsFile() then
     file:loadFileAsData(loadedData)
   end

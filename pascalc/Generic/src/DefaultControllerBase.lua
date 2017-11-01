@@ -38,7 +38,7 @@ end
 function DefaultControllerBase:p2v(patch, sendMidi)
   for i = 0, self.voiceSize do -- gets the voice parameter values
     local mod = self:getModulatorByCustomName(string.format("Voice%d", i))
-    if mod ~= nil and mod:getProperty("modulatorCustomName") ~= nil then
+    if mod ~= nil then
       mod:setValue(patch:getValue(i), false)
     end
 
@@ -55,7 +55,7 @@ function DefaultControllerBase:v2p(patch)
   -- run through all modulators and fetch their value
   for i = 0, self.voiceSize do
     local mod = self:getModulatorByCustomName(string.format("Voice%d", i))
-    if mod ~= nil and mod:getProperty("modulatorCustomName") ~= nil then
+    if mod ~= nil then
       patch:setValue(i, mod:getValue())
     end
   end
@@ -133,7 +133,7 @@ end
 --
 function DefaultControllerBase:sendMidiMessages(msgs, interval)
   for k, nextMsg in pairs(msgs) do
-    panel:sendMidi(nextMsg, interval)
+    panel:sendMidi(nextMsg:toMidiMessage(), interval)
   end
 end
 

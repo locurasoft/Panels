@@ -21,7 +21,7 @@ function loadPatchFromFile(file, panel, expectedModulatorMap, patchNameMod, expe
   sa:add(file)
   onFilesDroppedToPanel(sa, 0, 0)
 
---  panel:debugPrint()
+  --panel:debugPrint()
   for k,v in pairs(expectedModulatorMap) do
     lunity.assertEqual(panel:getModulatorByName(k):getValue(), v)
   end

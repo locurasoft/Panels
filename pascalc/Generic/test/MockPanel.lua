@@ -24,14 +24,14 @@ function MockPanel:_init(panelPath, midiListener)
   self.modulators = {}
   self.midiListener = midiListener
   self.globalVariables = {}
-  
+
   self.canvas = MockCanvas()
-   
+
   local xmlParser = xml:loadFile(panelPath)
   local xmlElements = xmlParser.panel:children()
   for key, xmlElement in ipairs(xmlElements) do
     if xmlElement:name() == "modulator" then
-      assert(self.modulators[name] == nil, "Invalid panel. Found duplicate modulators.")
+      assert(self.modulators[xmlElement:name()] == nil, "Invalid panel. Found duplicate modulators.")
       local modulator = MockModulator(xmlElement["@name"])
       modulator:setVstIndex(tonumber(xmlElement["@vstIndex"]))
       if xmlElement["@modulatorMin"] ~= nil then
@@ -46,6 +46,10 @@ function MockPanel:_init(panelPath, midiListener)
       if xmlElement["@modulatorCustomName"] ~= nil then
         modulator:setProperty("modulatorCustomName", xmlElement["@modulatorCustomName"])
       end
+      if xmlElement["@modulatorCustomNameGroup"] ~= nil then
+        modulator:setProperty("modulatorCustomNameGroup", xmlElement["@modulatorCustomNameGroup"])
+      end
+
       if xmlElement["@luaModulatorValueChange"] ~= nil and xmlElement["@luaModulatorValueChange"] ~= "-- None" then
         modulator:setProperty("luaModulatorValueChange", xmlElement["@luaModulatorValueChange"])
       end
@@ -114,7 +118,7 @@ function MockPanel:sendMidiNow(midiMessage)
 end
 
 function MockPanel:getCanvas()
-	return self.canvas
+  return self.canvas
 end
 
 function MockPanel:debugPrint()

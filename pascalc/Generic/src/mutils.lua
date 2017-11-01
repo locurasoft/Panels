@@ -138,11 +138,6 @@ function d2b(value, msbFirst)
   return bytes
 end
 
-function b2d(value)
-  local msb = math.floor(value / 128)
-  local lsb = value - (msb * 128)
-  local bytes = base.MemoryBlock(2, true)
-  bytes:setByte(0, msb)
-  bytes:setByte(1, lsb)
-  return bytes
+function b2d(byte1, byte2)
+  return byte1 * 128 + byte2
 end

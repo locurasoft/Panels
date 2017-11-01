@@ -19,6 +19,7 @@ function onPanelBeforeLoad(type)
   -- Init logger
   LOGGER = Logger("Global")
   LOGGER:info("[initPanel] Initializing...")
+  LOG_LEVEL = FINE
 
   Voice_SelectedPatchIndex = 0
   SinglePerformanceSize = 317

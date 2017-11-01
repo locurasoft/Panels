@@ -43,11 +43,14 @@ function AbstractBank:setSelectedPatchIndex(selectedPatchIndex)
 end
 
 function AbstractBank:toStandaloneData()
-  return self.data
+  local buf = MemoryBlock(self.data:getSite(), true)
+  buf:copyFrom(self.data, 0, self.data:getSite())
+  return buf
 end
 
 function AbstractBank:toSyxMessages()
   local m = SyxMsg()
-  m.data = self.data
+  m.data = MemoryBlock(self.data:getSite(), true)
+  m.data:copyFrom(self.data, 0, self.data:getSite())
   return {m}
 end

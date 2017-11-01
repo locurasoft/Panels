@@ -54,6 +54,24 @@ function AbstractController:setValueByCustomNameMapped(modName, value)
   end
 end
 
+function AbstractController:setValueByCustomIndex(index, value)
+  local mod = self:getModulatorByCustomIndex(index)
+  if mod == nil then
+    LOGGER:warn("Could not find modulator %d", index)
+  else
+    mod:setValue(value, false)
+  end
+end
+
+function AbstractController:setValueByCustomIndexMapped(index, value)
+  local mod = self:getModulatorByCustomIndex(index)
+  if mod == nil then
+    LOGGER:warn("Could not find modulator %d", index)
+  else
+    mod:setValueMapped(value, false)
+  end
+end
+
 function AbstractController:setValue(modName, value)
   local mod = panel:getModulatorByName(modName)
   if mod == nil then
@@ -80,8 +98,26 @@ function AbstractController:getValueByCustomName(modName)
   return panel:getModulatorWithProperty("modulatorCustomName", modName):getValue()
 end
 
+function AbstractController:getValueByCustomIndex(index)
+  return self:getModulatorByCustomIndex(index):getValue()
+end
+
 function AbstractController:getModulatorByCustomName(modName)
-  return panel:getModulatorWithProperty("modulatorCustomName", modName)
+  local mod = panel:getModulatorWithProperty("modulatorCustomName", modName)
+  if mod:getProperty("modulatorCustomName") ~= nil then
+    return mod
+  else
+    return nil
+  end
+end
+
+function AbstractController:getModulatorByCustomIndex(index)
+  local mod = panel:getModulatorWithProperty("modulatorCustomIndex", string.format("%d", index))
+  if tonumber(mod:getProperty("modulatorCustomIndex")) == index then
+    return mod
+  else
+    return nil
+  end
 end
 
 function AbstractController:getModulatorName(mod)

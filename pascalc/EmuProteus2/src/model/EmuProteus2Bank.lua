@@ -41,3 +41,14 @@ function EmuProteus2Bank:_init(bankData)
     end
   end
 end
+
+function AbstractBank:toSyxMessages()
+  local arr = {}
+  for i = 0, NUM_PATCHES - 1 do
+    local m = SyxMsg()
+    m.data = MemoryBlock(SINGLE_DATA_SIZE, true)
+    self.data:copyTo(m.data, i * SINGLE_DATA_SIZE, SINGLE_DATA_SIZE)
+    table.insert(arr, m)
+  end
+  return arr
+end
