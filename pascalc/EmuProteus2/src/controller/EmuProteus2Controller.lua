@@ -83,3 +83,43 @@ function EmuProteus2Controller:onLoadMenu(mod, value)
     self:sendMidiMessages({AllUserPresetsRequest(), AllFactoryPresetsRequest()}, 1000)
   end
 end
+
+---
+-- @function [parent=#EmuProteus2Controller] onPatchSelect
+-- This method assigns the selected patch to the panel modulators 
+function EmuProteus2Controller:onPatchSelect (mod, value)
+
+  if VoiceBankData == nil then
+    mod:getComponent():setProperty("componentDisabled", 1, false)
+    return
+  end
+
+  if VoiceUpdateBank == true then
+    VoiceUpdateBank = false
+    mod:setValue(Voice_SelectedPatchIndex, false)
+    return
+  end
+
+  if value < 0 then
+    return
+  end
+
+  log:debug("Voice_PatchSelect %d - %d", value + 1, Voice_SelectedPatchIndex)
+  if (value + 1) ~= Voice_SelectedPatchIndex then
+    if Voice_SelectedPatchIndex > 0 then
+      local oldData = Voice_AssembleValues()
+      Voice_putPatch(oldData, Voice_SelectedPatchIndex)
+    end
+    Voice_SelectedPatchIndex = value + 1
+    local patchData = Voice_getPatch(Voice_SelectedPatchIndex)
+    Voice_AssignValues(patchData, true)
+  end
+end
+
+function EmuProteus2Controller:onGetValueForMIDI(mod, value)
+  return emuProteus2InstrumentService:c2m(value)
+end
+
+function EmuProteus2Controller:onGetValueFromMIDI(mod, value)
+  return emuProteus2InstrumentService:m2c(value)
+end

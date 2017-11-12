@@ -100,6 +100,10 @@ function RolandD50Controller:updateStructures(tone, value)
   self:toggleLayerVisibility("UP2PCM", p2 and tone == UPPER)
   self:toggleLayerVisibility("LP1PCM", p1 and tone == LOWER)
   self:toggleLayerVisibility("LP2PCM", p2 and tone == LOWER)
+  self:toggleLayerVisibility("UP1WAV", not p1 and tone == UPPER)
+  self:toggleLayerVisibility("UP2WAV", not p2 and tone == UPPER)
+  self:toggleLayerVisibility("LP1WAV", not p1 and tone == LOWER)
+  self:toggleLayerVisibility("LP2WAV", not p2 and tone == LOWER)
 end
 
 -- @function [parent=#RolandD50Controller] onMidiReceived

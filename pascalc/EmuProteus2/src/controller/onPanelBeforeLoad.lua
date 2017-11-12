@@ -28,5 +28,6 @@ function onPanelBeforeLoad(type)
   Voice_FooterSize = Voice_Footer:getSize()
   BANK_BUFFER_SIZE = 16960
 
+  emuProteus2InstrumentService = EmuProteus2InstrumentService()
   emuProteus2Controller = EmuProteus2Controller()
 end
