@@ -152,14 +152,14 @@ end
 
 function mergeArrayOfMemBlocks(memBlockArray)
   local size = 0
-  for k, memBlock in pairs(memBlockArray) do
-    size = size + memBlock:getsize()
+  for k, memBlock in base.pairs(memBlockArray) do
+    size = size + memBlock:getSize()
   end
   local buffer = base.MemoryBlock(size, true)
   local offset = 0
-  for k, memBlock in pairs(memBlockArray) do
-    memBlock:copyTo(buffer, offset, memBlock:getsize())
-    offset = offset + memBlock:getsize()
+  for k, memBlock in base.pairs(memBlockArray) do
+    buffer:copyFrom(memBlock, offset, memBlock:getSize())
+    offset = offset + memBlock:getSize()
   end
   return buffer
 end

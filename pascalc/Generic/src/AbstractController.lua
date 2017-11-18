@@ -104,7 +104,7 @@ end
 
 function AbstractController:getModulatorByCustomName(modName)
   local mod = panel:getModulatorWithProperty("modulatorCustomName", modName)
-  if mod:getProperty("modulatorCustomName") ~= nil then
+  if mod ~= nil and mod:getProperty("modulatorCustomName") ~= nil then
     return mod
   else
     return nil
@@ -113,7 +113,7 @@ end
 
 function AbstractController:getModulatorByCustomIndex(index)
   local mod = panel:getModulatorWithProperty("modulatorCustomIndex", string.format("%d", index))
-  if tonumber(mod:getProperty("modulatorCustomIndex")) == index then
+  if mod ~= nil and tonumber(mod:getProperty("modulatorCustomIndex")) == index then
     return mod
   else
     return nil

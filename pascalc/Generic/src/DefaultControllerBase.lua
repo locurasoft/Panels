@@ -98,10 +98,9 @@ function DefaultControllerBase:loadData(data)
     -- Assign values
     self:p2v(patch, true)
   else
-    error("The loaded file does not contain valid sysex data")
+    error(string.format("The loaded file does not contain valid sysex data: %s", data:toHexString(1)))
     return
   end
-
 end
 
 ---

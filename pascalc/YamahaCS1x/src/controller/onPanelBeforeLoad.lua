@@ -22,7 +22,7 @@ function onPanelBeforeLoad(type)
   LOG_LEVEL = FINE
 
   Voice_SelectedPatchIndex = 0
-  SinglePerformanceSize = 317
+  SinglePerformanceSize = 319
   PerformanceBankSize = 40576
   COMMON, COMMON_1, COMMON_2, LAYER1, LAYER2, LAYER3, LAYER4 = 1, 2, 3, 4, 5, 6, 7
   NUM_PATCHES = 128

@@ -252,7 +252,6 @@ function YamahaCS1xController:p2v(patch, sendMidi)
     local mod = self:getModulatorByCustomIndex(i)
     if mod ~= nil then
       local value = patch:getValue(i)
-      log:warn("i %d, value %d", i, value)
       if mappedParams[i] then
         self:setValueByCustomIndexMapped(i, value)
       else
@@ -308,14 +307,19 @@ end
 -- Called when a panel receives a midi message (does not need to match any modulator mask)
 -- @midi   http://ctrlr.org/api/class_ctrlr_midi_message.html
 function YamahaCS1xController:onMidiReceived(midi)
+  if not self.midiDump then
+    return
+  end
+
   timer:stopTimer(midiMessageTimerIndex)
-  table.insert(self.receivedMidiData, midi)
+  table.insert(self.receivedMidiData, midi:getData())
 
   if table.getn(self.midiSendQueue) > 0 then
     self:sendMidiMessage(table.remove(self.midiSendQueue, 1))
     timer:setCallback(midiMessageTimerIndex, onMidiMessageTimeout)
     timer:startTimer(midiMessageTimerIndex, 1000)
-  else
+  elseif table.getn(self.receivedMidiData) == 7 then
+    self.midiDump = false
     local data = cutils.mergeArrayOfMemBlocks(self.receivedMidiData)
     self.receivedMidiData = {}
     self:loadData(data)
@@ -433,7 +437,6 @@ function YamahaCS1xController:onVoiceBankChange(mod, value)
   self:getModulatorByCustomName(voiceCustName):getComponent():setProperty("uiFixedSliderContent", voiceContents, false)
 end
 
-
 ---
 -- @function [parent=#YamahaCS1xController] onSaveMenu
 --
@@ -536,6 +539,7 @@ function YamahaCS1xController:onLoadMenu(mod, value)
     --    end
   elseif menuSelect == 3 then
     -- Load performance from CS1x
+    self.midiDump = true
     local messages = {
       CS1xReceiveMsg(COMMON),
       CS1xReceiveMsg(COMMON_1),

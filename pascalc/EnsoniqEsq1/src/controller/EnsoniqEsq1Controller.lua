@@ -28,6 +28,29 @@ function EnsoniqEsq1Controller:_init()
   DefaultControllerBase._init(self, PATCH_BUFFER_SIZE, BANK_BUFFER_SIZE, EnsoniqEsq1StandalonePatch, EnsoniqEsq1Bank)
 end
 
+function EnsoniqEsq1Controller:loadData(data)
+  local midiSize = data:getSize()
+  if midiSize == self.bankSize then
+    local status, bank = pcall(self.bankPointer, data)
+    if status then
+      self:assignBank(bank)
+    else
+      log:warn(cutils.getErrorMessage(bank))
+      utils.warnWindow ("Load Bank", cutils.getErrorMessage(bank))
+      return
+    end
+  elseif midiSize == self.voiceSize then
+    local status, patch = pcall(self.standAlonePatchPointer, data)
+    if not status then
+      log:warn(cutils.getErrorMessage(patch))
+      utils.warnWindow ("Load Patch", cutils.getErrorMessage(patch))
+      return
+    end
+    -- Assign values
+    self:p2v(patch, true)
+  end
+end
+
 
 ---
 -- @function [parent=#EnsoniqEsq1Controller] onSaveMenu

@@ -424,4 +424,10 @@ function testD2b()
   assertEqual(mutils.d2b(159):toHexString(1), "1f 01")
 end
 
+function testB2d()
+  assertEqual(mutils.b2d(0x3F, 0x0C), 8076)
+  assertEqual(mutils.b2d(0x3F, 0x00), 8064)
+  assertEqual(mutils.b2d(0x3F, 0x01), 8065)
+end
+
 runTests{useANSI = false}

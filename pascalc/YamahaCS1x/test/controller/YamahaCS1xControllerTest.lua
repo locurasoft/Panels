@@ -1,6 +1,7 @@
 require("ctrlrTestUtils")
 require("Logger")
 require("MockPanel")
+require("MockTimer")
 require("controller/YamahaCS1xController")
 require("controller/YamahaCS1xControllerAutogen")
 require("controller/onPanelBeforeLoad")
@@ -361,6 +362,7 @@ function setup()
   local log = Logger("GLOBAL")
   log:setLevel(3)
   regGlobal("LOGGER", log)
+  regGlobal("timer", MockTimer())
 
   midiMessages = {}
   local midiListener = function(midiMessage)
@@ -398,5 +400,17 @@ end
 --  compareEditedBankWithFile(ensoniqEsq1Controller, "C:/ctrlr/syxfiles/EnsoniqESQ1/Esqhits^2.syx", panel,
 --    {  ["DCA1-Level"] = 0 }, "C:/ctrlr/syxfiles/EnsoniqESQ1/Esqhits^2-2.syx")
 --end
+
+function testOnMidiReceived()
+  local t = {}
+  table.insert(t, MemoryBlock("F0 43 00 4B 00 2E 60 00 00 39 30 39 20 45 51 64 20 11 7F 00 7F 7F 2B 7F 7F 40 70 7F 56 5C 7F 00 79 40 7F 40 40 00 05 00 00 02 00 03 00 60 40 40 40 13 00 5B 0C 07 04 18 F7"))
+  table.insert(t, MemoryBlock("F0 43 00 4B 00 17 60 00 30 13 00 43 00 4C 00 00 44 00 22 00 4C 00 78 00 44 00 7F 40 40 30 40 1E 3C F7"))
+  table.insert(t, MemoryBlock("F0 43 00 4B 00 09 60 00 50 29 00 00 50 40 00 00 00 00 0E F7"))
+  table.insert(t, MemoryBlock("F0 43 00 4B 00 29 60 01 00 3F 0C 05 01 40 08 00 7F 42 34 40 00 7F 1E 40 01 02 40 40 40 40 40 01 40 40 40 40 01 7F 40 40 03 40 40 40 40 40 40 40 40 40 44 F7"))
+  table.insert(t, MemoryBlock("F0 43 00 4B 00 29 60 02 00 3F 05 00 01 40 08 00 64 40 40 40 00 7F 1E 40 01 02 40 40 40 40 40 00 40 40 40 40 01 7F 40 40 03 40 40 40 40 40 40 40 40 40 61 F7"))
+  table.insert(t, MemoryBlock("F0 43 00 4B 00 29 60 03 00 3F 06 00 01 40 08 00 64 40 40 40 00 7F 1E 40 01 02 40 40 40 40 40 00 40 40 40 40 01 7F 40 40 03 40 40 40 40 40 40 40 40 40 5F F7"))
+  yamahaCS1xController.receivedMidiData = t
+	yamahaCS1xController:onMidiReceived(CtrlrMidiMessage(MemoryBlock("F0 43 00 4B 00 29 60 04 00 3F 07 00 01 40 08 00 64 40 40 40 00 7F 1E 40 01 02 40 40 40 40 40 00 40 40 40 40 01 7F 40 40 03 40 40 40 40 40 40 40 40 40 5D F7")))
+end
 
 runTests{useANSI = false}
