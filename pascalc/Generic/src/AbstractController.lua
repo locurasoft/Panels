@@ -36,57 +36,63 @@ function AbstractController:getText(compName)
   end
 end
 
-function AbstractController:setValueByCustomName(modName, value)
+function AbstractController:setValueByCustomName(modName, value, mute)
+  mute = mute or false
   local mod = panel:getModulatorWithProperty("modulatorCustomName", modName)
   if mod == nil then
     LOGGER:warn("Could not find modulator %s", modName)
   else
-    mod:setValue(value, false)
+    mod:setValue(value, false, mute)
   end
 end
 
-function AbstractController:setValueByCustomNameMapped(modName, value)
+function AbstractController:setValueByCustomNameMapped(modName, value, mute)
+  mute = mute or false
   local mod = panel:getModulatorWithProperty("modulatorCustomName", modName)
   if mod == nil then
     LOGGER:warn("Could not find modulator %s", modName)
   else
-    mod:setValueMapped(value, false)
+    mod:setValueMapped(value, false, mute)
   end
 end
 
-function AbstractController:setValueByCustomIndex(index, value)
+function AbstractController:setValueByCustomIndex(index, value, mute)
+  mute = mute or false
   local mod = self:getModulatorByCustomIndex(index)
   if mod == nil then
     LOGGER:warn("Could not find modulator %d", index)
   else
-    mod:setValue(value, false)
+    mod:setValue(value, false, mute)
   end
 end
 
-function AbstractController:setValueByCustomIndexMapped(index, value)
+function AbstractController:setValueByCustomIndexMapped(index, value, mute)
+  mute = mute or false
   local mod = self:getModulatorByCustomIndex(index)
   if mod == nil then
     LOGGER:warn("Could not find modulator %d", index)
   else
-    mod:setValueMapped(value, false)
+    mod:setValueMapped(value, false, mute)
   end
 end
 
-function AbstractController:setValue(modName, value)
+function AbstractController:setValue(modName, value, mute)
+  mute = mute or false
   local mod = panel:getModulatorByName(modName)
   if mod == nil then
     LOGGER:warn("Could not find modulator %s", modName)
   else
-    mod:setValue(value, false)
+    mod:setValue(value, false, mute)
   end
 end
 
-function AbstractController:setValueForce(modName, value)
+function AbstractController:setValueForce(modName, value, mute)
+  mute = mute or false
   local mod = panel:getModulatorByName(modName)
   if mod == nil then
     LOGGER:warn("Could not find modulator %s", modName)
   else
-    mod:setValue(value, true)
+    mod:setValue(value, true, mute)
   end
 end
 
@@ -167,4 +173,20 @@ end
 
 function AbstractController:setFixedSliderContent(name, content)
     panel:getComponent(name):setProperty("uiFixedSliderContent", content, false)
+end
+
+---
+-- @function [parent=#AbstractController] sendMidiMessage
+--
+function AbstractController:sendMidiMessage(syxMsg)
+  panel:sendMidiMessageNow(syxMsg:toMidiMessage())
+end
+
+---
+-- @function [parent=#AbstractController] sendMidiMessages
+--
+function AbstractController:sendMidiMessages(msgs, interval)
+  for k, nextMsg in pairs(msgs) do
+    panel:sendMidi(nextMsg:toMidiMessage(), interval)
+  end
 end

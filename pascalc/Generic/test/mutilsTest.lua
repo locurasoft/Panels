@@ -406,6 +406,9 @@ function testN2d()
 	assertEqual(mutils.n2d(0x0E, 0x0C), -50)
   assertEqual(mutils.n2d(0x07, 0x0E), -25)
   assertEqual(mutils.n2d(0x0F, 0x0F), -1)
+  assertEqual(mutils.n2du(0x00, 0x08), 128)
+  assertEqual(mutils.n2du(0x0F, 0x00), 15)
+  assertEqual(mutils.n2du(0x01, 0x00), 1)
 end
 
 function testD2b()

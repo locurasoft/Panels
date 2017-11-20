@@ -184,7 +184,6 @@ end
 function YamahaCS1xBank:_init(bankData)
   AbstractBank._init(self)
 
-  self.patches = {}
   if bankData == nil then
     self.data = MemoryBlock(PerformanceBankSize, true)
 
@@ -200,6 +199,11 @@ function YamahaCS1xBank:_init(bankData)
       table.insert(self.patches, YamahaCS1xPatch(getPatch(self.data, i)))
     end
   end
+end
+
+function YamahaCS1xBank:setPatchAt(patch, index)
+  table.insert(self.patches, index, patch)
+  self.data:copyFrom(patch:toSyxMsg(), (index - 1) * SinglePerformanceSize, SinglePerformanceSize)
 end
 
 function YamahaCS1xBank:toStandaloneData()

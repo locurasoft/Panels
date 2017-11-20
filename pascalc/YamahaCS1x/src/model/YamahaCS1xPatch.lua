@@ -19,6 +19,13 @@ local calculateChecksum = function(sysex, csStart, csEnd)
   return bit.band( - sum, 0x7f)
 end
 
+local detuneParams = {
+  [123] = true,
+  [175] = true,
+  [227] = true,
+  [279] = true
+}
+
 local msblsbParams = {
   [37]  = 1,
   [39]  = 1,
@@ -82,6 +89,14 @@ function YamahaCS1xPatch:_init(patchData)
   if patchData == nil then
     self.data = MemoryBlock(SinglePerformanceSize, true)
   else
+    if patchData:getSize() == SinglePerformanceSize + 2 then
+      local temp = MemoryBlock(SinglePerformanceSize, true)
+      local temp2 = MemoryBlock(SinglePerformanceSize - 89, true)
+      temp:copyFrom(patchData, 0, 89)
+      patchData:copyTo(temp2, 89 + 2, temp2:getSize())
+      temp:copyFrom(temp2, 89, temp2:getSize())
+      patchData = temp
+    end
     assert(patchData:getSize() == SinglePerformanceSize, string.format("midiSize %d is invalid and cannot be assigned to controllers", patchData:getSize()))
     self.data = MemoryBlock(SinglePerformanceSize, true)
     self.data:copyFrom(patchData, 0, SinglePerformanceSize)
@@ -118,10 +133,10 @@ function YamahaCS1xPatch:setValue(index, value)
     local b = mutils.d2b(value, true)
     self.data:setByte(index, b:getByte(0))
     self.data:setByte(index + 1, b:getByte(1))
-    -- elseif nibbleParams[index] == 1 then
-    --  local b = mutils.d2n2(value)
-    --  self.data:setByte(index, b:getByte(0))
-    --  self.data:setByte(index + 1, b:getByte(1))
+  elseif detuneParams[index] then
+    local b = mutils.du2n(value, true)
+    self.data:setByte(index, b:getByte(1))
+    self.data:setByte(index + 1, b:getByte(0))
   else
     self.data:setByte(index, value)
   end
@@ -132,9 +147,8 @@ function YamahaCS1xPatch:getValue(index)
   if msblsbParams[index] == 1 then
     value = mutils.b2d(self.data:getByte(index), self.data:getByte(index + 1))
     log:info("i %d, b1 %.2X, b2 %.2X = %d ", index, self.data:getByte(index), self.data:getByte(index + 1), value)
-    -- elseif nibbleParams[index] == 1 then
-    --  value = mutils.n2d2(self.data:getByte(index), self.data:getByte(index + 1))
-    --  log:info("i %d, b1 %.2X, b2 %.2X = %d ", index, self.data:getByte(index), self.data:getByte(index + 1), value)
+  elseif detuneParams[index] then
+    value = mutils.n2du(self.data:getByte(index + 1), self.data:getByte(index))
   else
     value = self.data:getByte(index)
     log:info("i %d, b1 %.2X, = %d ", index, self.data:getByte(index), value)

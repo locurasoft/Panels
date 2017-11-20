@@ -80,7 +80,7 @@ function EmuProteus2Controller:onLoadMenu(mod, value)
     if not AlertWindow.showOkCancelBox(AlertWindow.InfoIcon, "Overwrite bank?", "You have loaded a bank. The current action will overwrite your existing bank. Are you sure you want to continue?", "OK", "Cancel") then
       return
     end
-    self:sendMidiMessages({AllUserPresetsRequest(), AllFactoryPresetsRequest()}, 1000)
+    self:requestDump({ AllUserPresetsRequest(), AllFactoryPresetsRequest() })
   end
 end
 
@@ -116,10 +116,16 @@ function EmuProteus2Controller:onPatchSelect (mod, value)
   end
 end
 
+---
+-- @function [parent=#EmuProteus2Controller] onGetValueForMIDI
+--
 function EmuProteus2Controller:onGetValueForMIDI(mod, value)
   return emuProteus2InstrumentService:c2m(value)
 end
 
+---
+-- @function [parent=#EmuProteus2Controller] onGetValueFromMIDI
+--
 function EmuProteus2Controller:onGetValueFromMIDI(mod, value)
   return emuProteus2InstrumentService:m2c(value)
 end

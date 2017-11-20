@@ -1,10 +1,14 @@
 require("AbstractController")
 require("Logger")
 require("cutils")
+require("message/GMSystemOffMsg")
+require("message/RolandJV1080DataRequestMsg")
+require("message/RolandJV1080DataSetMsg")
+require("message/RolandJV1080SystemIdentityMsg")
 
 local log = Logger("RolandJV1080Controller")
 
--- Patch state map from the MIDI implementation chart. 
+-- Patch state map from the MIDI implementation chart.
 local RolandJVPatchStateMap = {
   [0x0C] = "EFX Type",
   [0x0D] = "EFX Parameter 1",
@@ -74,7 +78,7 @@ local RolandJVPatchValueCorrection = {
   [0x1E] = -63, --"EFX Control Depth 1",
   [0x20] = -63, --"EFX Control Depth 2",
   [0x2F] = -64, --"Patch Pan",
-  -- it is implemented by list: [0x41] = -03, --"Octave Shift",
+-- it is implemented by list: [0x41] = -03, --"Octave Shift",
 }
 
 -- Tone state map from MIDI implementation chart.
@@ -82,7 +86,7 @@ local RolandJVToneStateMap = {
   [0x00] = "Tone Switch",
   [0x01] = "Wave Group Type",
   [0x02] = "Wave Group ID",
---  [0x03] = "Wave Number",
+  --  [0x03] = "Wave Number",
   [0x05] = "Wave Gain",
   [0x06] = "FXM Switch",
   [0x07] = "FXM Color",
@@ -322,7 +326,7 @@ local RolandJVEffectParameters = {
       ["Name"] = "Level",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
   },
   [1] = {
     ["Name"] = "OVERDRIVE",
@@ -330,7 +334,7 @@ local RolandJVEffectParameters = {
       ["Name"] = "Drive",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
     ["prm2"] = {
       ["Name"] = "Output Pan",
       ["ValueMin"] = "0",
@@ -355,7 +359,7 @@ local RolandJVEffectParameters = {
       ["Name"] = "Output Level",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
   },
   [2] = {
     ["Name"] = "DISTORTION",
@@ -363,12 +367,12 @@ local RolandJVEffectParameters = {
       ["Name"] = "Drive",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
     ["prm2"] = {
       ["Name"] = "Output Pan",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
     ["prm3"] = {
       ["Name"] = "Amp Simulator Type",
       ["ValueMin"] = "0",
@@ -388,7 +392,7 @@ local RolandJVEffectParameters = {
       ["Name"] = "Output Level",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
   },
   [3] = {
     ["Name"] = "PHASER",
@@ -406,17 +410,17 @@ local RolandJVEffectParameters = {
       ["Name"] = "Depth ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
     ["prm4"] = {
       ["Name"] = "Resonance ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
     ["prm5"] = {
       ["Name"] = "Mix Level ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
     ["prm6"] = {
       ["Name"] = "Output Pan ",
       ["ValueMin"] = "0",
@@ -426,7 +430,7 @@ local RolandJVEffectParameters = {
       ["Name"] = "Output Level ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
   },
   [4] = {
     ["Name"] = "SPECTRUM",
@@ -484,7 +488,7 @@ local RolandJVEffectParameters = {
       ["Name"] = "Output Level ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
   },
   [5] = {
     ["Name"] = "ENHANCER",
@@ -492,27 +496,27 @@ local RolandJVEffectParameters = {
       ["Name"] = "Sens ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
     ["prm2"] = {
       ["Name"] = "Mix Level ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
     ["prm3"] = {
       ["Name"] = "Low Gain ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "30",
-    }, -- -15dB to +15 dB 
+    }, -- -15dB to +15 dB
     ["prm4"] = {
       ["Name"] = "High Gain ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "30",
-    }, -- -15dB to +15 dB 
+    }, -- -15dB to +15 dB
     ["prm5"] = {
       ["Name"] = "Output Level ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
   },
   [6] = {
     ["Name"] = "AUTO-WAH",
@@ -530,27 +534,27 @@ local RolandJVEffectParameters = {
       ["Name"] = "Depth ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
     ["prm4"] = {
       ["Name"] = "Sens ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
     ["prm5"] = {
       ["Name"] = "Manual ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
     ["prm6"] = {
       ["Name"] = "Peak ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
     ["prm7"] = {
       ["Name"] = "Output Level ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
   },
   [7] = {
     ["Name"] = "ROTARY",
@@ -583,32 +587,32 @@ local RolandJVEffectParameters = {
       ["Name"] = "High Frequency Acceleration ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "15",
-    }, -- 
+    }, --
     ["prm7"] = {
       ["Name"] = "Low Frequency Acceleration ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "15",
-    }, -- 
+    }, --
     ["prm8"] = {
       ["Name"] = "High Frequency Level ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
     ["prm9"] = {
       ["Name"] = "Low Frequency Level ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
     ["prm10"] = {
       ["Name"] = "Separation ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
     ["prm11"] = {
       ["Name"] = "Output Level ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
   },
   [8] = {
     ["Name"] = "COMPRESSOR",
@@ -616,12 +620,12 @@ local RolandJVEffectParameters = {
       ["Name"] = "Sustain ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
     ["prm2"] = {
       ["Name"] = "Attack ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
     ["prm3"] = {
       ["Name"] = "Output Pan ",
       ["ValueMin"] = "0",
@@ -636,17 +640,17 @@ local RolandJVEffectParameters = {
       ["Name"] = "Low Gain ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "30",
-    }, -- 
+    }, --
     ["prm6"] = {
       ["Name"] = "HiGH Gain ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "30",
-    }, -- 
+    }, --
     ["prm7"] = {
       ["Name"] = "Output Level ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
   },
   [9] = {
     ["Name"] = "LIMITER",
@@ -654,12 +658,12 @@ local RolandJVEffectParameters = {
       ["Name"] = "Threshold Level ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
     ["prm2"] = {
       ["Name"] = "Release Time ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
     ["prm3"] = {
       ["Name"] = "Compression Ratio ",
       ["ValueMin"] = "0",
@@ -669,27 +673,27 @@ local RolandJVEffectParameters = {
       ["Name"] = "Output Pan ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
     ["prm5"] = {
       ["Name"] = "Post Gain ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "3",
-    }, -- 
+    }, --
     ["prm6"] = {
       ["Name"] = "Low Gain ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "30",
-    }, -- 
+    }, --
     ["prm7"] = {
       ["Name"] = "High Gain ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "30",
-    }, -- 
+    }, --
     ["prm8"] = {
       ["Name"] = "Output Level ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
   },
   [10] = {
     ["Name"] = "HEXA-CHORUS",
@@ -707,12 +711,12 @@ local RolandJVEffectParameters = {
       ["Name"] = "Depth ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
     ["prm4"] = {
       ["Name"] = "Pre Delay Deviation ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "20",
-    }, -- 
+    }, --
     ["prm5"] = {
       ["Name"] = "Depth Deviation ",
       ["ValueMin"] = "0",
@@ -722,7 +726,7 @@ local RolandJVEffectParameters = {
       ["Name"] = "Pan Deviation ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "20",
-    }, -- 
+    }, --
     ["prm7"] = {
       ["Name"] = "Effect Balance ",
       ["ValueMin"] = "0",
@@ -732,7 +736,7 @@ local RolandJVEffectParameters = {
       ["Name"] = "Output Level ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
   },
   [11] = {
     ["Name"] = "TREMOLO-CHORUS",
@@ -750,7 +754,7 @@ local RolandJVEffectParameters = {
       ["Name"] = "Chorus Depth ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
     ["prm4"] = {
       ["Name"] = "Tremolo Rate ",
       ["ValueMin"] = "0",
@@ -760,7 +764,7 @@ local RolandJVEffectParameters = {
       ["Name"] = "Tremolo Separation ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
     ["prm6"] = {
       ["Name"] = "Tremolo Phase ",
       ["ValueMin"] = "0",
@@ -770,12 +774,12 @@ local RolandJVEffectParameters = {
       ["Name"] = "Effect Balance ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "100",
-    }, -- 
+    }, --
     ["prm8"] = {
       ["Name"] = "Output Level ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
   },
   [12] = {
     ["Name"] = "SPACE-D",
@@ -793,7 +797,7 @@ local RolandJVEffectParameters = {
       ["Name"] = "Depth ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
     ["prm4"] = {
       ["Name"] = "Phase ",
       ["ValueMin"] = "0",
@@ -803,22 +807,22 @@ local RolandJVEffectParameters = {
       ["Name"] = "Low Gain ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "30",
-    }, -- 
+    }, --
     ["prm6"] = {
       ["Name"] = "High Gain ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "30",
-    }, -- 
+    }, --
     ["prm7"] = {
       ["Name"] = "Effect Balance ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "100",
-    }, -- 
+    }, --
     ["prm8"] = {
       ["Name"] = "Output Level ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
   },
   [13] = {
     ["Name"] = "STEREO-CHORUS",
@@ -841,12 +845,12 @@ local RolandJVEffectParameters = {
       ["Name"] = "Rate ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "125",
-    }, -- 
+    }, --
     ["prm5"] = {
       ["Name"] = "Depth ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
     ["prm6"] = {
       ["Name"] = "Phase ",
       ["ValueMin"] = "0",
@@ -856,22 +860,22 @@ local RolandJVEffectParameters = {
       ["Name"] = "Low Gain ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "30",
-    }, -- 
+    }, --
     ["prm9"] = {
       ["Name"] = "High Gain ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "30",
-    }, -- 
+    }, --
     ["prm10"] = {
       ["Name"] = "Effect Balance ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "100",
-    }, -- 
+    }, --
     ["prm11"] = {
       ["Name"] = "Output Level ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
   },
   [14] = {
     ["Name"] = "STEREO-FLANGER",
@@ -889,17 +893,17 @@ local RolandJVEffectParameters = {
       ["Name"] = "Pre Delay Time ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "125",
-    }, -- 
+    }, --
     ["prm4"] = {
       ["Name"] = "Rate ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "125",
-    }, -- 
+    }, --
     ["prm5"] = {
       ["Name"] = "Depth ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
     ["prm6"] = {
       ["Name"] = "Phase ",
       ["ValueMin"] = "0",
@@ -914,22 +918,22 @@ local RolandJVEffectParameters = {
       ["Name"] = "Low Gain ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "30",
-    }, -- 
+    }, --
     ["prm9"] = {
       ["Name"] = "High Gain ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "30",
-    }, -- 
+    }, --
     ["prm10"] = {
       ["Name"] = "Effect Balance ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "100",
-    }, -- 
+    }, --
     ["prm11"] = {
       ["Name"] = "Output Level ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
   },
   [15] = {
     ["Name"] = "STEP-FLANGER",
@@ -937,17 +941,17 @@ local RolandJVEffectParameters = {
       ["Name"] = "Pre Delay Time ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "125",
-    }, -- 
+    }, --
     ["prm2"] = {
       ["Name"] = "Rate ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "125",
-    }, -- 
+    }, --
     ["prm3"] = {
       ["Name"] = "Depth ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
     ["prm4"] = {
       ["Name"] = "Feedback Level ",
       ["ValueMin"] = "0",
@@ -962,27 +966,27 @@ local RolandJVEffectParameters = {
       ["Name"] = "Phase ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "90",
-    }, -- 
+    }, --
     ["prm7"] = {
       ["Name"] = "Low Gain ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "30",
-    }, -- 
+    }, --
     ["prm8"] = {
       ["Name"] = "High Gain ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "30",
-    }, -- 
+    }, --
     ["prm9"] = {
       ["Name"] = "Effect Balance ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "100",
-    }, -- 
+    }, --
     ["prm10"] = {
       ["Name"] = "Output Level ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
   },
   [16] = {
     ["Name"] = "STEREO-DELAY",
@@ -1000,7 +1004,7 @@ local RolandJVEffectParameters = {
       ["Name"] = "Delay Time Right ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "126",
-    }, -- 
+    }, --
     ["prm4"] = {
       ["Name"] = "Feedback Phase Left ",
       ["ValueMin"] = "0",
@@ -1025,22 +1029,22 @@ local RolandJVEffectParameters = {
       ["Name"] = "Low Gain ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "30",
-    }, -- 
+    }, --
     ["prm9"] = {
       ["Name"] = "High Gain ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "30",
-    }, -- 
+    }, --
     ["prm10"] = {
       ["Name"] = "Effect Balance ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "100",
-    }, -- 
+    }, --
     ["prm11"] = {
       ["Name"] = "Output Level ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
   },
   [17] = {
     ["Name"] = "MODULATION-DELAY",
@@ -1058,7 +1062,7 @@ local RolandJVEffectParameters = {
       ["Name"] = "Delay Time Right",
       ["ValueMin"] = "0",
       ["ValueMax"] = "126",
-    }, -- 
+    }, --
     ["prm4"] = {
       ["Name"] = "Feedback Level",
       ["ValueMin"] = "0",
@@ -1078,32 +1082,32 @@ local RolandJVEffectParameters = {
       ["Name"] = "Depth",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
     ["prm8"] = {
       ["Name"] = "Phase",
       ["ValueMin"] = "0",
       ["ValueMax"] = "90",
-    }, -- 
+    }, --
     ["prm9"] = {
       ["Name"] = "Low Gain",
       ["ValueMin"] = "0",
       ["ValueMax"] = "30",
-    }, -- 
+    }, --
     ["prm10"] = {
       ["Name"] = "High Gain",
       ["ValueMin"] = "0",
       ["ValueMax"] = "30",
-    }, -- 
+    }, --
     ["prm11"] = {
       ["Name"] = "Effect Balance",
       ["ValueMin"] = "0",
       ["ValueMax"] = "100",
-    }, -- 
+    }, --
     ["prm12"] = {
       ["Name"] = "Output Level",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
   },
   [18] = {
     ["Name"] = "TRIPLE-TAP-DELAY",
@@ -1126,47 +1130,47 @@ local RolandJVEffectParameters = {
       ["Name"] = "Feedback Level",
       ["ValueMin"] = "0",
       ["ValueMax"] = "98",
-    }, -- 
+    }, --
     ["prm5"] = {
       ["Name"] = "HF Damp",
       ["ValueMin"] = "0",
       ["ValueMax"] = "17",
-    }, -- 
+    }, --
     ["prm6"] = {
       ["Name"] = "Left Level",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
     ["prm7"] = {
       ["Name"] = "Right Level",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
     ["prm8"] = {
       ["Name"] = "Center Level",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
     ["prm9"] = {
       ["Name"] = "Low Gain",
       ["ValueMin"] = "0",
       ["ValueMax"] = "30",
-    }, -- 
+    }, --
     ["prm10"] = {
       ["Name"] = "High Gain",
       ["ValueMin"] = "0",
       ["ValueMax"] = "30",
-    }, -- 
+    }, --
     ["prm11"] = {
       ["Name"] = "Effect Balance",
       ["ValueMin"] = "0",
       ["ValueMax"] = "100",
-    }, -- 
+    }, --
     ["prm12"] = {
       ["Name"] = "Output Level",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
   },
   [19] = {
     ["Name"] = "QUADRUPLE-TAP-DELAY ",
@@ -1179,57 +1183,57 @@ local RolandJVEffectParameters = {
       ["Name"] = "Delay Time 2 ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "125",
-    }, -- 
+    }, --
     ["prm3"] = {
       ["Name"] = "Delay Time 3 ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "125",
-    }, -- 
+    }, --
     ["prm4"] = {
       ["Name"] = "Delay Time 4 ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "125",
-    }, -- 
+    }, --
     ["prm5"] = {
       ["Name"] = "Level 1 ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
     ["prm6"] = {
       ["Name"] = "Level 2 ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
     ["prm7"] = {
       ["Name"] = "Level 3 ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
     ["prm8"] = {
       ["Name"] = "Level 4 ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
     ["prm9"] = {
       ["Name"] = "Feedback Level ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "98",
-    }, -- 
+    }, --
     ["prm10"] = {
       ["Name"] = "HF Damp ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "17",
-    }, -- 
+    }, --
     ["prm11"] = {
       ["Name"] = "Effect Balance ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "100",
-    }, -- 
+    }, --
     ["prm12"] = {
       ["Name"] = "Output Level ",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
   },
   [20] = {
     ["Name"] = "TIME-CONTROL-DELAY",
@@ -1242,17 +1246,17 @@ local RolandJVEffectParameters = {
       ["Name"] = "Feedback Level",
       ["ValueMin"] = "0",
       ["ValueMax"] = "98",
-    }, -- 
+    }, --
     ["prm3"] = {
       ["Name"] = "Acceleration",
       ["ValueMin"] = "0",
       ["ValueMax"] = "15",
-    }, -- 
+    }, --
     ["prm4"] = {
       ["Name"] = "HF Damp",
       ["ValueMin"] = "0",
       ["ValueMax"] = "17",
-    }, -- 
+    }, --
     ["prm5"] = {
       ["Name"] = "Output Pan",
       ["ValueMin"] = "0",
@@ -1262,22 +1266,22 @@ local RolandJVEffectParameters = {
       ["Name"] = "Low Gain",
       ["ValueMin"] = "0",
       ["ValueMax"] = "30",
-    }, -- 
+    }, --
     ["prm7"] = {
       ["Name"] = "High Gain",
       ["ValueMin"] = "0",
       ["ValueMax"] = "30",
-    }, -- 
+    }, --
     ["prm8"] = {
       ["Name"] = "Effect Balance",
       ["ValueMin"] = "0",
       ["ValueMax"] = "100",
-    }, -- 
+    }, --
     ["prm9"] = {
       ["Name"] = "Output Level",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
   },
   [21] = {
     ["Name"] = "2VOICE-PITCH-SHIFTER",
@@ -1285,7 +1289,7 @@ local RolandJVEffectParameters = {
       ["Name"] = "Pitch Shifter Mode",
       ["ValueMin"] = "0",
       ["ValueMax"] = "4",
-    }, -- 
+    }, --
     ["prm2"] = {
       ["Name"] = "Coarse Pitch A",
       ["ValueMin"] = "0",
@@ -1295,7 +1299,7 @@ local RolandJVEffectParameters = {
       ["Name"] = "Coarse Pitch B",
       ["ValueMin"] = "0",
       ["ValueMax"] = "36",
-    }, -- 
+    }, --
     ["prm4"] = {
       ["Name"] = "Fine Pitch A",
       ["ValueMin"] = "0",
@@ -1305,7 +1309,7 @@ local RolandJVEffectParameters = {
       ["Name"] = "Fine Pitch B",
       ["ValueMin"] = "0",
       ["ValueMax"] = "100",
-    }, -- 
+    }, --
     ["prm6"] = {
       ["Name"] = "Pre Delay Time A",
       ["ValueMin"] = "0",
@@ -1315,7 +1319,7 @@ local RolandJVEffectParameters = {
       ["Name"] = "Pre Delay Time B",
       ["ValueMin"] = "0",
       ["ValueMax"] = "126",
-    }, -- 
+    }, --
     ["prm8"] = {
       ["Name"] = "Output Pan A",
       ["ValueMin"] = "0",
@@ -1325,7 +1329,7 @@ local RolandJVEffectParameters = {
       ["Name"] = "Output Pan B",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
     ["prm10"] = {
       ["Name"] = "Level Balance",
       ["ValueMin"] = "0",
@@ -1335,12 +1339,12 @@ local RolandJVEffectParameters = {
       ["Name"] = "Effect Balance",
       ["ValueMin"] = "0",
       ["ValueMax"] = "100",
-    }, -- 
+    }, --
     ["prm12"] = {
       ["Name"] = "Output Level",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
   },
   [22] = {
     ["Name"] = "FBK-PITCH-SHIFTER",
@@ -1348,7 +1352,7 @@ local RolandJVEffectParameters = {
       ["Name"] = "Pitch Shifter Mode",
       ["ValueMin"] = "0",
       ["ValueMax"] = "4",
-    }, -- 
+    }, --
     ["prm2"] = {
       ["Name"] = "Coarse Pitch",
       ["ValueMin"] = "0",
@@ -1378,22 +1382,22 @@ local RolandJVEffectParameters = {
       ["Name"] = "Low Gain",
       ["ValueMin"] = "0",
       ["ValueMax"] = "30",
-    }, -- 
+    }, --
     ["prm8"] = {
       ["Name"] = "High Gain",
       ["ValueMin"] = "0",
       ["ValueMax"] = "30",
-    }, -- 
+    }, --
     ["prm9"] = {
       ["Name"] = "Effect Balance",
       ["ValueMin"] = "0",
       ["ValueMax"] = "100",
-    }, -- 
+    }, --
     ["prm10"] = {
       ["Name"] = "Output Level",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
   },
   [23] = {
     ["Name"] = "REVERB",
@@ -1421,22 +1425,22 @@ local RolandJVEffectParameters = {
       ["Name"] = "Low Gain",
       ["ValueMin"] = "0",
       ["ValueMax"] = "30",
-    }, -- 
+    }, --
     ["prm6"] = {
       ["Name"] = "High Gain",
       ["ValueMin"] = "0",
       ["ValueMax"] = "30",
-    }, -- 
+    }, --
     ["prm7"] = {
       ["Name"] = "Effect Balance",
       ["ValueMin"] = "0",
       ["ValueMax"] = "100",
-    }, -- 
+    }, --
     ["prm8"] = {
       ["Name"] = "Output Level",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
   },
   [24] = {
     ["Name"] = "GATE-REVERB",
@@ -1459,22 +1463,22 @@ local RolandJVEffectParameters = {
       ["Name"] = "Low Gain",
       ["ValueMin"] = "0",
       ["ValueMax"] = "30",
-    }, -- 
+    }, --
     ["prm5"] = {
       ["Name"] = "High Gain",
       ["ValueMin"] = "0",
       ["ValueMax"] = "30",
-    }, -- 
+    }, --
     ["prm6"] = {
       ["Name"] = "Effect Balance",
       ["ValueMin"] = "0",
       ["ValueMax"] = "100",
-    }, -- 
+    }, --
     ["prm7"] = {
       ["Name"] = "Output Level",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
   },
   [25] = {
     ["Name"] = "OVERDRIVE→CHORUS (serial)",
@@ -1482,7 +1486,7 @@ local RolandJVEffectParameters = {
       ["Name"] = "Drive",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
     ["prm2"] = {
       ["Name"] = "Over Drive Pan",
       ["ValueMin"] = "0",
@@ -1502,7 +1506,7 @@ local RolandJVEffectParameters = {
       ["Name"] = "Chorus Depth",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
     ["prm7"] = {
       ["Name"] = "Chorus Balance",
       ["ValueMin"] = "0",
@@ -1512,7 +1516,7 @@ local RolandJVEffectParameters = {
       ["Name"] = "Output Level",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
   },
   [26] = {
     ["Name"] = "OVERDRIVE→FLANGER (serial)",
@@ -1520,7 +1524,7 @@ local RolandJVEffectParameters = {
       ["Name"] = "Drive",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
     ["prm2"] = {
       ["Name"] = "Over Drive Pan",
       ["ValueMin"] = "0",
@@ -1535,17 +1539,17 @@ local RolandJVEffectParameters = {
       ["Name"] = "Flanger Rate",
       ["ValueMin"] = "0",
       ["ValueMax"] = "125",
-    }, -- 
+    }, --
     ["prm5"] = {
       ["Name"] = "Flanger Depth",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
     ["prm6"] = {
       ["Name"] = "Flanger Feedback Level",
       ["ValueMin"] = "0",
       ["ValueMax"] = "98",
-    }, -- 
+    }, --
     ["prm7"] = {
       ["Name"] = "Flanger Balance",
       ["ValueMin"] = "0",
@@ -1555,7 +1559,7 @@ local RolandJVEffectParameters = {
       ["Name"] = "Output Level",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
   },
   [27] = {
     ["Name"] = "OVERDRIVE→DELAY (serial)",
@@ -1563,12 +1567,12 @@ local RolandJVEffectParameters = {
       ["Name"] = "Drive",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
     ["prm2"] = {
       ["Name"] = "Over Drive Pan",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
     ["prm3"] = {
       ["Name"] = "Delay Time",
       ["ValueMin"] = "0",
@@ -1578,7 +1582,7 @@ local RolandJVEffectParameters = {
       ["Name"] = "Delay Feedback Level",
       ["ValueMin"] = "0",
       ["ValueMax"] = "98",
-    }, -- 
+    }, --
     ["prm5"] = {
       ["Name"] = "Delay HF Damp",
       ["ValueMin"] = "0",
@@ -1588,12 +1592,12 @@ local RolandJVEffectParameters = {
       ["Name"] = "Delay Balance",
       ["ValueMin"] = "0",
       ["ValueMax"] = "100",
-    }, -- 
+    }, --
     ["prm7"] = {
       ["Name"] = "Output Level",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
   },
   [28] = {
     ["Name"] = "DISTORTION→CHORUS (serial)",
@@ -1601,37 +1605,37 @@ local RolandJVEffectParameters = {
       ["Name"] = "Distortion Drive",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
     ["prm2"] = {
       ["Name"] = "Distortion Pan",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
     ["prm3"] = {
       ["Name"] = "Chorus Pre Delay Time",
       ["ValueMin"] = "0",
       ["ValueMax"] = "125",
-    }, -- 
+    }, --
     ["prm4"] = {
       ["Name"] = "Chorus Rate",
       ["ValueMin"] = "0",
       ["ValueMax"] = "125",
-    }, -- 
+    }, --
     ["prm5"] = {
       ["Name"] = "Chorus Depth",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
     ["prm7"] = {
       ["Name"] = "Chorus Balance",
       ["ValueMin"] = "0",
       ["ValueMax"] = "100",
-    }, -- 
+    }, --
     ["prm8"] = {
       ["Name"] = "Output Level",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
   },
   [29] = {
     ["Name"] = "DISTORTION→FLANGER (serial)",
@@ -1639,42 +1643,42 @@ local RolandJVEffectParameters = {
       ["Name"] = "Distortion Drive",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
     ["prm2"] = {
       ["Name"] = "Distortion Pan",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
     ["prm3"] = {
       ["Name"] = "Flanger Pre Delay Time",
       ["ValueMin"] = "0",
       ["ValueMax"] = "125",
-    }, -- 
+    }, --
     ["prm4"] = {
       ["Name"] = "Flanger Rate",
       ["ValueMin"] = "0",
       ["ValueMax"] = "125",
-    }, -- 
+    }, --
     ["prm5"] = {
       ["Name"] = "Flanger Depth",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
     ["prm6"] = {
       ["Name"] = "Flanger Feedback Level",
       ["ValueMin"] = "0",
       ["ValueMax"] = "98",
-    }, -- 
+    }, --
     ["prm7"] = {
       ["Name"] = "Flanger Balance",
       ["ValueMin"] = "0",
       ["ValueMax"] = "100",
-    }, -- 
+    }, --
     ["prm8"] = {
       ["Name"] = "Output Level",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
   },
   [30] = {
     ["Name"] = "DISTORTION→DELAY (serial)",
@@ -1682,37 +1686,37 @@ local RolandJVEffectParameters = {
       ["Name"] = "Distortion Drive",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
     ["prm2"] = {
       ["Name"] = "Distortion Pan",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
     ["prm3"] = {
       ["Name"] = "Delay Time",
       ["ValueMin"] = "0",
       ["ValueMax"] = "126",
-    }, -- 
+    }, --
     ["prm4"] = {
       ["Name"] = "Delay Feedback Level",
       ["ValueMin"] = "0",
       ["ValueMax"] = "98",
-    }, -- 
+    }, --
     ["prm5"] = {
       ["Name"] = "Delay HF Damp",
       ["ValueMin"] = "0",
       ["ValueMax"] = "17",
-    }, -- 
+    }, --
     ["prm6"] = {
       ["Name"] = "Delay Balance",
       ["ValueMin"] = "0",
       ["ValueMax"] = "100",
-    }, -- 
+    }, --
     ["prm7"] = {
       ["Name"] = "Output Level",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
   },
   [31] = {
     ["Name"] = "ENHANCER→CHORUS (serial)",
@@ -1720,12 +1724,12 @@ local RolandJVEffectParameters = {
       ["Name"] = "Enhancer Sens",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
     ["prm2"] = {
       ["Name"] = "Enhancer Mix Level",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
     ["prm3"] = {
       ["Name"] = "Chorus Pre Delay Time",
       ["ValueMin"] = "0",
@@ -1740,7 +1744,7 @@ local RolandJVEffectParameters = {
       ["Name"] = "Chorus Depth",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
     ["prm7"] = {
       ["Name"] = "Chorus Balance",
       ["ValueMin"] = "0",
@@ -1750,7 +1754,7 @@ local RolandJVEffectParameters = {
       ["Name"] = "Output Level",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
   },
   [32] = {
     ["Name"] = "ENHANCER→FLANGER (serial)",
@@ -1758,12 +1762,12 @@ local RolandJVEffectParameters = {
       ["Name"] = "Enhancer Sens",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
     ["prm2"] = {
       ["Name"] = "Enhancer Mix Level",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
     ["prm3"] = {
       ["Name"] = "Flanger Pre Delay Time",
       ["ValueMin"] = "0",
@@ -1778,22 +1782,22 @@ local RolandJVEffectParameters = {
       ["Name"] = "Flanger Depth",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
     ["prm6"] = {
       ["Name"] = "Flanger Feedback Level",
       ["ValueMin"] = "0",
       ["ValueMax"] = "98",
-    }, -- 
+    }, --
     ["prm7"] = {
       ["Name"] = "Flanger Balance",
       ["ValueMin"] = "0",
       ["ValueMax"] = "100",
-    }, -- 
+    }, --
     ["prm8"] = {
       ["Name"] = "Output Level",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
   },
   [33] = {
     ["Name"] = "ENHANCER→DELAY (serial)",
@@ -1801,12 +1805,12 @@ local RolandJVEffectParameters = {
       ["Name"] = "Enhancer Sens",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
     ["prm2"] = {
       ["Name"] = "Enhancer Mix Level",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
     ["prm3"] = {
       ["Name"] = "Delay Time",
       ["ValueMin"] = "0",
@@ -1816,22 +1820,22 @@ local RolandJVEffectParameters = {
       ["Name"] = "Delay Feedback Level",
       ["ValueMin"] = "0",
       ["ValueMax"] = "98",
-    }, -- 
+    }, --
     ["prm5"] = {
       ["Name"] = "Delay HF Damp",
       ["ValueMin"] = "0",
       ["ValueMax"] = "17",
-    }, -- 
+    }, --
     ["prm7"] = {
       ["Name"] = "Delay Balance",
       ["ValueMin"] = "0",
       ["ValueMax"] = "100",
-    }, -- 
+    }, --
     ["prm8"] = {
       ["Name"] = "Output Level",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
   },
   [34] = {
     ["Name"] = "CHORUS→DELAY (serial)",
@@ -1844,17 +1848,17 @@ local RolandJVEffectParameters = {
       ["Name"] = "Chorus Rate",
       ["ValueMin"] = "0",
       ["ValueMax"] = "125",
-    }, -- 
+    }, --
     ["prm3"] = {
       ["Name"] = "Chorus Depth",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
     ["prm5"] = {
       ["Name"] = "Chorus Balance",
       ["ValueMin"] = "0",
       ["ValueMax"] = "100",
-    }, -- 
+    }, --
     ["prm6"] = {
       ["Name"] = "Delay Time",
       ["ValueMin"] = "0",
@@ -1864,22 +1868,22 @@ local RolandJVEffectParameters = {
       ["Name"] = "Delay Feedback Level",
       ["ValueMin"] = "0",
       ["ValueMax"] = "98",
-    }, -- 
+    }, --
     ["prm8"] = {
       ["Name"] = "Delay HF Damp",
       ["ValueMin"] = "0",
       ["ValueMax"] = "17",
-    }, -- 
+    }, --
     ["prm9"] = {
       ["Name"] = "Delay Balance",
       ["ValueMin"] = "0",
       ["ValueMax"] = "100",
-    }, -- 
+    }, --
     ["prm10"] = {
       ["Name"] = "Output Level",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
   },
   [35] = {
     ["Name"] = "FLANGER→DELAY (serial)",
@@ -1892,22 +1896,22 @@ local RolandJVEffectParameters = {
       ["Name"] = "Flanger Rate",
       ["ValueMin"] = "0",
       ["ValueMax"] = "125",
-    }, -- 
+    }, --
     ["prm3"] = {
       ["Name"] = "Flanger Depth",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
     ["prm4"] = {
       ["Name"] = "Flanger Feedback Level",
       ["ValueMin"] = "0",
       ["ValueMax"] = "98",
-    }, -- 
+    }, --
     ["prm5"] = {
       ["Name"] = "Flanger Balance",
       ["ValueMin"] = "0",
       ["ValueMax"] = "100",
-    }, -- 
+    }, --
     ["prm6"] = {
       ["Name"] = "Delay Time",
       ["ValueMin"] = "0",
@@ -1917,22 +1921,22 @@ local RolandJVEffectParameters = {
       ["Name"] = "Delay Feedback Level",
       ["ValueMin"] = "0",
       ["ValueMax"] = "98",
-    }, -- 
+    }, --
     ["prm8"] = {
       ["Name"] = "Delay HF Damp",
       ["ValueMin"] = "0",
       ["ValueMax"] = "17",
-    }, -- 
+    }, --
     ["prm9"] = {
       ["Name"] = "Delay Balance",
       ["ValueMin"] = "0",
       ["ValueMax"] = "100",
-    }, -- 
+    }, --
     ["prm10"] = {
       ["Name"] = "Output Level",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
   },
   [36] = {
     ["Name"] = "CHORUS→FLANGER (serial)",
@@ -1940,52 +1944,52 @@ local RolandJVEffectParameters = {
       ["Name"] = "Chorus Pre Delay Time",
       ["ValueMin"] = "0",
       ["ValueMax"] = "125",
-    }, -- 
+    }, --
     ["prm2"] = {
       ["Name"] = "Chorus Rate",
       ["ValueMin"] = "0",
       ["ValueMax"] = "125",
-    }, -- 
+    }, --
     ["prm3"] = {
       ["Name"] = "Chorus Depth",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
     ["prm4"] = {
       ["Name"] = "Chorus Balance",
       ["ValueMin"] = "0",
       ["ValueMax"] = "100",
-    }, -- 
+    }, --
     ["prm5"] = {
       ["Name"] = "Flanger Pre Delay Time",
       ["ValueMin"] = "0",
       ["ValueMax"] = "125",
-    }, -- 
+    }, --
     ["prm6"] = {
       ["Name"] = "Flanger Rate",
       ["ValueMin"] = "0",
       ["ValueMax"] = "125",
-    }, -- 
+    }, --
     ["prm7"] = {
       ["Name"] = "Flanger Depth",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
     ["prm8"] = {
       ["Name"] = "Flanger Feedback Level",
       ["ValueMin"] = "0",
       ["ValueMax"] = "98",
-    }, -- 
+    }, --
     ["prm9"] = {
       ["Name"] = "Flanger Balance",
       ["ValueMin"] = "0",
       ["ValueMax"] = "100",
-    }, -- 
+    }, --
     ["prm10"] = {
       ["Name"] = "Output Level",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
   },
   [37] = {
     ["Name"] = "CHORUS/DELAY (parallel)",
@@ -1993,47 +1997,47 @@ local RolandJVEffectParameters = {
       ["Name"] = "Chorus Pre Delay Time",
       ["ValueMin"] = "0",
       ["ValueMax"] = "125",
-    }, -- 
+    }, --
     ["prm2"] = {
       ["Name"] = "Chorus Rate",
       ["ValueMin"] = "0",
       ["ValueMax"] = "125",
-    }, -- 
+    }, --
     ["prm3"] = {
       ["Name"] = "Chorus Depth",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
     ["prm5"] = {
       ["Name"] = "Chorus Balance",
       ["ValueMin"] = "0",
       ["ValueMax"] = "100",
-    }, -- 
+    }, --
     ["prm6"] = {
       ["Name"] = "Delay Time",
       ["ValueMin"] = "0",
       ["ValueMax"] = "126",
-    }, -- 
+    }, --
     ["prm7"] = {
       ["Name"] = "Delay Feedback Level",
       ["ValueMin"] = "0",
       ["ValueMax"] = "98",
-    }, -- 
+    }, --
     ["prm8"] = {
       ["Name"] = "Delay HF Damp",
       ["ValueMin"] = "0",
       ["ValueMax"] = "17",
-    }, -- 
+    }, --
     ["prm9"] = {
       ["Name"] = "Delay Balance",
       ["ValueMin"] = "0",
       ["ValueMax"] = "100",
-    }, -- 
+    }, --
     ["prm10"] = {
       ["Name"] = "Output Level",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
   },
   [38] = {
     ["Name"] = "FLANGER/DELAY (parallel)",
@@ -2041,52 +2045,52 @@ local RolandJVEffectParameters = {
       ["Name"] = "Flanger Pre Delay Time",
       ["ValueMin"] = "0",
       ["ValueMax"] = "125",
-    }, -- 
+    }, --
     ["prm2"] = {
       ["Name"] = "Flanger Rate",
       ["ValueMin"] = "0",
       ["ValueMax"] = "125",
-    }, -- 
+    }, --
     ["prm3"] = {
       ["Name"] = "Flanger Depth",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
     ["prm4"] = {
       ["Name"] = "Flanger Feedback Level",
       ["ValueMin"] = "0",
       ["ValueMax"] = "98",
-    }, -- 
+    }, --
     ["prm5"] = {
       ["Name"] = "Flanger Balance",
       ["ValueMin"] = "0",
       ["ValueMax"] = "100",
-    }, -- 
+    }, --
     ["prm6"] = {
       ["Name"] = "Delay Time",
       ["ValueMin"] = "0",
       ["ValueMax"] = "126",
-    }, -- 
+    }, --
     ["prm7"] = {
       ["Name"] = "Delay Feedback Level",
       ["ValueMin"] = "0",
       ["ValueMax"] = "98",
-    }, -- 
+    }, --
     ["prm8"] = {
       ["Name"] = "Delay HF Damp",
       ["ValueMin"] = "0",
       ["ValueMax"] = "17",
-    }, -- 
+    }, --
     ["prm9"] = {
       ["Name"] = "Delay Balance",
       ["ValueMin"] = "0",
       ["ValueMax"] = "100",
-    }, -- 
+    }, --
     ["prm10"] = {
       ["Name"] = "Output Level",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
   },
   [39] = {
     ["Name"] = "CHORUS/FLANGER (parallel)",
@@ -2094,52 +2098,52 @@ local RolandJVEffectParameters = {
       ["Name"] = "Chorus Pre Delay Time",
       ["ValueMin"] = "0",
       ["ValueMax"] = "125",
-    }, -- 
+    }, --
     ["prm2"] = {
       ["Name"] = "Chorus Rate",
       ["ValueMin"] = "0",
       ["ValueMax"] = "125",
-    }, -- 
+    }, --
     ["prm3"] = {
       ["Name"] = "Chorus Depth",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
     ["prm4"] = {
       ["Name"] = "Chorus Balance",
       ["ValueMin"] = "0",
       ["ValueMax"] = "100",
-    }, -- 
+    }, --
     ["prm5"] = {
       ["Name"] = "Flanger Pre Delay Time",
       ["ValueMin"] = "0",
       ["ValueMax"] = "125",
-    }, -- 
+    }, --
     ["prm6"] = {
       ["Name"] = "Flanger Rate",
       ["ValueMin"] = "0",
       ["ValueMax"] = "125",
-    }, -- 
+    }, --
     ["prm7"] = {
       ["Name"] = "Flanger Depth",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
     ["prm8"] = {
       ["Name"] = "Flanger Feedback Level",
       ["ValueMin"] = "0",
       ["ValueMax"] = "98",
-    }, -- 
+    }, --
     ["prm9"] = {
       ["Name"] = "Flanger Balance",
       ["ValueMin"] = "0",
       ["ValueMax"] = "100",
-    }, -- 
+    }, --
     ["prm10"] = {
       ["Name"] = "Output Level",
       ["ValueMin"] = "0",
       ["ValueMax"] = "127",
-    }, -- 
+    }, --
   }
 }
 
@@ -2168,29 +2172,25 @@ function RolandJV1080Controller:_init()
 
   -- Modulator list by sysex offset.
   -- Keys/indexes are two byte hex strings (like "00 4C")
-  modulatorListByMemory = {}
-  modulatorSpecialListByMemory = {}
+  self.modulatorListByMemory = {}
+  self.modulatorSpecialListByMemory = {}
 
   local max = panel:getNumModulators()
-  for v=1,max,1 do
+  for v=1,max do
     local modulatorRef = panel:getModulatorByIndex(v)
-    if (modulatorRef ~= nil and (modulatorRef:getProperty("modulatorIsStatic")=="0")) then
-      --log:fine("Trying to decode modulator "..string.format("%s",v)) 
-      formula = string.format("%s",modulatorRef:getMidiMessage():getProperty("midiMessageSysExFormula"))
-      if formula ~= nil then      
-        --log:fine("Sysex formula: "..formula)
+    if (modulatorRef ~= nil and (modulatorRef:getProperty("modulatorIsStatic") == "0")) then
+      local formula = string.format("%s", modulatorRef:getMidiMessage():getProperty("midiMessageSysExFormula"))
+      if formula ~= nil then
         --string.sub(formula, 22, 5) should work but somehow it does not...
         if (string.len(formula) == 35) then
-          sysexAddress=string.sub(formula , 22 )
-          sysexAddress=string.sub(sysexAddress , 1 , 5 )
-          --log:fine("Sysex address: "..sysexAddress)
-          modulatorListByMemory[sysexAddress] = modulatorRef
-        -- Special modulators that have 2-byte values. It will be treated differently.
+          local sysexAddress = string.sub(formula , 22 )
+          sysexAddress = string.sub(sysexAddress , 1 , 5 )
+          self.modulatorListByMemory[sysexAddress] = modulatorRef
+          -- Special modulators that have 2-byte values. It will be treated differently.
         elseif (string.len(formula) == 38) then
-          sysexAddress=string.sub(formula , 22 )
-          sysexAddress=string.sub(sysexAddress , 1 , 5 )
-          --log:fine("Sysex address: "..sysexAddress)
-          modulatorSpecialListByMemory[sysexAddress] = modulatorRef
+          local sysexAddress = string.sub(formula , 22 )
+          sysexAddress = string.sub(sysexAddress , 1 , 5 )
+          self.modulatorSpecialListByMemory[sysexAddress] = modulatorRef
 
         end
       end
@@ -2199,8 +2199,7 @@ function RolandJV1080Controller:_init()
   log:fine("======== Modulator decode end ======")
 
   -- Send System Identity message.
-  panel:sendMidiMessageNow(CtrlrMidiMessage(
-    {0xf0, 0x7E, 0x10, 0x06, 0x01, 0xF7}))
+  self:sendMidiMessage(RolandJV1080SystemIdentityMsg())
 end
 
 ---
@@ -2209,52 +2208,11 @@ end
 -- @value    new numeric value of the modulator
 --
 function RolandJV1080Controller:onGetData(mod, value)
-
   self:displayText("Reading data...")
   -- apparently some devices interpret data length as "data length with header"
   -- and some without... so let's ask for 0x55 instead of 0x4A
-  self:sendDataRequest(0x03,0x00,0x00,0x00,0x00,0x55)
+  self:sendMidiMessage(RolandJV1080DataRequestMsg(0, 0x55))
   --sendDataRequest(0x03,0x00,0x00,0x00,0x00,0x4A)
-
-end
-
--- Roland system exclusive data request.
--- No need now to receive more than 0xFFFF chunks
--- so only 2 length bytes are supported.
-function RolandJV1080Controller:sendDataRequest(addr1, addr2, addr3, addr4, len1, len2)
-  local checksum = 128 - ((addr1 + addr2 + addr3 + addr4 + len1 + len2) % 128)
-  panel:sendMidiMessageNow(CtrlrMidiMessage(
-    {0xf0, 0x41, 0x10, 0x6A, 0x11, 
-    addr1,addr2,addr3,addr4,
-    0x00,0x00,len1,len2,
-    checksum,
-    0xf7}))
-
-end
-
--- Roland system exclusive data set.
--- Not used very much so far (only writing the mode change to patch mode)
-function RolandJV1080Controller:sendDataSet(addr1, addr2, addr3, addr4, dataToSend)
-
-  -- data should be a "sequence"
-  local dataLength = #dataToSend
-  local checksum = 0
-  -- it would be easier and probably faster to create a CtrlrLuaMemoryBlock
-  -- but I could not manage... So hex string is created.
-  local hexStringToSend = string.format("%02X %02X %02X %02X %02X %02X %02X %02X %02X ",
-    0xf0, 0x41, 0x10, 0x6A, 0x12, addr1, addr2, addr3, addr4)
-  -- 128 - ((addr1 + addr2 + addr3 + addr4 + len1 + len2) % 128)
-  --header
-
-  for v=1,dataLength,1 do
-    hexStringToSend = hexStringToSend..string.format("%02X ",dataToSend[v])
-    checksum = checksum + dataToSend[v]
-  end
-  checksum = 128 - (checksum % 128)
-  hexStringToSend = hexStringToSend..string.format("%02X ",checksum)
-  hexStringToSend = hexStringToSend..string.format("%02X ",0xF7)
-  --log:fine("Message constructed: "..hexStringToSend)
-  panel:sendMidiMessageNow(CtrlrMidiMessage(hexStringToSend))
 end
 
 ---
@@ -2262,40 +2220,38 @@ end
 -- @midi   http://ctrlr.org/api/class_ctrlr_midi_message.html
 --
 function RolandJV1080Controller:onMidiReceived(midi)
-  if( midi:getLuaData():getByte(0) == 0xF0 and
-    midi:getLuaData():getByte(1) == 0x7E and
-    midi:getLuaData():getByte(3) == 0x06 and
-    midi:getLuaData():getByte(4) == 0x02) then
-    processSystemIdentity(midi)
-  elseif( 
-    midi:getLuaData():getByte(0) == 0xF0 and
-    midi:getLuaData():getByte(1) == 0x41 and
-    midi:getLuaData():getByte(3) == 0x6A and
-    midi:getLuaData():getByte(4) == 0x12) then
-    local addr = 
-      midi:getLuaData():getByte(5) * 0x1000000 +
-      midi:getLuaData():getByte(6) * 0x10000 +
-      midi:getLuaData():getByte(7) * 0x100 +
-      midi:getLuaData():getByte(8)
+  if( midi:getData():getByte(0) == 0xF0 and
+    midi:getData():getByte(1) == 0x7E and
+    midi:getData():getByte(3) == 0x06 and
+    midi:getData():getByte(4) == 0x02) then
+    self:processSystemIdentity(midi)
+  elseif(
+    midi:getData():getByte(0) == 0xF0 and
+    midi:getData():getByte(1) == 0x41 and
+    midi:getData():getByte(3) == 0x6A and
+    midi:getData():getByte(4) == 0x12) then
+    local addr =
+      midi:getData():getByte(5) * 0x1000000 +
+      midi:getData():getByte(6) * 0x10000 +
+      midi:getData():getByte(7) * 0x100 +
+      midi:getData():getByte(8)
     local fixedDumpOffset = 9
     local fixedDumpTrailer = 2
     local dataLength = midi:getSize() - fixedDumpOffset - fixedDumpTrailer
-    log:fine("Received data of length "..string.format("%04X",dataLength))
+    log:fine("Received data of length %04X", dataLength)
     if (    addr >= 0x03000000 and addr <= 0x030007FF) then
-      processPatchData(midi, fixedDumpOffset) 
+      self:processPatchData(midi, fixedDumpOffset)
     elseif (addr >= 0x03001000 and addr <= 0x030017FF) then
-      processToneData(midi, fixedDumpOffset, midi:getLuaData():getByte(7))  
+      self:processToneData(midi, fixedDumpOffset, midi:getData():getByte(7))
     elseif (addr == 0x0) then
-      processSystemData(midi, fixedDumpOffset, dataLength)
+      self:processSystemData(midi, fixedDumpOffset, dataLength)
     end
   end
-
-
 end
 
 -- System Identity responses.
 function RolandJV1080Controller:processSystemIdentity(midi)
-  if( midi:getLuaData():getByte(5) == 0x41) then
+  if( midi:getData():getByte(5) == 0x41) then
     log:fine("Roland device")
   else
     log:fine("NOT Roland device")
@@ -2303,7 +2259,7 @@ function RolandJV1080Controller:processSystemIdentity(midi)
     return
   end
 
-  if( midi:getLuaData():getByte(6) == 0x6A) then
+  if( midi:getData():getByte(6) == 0x6A) then
     log:fine("JV/XP family")
   else
     log:fine("NOT JV/XP family")
@@ -2312,21 +2268,21 @@ function RolandJV1080Controller:processSystemIdentity(midi)
   end
 
   -- TODO: more JV types recognition
-  if( midi:getLuaData():getByte(8) == 0x05) then
+  if( midi:getData():getByte(8) == 0x05) then
     log:fine("JV-1010")
     self:displayText("JV-1010")
-  elseif (midi:getLuaData():getByte(8) == 0x05) then
+  elseif (midi:getData():getByte(8) == 0x05) then
   else
     log:fine("Unknown JV/XP")
     self:displayText("Unknown JV/XP")
   end
   --Put the device to Patch mode and send request for patch values.
   -- Send GM system OFF first. It will go to Performance mode.
-  panel:sendMidiMessageNow(CtrlrMidiMessage(
-    {0xf0, 0x7E, 0x7F, 0x09, 0x02, 0xF7}))
+  self:sendMidiMessage(GMSystemOffMsg())
+  
   -- Then, move it to Patch mode
   -- (Delay might be needed? works for me at least)
-  sendDataSet(0,0,0,0,{1}) 
+  self:sendMidiMessage(RolandJV1080DataSetMsg())
   -- Patch data might be requested right away, right now it is not.
   --sendDataRequest(0x03,0x00,0x00,0x00,0x00,0x4A)
 end
@@ -2335,44 +2291,41 @@ end
 function RolandJV1080Controller:processPatchData(midi,fixedDumpOffset)
 
   -- Patch name (0-12)
-  patchName= midi:getLuaData():getRange(fixedDumpOffset + 0,12):toString()
+  self.patchName = midi:getData():getRange(fixedDumpOffset + 0,12):toString()
 
   local patchNumberRef = panel:getModulatorByName("PatchSelect")
   if patchNumberRef ~= nil then
-    patchName = string.format("%d",patchNumberRef:getModulatorValue()+1).." "..patchName
+    self.patchName = string.format("%d %s", patchNumberRef:getModulatorValue() + 1, self.patchName)
   end
 
   -- Individual parameters for the simple controllers
-  for v=0x0C,0x49,1 do
-    local arrayIndex = "00 "..string.format("%02X",v)
-    local modulatorRef = modulatorListByMemory[arrayIndex]
+  for v = 0x0C, 0x49 do
+    local arrayIndex = string.format("00 %02X", v)
+    local modulatorRef = self.modulatorListByMemory[arrayIndex]
     if modulatorRef ~= nil then
-      --log:fine("Found modulator for "..arrayIndex) 
-      local valueToSet = midi:getLuaData():getByte(fixedDumpOffset + v)
+      local valueToSet = midi:getData():getByte(fixedDumpOffset + v)
       if RolandJVPatchValueCorrection[v]~= nil then
         valueToSet = valueToSet + RolandJVPatchValueCorrection[v]
       end
       modulatorRef:setModulatorValue(valueToSet,false,false,false)
-      --modulatorRef:getComponent():setPropertyString("componentVisibleName",RolandJVPatchStateMap[v])
     elseif v == 0x2C then
-      modulatorRef = modulatorSpecialListByMemory[arrayIndex]
+      modulatorRef = self.modulatorSpecialListByMemory[arrayIndex]
       if modulatorRef ~= nil then
-        log:fine("Found special modulator for "..arrayIndex) 
+        log:fine("Found special modulator for %s", arrayIndex)
         modulatorRef:setModulatorValue(
-          midi:getLuaData():getByte(fixedDumpOffset + v)*0x10 +
-          midi:getLuaData():getByte(fixedDumpOffset + v+1),
+          midi:getData():getByte(fixedDumpOffset + v)*0x10 +
+          midi:getData():getByte(fixedDumpOffset + v+1),
           false,false,false)
-        --modulatorRef:getComponent():setPropertyString("componentVisibleName",RolandJVToneStateMap[v])
       end
     end
   end
-  log:fine("Finished processing common patch data of "..patchName)
+  log:fine("Finished processing common patch data of %s", self.patchName)
 
   -- FX parameter handling
-  local fxType = midi:getLuaData():getByte(fixedDumpOffset + 0x0C)
+  local fxType = midi:getData():getByte(fixedDumpOffset + 0x0C)
   self:onRunFxTypeChange(nil, fxType)
   -- Request tone data 1, rest will be done by processToneData
-  self:sendDataRequest(0x03,0x00,0x10,0x00,0x00,0x7F)
+    self:sendMidiMessage(RolandJV1080DataRequestMsg(0x10, 0x7F))
 end
 
 -- System data is not yet processed
@@ -2382,43 +2335,39 @@ end
 function RolandJV1080Controller:processToneData(midi,fixedDumpOffset, toneOffset)
 
   -- Individual parameters for the simple controllers
-  for v=0x00,0x100,1 do
+  for v = 0x00, 0x100 do
     -- because of that last parameter, offset handling is more complicated
     local combinedOffset = toneOffset + math.floor(v/0x100)
-    local arrayIndex = string.format("%02X",combinedOffset).." "..string.format("%02X",v)
-    local modulatorRef = modulatorListByMemory[arrayIndex]
+    local arrayIndex = string.format("%02X %02X", combinedOffset, v)
+    local modulatorRef = self.modulatorListByMemory[arrayIndex]
     if modulatorRef ~= nil then
-      --log:fine("Found tone modulator for "..arrayIndex)  
-      local valueToSet = midi:getLuaData():getByte(fixedDumpOffset + v)
+      local valueToSet = midi:getData():getByte(fixedDumpOffset + v)
       if RolandJVToneValueCorrection[v]~= nil then
         valueToSet = valueToSet + RolandJVToneValueCorrection[v]
       end
       modulatorRef:setModulatorValue(valueToSet,false,false,false)
       --modulatorRef:getComponent():setPropertyString("componentVisibleName",RolandJVToneStateMap[v])
-    -- Special handling for wave number, it is stored on 2 bytes
+      -- Special handling for wave number, it is stored on 2 bytes
     elseif v == 0x03 then
-      modulatorRef = modulatorSpecialListByMemory[arrayIndex]
+      modulatorRef = self.modulatorSpecialListByMemory[arrayIndex]
       if modulatorRef ~= nil then
-        --log:fine("Found special tone modulator for "..arrayIndex)  
         modulatorRef:setModulatorValue(
-          midi:getLuaData():getByte(fixedDumpOffset + v)*0x10 +
-          midi:getLuaData():getByte(fixedDumpOffset + v+1),
+          midi:getData():getByte(fixedDumpOffset + v)*0x10 +
+          midi:getData():getByte(fixedDumpOffset + v+1),
           false,false,false)
         --modulatorRef:getComponent():setPropertyString("componentVisibleName",RolandJVToneStateMap[v])
       end
     end
-
-
   end
 
-  log:fine("Finished processing tone "..string.format("%d",(toneOffset-0x10)/2+1).." message "..string.format("%d",(toneOffset % 2)+1))
+  log:fine("Finished processing tone %d message %d", (toneOffset-0x10)/2+1, (toneOffset % 2)+1)
 
   -- Tone messages need to be retrieved in 2 messages each.
   if (toneOffset < 0x17) then
-    self:sendDataRequest(0x03,0x00,toneOffset + 1,0x00,0x00,0x7F)
-  -- Display patch name, processing has ended.
+    self:sendMidiMessage(RolandJV1080DataRequestMsg(toneOffset + 1, 0x7F))
+    -- Display patch name, processing has ended.
   else
-    self:displayText(patchName)
+    self:displayText(self.patchName)
   end
 
 end
@@ -2429,41 +2378,41 @@ end
 -- @value    new numeric value of the modulator
 --
 -- Used also when fx data is loaded from sysex data.
-function RolandJV1080Controller:onRunFxTypeChange(mod, fxType)
+function RolandJV1080Controller:onRunFxTypeChange(mod, value)
   -- do not continue if array is not yet filled (panel not initialized yet)
-  if modulatorListByMemory == nil then return end
+  if self.modulatorListByMemory == nil then return end
   -- Values originate from patch sysex data offset
-  for v=0,0x18-0x0D,1 do
-    local arrayIndex = "00 "..string.format("%02X",v+0x0D)
-    local modulatorRef = modulatorListByMemory[arrayIndex]
+  for v = 0, 0x18-0x0D do
+    local arrayIndex = string.format("00 %02X", v + 0x0D)
+    local modulatorRef = self.modulatorListByMemory[arrayIndex]
     if modulatorRef ~= nil then
-      setFxModulatorToDefault(modulatorRef,v)
-      if  RolandJVEffectParameters[fxType]~= nil then
-        local paramIndex = "prm"..string.format("%d",v+1)
+      self:setFxModulatorToDefault(modulatorRef,v)
+      if  RolandJVEffectParameters[value]~= nil then
+        local paramIndex = string.format("prm%d",v+1)
         -- Set name, range based on the effects array
-        if RolandJVEffectParameters[fxType][paramIndex] ~= nil then
+        if RolandJVEffectParameters[value][paramIndex] ~= nil then
           modulatorRef:getComponent():setPropertyString("componentVisibleName",
-            RolandJVEffectParameters[fxType][paramIndex]["Name"])
+            RolandJVEffectParameters[value][paramIndex]["Name"])
           -- Range. TODO: min-max checking.
-          if RolandJVEffectParameters[fxType][paramIndex]["ValueMax"] ~= nil then
+          if RolandJVEffectParameters[value][paramIndex]["ValueMax"] ~= nil then
             modulatorRef:getComponent():setPropertyString("uiSliderMax",
-              RolandJVEffectParameters[fxType][paramIndex]["ValueMax"])
+              RolandJVEffectParameters[value][paramIndex]["ValueMax"])
           end
           -- Slider type.
           -- Negative ranges require more settings.
-          if (string.match(RolandJVEffectParameters[fxType][paramIndex]["Name"],"Feedback") ~= nil or
-             string.match(RolandJVEffectParameters[fxType][paramIndex]["Name"],"Gain") ~= nil or
-            string.match(RolandJVEffectParameters[fxType][paramIndex]["Name"],"Pan") ~= nil ) and 
-             math.floor(RolandJVEffectParameters[fxType][paramIndex]["ValueMax"]) >= 30 then
+          if (string.match(RolandJVEffectParameters[value][paramIndex]["Name"],"Feedback") ~= nil or
+            string.match(RolandJVEffectParameters[value][paramIndex]["Name"],"Gain") ~= nil or
+            string.match(RolandJVEffectParameters[value][paramIndex]["Name"],"Pan") ~= nil ) and
+            math.floor(RolandJVEffectParameters[value][paramIndex]["ValueMax"]) >= 30 then
 
             modulatorRef:getComponent():setPropertyString("uiImageSliderResource", "JVKNOB5BI")
             -- unfortunately, Pan usually goes from -64 through 0 to +63
             -- so some modulators will require different negative and positive ranges
-            local midValue = math.floor((RolandJVEffectParameters[fxType][paramIndex]["ValueMax"]+1) / 2)
-            local midValue2 = math.floor(RolandJVEffectParameters[fxType][paramIndex]["ValueMax"] / 2)
+            local midValue = math.floor((RolandJVEffectParameters[value][paramIndex]["ValueMax"]+1) / 2)
+            local midValue2 = math.floor(RolandJVEffectParameters[value][paramIndex]["ValueMax"] / 2)
             modulatorRef:getComponent():setPropertyDouble("uiSliderMin",0-midValue)
             modulatorRef:getComponent():setPropertyDouble("uiSliderMax",0+midValue2)
-            modulatorRef:setPropertyString("modulatorValueExpression","modulatorValue + "..string.format("%d",midValue))
+            modulatorRef:setPropertyString("modulatorValueExpression", string.format("modulatorValue + %d",midValue))
             -- The value also needs to be re-set.
             modulatorRef:setModulatorValue(modulatorRef:getModulatorValue()-midValue,false,false,false)
 
@@ -2479,7 +2428,7 @@ end
 
 -- Reset FX modulators. Default settings: 0..127, no offset.
 function RolandJV1080Controller:setFxModulatorToDefault(fxModulatorRef, fxModulatorIndex)
-  fxModulatorRef:getComponent():setPropertyString("componentVisibleName","FX PARAM "..string.format("%d",fxModulatorIndex + 1))
+  fxModulatorRef:getComponent():setPropertyString("componentVisibleName", string.format("FX PARAM %d", fxModulatorIndex + 1))
   fxModulatorRef:getComponent():setPropertyDouble("uiSliderMax",127)
   fxModulatorRef:getComponent():setPropertyDouble("uiSliderMin",0)
   fxModulatorRef:getComponent():setPropertyString("uiImageSliderResource","JVKnob")

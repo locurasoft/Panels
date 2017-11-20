@@ -1,6 +1,7 @@
 require("AbstractController")
 require("Logger")
 require("cutils")
+require("lutils")
 
 local log = Logger("BehringerModulizerController")
 
@@ -46,28 +47,9 @@ local editD = { "::::", "::::", "::::", "Env. / LFO Speed::::*", "Env. / LFO Spe
 BehringerModulizerController = {}
 BehringerModulizerController.__index = BehringerModulizerController
 
-local split = function(text, delimiter)
-  local list = {}
-  local pos = 1
-  if string.find("", delimiter, 1) then -- this would result in endless loops
-    error("delimiter matches empty string!")
-  end
-  while 1 do
-    local first, last = string.find(text, delimiter, pos)
-    if first then -- found?
-      table.insert(list, string.sub(text, pos, first-1))
-      pos = last+1
-    else
-      table.insert(list, string.sub(text, pos))
-      break
-    end
-  end
-  return list
-end
-
 local setComponentProperties = function(mod, dataString)
   local comp = mod:getComponent()
-  local splitData = split(dataString, ":")
+  local splitData = lutils.split(dataString, ":")
 
   local variationBtnGrp = panel:getModulatorByName("variationBtnGrp"):getComponent()
   local variationGrp = panel:getModulatorByName("variationGrp"):getComponent()
@@ -96,7 +78,7 @@ local setComponentProperties = function(mod, dataString)
   local min = 0
   local max = 127
   if splitLength == 2 then
-    local values = split(splitData[2], ",")
+    local values = lutils.split(splitData[2], ",")
     local valuesLength = table.getn(values)
     local valueStr = values[1]
     for i = 2, valuesLength do

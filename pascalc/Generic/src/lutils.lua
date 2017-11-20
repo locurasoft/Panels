@@ -51,6 +51,7 @@ end
 function strNotEmpty(str)
   return str ~= nil and trim(str) ~= ""
 end
+
 function split(text, delimiter)
   local list = {}
   local pos = 1

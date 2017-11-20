@@ -2,12 +2,12 @@ require("LuaObject")
 require("Logger")
 require("lutils")
 
-local log = Logger("Image")
+local log = Logger("MockImage")
 
-Image = {}
-Image.__index = Image
+MockImage = {}
+MockImage.__index = MockImage
 
-setmetatable(Image, {
+setmetatable(MockImage, {
   __index = LuaObject, -- this is what makes the inheritance work
   __call = function (cls, ...)
     local self = setmetatable({}, cls)
@@ -16,6 +16,6 @@ setmetatable(Image, {
   end,
 })
 
-function Image:_init()
+function MockImage:_init()
   LuaObject._init(self)
 end

@@ -16,10 +16,11 @@ setmetatable(AbstractBank, {
   end,
 })
 
-function AbstractBank:_init(bankData)
+function AbstractBank:_init()
   LuaObject._init(self)
 
   self.selectedPatchIndex = 0
+  self.patches = {}
 end
 
 function AbstractBank:getSelectedPatchIndex()
@@ -40,6 +41,14 @@ end
 
 function AbstractBank:setSelectedPatchIndex(selectedPatchIndex)
   self.selectedPatchIndex = selectedPatchIndex
+end
+
+function AbstractBank:hasPatchAt(index)
+  return self.patches[index] ~= nil
+end
+
+function AbstractBank:setPatchAt(patch, index)
+  table.insert(self.patches, index, patch)
 end
 
 function AbstractBank:toStandaloneData()

@@ -1,5 +1,5 @@
 require("ctrlrTestUtils")
-require("PopupMenu")
+require("MockPopupMenu")
 require("MockPanel")
 require("json4ctrlr")
 require("cutils")

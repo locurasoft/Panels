@@ -2,6 +2,8 @@ require("ctrlrTestUtils")
 require("Logger")
 require("MockPanel")
 require("MockTimer")
+require("MockPopupMenu")
+require("MockImage")
 require("controller/YamahaCS1xController")
 require("controller/YamahaCS1xControllerAutogen")
 require("controller/onPanelBeforeLoad")
@@ -358,15 +360,22 @@ local modulatorMap = {
   ["l1PitchDecTime-1"] = 0
 }
 
+local midiCallback = nil
+
 function setup()
   local log = Logger("GLOBAL")
   log:setLevel(3)
   regGlobal("LOGGER", log)
   regGlobal("timer", MockTimer())
+  regGlobal("PopupMenu", MockPopupMenu)
+  regGlobal("Image", MockImage)
 
   midiMessages = {}
   local midiListener = function(midiMessage)
     table.insert(midiMessages, midiMessage)
+    if midiCallback ~= nil then
+      midiCallback(midiMessage)
+    end
   end
   regGlobal("panel", MockPanel("Yamaha-CS1x.panel", midiListener))
   onPanelBeforeLoad()
@@ -376,17 +385,17 @@ function teardown()
   delGlobal("midiService")
 end
 
-function testOnEffectTypeChanged()
-  local mod = MockModulator()
-  mod:setValueMapped(2561)
-  mod:setValue(3)
-  mod:setProperty("modulatorCustomNameGroup", "variationParam")
-  yamahaCS1xController:onEffectTypeChanged(mod, 3)
-end
+--function testOnEffectTypeChanged()
+--  local mod = MockModulator()
+--  mod:setValueMapped(2561)
+--  mod:setValue(3)
+--  mod:setProperty("modulatorCustomNameGroup", "variationParam")
+--  yamahaCS1xController:onEffectTypeChanged(mod, 3)
+--end
 
-function testOnPatchDroppedToPanel()
-  loadPatchFromFile("c:/ctrlr/syxfiles/CS1x/BA_303 Wave.SYX", panel, modulatorMap, "singlePatchName", "303 Wave")
-end
+--function testOnPatchDroppedToPanel()
+--  loadPatchFromFile("c:/ctrlr/syxfiles/CS1x/BA_303 Wave.SYX", panel, modulatorMap, "singlePatchName", "303 Wave")
+--end
 
 --function testOnBankDroppedToPanel()
 --  loadBankFromFile(ensoniqEsq1Controller, "C:/ctrlr/syxfiles/EnsoniqESQ1/Esqhits^2.syx", panel, digpnoMap, "Name1", {"PIANO2", "DIGPNO"})
@@ -401,16 +410,47 @@ end
 --    {  ["DCA1-Level"] = 0 }, "C:/ctrlr/syxfiles/EnsoniqESQ1/Esqhits^2-2.syx")
 --end
 
-function testOnMidiReceived()
+--function testOnMidiReceived()
+--  local t = {}
+--  table.insert(t, MemoryBlock("F0 43 00 4B 00 2E 60 00 00 39 30 39 20 45 51 64 20 11 7F 00 7F 7F 2B 7F 7F 40 70 7F 56 5C 7F 00 79 40 7F 40 40 00 05 00 00 02 00 03 00 60 40 40 40 13 00 5B 0C 07 04 18 F7"))
+--  table.insert(t, MemoryBlock("F0 43 00 4B 00 17 60 00 30 13 00 43 00 4C 00 00 44 00 22 00 4C 00 78 00 44 00 7F 40 40 30 40 1E 3C F7"))
+--  table.insert(t, MemoryBlock("F0 43 00 4B 00 09 60 00 50 29 00 00 50 40 00 00 00 00 0E F7"))
+--  table.insert(t, MemoryBlock("F0 43 00 4B 00 29 60 01 00 3F 0C 05 01 40 08 00 7F 42 34 40 00 7F 1E 40 01 02 40 40 40 40 40 01 40 40 40 40 01 7F 40 40 03 40 40 40 40 40 40 40 40 40 44 F7"))
+--  table.insert(t, MemoryBlock("F0 43 00 4B 00 29 60 02 00 3F 05 00 01 40 08 00 64 40 40 40 00 7F 1E 40 01 02 40 40 40 40 40 00 40 40 40 40 01 7F 40 40 03 40 40 40 40 40 40 40 40 40 61 F7"))
+--  table.insert(t, MemoryBlock("F0 43 00 4B 00 29 60 03 00 3F 06 00 01 40 08 00 64 40 40 40 00 7F 1E 40 01 02 40 40 40 40 40 00 40 40 40 40 01 7F 40 40 03 40 40 40 40 40 40 40 40 40 5F F7"))
+--  yamahaCS1xController.receivedMidiData = t
+--  yamahaCS1xController.midiDump = true
+--	yamahaCS1xController:onMidiReceived(CtrlrMidiMessage(MemoryBlock("F0 43 00 4B 00 29 60 04 00 3F 07 00 01 40 08 00 64 40 40 40 00 7F 1E 40 01 02 40 40 40 40 40 00 40 40 40 40 01 7F 40 40 03 40 40 40 40 40 40 40 40 40 5D F7")))
+--end
+--
+--function testOnMidiReceived2()
+--  local t = {}
+--  table.insert(t, MemoryBlock("F0 43 00 4B 00 2E 60 00 00 44 69 73 74 20 4B 69 6B 14 70 40 40 37 40 40 36 40 3E 00 40 40 7F 40 40 40 40 40 40 01 0B 01 0A 01 16 01 15 29 20 40 40 10 00 51 00 04 04 3B F7"))
+--  table.insert(t, MemoryBlock("F0 43 00 4B 00 17 60 00 30 01 00 41 00 49 00 00 32 00 28 00 4B 00 37 00 4B 00 63 40 40 00 00 13 31 F7"))
+--  table.insert(t, MemoryBlock("F0 43 00 4B 00 09 60 00 50 7A 00 00 58 40 00 00 00 04 31 F7"))
+--  table.insert(t, MemoryBlock("F0 43 00 4B 00 29 60 01 00 3F 04 7E 01 40 08 00 5F 42 34 40 24 24 13 00 01 02 40 40 40 40 40 01 40 40 40 40 01 7F 40 40 03 40 40 40 40 40 40 40 40 40 75 F7"))
+--  table.insert(t, MemoryBlock("F0 43 00 4B 00 29 60 02 00 3F 05 7E 00 34 08 00 3C 42 34 40 25 7F 13 00 01 02 40 40 40 40 40 01 40 40 40 40 01 7F 40 40 03 40 40 40 40 40 40 40 40 40 47 F7"))
+--  table.insert(t, MemoryBlock("F0 43 00 4B 00 29 60 03 00 3F 06 7E 01 40 08 00 64 42 34 40 00 23 13 00 01 02 40 40 40 40 40 01 40 40 40 40 01 7F 40 40 03 40 40 40 40 40 40 40 40 40 11 F7"))
+--  yamahaCS1xController.receivedMidiData = t
+--  yamahaCS1xController.midiDump = true
+--  yamahaCS1xController:onMidiReceived(CtrlrMidiMessage(MemoryBlock("F0 43 00 4B 00 29 60 04 00 3F 07 7E 01 40 08 00 64 40 40 40 00 7F 13 00 01 02 40 40 40 40 40 00 40 40 40 40 01 7F 40 40 03 40 40 40 40 40 40 40 40 40 2A F7")))
+--end
+
+function testRequestDump()
+  regGlobal("POPUP_MENU_SELECT_VALUE", 3)
   local t = {}
-  table.insert(t, MemoryBlock("F0 43 00 4B 00 2E 60 00 00 39 30 39 20 45 51 64 20 11 7F 00 7F 7F 2B 7F 7F 40 70 7F 56 5C 7F 00 79 40 7F 40 40 00 05 00 00 02 00 03 00 60 40 40 40 13 00 5B 0C 07 04 18 F7"))
-  table.insert(t, MemoryBlock("F0 43 00 4B 00 17 60 00 30 13 00 43 00 4C 00 00 44 00 22 00 4C 00 78 00 44 00 7F 40 40 30 40 1E 3C F7"))
-  table.insert(t, MemoryBlock("F0 43 00 4B 00 09 60 00 50 29 00 00 50 40 00 00 00 00 0E F7"))
-  table.insert(t, MemoryBlock("F0 43 00 4B 00 29 60 01 00 3F 0C 05 01 40 08 00 7F 42 34 40 00 7F 1E 40 01 02 40 40 40 40 40 01 40 40 40 40 01 7F 40 40 03 40 40 40 40 40 40 40 40 40 44 F7"))
-  table.insert(t, MemoryBlock("F0 43 00 4B 00 29 60 02 00 3F 05 00 01 40 08 00 64 40 40 40 00 7F 1E 40 01 02 40 40 40 40 40 00 40 40 40 40 01 7F 40 40 03 40 40 40 40 40 40 40 40 40 61 F7"))
-  table.insert(t, MemoryBlock("F0 43 00 4B 00 29 60 03 00 3F 06 00 01 40 08 00 64 40 40 40 00 7F 1E 40 01 02 40 40 40 40 40 00 40 40 40 40 01 7F 40 40 03 40 40 40 40 40 40 40 40 40 5F F7"))
-  yamahaCS1xController.receivedMidiData = t
-	yamahaCS1xController:onMidiReceived(CtrlrMidiMessage(MemoryBlock("F0 43 00 4B 00 29 60 04 00 3F 07 00 01 40 08 00 64 40 40 40 00 7F 1E 40 01 02 40 40 40 40 40 00 40 40 40 40 01 7F 40 40 03 40 40 40 40 40 40 40 40 40 5D F7")))
+  table.insert(t, MemoryBlock("F0 43 00 4B 00 2E 60 00 00 44 69 73 74 20 4B 69 6B 14 70 40 40 37 40 40 36 40 3E 00 40 40 7F 40 40 40 40 40 40 01 0B 01 0A 01 16 01 15 29 20 40 40 10 00 51 00 04 01 3E F7"))
+  table.insert(t, MemoryBlock("F0 43 00 4B 00 17 60 00 30 01 00 41 00 49 00 00 28 00 14 00 48 00 35 00 30 00 7F 40 40 00 00 13 53 F7"))
+  table.insert(t, MemoryBlock("F0 43 00 4B 00 09 60 00 50 7A 00 00 58 40 00 00 00 04 31 F7"))
+  table.insert(t, MemoryBlock("F0 43 00 4B 00 29 60 01 00 3F 04 7E 01 40 08 00 1F 42 74 40 24 24 25 7F 01 02 40 7F 40 40 40 01 40 40 40 40 01 3F 40 40 00 40 40 40 40 40 40 40 40 40 68 F7"))
+  table.insert(t, MemoryBlock("F0 43 00 4B 00 29 60 02 00 3F 05 55 00 58 00 00 08 00 3C 42 34 40 25 7F 01 01 40 40 40 40 40 01 40 01 40 40 40 40 01 7F 03 40 03 40 40 40 40 40 40 40 5C F7"))
+  table.insert(t, MemoryBlock("F0 43 00 4B 00 29 60 03 00 3F 06 7E 01 58 00 01 08 00 64 42 34 40 25 7F 01 00 40 7F 40 40 40 01 40 01 40 40 40 40 01 7F 03 40 03 40 40 40 40 40 40 40 49 F7"))
+  table.insert(t, MemoryBlock("F0 43 00 4B 00 29 60 04 00 3F 07 7E 01 58 00 01 08 00 64 40 40 40 25 7F 01 00 40 7F 40 40 40 00 40 01 40 40 40 40 01 7F 03 40 03 40 40 40 40 40 40 40 3E F7"))
+
+  midiCallback = function(midiMessage)
+    yamahaCS1xController.midiFunction(table.remove(t, 1))
+  end
+  yamahaCS1xController:onLoadMenu()
 end
 
 runTests{useANSI = false}

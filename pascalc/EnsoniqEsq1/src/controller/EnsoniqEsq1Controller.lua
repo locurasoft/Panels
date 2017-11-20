@@ -28,6 +28,9 @@ function EnsoniqEsq1Controller:_init()
   DefaultControllerBase._init(self, PATCH_BUFFER_SIZE, BANK_BUFFER_SIZE, EnsoniqEsq1StandalonePatch, EnsoniqEsq1Bank)
 end
 
+---
+-- @function [parent=#EnsoniqEsq1Controller] loadData
+--
 function EnsoniqEsq1Controller:loadData(data)
   local midiSize = data:getSize()
   if midiSize == self.bankSize then
@@ -67,7 +70,7 @@ function EnsoniqEsq1Controller:onSaveMenu(mod, value)
   elseif ret == 2 then
     self:saveBankToFile()
   elseif ret == 3 then
-    self:writePatchToSynth()  
+    self:writePatchToSynth()
   elseif ret == 4 then
     self:writeBankToSynth(10)
   end
@@ -90,7 +93,7 @@ function EnsoniqEsq1Controller:onLoadMenu(mod, value)
 
     local loadedData = cutils.getSyxAsMemBlock(utils.openFileWindow ("Open Patch", File(""), "*.syx", true))
     self:loadData(loadedData)
-  -- Load Bank
+    -- Load Bank
   elseif menuSelect == 2 then
     self:loadBankFromFile()
   elseif menuSelect == 3 then
@@ -100,8 +103,8 @@ function EnsoniqEsq1Controller:onLoadMenu(mod, value)
     if not AlertWindow.showOkCancelBox(AlertWindow.InfoIcon, "Overwrite bank?", "You have loaded a bank. The current action will overwrite your existing bank. Are you sure you want to continue?", "OK", "Cancel") then
       return
     end
-    self:sendMidiMessage(SingleProgDumpRequest())
+    self:requestDump({ SingleProgDumpRequest() })
   elseif menuSelect == 4 then
-    self:sendMidiMessage(AllProgDumpRequest())
+    self:requestDump({ AllProgDumpRequest() })
   end
 end

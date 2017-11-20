@@ -2,6 +2,9 @@ require("AbstractController")
 require("Logger")
 require("cutils")
 
+---
+-- @field [parent=#DefaultControllerBase] log
+--
 local log = Logger("DefaultControllerBase")
 
 DefaultControllerBase = {}
@@ -28,6 +31,7 @@ function DefaultControllerBase:_init(voiceSize, bankSize, standAlonePatchPointer
   self.receiveBankOffset = -1
   self.voiceSize = voiceSize
   self.bankSize = bankSize
+  self.midiFunction = loadData
 end
 
 ---
@@ -35,11 +39,12 @@ end
 --
 -- This method assigns modulators from a patch
 -- to all modulators in the panel
-function DefaultControllerBase:p2v(patch, sendMidi)
+function DefaultControllerBase:p2v(patch, mute)
+  mute = mute or false
   for i = 0, self.voiceSize do -- gets the voice parameter values
     local mod = self:getModulatorByCustomName(string.format("Voice%d", i))
     if mod ~= nil then
-      mod:setValue(patch:getValue(i), false)
+      mod:setValue(patch:getValue(i), false, mute)
     end
 
   end
@@ -77,7 +82,11 @@ function DefaultControllerBase:assignBank(bank)
   self:toggleActivation("patchSelect", true)
 end
 
-function DefaultControllerBase:loadData(data)
+---
+-- @function [parent=#DefaultControllerBase] loadData
+--
+function DefaultControllerBase:loadData(data, mute)
+  mute = mute or false
   local midiSize = data:getSize()
   if midiSize == self.bankSize then
     local status, bank = pcall(self.bankPointer, data)
@@ -96,11 +105,48 @@ function DefaultControllerBase:loadData(data)
       return
     end
     -- Assign values
-    self:p2v(patch, true)
+    self:p2v(patch, mute)
   else
     error(string.format("The loaded file does not contain valid sysex data: %s", data:toHexString(1)))
     return
   end
+end
+
+---
+-- @function [parent=#DefaultControllerBase] requestDump
+--
+function DefaultControllerBase:requestDump(requestMessages)
+  local midiMessageTimerIndex = 1002
+  local prevMidiReceivedFunc = self.midiFunction
+  local receivedMidiData = {}
+
+  local onMidiMessageTimeout = function()
+    -- Stop timer
+    timer:stopTimer(midiMessageTimerIndex)
+    self.midiFunction = prevMidiReceivedFunc
+
+    AlertWindow.showMessageBox(AlertWindow.WarningIcon, "MIDI Timeout", "No MIDI response from synth received", "OK")
+  end
+
+  local midiReceived = function(myData)
+    timer:stopTimer(midiMessageTimerIndex)
+    table.insert(receivedMidiData, myData)
+
+    if table.getn(requestMessages) > 0 then
+      self:sendMidiMessage(table.remove(requestMessages, 1))
+      timer:setCallback(midiMessageTimerIndex, onMidiMessageTimeout)
+      timer:startTimer(midiMessageTimerIndex, 1000)
+    else
+      self.midiFunction = prevMidiReceivedFunc
+      local data = cutils.mergeArrayOfMemBlocks(receivedMidiData)
+      self:loadData(data, true)
+    end
+  end
+
+  self.midiFunction = midiReceived
+  self:sendMidiMessage(table.remove(requestMessages, 1))
+  timer:setCallback(midiMessageTimerIndex, onMidiMessageTimeout)
+  timer:startTimer(midiMessageTimerIndex, 1000)
 end
 
 ---
@@ -109,30 +155,20 @@ end
 -- Called when a panel receives a midi message (does not need to match any modulator mask)
 -- @midi   http://ctrlr.org/api/class_ctrlr_midi_message.html
 function DefaultControllerBase:onMidiReceived(midi)
-  self:loadData(midi:getData())
+  local data = midi:getData()
+  if data:getByte(0) == 0xF0 and self.midiFunction ~= nil then
+    self.midiFunction(data)
+  end
 end
 
+---
+-- @function [parent=#DefaultControllerBase] loadVoiceFromFile
+--
 function DefaultControllerBase:loadVoiceFromFile(file)
   if file:existsAsFile() then
     local data = MemoryBlock()
     file:loadFileAsData(data)
     self:loadData(data)
-  end
-end
-
----
--- @function [parent=#DefaultControllerBase] sendMidiMessage
---
-function DefaultControllerBase:sendMidiMessage(syxMsg)
-  panel:sendMidiMessageNow(syxMsg:toMidiMessage())
-end
-
----
--- @function [parent=#DefaultControllerBase] sendMidiMessages
---
-function DefaultControllerBase:sendMidiMessages(msgs, interval)
-  for k, nextMsg in pairs(msgs) do
-    panel:sendMidi(nextMsg:toMidiMessage(), interval)
   end
 end
 
@@ -155,11 +191,22 @@ function DefaultControllerBase:onPatchSelect(mod, value)
   if self.bank:isSelectedPatch(value) then
     return
   end
+  
+  self:updateStatus("Loading patch...")
 
-  self:v2p(self.bank:getSelectedPatch())
+  if self.bank:hasPatchAt(value) then
+    self:v2p(self.bank:getSelectedPatch())
 
-  self.bank:setSelectedPatchIndex(value)
-  self:p2v(self.bank:getSelectedPatch(), true)
+    self.bank:setSelectedPatchIndex(value)
+    self:p2v(self.bank:getSelectedPatch(), true)
+  else
+  end
+end
+
+---
+-- @function [parent=#DefaultControllerBase] updateStatus
+--
+function DefaultControllerBase:updateStatus(status)
 end
 
 ---
@@ -200,6 +247,9 @@ function DefaultControllerBase:writePatchToSynth()
   self:sendMidiMessage(patch:toSyxMsg())
 end
 
+---
+-- @function [parent=#DefaultControllerBase] loadBankFromFile
+--
 function DefaultControllerBase:loadBankFromFile()
   -- Prompt user to save bank
   if not AlertWindow.showOkCancelBox(AlertWindow.InfoIcon, "Overwrite bank?", "You have loaded a bank. The current action will overwrite your existing bank. Are you sure you want to continue?", "OK", "Cancel") then

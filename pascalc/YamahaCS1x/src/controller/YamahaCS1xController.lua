@@ -174,7 +174,11 @@ local midiMessageTimerIndex = 1001
 local mappedParams = {
   [66] = true,
   [68] = true,
-  [70] = true
+  [70] = true,
+  [118] = true,
+  [170] = true,
+  [222] = true,
+  [274] = true
 }
 
 local variIndexes = { 1, 2, 3, 4, 5, 10 }
@@ -240,22 +244,51 @@ function YamahaCS1xController:_init()
   self.receivedMidiData = {}
 end
 
+function YamahaCS1xController:loadData(data, mute)
+  mute = mute or false
+  local midiSize = data:getSize()
+  if midiSize == self.bankSize then
+    local status, bank = pcall(self.bankPointer, data)
+    if status then
+      self:assignBank(bank)
+    else
+      log:warn(cutils.getErrorMessage(bank))
+      utils.warnWindow ("Load Bank", cutils.getErrorMessage(bank))
+      return
+    end
+  elseif midiSize == self.voiceSize or midiSize == self.voiceSize + 2 then
+    local status, patch = pcall(self.standAlonePatchPointer, data)
+    if not status then
+      log:warn(cutils.getErrorMessage(patch))
+      utils.warnWindow ("Load Patch", cutils.getErrorMessage(patch))
+      return
+    end
+    -- Assign values
+    self:p2v(patch, mute)
+  else
+    error(string.format("The loaded file does not contain valid sysex data: %s", data:toHexString(1)))
+    return
+  end
+end
+
 ---
--- @function [parent=#DefaultControllerBase] p2v
+-- @function [parent=#YamahaCS1xController] p2v
 --
 -- This method assigns modulators from a patch
 -- to all modulators in the panel
-function YamahaCS1xController:p2v(patch, sendMidi)
+function YamahaCS1xController:p2v(patch, mute)
+  mute = mute or false
   self:toggleVisibility("singlePatchName", false)
   self:toggleVisibility("processingLabel", true)
   for i = 1, self.voiceSize do -- gets the voice parameter values
     local mod = self:getModulatorByCustomIndex(i)
+--    log:info("%d = %.2X", i, patch:getValue(i))
     if mod ~= nil then
       local value = patch:getValue(i)
       if mappedParams[i] then
-        self:setValueByCustomIndexMapped(i, value)
+        self:setValueByCustomIndexMapped(i, value, mute)
       else
-        self:setValueByCustomIndex(i, value)
+        self:setValueByCustomIndex(i, value, mute)
       end
     elseif i == 54 then
       local value = patch:getValue(i)
@@ -271,7 +304,7 @@ function YamahaCS1xController:p2v(patch, sendMidi)
 end
 
 ---
--- @function [parent=#DefaultControllerBase] v2p
+-- @function [parent=#YamahaCS1xController] v2p
 --
 -- This method assembles the param values from
 -- all modulators and stores them in a patch
@@ -300,40 +333,14 @@ function YamahaCS1xController:v2p(patch)
   patch:setPatchName(self:getText("singlePatchName"))
 end
 
-
----
--- @function [parent=#YamahaCS1xController] onMidiReceived
---
--- Called when a panel receives a midi message (does not need to match any modulator mask)
--- @midi   http://ctrlr.org/api/class_ctrlr_midi_message.html
-function YamahaCS1xController:onMidiReceived(midi)
-  if not self.midiDump then
-    return
-  end
-
-  timer:stopTimer(midiMessageTimerIndex)
-  table.insert(self.receivedMidiData, midi:getData())
-
-  if table.getn(self.midiSendQueue) > 0 then
-    self:sendMidiMessage(table.remove(self.midiSendQueue, 1))
-    timer:setCallback(midiMessageTimerIndex, onMidiMessageTimeout)
-    timer:startTimer(midiMessageTimerIndex, 1000)
-  elseif table.getn(self.receivedMidiData) == 7 then
-    self.midiDump = false
-    local data = cutils.mergeArrayOfMemBlocks(self.receivedMidiData)
-    self.receivedMidiData = {}
-    self:loadData(data)
-  end
-end
-
 function YamahaCS1xController:onArpegValueChanged(mod, value)
   local arpegOn = self:getValue("arpegOn")
   local arpegHold = self:getValue("arpegHold")
   local arpegSplit = self:getValue("arpegSplit")
   local value = 0
-  if arpegSplit == 1 then value = 3 end
-  if arpegOn == 1 then value = value + 1 end
-  if arpegHold == 1 then value = value + 1 end
+  if arpegOn == 1 then value = 1 end
+  if arpegHold == 1 then value = value * 2 end
+  if arpegSplit == 0 then value = value + 4 end
   self:sendMidiMessage(CS1xArpegMsg(value))
 end
 
@@ -539,8 +546,7 @@ function YamahaCS1xController:onLoadMenu(mod, value)
     --    end
   elseif menuSelect == 3 then
     -- Load performance from CS1x
-    self.midiDump = true
-    local messages = {
+    local midiSendQueue = {
       CS1xReceiveMsg(COMMON),
       CS1xReceiveMsg(COMMON_1),
       CS1xReceiveMsg(COMMON_2),
@@ -549,7 +555,7 @@ function YamahaCS1xController:onLoadMenu(mod, value)
       CS1xReceiveMsg(LAYER3),
       CS1xReceiveMsg(LAYER4),
     }
-    self:sendMidiMessages(messages, 50)
+    self:requestDump(midiSendQueue)
     --  elseif menuSelect == 4 then
     --
     --    -- Load bank from CS1x

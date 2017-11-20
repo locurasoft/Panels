@@ -1,14 +1,13 @@
 require("LuaObject")
-require("Image")
 require("Logger")
-require("lutils")
 
-local log = Logger("PopupMenu")
+POPUP_MENU_SELECT_VALUE = 0
+MockPopupMenu = {}
+MockPopupMenu.__index = MockPopupMenu
 
-PopupMenu = {}
-PopupMenu.__index = PopupMenu
+local log = Logger("MockPopupMenu")
 
-setmetatable(PopupMenu, {
+setmetatable(MockPopupMenu, {
   __index = LuaObject, -- this is what makes the inheritance work
   __call = function (cls, ...)
     local self = setmetatable({}, cls)
@@ -17,14 +16,13 @@ setmetatable(PopupMenu, {
   end,
 })
 
-function PopupMenu:_init()
+function MockPopupMenu:_init()
   LuaObject._init(self)
 end
 
-function PopupMenu:addItem()
-	
+function MockPopupMenu:show()
+  return POPUP_MENU_SELECT_VALUE
 end
 
-function PopupMenu:show()
-	return POPUP_MENU_SHOW_RETVAL
+function MockPopupMenu:addItem()
 end

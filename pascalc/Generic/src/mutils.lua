@@ -68,6 +68,16 @@ function n2d(ls, ms)
   end
 end
 
+---
+-- @function [parent=#mutils] n2du
+--
+function n2du(ls, ms)
+  local bi = base.BigInteger(0)
+  bi:setBitRangeAsInt(0, 4, ls)
+  bi:setBitRangeAsInt(4, 4, ms)
+  return bi:getBitRangeAsInt(0, 8)
+end
+
 function n2d2(byte1, byte2)
   return byte1 * 16 + byte2
 end
@@ -98,6 +108,17 @@ function d2n(x)
   return nibbles
 end
 
+---
+-- @function [parent=#mutils] du2n
+--
+function du2n(x)
+  local bi = base.BigInteger(x)
+
+  local nibbles = base.MemoryBlock(2, true)
+  nibbles:setByte(0, bi:getBitRangeAsInt(0, 4))
+  nibbles:setByte(1, bi:getBitRangeAsInt(4, 4))
+  return nibbles
+end
 ---
 -- @function [parent=#mutils] a2n
 -- calculate the akai-splitted parameter value,returns table named split with two values
