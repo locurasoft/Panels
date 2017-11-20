@@ -191,22 +191,30 @@ function DefaultControllerBase:onPatchSelect(mod, value)
   if self.bank:isSelectedPatch(value) then
     return
   end
-  
-  self:updateStatus("Loading patch...")
 
-  if self.bank:hasPatchAt(value) then
-    self:v2p(self.bank:getSelectedPatch())
+  self:setStatus("Loading patch...")
 
-    self.bank:setSelectedPatchIndex(value)
-    self:p2v(self.bank:getSelectedPatch(), true)
-  else
-  end
+  --  if self.bank:hasPatchAt(value) then
+  self:v2p(self.bank:getSelectedPatch())
+
+  self.bank:setSelectedPatchIndex(value)
+  self:p2v(self.bank:getSelectedPatch(), true)
+  --  else
+  --  end
 end
 
 ---
--- @function [parent=#DefaultControllerBase] updateStatus
+-- @function [parent=#DefaultControllerBase] setStatus
 --
-function DefaultControllerBase:updateStatus(status)
+function DefaultControllerBase:setStatus(status)
+  self:setText("Name1", status)
+end
+
+---
+-- @function [parent=#DefaultControllerBase] getStatus
+--
+function DefaultControllerBase:getStatus()
+  return self:getText("Name1")
 end
 
 ---
