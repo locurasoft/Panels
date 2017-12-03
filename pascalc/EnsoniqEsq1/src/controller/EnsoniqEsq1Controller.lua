@@ -6,7 +6,6 @@ require("model/EnsoniqEsq1Bank")
 require("message/AllProgDumpRequest")
 require("message/SingleProgDumpRequest")
 require("cutils")
-require("CCMidiSender")
 
 local log = Logger("EnsoniqEsq1Controller")
 
@@ -27,7 +26,6 @@ setmetatable(EnsoniqEsq1Controller, {
 --
 function EnsoniqEsq1Controller:_init()
   DefaultControllerBase._init(self, PATCH_BUFFER_SIZE, BANK_BUFFER_SIZE, EnsoniqEsq1StandalonePatch, EnsoniqEsq1Bank)
-  self.sender = CCMidiSender(500)
 end
 
 ---
@@ -54,10 +52,6 @@ function EnsoniqEsq1Controller:loadData(data)
     -- Assign values
     self:patch2Mods(patch, true)
   end
-end
-
-function EnsoniqEsq1Controller:onParamChange(mod, value)
-	self.sender:setParamValue(mod:getMidiMessage():getPropertyInt("midiMessageCtrlrNumber"), value)
 end
 
 ---
