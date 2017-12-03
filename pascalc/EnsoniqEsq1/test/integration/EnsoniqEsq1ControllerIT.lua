@@ -100,7 +100,7 @@ end
 --  assertEqual(ensoniqEsq1Controller:getText("Name1"), "CLAV #")
 --end
 
---function testV2p()
+--function testmods2Patch()
 --  local max = 5
 --  local mod = panel:getModulatorByName("patchSelect")
 --
@@ -112,7 +112,7 @@ end
 --  for i = 0, max do
 --    ensoniqEsq1Controller:onPatchSelect(mod, i)
 --    assertEqual(bank:getSelectedPatchIndex(), i)
---    --    ensoniqEsq1Controller:v2p(bank:getSelectedPatch())
+--    --    ensoniqEsq1Controller:mods2Patch(bank:getSelectedPatch())
 --  end
 --  
 --  saveBank(bank, "syx1.syx")
@@ -120,7 +120,7 @@ end
 --  for i = 0, max do
 --    ensoniqEsq1Controller:onPatchSelect(mod, 39 - i)
 --    assertEqual(bank:getSelectedPatchIndex(), 39 - i)
---    --    ensoniqEsq1Controller:v2p(bank:getSelectedPatch())
+--    --    ensoniqEsq1Controller:mods2Patch(bank:getSelectedPatch())
 --  end
 --  
 --  saveBank(bank, "syx2.syx")

@@ -1,10 +1,14 @@
 require("LuaObject")
+require("message/CS1xSyxMsg")
 require("Logger")
 require("lutils")
 
 local log = Logger("YamahaCS1xPatch")
 local PATCH_NAME_SIZE = 8
 local PATCH_NAME_START = 9
+local CS_START = 4
+local CS_LENGTH = CS_START + 5 - 1
+
 
 local calculateChecksum = function(sysex, csStart, csEnd)
   local sum = 0
@@ -131,6 +135,7 @@ function YamahaCS1xPatch:setValue(index, value)
   end
   if msblsbParams[index] == 1 then
     local b = mutils.d2b(value, true)
+    log:info("index %d, b1 %.2X, b2 %.2X = %d ", index, b:getByte(0), b:getByte(1), value)
     self.data:setByte(index, b:getByte(0))
     self.data:setByte(index + 1, b:getByte(1))
   elseif detuneParams[index] then
@@ -164,13 +169,26 @@ function YamahaCS1xPatch:toSyxMsg()
   local offs = 0
   for k, header in pairs(HEADER_ARRAY) do
     local blockSize = header:getSize() + header:getByte(5) + 2
-    local memBlock = MemoryBlock(blockSize)
+    local memBlock = MemoryBlock(blockSize, true)
     memBlock:copyFrom(header, 0, header:getSize())
-    memBlock:copyFrom(self.data, offs + header:getSize(), header:getByte(5))
-    memBlock:setByte(memBlock:getSize() - 2, calculateChecksum(memBlock, header:getSize(), header:getByte(5)))
+    local tmp = MemoryBlock(header:getByte(5), true)
+    self.data:copyTo(tmp, offs + header:getSize(), header:getByte(5))
+    memBlock:copyFrom(tmp, header:getSize(), tmp:getSize())
+    memBlock:setByte(memBlock:getSize() - 2, calculateChecksum(memBlock, CS_START, header:getByte(5) + CS_LENGTH))
     memBlock:setByte(memBlock:getSize() - 1, 0xF7)
-    table.insert(self.msgArray, memBlock)
+    table.insert(msgArray, CS1xSyxMsg(memBlock))
     offs = offs + blockSize
   end
   return msgArray
+end
+
+function YamahaCS1xPatch:toStandaloneData()
+  local memBlock = MemoryBlock(SinglePerformanceSize, true)
+  local messages = self:toSyxMsg()
+  local offset = 0
+  for k, message in pairs(messages) do
+    memBlock:copyFrom(message.data, offset, message.data:getSize())
+    offset = offset + message.data:getSize()
+  end
+  return memBlock
 end

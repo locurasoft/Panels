@@ -44,14 +44,14 @@ function EmuProteus2Controller:onSaveMenu(mod, value)
   local ret = menu:show(0,0,0,0)
   if ret == 1 then
     local patch = self.bank:getSelectedPatch()
-    self:v2p(patch)
+    self:mods2Patch(patch)
     cutils.writeSyxDataToFile(patch:toStandaloneData())
   elseif ret == 2 then
     self:saveBankToFile()
   elseif ret == 3 then
     -- This method instructs the user or synth to
     -- store the current patch
-    self:v2p(self.bank:getSelectedPatch())
+    self:mods2Patch(self.bank:getSelectedPatch())
     self:sendMidiMessages(self.bank:toSyxMessages(), 100)
   end
 end
@@ -81,38 +81,6 @@ function EmuProteus2Controller:onLoadMenu(mod, value)
       return
     end
     self:requestDump({ AllUserPresetsRequest(), AllFactoryPresetsRequest() })
-  end
-end
-
----
--- @function [parent=#EmuProteus2Controller] onPatchSelect
--- This method assigns the selected patch to the panel modulators 
-function EmuProteus2Controller:onPatchSelect (mod, value)
-
-  if VoiceBankData == nil then
-    mod:getComponent():setProperty("componentDisabled", 1, false)
-    return
-  end
-
-  if VoiceUpdateBank == true then
-    VoiceUpdateBank = false
-    mod:setValue(Voice_SelectedPatchIndex, false)
-    return
-  end
-
-  if value < 0 then
-    return
-  end
-
-  log:debug("Voice_PatchSelect %d - %d", value + 1, Voice_SelectedPatchIndex)
-  if (value + 1) ~= Voice_SelectedPatchIndex then
-    if Voice_SelectedPatchIndex > 0 then
-      local oldData = Voice_AssembleValues()
-      Voice_putPatch(oldData, Voice_SelectedPatchIndex)
-    end
-    Voice_SelectedPatchIndex = value + 1
-    local patchData = Voice_getPatch(Voice_SelectedPatchIndex)
-    Voice_AssignValues(patchData, true)
   end
 end
 

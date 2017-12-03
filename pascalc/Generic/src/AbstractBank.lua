@@ -43,14 +43,6 @@ function AbstractBank:setSelectedPatchIndex(selectedPatchIndex)
   self.selectedPatchIndex = selectedPatchIndex
 end
 
-function AbstractBank:hasPatchAt(index)
-  return self.patches[index] ~= nil
-end
-
-function AbstractBank:setPatchAt(patch, index)
-  table.insert(self.patches, index, patch)
-end
-
 function AbstractBank:toStandaloneData()
   local buf = MemoryBlock(self.data:getSite(), true)
   buf:copyFrom(self.data, 0, self.data:getSite())

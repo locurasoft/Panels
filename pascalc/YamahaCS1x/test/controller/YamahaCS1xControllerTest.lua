@@ -385,14 +385,6 @@ function teardown()
   delGlobal("midiService")
 end
 
---function testOnEffectTypeChanged()
---  local mod = MockModulator()
---  mod:setValueMapped(2561)
---  mod:setValue(3)
---  mod:setProperty("modulatorCustomNameGroup", "variationParam")
---  yamahaCS1xController:onEffectTypeChanged(mod, 3)
---end
-
 --function testOnPatchDroppedToPanel()
 --  loadPatchFromFile("c:/ctrlr/syxfiles/CS1x/BA_303 Wave.SYX", panel, modulatorMap, "singlePatchName", "303 Wave")
 --end
@@ -451,6 +443,19 @@ function testRequestDump()
     yamahaCS1xController.midiFunction(table.remove(t, 1))
   end
   yamahaCS1xController:onLoadMenu()
+end
+
+function testOnEffectTypeChanged()
+  local mod = MockModulator()
+  mod:setValueMapped(2561)
+  mod:setValue(3)
+  mod:setProperty("modulatorCustomNameGroup", "variationParam")
+--  yamahaCS1xController:onEffectTypeChanged(mod, 3)
+
+  mod:setValueMapped(9728)
+  mod:setValue(40)
+  mod:setProperty("modulatorCustomNameGroup", "variationParam")
+  yamahaCS1xController:onEffectTypeChanged(mod, 40)
 end
 
 runTests{useANSI = false}

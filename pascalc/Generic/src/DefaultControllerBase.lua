@@ -35,11 +35,11 @@ function DefaultControllerBase:_init(voiceSize, bankSize, standAlonePatchPointer
 end
 
 ---
--- @function [parent=#DefaultControllerBase] p2v
+-- @function [parent=#DefaultControllerBase] patch2Mods
 --
 -- This method assigns modulators from a patch
 -- to all modulators in the panel
-function DefaultControllerBase:p2v(patch, mute)
+function DefaultControllerBase:patch2Mods(patch, mute)
   mute = mute or false
   for i = 0, self.voiceSize do -- gets the voice parameter values
     local mod = self:getModulatorByCustomName(string.format("Voice%d", i))
@@ -48,15 +48,15 @@ function DefaultControllerBase:p2v(patch, mute)
     end
 
   end
-  self:setText("Name1", patch:getPatchName())
+  self:setStatus(patch:getPatchName())
 end
 
 ---
--- @function [parent=#DefaultControllerBase] v2p
+-- @function [parent=#DefaultControllerBase] mods2Patch
 --
 -- This method assembles the param values from
 -- all modulators and stores them in a patch
-function DefaultControllerBase:v2p(patch)
+function DefaultControllerBase:mods2Patch(patch)
   -- run through all modulators and fetch their value
   for i = 0, self.voiceSize do
     local mod = self:getModulatorByCustomName(string.format("Voice%d", i))
@@ -65,7 +65,7 @@ function DefaultControllerBase:v2p(patch)
     end
   end
 
-  patch:setPatchName(self:getText("Name1"))
+  patch:setPatchName(self:getStatus())
 end
 
 ---
@@ -76,7 +76,7 @@ end
 function DefaultControllerBase:assignBank(bank)
   self.bank = bank
   self.bank:setSelectedPatchIndex(0)
-  self:p2v(bank:getSelectedPatch(), true)
+  self:patch2Mods(bank:getSelectedPatch(), true)
 
   self:setValue("patchSelect", bank:getSelectedPatchIndex())
   self:toggleActivation("patchSelect", true)
@@ -105,7 +105,7 @@ function DefaultControllerBase:loadData(data, mute)
       return
     end
     -- Assign values
-    self:p2v(patch, mute)
+    self:patch2Mods(patch, mute)
   else
     error(string.format("The loaded file does not contain valid sysex data: %s", data:toHexString(1)))
     return
@@ -194,13 +194,10 @@ function DefaultControllerBase:onPatchSelect(mod, value)
 
   self:setStatus("Loading patch...")
 
-  --  if self.bank:hasPatchAt(value) then
-  self:v2p(self.bank:getSelectedPatch())
+  self:mods2Patch(self.bank:getSelectedPatch())
 
   self.bank:setSelectedPatchIndex(value)
-  self:p2v(self.bank:getSelectedPatch(), true)
-  --  else
-  --  end
+  self:patch2Mods(self.bank:getSelectedPatch(), true)
 end
 
 ---
@@ -222,7 +219,7 @@ end
 --
 -- Saves the current bank to file
 function DefaultControllerBase:saveBankToFile()
-  self:v2p(self.bank:getSelectedPatch())
+  self:mods2Patch(self.bank:getSelectedPatch())
   cutils.writeSyxDataToFile(self.bank:toStandaloneData(), utils.saveFileWindow ("Save bank", File(""), "*.syx", true))
 end
 
@@ -231,7 +228,7 @@ end
 --
 -- Saves the current bank to file
 function DefaultControllerBase:writeBankToSynth(interval)
-  self:v2p(self.bank:getSelectedPatch())
+  self:mods2Patch(self.bank:getSelectedPatch())
   self:sendMidiMessages(self.bank:toSyxMessages(), interval)
 end
 
@@ -241,7 +238,7 @@ end
 -- Saves the current bank to file
 function DefaultControllerBase:savePatchToFile()
   local patch = self.bank:getSelectedPatch()
-  self:v2p(patch)
+  self:mods2Patch(patch)
   cutils.writeSyxDataToFile(patch:toStandaloneData(), utils.saveFileWindow ("Save patch", File(""), "*.syx", true))
 end
 
@@ -251,7 +248,7 @@ end
 -- Saves the current bank to file
 function DefaultControllerBase:writePatchToSynth()
   local patch = self.bank:getSelectedPatch()
-  self:v2p(patch)
+  self:mods2Patch(patch)
   self:sendMidiMessage(patch:toSyxMsg())
 end
 

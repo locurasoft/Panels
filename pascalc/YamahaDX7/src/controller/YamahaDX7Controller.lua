@@ -177,7 +177,7 @@ function YamahaDX7Controller:onLoadMenu(mod, value)
       f:loadFileAsData(loadedData)
       local status, patch = pcall(StandalonePatch, loadedData)
       if status then
-        self:p2v(patch, true)
+        self:patch2Mods(patch, true)
       else
         log:warn(cutils.getErrorMessage(patch))
         utils.warnWindow ("Load Patch", cutils.getErrorMessage(patch))

@@ -113,28 +113,28 @@ local effectParamTables = {
   { "TypeA", "TypeB" }
 }
 
-local reverbParams = { "Reverb Time:4:0:69:", "Diffusion::0:10:", "Initial Delay:5:0:63:", "HPF Cutoff:3:0:52:", "LPF Cutoff:3:34:60:", "::::", "::::", "::::", "::::", "Dry/Wet:10:1:127:", "Rev Delay:5:0:63:", "Density::0:3:", "Er/Rev Bal:11:1:127:", "::::", "Fdbk Lvl::-63:63:64", "::::" }
-local delayLCRParams = { "Lch Delay::1:7150:", "Rch Delay::1:7150:", "Cch Delay::1:7150:", "Fdbk Delay::1:7150:", "Fdbk Lvl::-63:63:64", "Cch Level::0:127:", "High Damp:13:1:10:", "::::", "::::", "Dry/Wet:10:1:127:", "::::", "::::", "Low Freq:3:8:40:", "Low Gain::-12:12:64", "High Freq:3:28:58:", "High Gain::-12:12:64" }
-local delayLRParams = { "Lch Delay::1:7150:", "Rch Delay::1:7150:", "Fdbk Delay 1::1:7150:", "Fdbk Delay 2::1:7150:", "Fdbk Lvl::-63:63:64", "High Damp:13:1:10:", "::::", "::::", "::::", "Dry/Wet:10:1:127:", "::::", "::::", "Low Freq:3:8:40:", "Low Gain::-12:12:64", "High Freq:3:28:58:", "High Gain::-12:12:64" }
-local echoParams = { "Lch Delay1::1:3550:", "Lch Fdbk Lvl::-63:63:64", "Rch Delay1::1:3550:", "Rch Fdbk Lvl::-63:63:64", "High Damp:13:1:10:", "Lch Delay2::1:3550:", "Rch Delay2::1:3550:", "Delay2 Level::0:127:", "::::", "Dry/Wet:10:1:127:", "::::", "::::", "Low Freq:3:8:40:", "Low Gain::-12:12:64", "High Freq:3:28:58:", "High Gain::-12:12:64" }
-local crossDelayParams = { "L->R Delay::1:3550:", "R->L Delay::1:3550:", "Fdbk Lvl::-63:63:64", "Input Select:12:0:2:1", "High Damp:13:1:10:", "::::", "::::", "::::", "::::", "Dry/Wet:10:1:127:", "::::", "::::", "Low Freq:3:8:40:", "Low Gain::-12:12:64", "High Freq:3:28:58:", "High Gain::-12:12:64" }
-local earlyReflectionsParams = { "Type:19:0:5:1", "Room Size:6:0:44:", "Diffusion::0:10:", "Initial Delay:5:0:63:", "Fdbk Lvl::-63:63:64", "HPF Cutoff:3:0:52:", "LPF Cutoff:3:34:60:", "::::", "::::", "Dry/Wet:10:1:127:", "Liveness::0:10:", "Density::0:3:", "High Damp:13:1:10:", "::::", "::::", "::::" }
-local gatedReverbParams = { "Type:20:0:1:1", "Room Size:6:0:44:1", "Diffusion::0:10:", "Initial Delay:5:0:63:1", "Fdbk Lvl::-63:63:64", "HPF Cutoff:3:0:52:1", "LPF Cutoff:3:34:60:1", "::::", "::::", "Dry/Wet:10:1:127:", "Liveness::0:10:", "Density::0:3:", "High Damp:13:1:10:", "::::", "::::", "::::", }
-local whiteRoomParams = { "Reverb Time:4:0:69:", "Diffusion::0:10:", "Initial Delay:5:0:63:", "HPF Cutoff:3:0:52:", "LPF Cutoff:3:34:60:", "Width:8:0:37:", "Heigt:8:0:73:", "Depth:8:0:104:", "Wall Vary::0:30:", "Dry/Wet:10:1:127:", "Rev Delay:5:0:63:", "Density::0:3:", "Er/Rev Bal:11:1:127:", "::::", "Fdbk Lvl::-63:63:64", "::::" }
-local karaokeParams = { "Delay Time:7:0:127:", "Fdbk Lvl::-63:63:64", "HPF Cutoff:3:0:52:1", "LPF Cutoff:3:34:60:", "::::", "::::", "::::", "::::", "::::", "Dry/Wet:10:1:127:", "::::", "::::", "::::", "::::", "::::", "::::", }
-local chorusParams = { "LFO Freq:1:0:127:", "LFO PM Depth::0:127:", "Fdbk Lvl::-63:63:64", "Delay Offset:2:0:127:", "::::", "Low Freq:3:8:40:", "Low Gain::-12:12:64", "High Freq:3:28:58:", "High Gain::-12:12:64", "Dry/Wet:10:1:127:", "::::", "::::", "::::", "::::", "Input Mode:14:0:1:", "::::", }
-local flangerParams = { "LFO Freq:1:0:127:", "LFO Depth::0:127:", "Fdbk Lvl::-63:63:64", "Delay Offset:2:0:63:", "::::", "Low Freq:3:8:40:", "Low Gain::-12:12:64", "High Freq:3:28:58:", "High Gain::-12:12:64", "Dry/Wet:10:1:127:", "::::", "::::", "::::", "LFO Ph Diff:15:4:124:", "::::", "::::", }
-local symphonicParams = { "LFO Freq:1:0:127:", "LFO Depth::0:127:", "Delay Offset:2:0:127:", "::::", "::::", "Low Freq:3:8:40:", "Low Gain::-12:12:64", "High Freq:3:28:58:", "High Gain::-12:12:64", "Dry/Wet:10:1:127:", "::::", "::::", "::::", "::::", "::::", "::::", }
-local rotarySpkrParams = { "LFO Freq:1:0:127:", "LFO Depth::0:127:", "::::", "::::", "::::", "Low Freq:3:8:40:", "Low Gain::-12:12:64", "High Freq:3:28:58:", "High Gain::-12:12:64", "Dry/Wet:10:1:127:", "::::", "::::", "::::", "::::", "::::", "::::", }
-local tremoloParams = { "LFO Freq:1:0:127:", "AM Depth::0:127:", "PM Depth::0:127:", "::::", "::::", "Low Freq:3:8:40:", "Low Gain::-12:12:64", "High Freq:3:28:58:", "High Gain::-12:12:64", "::::", "::::", "::::", "::::", "LFO Ph Diff:15:4:124:", "Input Mode:14:0:1:", "::::", }
-local autoPanParams = { "LFO Freq:1:0:127:", "L/R Depth::0:127:", "F/R Depth::0:127:", "Pan Dir:16:0:5:", "::::", "Low Freq:3:8:40:", "Low Gain::-12:12:64", "High Freq:3:28:58:", "High Gain::-12:12:64", "::::", "::::", "::::", "::::", "::::", "::::", "::::", }
-local phaserParams = { "LFO Freq:1:0:127:", "LFO Depth::0:127:", "Phase ShftOffs::0:127:", "Fdbk Lvl::-63:63:64", "::::", "Low Freq:3:8:40:", "Low Gain::-12:12:64", "High Freq:3:28:58:", "High Gain::-12:12:64", "Dry/Wet:10:1:127:", "Stage::3:10:", "Diffusion:14:0:1:", "LFO Ph Diff:15:4:124:", "::::", "::::", "::::", }
-local distortionParams = { "Drive::0:127:", "Low Freq:3:8:40:", "Low Gain::-12:12:64", "LPF Cutoff:3:34:60:", "Output Level::0:127:", "::::", "Mid Freq:3:28:54:", "Mid Gain::-12:12:64", "Mid Width:17:10:120:10", "Dry/Wet:10:1:127:", "Edge::0:127:", "::::", "::::", "::::", "::::", "::::", }
-local ampSimulatorParams = { "Drive::0:127:", "AMP Type:18:0:3:", "LPF Cutoff:3:34:60:", "Output Level::0:127:", "::::", "::::", "::::", "::::", "::::", "Dry/Wet:10:1:127:", "Edge::0:127:", "::::", "::::", "::::", "::::", "::::", }
-local threeBandEqParams = { "Low Gain::-12:12:64", "Mid Freq:3:28:54:", "Mid Gain::-12:12:64", "Mid Width:17:10:120:10", "High Gain::-12:12:64", "Low Freq:3:8:40:", "High Freq:3:28:58:", "::::", "::::", "::::", "::::", "::::", "::::", "::::", "::::", "::::", }
-local twoBandEqParams = { "Low Freq:3:8:40:", "Low Gain::-12:12:64", "High Freq:3:28:58:", "High Gain::-12:12:64", "::::", "::::", "::::", "::::", "::::", "::::", "::::", "::::", "::::", "::::", "::::", "::::", }
-local autoWahParams = { "LFO Freq:1:0:127:", "LFO Depth::0:127:", "Cutoff Freq:9:0:127:", "Resonance:17:10:120:10", "::::", "Low Freq:3:8:40:", "Low Gain::-12:12:64", "High Freq:3:28:58:", "High Gain::-12:12:64", "Dry/Wet:10:1:127:", "::::", "::::", "::::", "::::", "::::", "::::", }
-local thruParams = { "::::", "::::", "::::", "::::", "::::", "::::", "::::", "::::", "::::", "::::", "::::", "::::", "::::", "::::", "::::", "::::", }
+local reverbParams = {           "Reverb Time:4:0:69:", "Diffusion::0:10:",        "Initial Delay:5:0:63:",  "HPF Cutoff:3:0:52:",      "LPF Cutoff:3:34:60:",  "Dry/Wet:10:1:127:",    "::::", "::::", "::::", "::::", "Rev Delay:5:0:63:", "Density::0:3:", "Er/Rev Bal:11:1:127:", "::::", "Fdbk Lvl::-63:63:64", "::::" }
+local delayLCRParams = {         "Lch Delay::1:7150:",  "Rch Delay::1:7150:",      "Cch Delay::1:7150:",     "Fdbk Delay::1:7150:",     "Fdbk Lvl::-63:63:64",  "Dry/Wet:10:1:127:",    "Cch Level::0:127:", "High Damp:13:1:10:", "::::", "::::", "::::", "::::", "Low Freq:3:8:40:", "Low Gain::-12:12:64", "High Freq:3:28:58:", "High Gain::-12:12:64" }
+local delayLRParams = {          "Lch Delay::1:7150:",  "Rch Delay::1:7150:",      "Fdbk Delay 1::1:7150:",  "Fdbk Delay 2::1:7150:",   "Fdbk Lvl::-63:63:64",  "Dry/Wet:10:1:127:",    "High Damp:13:1:10:", "::::", "::::", "::::", "::::", "::::", "Low Freq:3:8:40:", "Low Gain::-12:12:64", "High Freq:3:28:58:", "High Gain::-12:12:64" }
+local echoParams = {             "Lch Delay1::1:3550:", "Lch Fdbk Lvl::-63:63:64", "Rch Delay1::1:3550:",    "Rch Fdbk Lvl::-63:63:64", "High Damp:13:1:10:",   "Dry/Wet:10:1:127:",    "Lch Delay2::1:3550:", "Rch Delay2::1:3550:", "Delay2 Level::0:127:", "::::", "::::", "::::", "Low Freq:3:8:40:", "Low Gain::-12:12:64", "High Freq:3:28:58:", "High Gain::-12:12:64" }
+local crossDelayParams = {       "L->R Delay::1:3550:", "R->L Delay::1:3550:",     "Fdbk Lvl::-63:63:64",    "Input Select:12:0:2:1",   "High Damp:13:1:10:",   "Dry/Wet:10:1:127:",    "::::", "::::", "::::", "::::", "::::", "::::", "Low Freq:3:8:40:", "Low Gain::-12:12:64", "High Freq:3:28:58:", "High Gain::-12:12:64" }
+local earlyReflectionsParams = { "Type:19:0:5:1",       "Room Size:6:0:44:",       "Diffusion::0:10:",       "Initial Delay:5:0:63:",   "Fdbk Lvl::-63:63:64",  "Dry/Wet:10:1:127:",    "HPF Cutoff:3:0:52:", "LPF Cutoff:3:34:60:", "::::", "::::", "Liveness::0:10:", "Density::0:3:", "High Damp:13:1:10:", "::::", "::::", "::::" }
+local gatedReverbParams = {      "Type:20:0:1:1",       "Room Size:6:0:44:1",      "Diffusion::0:10:",       "Initial Delay:5:0:63:1",  "Fdbk Lvl::-63:63:64",  "Dry/Wet:10:1:127:",    "HPF Cutoff:3:0:52:1", "LPF Cutoff:3:34:60:1", "::::", "::::", "Liveness::0:10:", "Density::0:3:", "High Damp:13:1:10:", "::::", "::::", "::::", }
+local whiteRoomParams = {        "Reverb Time:4:0:69:", "Diffusion::0:10:",        "Initial Delay:5:0:63:",  "HPF Cutoff:3:0:52:",      "LPF Cutoff:3:34:60:",  "Dry/Wet:10:1:127:",    "Width:8:0:37:", "Heigt:8:0:73:", "Depth:8:0:104:", "Wall Vary::0:30:", "Rev Delay:5:0:63:", "Density::0:3:", "Er/Rev Bal:11:1:127:", "::::", "Fdbk Lvl::-63:63:64", "::::" }
+local karaokeParams = {          "Delay Time:7:0:127:", "Fdbk Lvl::-63:63:64",     "HPF Cutoff:3:0:52:1",    "LPF Cutoff:3:34:60:",     "::::",                 "Dry/Wet:10:1:127:",    "::::", "::::", "::::", "::::", "::::", "::::", "::::", "::::", "::::", "::::", }
+local chorusParams = {           "LFO Freq:1:0:127:",   "LFO PM Depth::0:127:",    "Fdbk Lvl::-63:63:64",    "Delay Offset:2:0:127:",   "::::",                 "Dry/Wet:10:1:127:",    "Low Freq:3:8:40:", "Low Gain::-12:12:64", "High Freq:3:28:58:", "High Gain::-12:12:64", "::::", "::::", "::::", "::::", "Input Mode:14:0:1:", "::::", }
+local flangerParams = {          "LFO Freq:1:0:127:",   "LFO Depth::0:127:",       "Fdbk Lvl::-63:63:64",    "Delay Offset:2:0:63:",    "::::",                 "Dry/Wet:10:1:127:",    "Low Freq:3:8:40:", "Low Gain::-12:12:64", "High Freq:3:28:58:", "High Gain::-12:12:64", "::::", "::::", "::::", "LFO Ph Diff:15:4:124:", "::::", "::::", }
+local symphonicParams = {        "LFO Freq:1:0:127:",   "LFO Depth::0:127:",       "Delay Offset:2:0:127:",  "::::",                    "::::",                 "Dry/Wet:10:1:127:",    "Low Freq:3:8:40:", "Low Gain::-12:12:64", "High Freq:3:28:58:", "High Gain::-12:12:64", "::::", "::::", "::::", "::::", "::::", "::::", }
+local rotarySpkrParams = {       "LFO Freq:1:0:127:",   "LFO Depth::0:127:",       "::::",                   "::::",                    "::::",                 "Dry/Wet:10:1:127:",    "Low Freq:3:8:40:", "Low Gain::-12:12:64", "High Freq:3:28:58:", "High Gain::-12:12:64", "::::", "::::", "::::", "::::", "::::", "::::", }
+local tremoloParams = {          "LFO Freq:1:0:127:",   "AM Depth::0:127:",        "PM Depth::0:127:",       "::::",                    "::::",                 "Low Freq:3:8:40:",     "Low Gain::-12:12:64", "High Freq:3:28:58:", "High Gain::-12:12:64", "::::", "::::", "::::", "::::", "LFO Ph Diff:15:4:124:", "Input Mode:14:0:1:", "::::", }
+local autoPanParams = {          "LFO Freq:1:0:127:",   "L/R Depth::0:127:",       "F/R Depth::0:127:",      "Pan Dir:16:0:5:",         "::::",                 "Low Freq:3:8:40:",     "Low Gain::-12:12:64", "High Freq:3:28:58:", "High Gain::-12:12:64", "::::", "::::", "::::", "::::", "::::", "::::", "::::", }
+local phaserParams = {           "LFO Freq:1:0:127:",   "LFO Depth::0:127:",       "Phase ShftOffs::0:127:", "Fdbk Lvl::-63:63:64",     "::::",                 "Dry/Wet:10:1:127:",    "Low Freq:3:8:40:", "Low Gain::-12:12:64", "High Freq:3:28:58:", "High Gain::-12:12:64", "Stage::3:10:", "Diffusion:14:0:1:", "LFO Ph Diff:15:4:124:", "::::", "::::", "::::", }
+local distortionParams = {       "Drive::0:127:",       "Low Freq:3:8:40:",        "Low Gain::-12:12:64",    "LPF Cutoff:3:34:60:",     "Output Level::0:127:", "Dry/Wet:10:1:127:",    "::::", "Mid Freq:3:28:54:", "Mid Gain::-12:12:64", "Mid Width:17:10:120:10", "Edge::0:127:", "::::", "::::", "::::", "::::", "::::", }
+local ampSimulatorParams = {     "Drive::0:127:",       "AMP Type:18:0:3:",        "LPF Cutoff:3:34:60:",    "Output Level::0:127:",    "::::",                 "Dry/Wet:10:1:127:",    "::::", "::::", "::::", "::::", "Edge::0:127:", "::::", "::::", "::::", "::::", "::::", }
+local threeBandEqParams = {      "Low Gain::-12:12:64", "Mid Freq:3:28:54:",       "Mid Gain::-12:12:64",    "Mid Width:17:10:120:10",  "High Gain::-12:12:64", "Low Freq:3:8:40:",     "High Freq:3:28:58:", "::::", "::::", "::::", "::::", "::::", "::::", "::::", "::::", "::::", }
+local twoBandEqParams = {        "Low Freq:3:8:40:",    "Low Gain::-12:12:64",     "High Freq:3:28:58:",     "High Gain::-12:12:64",    "::::",                 "::::",                 "::::", "::::", "::::", "::::", "::::", "::::", "::::", "::::", "::::", "::::", }
+local autoWahParams = {          "LFO Freq:1:0:127:",   "LFO Depth::0:127:",       "Cutoff Freq:9:0:127:",   "Resonance:17:10:120:10",  "::::",                 "Dry/Wet:10:1:127:",    "Low Freq:3:8:40:", "Low Gain::-12:12:64", "High Freq:3:28:58:", "High Gain::-12:12:64", "::::", "::::", "::::", "::::", "::::", "::::", }
+local thruParams = {             "::::",                "::::",                    "::::",                   "::::",                    "::::",                 "::::",                 "::::", "::::", "::::", "::::", "::::", "::::", "::::", "::::", "::::", "::::", }
 
 local effectParams = {
   ['0x01'] = reverbParams,
@@ -181,7 +181,7 @@ local mappedParams = {
   [274] = true
 }
 
-local variIndexes = { 1, 2, 3, 4, 5, 10 }
+local variIndexes = { 1, 2, 3, 4, 5, 6 }
 
 local getSliderContentFromSequence = function(min, max)
   local contents = ""
@@ -264,7 +264,7 @@ function YamahaCS1xController:loadData(data, mute)
       return
     end
     -- Assign values
-    self:p2v(patch, mute)
+    self:patch2Mods(patch, mute)
   else
     error(string.format("The loaded file does not contain valid sysex data: %s", data:toHexString(1)))
     return
@@ -272,43 +272,53 @@ function YamahaCS1xController:loadData(data, mute)
 end
 
 ---
--- @function [parent=#YamahaCS1xController] p2v
+-- @function [parent=#YamahaCS1xController] patch2Mods
 --
 -- This method assigns modulators from a patch
 -- to all modulators in the panel
-function YamahaCS1xController:p2v(patch, mute)
+function YamahaCS1xController:patch2Mods(patch, mute)
   mute = mute or false
-  self:toggleVisibility("singlePatchName", false)
-  self:toggleVisibility("processingLabel", true)
+  self:setStatus("Loading...")
   for i = 1, self.voiceSize do -- gets the voice parameter values
     local mod = self:getModulatorByCustomIndex(i)
---    log:info("%d = %.2X", i, patch:getValue(i))
+    local value = patch:getValue(i)
+    --    log:info("%d = %.2X", i, patch:getValue(i))
     if mod ~= nil then
-      local value = patch:getValue(i)
       if mappedParams[i] then
         self:setValueByCustomIndexMapped(i, value, mute)
       else
         self:setValueByCustomIndex(i, value, mute)
       end
     elseif i == 54 then
-      local value = patch:getValue(i)
       local modulo = value % 3
       self:setValueByCustomName("arpegOn", modulo == 0 and 0 or 1)
       self:setValueByCustomName("arpegHold", modulo == 2 and 1 or 0)
       self:setValueByCustomName("arpegSplit", value < 3 and 1 or 0)
     end
   end
-  self:setText("singlePatchName", patch:getPatchName())
-  self:toggleVisibility("processingLabel", false)
-  self:toggleVisibility("singlePatchName", true)
+  self:setStatus(patch:getPatchName())
 end
 
 ---
--- @function [parent=#YamahaCS1xController] v2p
+-- @function [parent=#YamahaCS1xController] setStatus
+--
+function YamahaCS1xController:setStatus(status)
+  self:setText("singlePatchName", status)
+end
+
+---
+-- @function [parent=#YamahaCS1xController] getStatus
+--
+function YamahaCS1xController:getStatus()
+  return self:getText("singlePatchName")
+end
+
+---
+-- @function [parent=#YamahaCS1xController] mods2Patch
 --
 -- This method assembles the param values from
 -- all modulators and stores them in a patch
-function YamahaCS1xController:v2p(patch)
+function YamahaCS1xController:mods2Patch(patch)
   -- run through all modulators and fetch their value
   for i = 1, self.voiceSize do
     local mod = self:getModulatorByCustomIndex(i)
@@ -317,16 +327,9 @@ function YamahaCS1xController:v2p(patch)
       if mappedParams[i] then
         value = mod:getValueMapped()
       end
-      patch:setValue(i, mod:getValue())
-    elseif i == 54 then
-      local arpegOn = self:getValue("arpegOn")
-      local arpegHold = self:getValue("arpegHold")
-      local arpegSplit = self:getValue("arpegSplit")
-      local value = 0
-      if arpegSplit == 1 then value = 3 end
-      if arpegOn == 1 then value = value + 1 end
-      if arpegHold == 1 then value = value + 1 end
       patch:setValue(i, value)
+    elseif i == 54 then
+      patch:setValue(i, self:getArpegValue())
     end
   end
 
@@ -334,6 +337,10 @@ function YamahaCS1xController:v2p(patch)
 end
 
 function YamahaCS1xController:onArpegValueChanged(mod, value)
+  self:sendMidiMessage(CS1xArpegMsg(self:getArpegValue()))
+end
+
+function YamahaCS1xController:getArpegValue()
   local arpegOn = self:getValue("arpegOn")
   local arpegHold = self:getValue("arpegHold")
   local arpegSplit = self:getValue("arpegSplit")
@@ -341,9 +348,8 @@ function YamahaCS1xController:onArpegValueChanged(mod, value)
   if arpegOn == 1 then value = 1 end
   if arpegHold == 1 then value = value * 2 end
   if arpegSplit == 0 then value = value + 4 end
-  self:sendMidiMessage(CS1xArpegMsg(value))
+  return value
 end
-
 ---
 -- @function [parent=#YamahaCS1xController] onEffectSelectorChanged
 -- Called when a modulator value changes
@@ -371,10 +377,15 @@ function YamahaCS1xController:onEffectTypeChanged(mod, value)
   if effectIndex > 0 then
     effectParamList = effectParams[string.format("0x%.2X", effectIndex)]
   end
+  if effectParamList == nil then
+    effectParamList = thruParams
+  end
+
   local groupName = mod:getProperty("modulatorCustomNameGroup")
 
   for i = 1, 6 do
-    local index = variIndexes[i]
+    --    local index = variIndexes[i]
+    local index = i
     local modName = string.format("%s%d", groupName, index)
     local paramValues = lutils.split(effectParamList[index], ":")
     if table.getn(paramValues) ~= 5 then
@@ -485,7 +496,10 @@ function YamahaCS1xController:onSaveMenu(mod, value)
     --
     --    cutils.writeSyxDataToFile(memBlock, utils.saveFileWindow ("Save bank", File(""), "*.syx", true))
   elseif menuSelect == 3 then
-    self:writePatchToSynth()
+    local patch = self.bank:getSelectedPatch()
+    self:mods2Patch(patch)
+    self:sendMidiMessages(patch:toSyxMsg(), 100)
+
     --  elseif menuSelect == 4 then
     --
     --    -- Write bank to CS1x

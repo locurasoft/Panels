@@ -201,11 +201,6 @@ function YamahaCS1xBank:_init(bankData)
   end
 end
 
-function YamahaCS1xBank:setPatchAt(patch, index)
-  table.insert(self.patches, index, patch)
-  self.data:copyFrom(patch:toSyxMsg(), (index - 1) * SinglePerformanceSize, SinglePerformanceSize)
-end
-
 function YamahaCS1xBank:toStandaloneData()
   compressData(self.patches, self.data)
   return self.data

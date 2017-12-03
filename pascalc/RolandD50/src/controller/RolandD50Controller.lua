@@ -31,9 +31,10 @@ end
 
 -- This method assigns patch data from a memory block
 -- to all modulators in the panel
-function RolandD50Controller:p2v(patch, sendMidi)
+function RolandD50Controller:patch2Mods(patch, sendMidi)
   -- gets the voice parameter values
   self:setValue("toneSelector", 0)
+  self:setStatus("Loading...")
 
   for i = 0, Voice_singleSize do
     local mod = panel:getModulatorWithProperty("modulatorCustomName", string.format("Voice%d", i))
@@ -48,7 +49,7 @@ function RolandD50Controller:p2v(patch, sendMidi)
   self:setValue("LowerPartial2", patch:getLowerPartial2Value())
 
   -- Set Patch name
-  self:setText("Name1", patch:getPatchName())
+  self:setStatus(patch:getPatchName())
   self:setText("VoiceName12", patch:getUpperToneName())
   self:setText("VoiceName123", patch:getLowerToneName())
 
@@ -59,7 +60,7 @@ end
 
 -- This method assembles the param values from
 -- all modulators and stores them in a memory block
-function RolandD50Controller:v2p(patch)
+function RolandD50Controller:mods2Patch(patch)
   for i = 0, Voice_singleSize - 1 do -- run through all modulators and fetch their value
     local mod = panel:getModulatorWithProperty("modulatorCustomName", string.format("Voice%d", i))
     if mod ~= nil and i ~= 174 and i ~= 366 then
@@ -70,7 +71,7 @@ function RolandD50Controller:v2p(patch)
   patch:setUpperPartialValue(self:getValue("UpperPartial1"), self:getValue("UpperPartial2"))
   patch:setLowerPartialValue(self:getValue("LowerPartial1"), self:getValue("LowerPartial2"))
 
-  patch:setPatchName(self:getText("Name1"))
+  patch:setPatchName(self:getStatus())
   patch:setUpperToneName(self:getText("VoiceName12"))
   patch:setLowerToneName(self:getText("VoiceName123"))
 
@@ -183,7 +184,7 @@ function RolandD50Controller:onSaveMenu(mod, value)
   if ret == 1 then
     local status, patch = pcall(RolandD50Patch)
     if status then
-      self:v2p(patch)
+      self:mods2Patch(patch)
       cutils.writeSyxDataToFile(patch:toStandaloneData())
     else
       log:warn(cutils.getErrorMessage(patch))
@@ -196,7 +197,7 @@ function RolandD50Controller:onSaveMenu(mod, value)
     -- store the current patch
     AlertWindow.showMessageBox(AlertWindow.InfoIcon, "Information", "Hold down the \"DATA TRANSFER\" button then press \"(B.LOAD)\".\nRelease the two buttons and press \"ENTER\".\nOnce the D-50 is in waiting for data press \"OK\" to close this popup.", "OK")
 
-    self:v2p(self.bank:getSelectedPatch())
+    self:mods2Patch(self.bank:getSelectedPatch())
     self:sendMidiMessages(self.bank:toSyxMessages(), 10)
   else
     return
@@ -220,7 +221,7 @@ function RolandD50Controller:onLoadMenu(mod, value)
       f:loadFileAsData(loadedData)
       local status, patch = pcall(RolandD50StandalonePatch, loadedData)
       if status then
-        self:p2v(patch, true)
+        self:patch2Mods(patch, true)
       else
         log:warn(cutils.getErrorMessage(patch))
         utils.warnWindow ("Load Patch", cutils.getErrorMessage(patch))

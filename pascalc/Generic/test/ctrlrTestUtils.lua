@@ -83,7 +83,7 @@ function compareEditedBankWithFile(controllerInst, origFile, panel, editModMap, 
   end
   
   local patch = controllerInst.bank:getSelectedPatch()
-  controllerInst:v2p(patch)
+  controllerInst:mods2Patch(patch)
 
   local data = MemoryBlock()
   File(expectedFile):loadFileAsData(data)
