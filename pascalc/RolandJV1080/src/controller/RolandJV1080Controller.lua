@@ -1,6 +1,8 @@
-require("AbstractController")
+require("DefaultControllerBase")
 require("Logger")
 require("cutils")
+require("model/RolandJV1080Patch")
+require("model/RolandJV1080Bank")
 require("message/GMSystemOffMsg")
 require("message/RolandJV1080DataRequestMsg")
 require("message/RolandJV1080DataSetMsg")
@@ -2147,108 +2149,22 @@ local RolandJVEffectParameters = {
   }
 }
 
-
-local effectParamValues = {
-  -- LFO Frequency
-  { "200 Hz", "400 Hz" },
-  -- Low Gain
-  { "-15dB", "-14dB", "-13dB", "-12dB", "-11dB", "-10dB", "-9dB", "-8dB", "-7dB", "-6dB", "-5dB", "-4dB", "-3dB", "-2dB", "-1dB", "0dB", "+1dB", "+2dB", "+3dB", "+4dB", "+5dB", "+6dB", "+7dB", "+8dB", "+9dB", "+10dB", "+11dB", "+12dB", "+13dB", "+14dB", "+15dB" },
-  -- High Frequency
-  { "4 kHz", "8 kHz" },
-  -- Peaking1 Frequency
-  { "200", "250", "315", "400", "500", "630", "800", "1000", "1250", "1600", "2000", "2500", "3150", "4000", "5000", "6300", "8000" },
-  -- Peaking1 Q
-  { "0.5", "1.0", "2.0", "4.0", "9.0" },
-  -- Output Pan
-  { "L64", "L63", "L62", "L61", "L60", "L59", "L58", "L57", "L56", "L55", "L54", "L53", "L52", "L51", "L50", "L49", "L48", "L47", "L46", "L45", "L44", "L43", "L42", "L41", "L40", "L39", "L38", "L37", "L36", "L35", "L34", "L33", "L32", "L31", "L30", "L29", "L28", "L27", "L26", "L25", "L24", "L23", "L22", "L21", "L20", "L19", "L18", "L17", "L16", "L15", "L14", "L13", "L12", "L11", "L10", "L9", "L8", "L7", "L6", "L5", "L4", "L3", "L2", "L1", "0", "R1", "R2", "R3", "R4", "R5", "R6", "R7", "R8", "R9", "D<R0", "D<R1", "D<R2", "D<R3", "D<R4", "D<R5", "D<R6", "D<R7", "D<R8", "D<R9", "R20", "R21", "R22", "R23", "R24", "R25", "R26", "R27", "R28", "R29", "R30", "R31", "R32", "R33", "R34", "R35", "R36", "R37", "R38", "R39", "R40", "R41", "R42", "R43", "R44", "R45", "R46", "R47", "R48", "R49", "R50", "R51", "R52", "R53", "R54", "R55", "R56", "R57", "R58", "R59", "R60", "R61", "R62", "R63" },
-  -- Amp Simulator Type
-  { "small", "built-in", "2-stack", "3-stack" },
-  -- Phaser Manual
-  { "100 Hz", "110 Hz", "120 Hz", "130 Hz", "140 Hz", "150 Hz", "160 Hz", "170 Hz", "180 Hz", "190 Hz", "200 Hz", "210 Hz", "220 Hz", "230 Hz", "240 Hz", "250 Hz", "260 Hz", "270 Hz", "280 Hz", "290 Hz", "300 Hz", "320 Hz", "340 Hz", "360 Hz", "380 Hz", "400 Hz", "420 Hz", "440 Hz", "460 Hz", "480 Hz", "500 Hz", "520 Hz", "540 Hz", "560 Hz", "580 Hz", "600 Hz", "620 Hz", "640 Hz", "660 Hz", "680 Hz", "700 Hz", "720 Hz", "740 Hz", "760 Hz", "780 Hz", "800 Hz", "820 Hz", "840 Hz", "860 Hz", "880 Hz", "900 Hz", "920 Hz", "940 Hz", "960 Hz", "980 Hz", "1.0 kHz", "1.1 kHz", "1.2 kHz", "1.3 kHz", "1.4 kHz", "1.5 kHz", "1.6 kHz", "1.7 kHz", "1.8 kHz", "1.9 kHz", "2.0 kHz", "2.1 kHz", "2.2 kHz", "2.3 kHz", "2.4 kHz", "2.5 kHz", "2.6 kHz", "2.7 kHz", "2.8 kHz", "2.9 kHz", "3.0 kHz", "3.1 kHz", "3.2 kHz", "3.3 kHz", "3.4 kHz", "3.5 kHz", "3.6 kHz", "3.7 kHz", "3.8 kHz", "3.9 kHz", "4.0 kHz", "4.1 kHz", "4.2 kHz", "4.3 kHz", "4.4 kHz", "4.5 kHz", "4.6 kHz", "4.7 kHz", "4.8 kHz", "4.9 kHz", "5.0 kHz", "5.1 kHz", "5.2 kHz", "5.3 kHz", "5.4 kHz", "5.5 kHz", "5.6 kHz", "5.7 kHz", "5.8 kHz", "5.9 kHz", "6.0 kHz", "6.1 kHz", "6.2 kHz", "6.3 kHz", "6.4 kHz", "6.5 kHz", "6.6 kHz", "6.7 kHz", "6.8 kHz", "6.9 kHz", "7.0 kHz", "7.1 kHz", "7.2 kHz", "7.3 kHz", "7.4 kHz", "7.5 kHz", "7.6 kHz", "7.7 kHz", "7.8 kHz", "7.9 kHz", "8.0 kHz" },
-  -- Phaser Rate
-  { "0.05 Hz", "0.10 Hz", "0.15 Hz", "0.20 Hz", "0.25 Hz", "0.30 Hz", "0.35 Hz", "0.40 Hz", "0.45 Hz", "0.50 Hz", "0.55 Hz", "0.60 Hz", "0.65 Hz", "0.70 Hz", "0.75 Hz", "0.80 Hz", "0.85 Hz", "0.90 Hz", "0.95 Hz", "1.00 Hz", "1.05 Hz", "1.10 Hz", "1.15 Hz", "1.20 Hz", "1.25 Hz", "1.30 Hz", "1.35 Hz", "1.40 Hz", "1.45 Hz", "1.50 Hz", "1.55 Hz", "1.60 Hz", "1.65 Hz", "1.70 Hz", "1.75 Hz", "1.80 Hz", "1.85 Hz", "1.90 Hz", "1.95 Hz", "2.00 Hz", "2.05 Hz", "2.10 Hz", "2.15 Hz", "2.20 Hz", "2.25 Hz", "2.30 Hz", "2.35 Hz", "2.40 Hz", "2.45 Hz", "2.50 Hz", "2.55 Hz", "2.60 Hz", "2.65 Hz", "2.70 Hz", "2.75 Hz", "2.80 Hz", "2.85 Hz", "2.90 Hz", "2.95 Hz", "3.00 Hz", "3.05 Hz", "3.10 Hz", "3.15 Hz", "3.20 Hz", "3.25 Hz", "3.30 Hz", "3.35 Hz", "3.40 Hz", "3.45 Hz", "3.50 Hz", "3.55 Hz", "3.60 Hz", "3.65 Hz", "3.70 Hz", "3.75 Hz", "3.80 Hz", "3.85 Hz", "3.90 Hz", "3.95 Hz", "4.00 Hz", "4.05 Hz", "4.10 Hz", "4.15 Hz", "4.20 Hz", "4.25 Hz", "4.30 Hz", "4.35 Hz", "4.40 Hz", "4.45 Hz", "4.50 Hz", "4.55 Hz", "4.60 Hz", "4.65 Hz", "4.70 Hz", "4.75 Hz", "4.80 Hz", "4.85 Hz", "4.90 Hz", "5.0 Hz", "5.1 Hz", "5.2 Hz", "5.3 Hz", "5.4 Hz", "5.5 Hz", "5.6 Hz", "5.7 Hz", "5.8 Hz", "5.9 Hz", "6.0 Hz", "6.1 Hz", "6.2 Hz", "6.3 Hz", "6.4 Hz", "6.5 Hz", "6.6 Hz", "6.7 Hz", "6.8 Hz", "6.9 Hz", "7.0 Hz", "7.5 Hz", "8.0 Hz", "8.5 Hz", "9.0 Hz", "9.5 Hz", "10.0 Hz" },
-  -- Filter Type
-  { "Low Pass Filter", "Band Pass Filter" },
-  -- Post Gain
-  { "x1", "x2", "x4", "x8" },
-  -- Compression Ratio
-  { "1.5:1", "2:1", "4:1", "100:1" },
-  -- Pre Delay Time
-  { "0.00 ms", "0.10 ms", "0.20 ms", "0.30 ms", "0.40 ms", "0.5 ms", "1.0 ms", "1.5 ms", "2.0 ms", "2.5 ms", "3.0 ms", "3.5 ms", "4.0 ms", "4.5 ms", "5.0 ms", "5.5 ms", "6.0 ms", "6.5 ms", "7.0 ms", "7.5 ms", "8.0 ms", "8.5 ms", "9.0 ms", "9.5 ms", "10 ms", "11 ms", "12 ms", "13 ms", "14 ms", "15 ms", "16 ms", "17 ms", "18 ms", "19 ms", "20 ms", "21 ms", "22 ms", "23 ms", "24 ms", "25 ms", "26 ms", "27 ms", "28 ms", "29 ms", "30 ms", "31 ms", "32 ms", "33 ms", "34 ms", "35 ms", "36 ms", "37 ms", "38 ms", "39 ms", "40 ms", "41 ms", "42 ms", "43 ms", "44 ms", "45 ms", "46 ms", "47 ms", "48 ms", "49 ms", "50 ms", "52 ms", "54 ms", "56 ms", "58 ms", "60 ms", "62 ms", "64 ms", "66 ms", "68 ms", "70 ms", "72 ms", "74 ms", "76 ms", "78 ms", "80 ms", "82 ms", "84 ms", "86 ms", "88 ms", "90 ms", "92 ms", "94 ms", "96 ms", "98 ms", "100 ms" },
-  -- Phase
-  { "0", "2", "4", "6", "8", "10", "12", "14", "16", "18", "20", "22", "24", "26", "28", "30", "32", "34", "36", "38", "40", "42", "44", "46", "48", "50", "52", "54", "56", "58", "60", "62", "64", "66", "68", "70", "72", "74", "76", "78", "80", "82", "84", "86", "88", "90", "92", "94", "96", "98", "100", "102", "104", "106", "108", "110", "112", "114", "116", "118", "120", "122", "124", "126", "128", "130", "132", "134", "136", "138", "140", "142", "144", "146", "148", "150", "152", "154", "156", "158", "160", "162", "164", "166", "168", "170", "172", "174", "176", "178", "180" },
-  -- Filter Type
-  { "off", "lpf", "hpf" },
-  -- Feedback Level
-  { "-98%", "-96%", "-94%", "-92%", "-90%", "-88%", "-86%", "-84%", "-82%", "-80%", "-78%", "-76%", "-74%", "-72%", "-70%", "-68%", "-66%", "-64%", "-62%", "-60%", "-58%", "-56%", "-54%", "-52%", "-50%", "-48%", "-46%", "-44%", "-42%", "-40%", "-38%", "-36%", "-34%", "-32%", "-30%", "-28%", "-26%", "-24%", "-22%", "-20%", "-18%", "-16%", "-14%", "-12%", "-10%", "-8%", "-6%", "-4%", "-2%", "0%", "2%", "4%", "6%", "8%", "10%", "12%", "14%", "16%", "18%", "20%", "22%", "24%", "26%", "28%", "30%", "32%", "34%", "36%", "38%", "40%", "42%", "44%", "46%", "48%", "50%", "52%", "54%", "56%", "58%", "60%", "62%", "64%", "66%", "68%", "70%", "72%", "74%", "76%", "78%", "80%", "82%", "84%", "86%", "88%", "90%", "92%", "94%", "96%", "98%" },
-  -- Feedback Mode
-  { "Normal", "Cross" },
-  -- Delay Time Left
-  { "0.0 ms", "0.1 ms", "0.2 ms", "0.3 ms", "0.4 ms", "0.5 ms", "0.6 ms", "0.7 ms", "0.8 ms", "0.9 ms", "1.0 ms", "1.1 ms", "1.2 ms", "1.3 ms", "1.4 ms", "1.5 ms", "1.6 ms", "1.7 ms", "1.8 ms", "1.9 ms", "2.0 ms", "2.1 ms", "2.2 ms", "2.3 ms", "2.4 ms", "2.5 ms", "2.6 ms", "2.7 ms", "2.8 ms", "2.9 ms", "3.0 ms", "3.1 ms", "3.2 ms", "3.3 ms", "3.4 ms", "3.5 ms", "3.6 ms", "3.7 ms", "3.8 ms", "3.9 ms", "4.0 ms", "4.1 ms", "4.2 ms", "4.3 ms", "4.4 ms", "4.5 ms", "4.6 ms", "4.7 ms", "4.8 ms", "4.9 ms", "5.0 ms", "5.5 ms", "6.0 ms", "6.5 ms", "7.0 ms", "7.5 ms", "8.0 ms", "8.5 ms", "9.0 ms", "9.5 ms", "10 ms", "11 ms", "12 ms", "13 ms", "14 ms", "15 ms", "16 ms", "17 ms", "18 ms", "19 ms", "20 ms", "21 ms", "22 ms", "23 ms", "24 ms", "25 ms", "26 ms", "27 ms", "28 ms", "29 ms", "30 ms", "31 ms", "32 ms", "33 ms", "34 ms", "35 ms", "36 ms", "37 ms", "38 ms", "39 ms", "40 ms", "50 ms", "60 ms", "70 ms", "80 ms", "90 ms", "100 ms", "110 ms", "120 ms", "130 ms", "140 ms", "150 ms", "160 ms", "170 ms", "180 ms", "190 ms", "200 ms", "210 ms", "220 ms", "230 ms", "240 ms", "250 ms", "260 ms", "270 ms", "280 ms", "290 ms", "300 ms", "320 ms", "340 ms", "360 ms", "380 ms", "400 ms", "420 ms", "440 ms", "460 ms", "480 ms", "500 ms" },
-  -- Feedback Phase Left
-  { "normal", "invert" },
-  -- Delay Time Center
-  { "200 ms", "205 ms", "210 ms", "215 ms", "220 ms", "225 ms", "230 ms", "235 ms", "240 ms", "245 ms", "250 ms", "255 ms", "260 ms", "265 ms", "270 ms", "275 ms", "280 ms", "285 ms", "290 ms", "295 ms", "300 ms", "305 ms", "310 ms", "315 ms", "320 ms", "325 ms", "330 ms", "335 ms", "340 ms", "345 ms", "350 ms", "355 ms", "360 ms", "365 ms", "370 ms", "375 ms", "380 ms", "385 ms", "390 ms", "395 ms", "400 ms", "405 ms", "410 ms", "415 ms", "420 ms", "425 ms", "430 ms", "435 ms", "440 ms", "445 ms", "450 ms", "455 ms", "460 ms", "465 ms", "470 ms", "475 ms", "480 ms", "485 ms", "490 ms", "495 ms", "500 ms", "505 ms", "510 ms", "515 ms", "520 ms", "525 ms", "530 ms", "535 ms", "540 ms", "545 ms", "550 ms", "560 ms", "570 ms", "580 ms", "590 ms", "600 ms", "610 ms", "620 ms", "630 ms", "640 ms", "650 ms", "660 ms", "670 ms", "680 ms", "690 ms", "700 ms", "710 ms", "720 ms", "730 ms", "740 ms", "750 ms", "760 ms", "770 ms", "780 ms", "790 ms", "800 ms", "810 ms", "820 ms", "830 ms", "840 ms", "850 ms", "860 ms", "870 ms", "880 ms", "890 ms", "900 ms", "910 ms", "920 ms", "930 ms", "940 ms", "950 ms", "960 ms", "970 ms", "980 ms", "990 ms", "1000 ms" },
-  -- Coarse Pitch A
-  { "-24", "-23", "-22", "-21", "-20", "-19", "-18", "-17", "-16", "-15", "-14", "-13", "-12", "-11", "-10", "-9", "-8", "-7", "-6", "-5", "-4", "-3", "-2", "-1", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" },
-  -- Gate-Reverb Type
-  { "normal", "reverse", "sweep1", "sweep2" }
-}
-
--- EFX parameter descriptions
--- Should contain all from JV-1010 manual.
-local effectParams = {
-  [0] = { "Low Frequency::0:1:", "Low Gain::0:30:", "High Frequency::0:1:", "Hi Gain::0:30:", "Peaking1 Frequency::0:16:", "Peaking1 Q::0:4:", "Peaking1 Gain::0:30:", "Peaking2 Frequency::0:16:", "Peaking2 Q::0:4:", "Peaking2 Gain::0:30:", "Level::0:127:" },
-  [1] = { "Drive::0:127:", "Output Pan::0:127:", "Amp Simulator Type::0:3:", "Low Gain::0:30:", "High Gain::0:30:", "Output Level::0:127:" },
-  [2] = { "Drive::0:127:", "Output Pan::0:127:", "Amp Simulator Type::0:3:", "Low Gain::0:30:", "High Gain::0:30:", "Output Level::0:127:" },
-  [3] = { "Manual ::0:125:", "Rate ::0:125:", "Depth ::0:127:", "Resonance ::0:127:", "Mix Level ::0:127:", "Output Pan ::0:127:", "Output Level ::0:127:" },
-  [4] = { "Band1 Gain ::0:30:", "Band2 Gain ::0:30:", "Band3 Gain ::0:30:", "Band4 Gain ::0:30:", "Band5 Gain ::0:30:", "Band6 Gain ::0:30:", "Band7 Gain ::0:30:", "Band8 Gain ::0:30:", "Q ::0:4:", "Output Pan ::0:127:", "Output Level ::0:127:" },
-  [5] = { "Sens ::0:127:", "Mix Level ::0:127:", "Low Gain ::0:30:", "High Gain ::0:30:", "Output Level ::0:127:" },
-  [6] = { "Filter Type ::0:1:", "Rate ::0:125:", "Depth ::0:127:", "Sens ::0:127:", "Manual ::0:127:", "Peak ::0:127:", "Output Level ::0:127:" },
-  [7] = { "High Frequency Slow Rate ::0:125:", "Low Frequency Slow Rate ::0:125:", "High Frequency Fast Rate ::0:125:", "Low Frequency Fast Rate ::0:125:", "Speed ::0:1:", "High Frequency Acceleration ::0:15:", "Low Frequency Acceleration ::0:15:", "High Frequency Level ::0:127:", "Low Frequency Level ::0:127:", "Separation ::0:127:", "Output Level ::0:127:" },
-  [8] = { "Sustain ::0:127:", "Attack ::0:127:", "Output Pan ::0:127:", "Post Gain ::0:3:", "Low Gain ::0:30:", "HiGH Gain ::0:30:", "Output Level ::0:127:" },
-  [9] = { "Threshold Level ::0:127:", "Release Time ::0:127:", "Compression Ratio ::0:3:", "Output Pan ::0:127:", "Post Gain ::0:3:", "Low Gain ::0:30:", "High Gain ::0:30:", "Output Level ::0:127:" },
-  [10] = { "Pre Delay Time ::0:125:", "Rate ::0:125:", "Depth ::0:127:", "Pre Delay Deviation ::0:20:", "Depth Deviation ::0:40:", "Pan Deviation ::0:20:", "Effect Balance ::0:100:", "Output Level ::0:127:" },
-  [11] = { "Pre Delay Time ::0:125:", "Chorus Rate ::0:125:", "Chorus Depth ::0:127:", "Tremolo Rate ::0:125:", "Tremolo Separation ::0:127:", "Tremolo Phase ::0:90:", "Effect Balance ::0:100:", "Output Level ::0:127:" },
-  [12] = { "Pre Delay Time ::0:125:", "Rate ::0:125:", "Depth ::0:127:", "Phase ::0:90:", "Low Gain ::0:30:", "High Gain ::0:30:", "Effect Balance ::0:100:", "Output Level ::0:127:" },
-  [13] = { "Filter Type ::0:2:", "Cutoff Frequency ::0:16:", "Pre Delay Time ::0:125:", "Rate ::0:125:", "Depth ::0:127:", "Phase ::0:90:", "Low Gain ::0:30:", "High Gain ::0:30:", "Effect Balance ::0:100:", "Output Level ::0:127:" },
-  [14] = { "Filter Type ::0:2:", "Cutoff Frequency ::0:16:", "Pre Delay Time ::0:125:", "Rate ::0:125:", "Depth ::0:127:", "Phase ::0:90:", "Feedback Level ::0:98:", "Low Gain ::0:30:", "High Gain ::0:30:", "Effect Balance ::0:100:", "Output Level ::0:127:" },
-  [15] = { "Pre Delay Time ::0:125:", "Rate ::0:125:", "Depth ::0:127:", "Feedback Level ::0:98:", "Step Rate ::0:125:", "Phase ::0:90:", "Low Gain ::0:30:", "High Gain ::0:30:", "Effect Balance ::0:100:", "Output Level ::0:127:" },
-  [16] = { "Feedback Mode ::0:1:", "Delay Time Left  ::0:126:", "Delay Time Right ::0:126:", "Feedback Phase Left ::0:1:", "Feedback Phase Right ::0:1:", "Feedback Level ::0:98:", "HF Damp ::0:17:", "Low Gain ::0:30:", "High Gain ::0:30:", "Effect Balance ::0:100:", "Output Level ::0:127:" },
-  [17] = { "Feedback Mode::0:1:", "Delay Time Left::0:126:", "Delay Time Right::0:126:", "Feedback Level::0:98:", "HF Damp::0:17:", "Rate::0:125:", "Depth::0:127:", "Phase::0:90:", "Low Gain::0:30:", "High Gain::0:30:", "Effect Balance::0:100:", "Output Level::0:127:" },
-  [18] = { "Delay Time Left::0:125:", "Delay Time Right::0:125:", "Delay Time Center::0:125:", "Feedback Level::0:98:", "HF Damp::0:17:", "Left Level::0:127:", "Right Level::0:127:", "Center Level::0:127:", "Low Gain::0:30:", "High Gain::0:30:", "Effect Balance::0:100:", "Output Level::0:127:" },
-  [19] = { "Delay Time 1 ::0:125:", "Delay Time 2 ::0:125:", "Delay Time 3 ::0:125:", "Delay Time 4 ::0:125:", "Level 1 ::0:127:", "Level 2 ::0:127:", "Level 3 ::0:127:", "Level 4 ::0:127:", "Feedback Level ::0:98:", "HF Damp ::0:17:", "Effect Balance ::0:100:", "Output Level ::0:127:" },
-  [20] = { "Delay Time::0:120:", "Feedback Level::0:98:", "Acceleration::0:15:", "HF Damp::0:17:", "Output Pan::0:127:", "Low Gain::0:30:", "High Gain::0:30:", "Effect Balance::0:100:", "Output Level::0:127:" },
-  [21] = { "Pitch Shifter Mode::0:4:", "Coarse Pitch A::0:36:", "Coarse Pitch B::0:36:", "Fine Pitch A::0:100:", "Fine Pitch B::0:100:", "Pre Delay Time A::0:126:", "Pre Delay Time B::0:126:", "Output Pan A::0:127:", "Output Pan B::0:127:", "Level Balance::0:100:", "Effect Balance::0:100:", "Output Level::0:127:" },
-  [22] = { "Pitch Shifter Mode::0:4:", "Coarse Pitch::0:36:", "Fine Pitch::0:100:", "Pre Delay Time::0:126:", "Feedback Level::0:98:", "Output Pan::0:127:", "Low Gain::0:30:", "High Gain::0:30:", "Effect Balance::0:100:", "Output Level::0:127:" },
-  [23] = { "Reverb Type::0:5:", "Pre Delay Time::0:125:", "Gate Time::0:127:", "HF Damp::0:17:", "Low Gain::0:30:", "High Gain::0:30:", "Effect Balance::0:100:", "Output Level::0:127:" },
-  [24] = { "Gate-Reverb Type::0:3:", "Pre Delay Time::0:125:", "Gate Time::0:99:", "Low Gain::0:30:", "High Gain::0:30:", "Effect Balance::0:100:", "Output Level::0:127:" },
-  [25] = { "Drive::0:127:", "Over Drive Pan::0:127:", "Chorus Pre Delay Time::0:125:", "Chorus Rate::0:125:", "Chorus Depth::0:127:", "Chorus Balance::0:100:", "Output Level::0:127:" },
-  [26] = { "Drive::0:127:", "Over Drive Pan::0:127:", "Flanger Pre Delay Time::0:125:", "Flanger Rate::0:125:", "Flanger Depth::0:127:", "Flanger Feedback Level::0:98:", "Flanger Balance::0:100:", "Output Level::0:127:" },
-  [27] = { "Drive::0:127:", "Over Drive Pan::0:127:", "Delay Time::0:126:", "Delay Feedback Level::0:98:", "Delay HF Damp::0:17:", "Delay Balance::0:100:", "Output Level::0:127:" },
-  [28] = { "Distortion Drive::0:127:", "Distortion Pan::0:127:", "Chorus Pre Delay Time::0:125:", "Chorus Rate::0:125:", "Chorus Depth::0:127:", "Chorus Balance::0:100:", "Output Level::0:127:" },
-  [29] = { "Distortion Drive::0:127:", "Distortion Pan::0:127:", "Flanger Pre Delay Time::0:125:", "Flanger Rate::0:125:", "Flanger Depth::0:127:", "Flanger Feedback Level::0:98:", "Flanger Balance::0:100:", "Output Level::0:127:" },
-  [30] = { "Distortion Drive::0:127:", "Distortion Pan::0:127:", "Delay Time::0:126:", "Delay Feedback Level::0:98:", "Delay HF Damp::0:17:", "Delay Balance::0:100:", "Output Level::0:127:" },
-  [31] = { "Enhancer Sens::0:127:", "Enhancer Mix Level::0:127:", "Chorus Pre Delay Time::0:125:", "Chorus Rate::0:125:", "Chorus Depth::0:127:", "Chorus Balance::0:100:", "Output Level::0:127:" },
-  [32] = { "Enhancer Sens::0:127:", "Enhancer Mix Level::0:127:", "Flanger Pre Delay Time::0:125:", "Flanger Rate::0:125:", "Flanger Depth::0:127:", "Flanger Feedback Level::0:98:", "Flanger Balance::0:100:", "Output Level::0:127:" },
-  [33] = { "Enhancer Sens::0:127:", "Enhancer Mix Level::0:127:", "Delay Time::0:126:", "Delay Feedback Level::0:98:", "Delay HF Damp::0:17:", "Delay Balance::0:100:", "Output Level::0:127:" },
-  [34] = { "Chorus Pre Delay Time::0:125:", "Chorus Rate::0:125:", "Chorus Depth::0:127:", "Chorus Balance::0:100:", "Delay Time::0:126:", "Delay Feedback Level::0:98:", "Delay HF Damp::0:17:", "Delay Balance::0:100:", "Output Level::0:127:" },
-  [35] = { "Flanger Pre Delay Time::0:125:", "Flanger Rate::0:125:", "Flanger Depth::0:127:", "Flanger Feedback Level::0:98:", "Flanger Balance::0:100:", "Delay Time::0:126:", "Delay Feedback Level::0:98:", "Delay HF Damp::0:17:", "Delay Balance::0:100:", "Output Level::0:127:" },
-  [36] = { "Chorus Pre Delay Time::0:125:", "Chorus Rate::0:125:", "Chorus Depth::0:127:", "Chorus Balance::0:100:", "Flanger Pre Delay Time::0:125:", "Flanger Rate::0:125:", "Flanger Depth::0:127:", "Flanger Feedback Level::0:98:", "Flanger Balance::0:100:", "Output Level::0:127:" },
-  [37] = { "Chorus Pre Delay Time::0:125:", "Chorus Rate::0:125:", "Chorus Depth::0:127:", "Chorus Balance::0:100:", "Delay Time::0:126:", "Delay Feedback Level::0:98:", "Delay HF Damp::0:17:", "Delay Balance::0:100:", "Output Level::0:127:" },
-  [38] = { "Flanger Pre Delay Time::0:125:", "Flanger Rate::0:125:", "Flanger Depth::0:127:", "Flanger Feedback Level::0:98:", "Flanger Balance::0:100:", "Delay Time::0:126:", "Delay Feedback Level::0:98:", "Delay HF Damp::0:17:", "Delay Balance::0:100:", "Output Level::0:127:" },
-  [39] = { "Chorus Pre Delay Time::0:125:", "Chorus Rate::0:125:", "Chorus Depth::0:127:", "Chorus Balance::0:100:", "Flanger Pre Delay Time::0:125:", "Flanger Rate::0:125:", "Flanger Depth::0:127:", "Flanger Feedback Level::0:98:", "Flanger Balance::0:100:", "Output Level::0:127:" }
-}
+local bind = function(t, k)
+  return function(...) return t[k](t, ...) end
+end
 
 
 local DUMP_HEADER_LENG = 9
 local DUMP_FOOTER_LENG = 2
 
+local BANK_BUFFER_SIZE = 82304
+local PATCH_BUFFER_SIZE = 643
+
 RolandJV1080Controller = {}
 RolandJV1080Controller.__index = RolandJV1080Controller
 
 setmetatable(RolandJV1080Controller, {
-  __index = AbstractController, -- this is what makes the inheritance work
+  __index = DefaultControllerBase, -- this is what makes the inheritance work
   __call = function (cls, ...)
     local self = setmetatable({}, cls)
     self:_init(...)
@@ -2260,7 +2176,7 @@ setmetatable(RolandJV1080Controller, {
 -- @function [parent=#RolandJV1080Controller] _init
 --
 function RolandJV1080Controller:_init()
-  AbstractController._init(self)
+  DefaultControllerBase._init(self, PATCH_BUFFER_SIZE, BANK_BUFFER_SIZE, RolandJV1080Patch, RolandJV1080Bank)
 
   self:displayText("Initializing...")
   log:fine("======== Trying to decode modulators ======")
@@ -2271,8 +2187,7 @@ function RolandJV1080Controller:_init()
   self.modulatorListByMemory = {}
   self.modulatorSpecialListByMemory = {}
 
-  local max = panel:getNumModulators()
-  for v=1,max do
+  for v = 1, panel:getNumModulators() do
     local modulatorRef = panel:getModulatorByIndex(v)
     if (modulatorRef ~= nil and (modulatorRef:getProperty("modulatorIsStatic") == "0")) then
       local formula = string.format("%s", modulatorRef:getMidiMessage():getProperty("midiMessageSysExFormula"))
@@ -2287,7 +2202,6 @@ function RolandJV1080Controller:_init()
           local sysexAddress = string.sub(formula , 22 )
           sysexAddress = string.sub(sysexAddress , 1 , 5 )
           self.modulatorSpecialListByMemory[sysexAddress] = modulatorRef
-
         end
       end
     end
@@ -2295,7 +2209,35 @@ function RolandJV1080Controller:_init()
   log:fine("======== Modulator decode end ======")
 
   -- Send System Identity message.
+  self.midiFunction = bind(self, "processSystemIdentity")
   self:sendMidiMessage(RolandJV1080SystemIdentityMsg())
+end
+
+---
+-- @function [parent=#RolandJV1080Controller] loadData
+--
+function RolandJV1080Controller:loadData(data, mute)
+  mute = mute or false
+  local midiSize = data:getSize()
+  if midiSize == self.bankSize then
+    local status, bank = pcall(self.bankPointer, data)
+    if status then
+      self:assignBank(bank)
+    else
+      log:warn(cutils.getErrorMessage(bank))
+      utils.warnWindow ("Load Bank", cutils.getErrorMessage(bank))
+      return
+    end
+  else
+    local status, patch = pcall(self.standAlonePatchPointer, data)
+    if not status then
+      log:warn(cutils.getErrorMessage(patch))
+      utils.warnWindow ("Load Patch", cutils.getErrorMessage(patch))
+      return
+    end
+    -- Assign values
+    self:patch2Mods(patch, mute)
+  end
 end
 
 ---
@@ -2307,80 +2249,105 @@ function RolandJV1080Controller:onGetData(mod, value)
   self:displayText("Reading data...")
   -- apparently some devices interpret data length as "data length with header"
   -- and some without... so let's ask for 0x55 instead of 0x4A
-  self:sendMidiMessage(RolandJV1080DataRequestMsg(0, 0x55))
   --sendDataRequest(0x03,0x00,0x00,0x00,0x00,0x4A)
+
+  -- Load performance from JV1080
+  local midiSendQueue = {
+    RolandJV1080DataRequestMsg(0, 0x55),
+    RolandJV1080DataRequestMsg(0x10, 0x7F),
+    RolandJV1080DataRequestMsg(0x12, 0x7F),
+    RolandJV1080DataRequestMsg(0x14, 0x7F),
+    RolandJV1080DataRequestMsg(0x16, 0x7F),
+  }
+  self:requestDump(midiSendQueue)
+
 end
 
 ---
 -- Called when a panel receives a midi message (does not need to match any modulator mask)
 -- @midi   http://ctrlr.org/api/class_ctrlr_midi_message.html
 --
-function RolandJV1080Controller:onMidiReceived(midi)
-  local data = midi:getData()
-  if(data:getByte(0) == 0xF0 and
-    data:getByte(1) == 0x7E and
-    data:getByte(3) == 0x06 and
-    data:getByte(4) == 0x02) then
-    self:processSystemIdentity(data)
-  elseif(
-    data:getByte(0) == 0xF0 and
-    data:getByte(1) == 0x41 and
-    data:getByte(3) == 0x6A and
-    data:getByte(4) == 0x12) then
-    local dataLength = midi:getSize() - DUMP_HEADER_LENG - DUMP_FOOTER_LENG
-    log:fine("Received data of length %04X", dataLength)
-    if ((data:getByte(5) == 0x03 or data:getByte(5) == 0x11) and data:getByte(7) == 0x00) then
-      self:processPatchData(data)
-    elseif ((data:getByte(5) == 0x03 or data:getByte(5) == 0x11) and data:getByte(7) >= 0x10) then
-      self:processToneData(data, data:getByte(7))
-    elseif (data:getByte(5)  == 0x00) then
-      self:processSystemData(data, dataLength)
-    end
+--function RolandJV1080Controller:onMidiReceived(midi)
+--  local data = midi:getData()
+--  if(
+--    data:getByte(0) == 0xF0 and
+--    data:getByte(1) == 0x41 and
+--    data:getByte(3) == 0x6A and
+--    data:getByte(4) == 0x12) then
+--    local dataLength = midi:getSize() - DUMP_HEADER_LENG - DUMP_FOOTER_LENG
+--    log:fine("Received data of length %04X", dataLength)
+--    if ((data:getByte(5) == 0x03 or data:getByte(5) == 0x11) and data:getByte(7) == 0x00) then
+--      self:processPatchData(data)
+--    elseif ((data:getByte(5) == 0x03 or data:getByte(5) == 0x11) and data:getByte(7) >= 0x10) then
+--      self:processToneData(data, data:getByte(7))
+--    elseif (data:getByte(5)  == 0x00) then
+--      self:processSystemData(data, dataLength)
+--    end
+--  end
+--end
+
+---
+-- @function [parent=#RolandJV1080Controller] patch2Mods
+--
+-- This method assigns modulators from a patch
+-- to all modulators in the panel
+function RolandJV1080Controller:patch2Mods(patch, mute)
+  self:processPatchData(patch:getPatchData())
+  for i = 1, 4 do
+    self:processToneData(patch:getToneData(i), 0x10 + (i - 1) * 2)
   end
 end
 
 -- System Identity responses.
 function RolandJV1080Controller:processSystemIdentity(data)
-  if(data:getByte(5) == 0x41) then
-    log:fine("Roland device")
-  else
-    log:fine("NOT Roland device")
-    self:displayText("NOT Roland device")
-    return
-  end
+  if(data:getByte(0) == 0xF0 and
+    data:getByte(1) == 0x7E and
+    data:getByte(3) == 0x06 and
+    data:getByte(4) == 0x02) then
 
-  if(data:getByte(6) == 0x6A) then
-    log:fine("JV/XP family")
-  else
-    log:fine("NOT JV/XP family")
-    self:displayText("NOT JV/XP family")
-    return
-  end
+    if(data:getByte(5) == 0x41) then
+      log:fine("Roland device")
+    else
+      log:fine("NOT Roland device")
+      self:displayText("NOT Roland device")
+      return
+    end
 
-  -- TODO: more JV types recognition
-  if(data:getByte(8) == 0x05) then
-    log:fine("JV-1010")
-    self:displayText("JV-1010")
-  else
-    log:fine("Unknown JV/XP")
-    self:displayText("Unknown JV/XP")
-  end
-  --Put the device to Patch mode and send request for patch values.
-  -- Send GM system OFF first. It will go to Performance mode.
-  self:sendMidiMessage(GMSystemOffMsg())
+    if(data:getByte(6) == 0x6A) then
+      log:fine("JV/XP family")
+    else
+      log:fine("NOT JV/XP family")
+      self:displayText("NOT JV/XP family")
+      return
+    end
 
-  -- Then, move it to Patch mode
-  -- (Delay might be needed? works for me at least)
-  self:sendMidiMessage(RolandJV1080DataSetMsg())
-  -- Patch data might be requested right away, right now it is not.
-  --sendDataRequest(0x03,0x00,0x00,0x00,0x00,0x4A)
+    -- TODO: more JV types recognition
+    if(data:getByte(8) == 0x05) then
+      log:fine("JV-1010")
+      self:displayText("JV-1010")
+    else
+      log:fine("Unknown JV/XP")
+      self:displayText("Unknown JV/XP")
+    end
+    --Put the device to Patch mode and send request for patch values.
+    -- Send GM system OFF first. It will go to Performance mode.
+    self:sendMidiMessage(GMSystemOffMsg())
+
+    -- Then, move it to Patch mode
+    -- (Delay might be needed? works for me at least)
+    self:sendMidiMessage(RolandJV1080DataSetMsg())
+    -- Patch data might be requested right away, right now it is not.
+    --sendDataRequest(0x03,0x00,0x00,0x00,0x00,0x4A)
+    self.midiFunction = nil
+  end
 end
 
 -- Patch data responses.
-function RolandJV1080Controller:processPatchData(data)
+function RolandJV1080Controller:processPatchData(data, mute)
 
   -- Patch name (0-12)
-  self.patchName = data:getRange(DUMP_HEADER_LENG + 0,12):toString()
+  local patchNameRange = data:getRange(DUMP_HEADER_LENG + 0,12)
+  self.patchName = patchNameRange:toString()
 
   local patchNumberRef = panel:getModulatorByName("PatchSelect")
   if patchNumberRef ~= nil then
@@ -2393,18 +2360,18 @@ function RolandJV1080Controller:processPatchData(data)
     local modulatorRef = self.modulatorListByMemory[arrayIndex]
     if modulatorRef ~= nil then
       local valueToSet = data:getByte(DUMP_HEADER_LENG + v)
-      if RolandJVPatchValueCorrection[v]~= nil then
+      if RolandJVPatchValueCorrection[v] ~= nil then
         valueToSet = valueToSet + RolandJVPatchValueCorrection[v]
       end
-      modulatorRef:setModulatorValue(valueToSet,false,false,false)
+      modulatorRef:setModulatorValue(valueToSet, false, false, false)
     elseif v == 0x2C then
       modulatorRef = self.modulatorSpecialListByMemory[arrayIndex]
       if modulatorRef ~= nil then
         log:fine("Found special modulator for %s", arrayIndex)
         modulatorRef:setModulatorValue(
-          data:getByte(DUMP_HEADER_LENG + v)*0x10 +
-          data:getByte(DUMP_HEADER_LENG + v+1),
-          false,false,false)
+          data:getByte(DUMP_HEADER_LENG + v) * 0x10 +
+          data:getByte(DUMP_HEADER_LENG + v + 1),
+          false, false, false)
       end
     end
   end
@@ -2413,8 +2380,18 @@ function RolandJV1080Controller:processPatchData(data)
   -- FX parameter handling
   local fxType = data:getByte(DUMP_HEADER_LENG + 0x0C)
   self:onRunFxTypeChange(nil, fxType)
+  self:displayText(self.patchName)
+
+  if not mute then
+    local msgs = {}
+    for i = 0, 12 do
+      table.insert(msgs, RolandJV1080PatchNameMsg(i, patchNameRange:getByte(i)))
+    end
+    self:sendMidiMessages(msgs, 50)
+  end
+
   -- Request tone data 1, rest will be done by processToneData
-  self:sendMidiMessage(RolandJV1080DataRequestMsg(0x10, 0x7F))
+  --  self:sendMidiMessage(RolandJV1080DataRequestMsg(0x10, 0x7F))
 end
 
 -- System data is not yet processed
@@ -2452,12 +2429,11 @@ function RolandJV1080Controller:processToneData(data, toneOffset)
   log:fine("Finished processing tone %d message %d", (toneOffset-0x10)/2+1, (toneOffset % 2)+1)
 
   -- Tone messages need to be retrieved in 2 messages each.
-  if (toneOffset < 0x17) then
-    self:sendMidiMessage(RolandJV1080DataRequestMsg(toneOffset + 2, 0x7F))
-    -- Display patch name, processing has ended.
-  else
-    self:displayText(self.patchName)
-  end
+  --  if (toneOffset < 0x17) then
+  --    self:sendMidiMessage(RolandJV1080DataRequestMsg(toneOffset + 2, 0x7F))
+  --    -- Display patch name, processing has ended.
+  --  else
+  --  end
 end
 
 ---

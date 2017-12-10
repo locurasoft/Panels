@@ -1,5 +1,6 @@
 require("DefaultControllerBase")
 require("Logger")
+require("EffectParamService")
 require("model/YamahaCS1xBank")
 require("model/YamahaCS1xPatch")
 require("message/CS1xReceiveMsg")
@@ -70,7 +71,7 @@ local voiceBanks = {
 }
 
 
-local effectParamTables = {
+local effectParamValues = {
   -- LFO Frequency
   { "0.00", "0.04", "0.08", "0.13", "0.17", "0.21", "0.25", "0.29", "0.34", "0.38", "0.42", "0.46", "0.51", "0.55", "0.59", "0.63", "0.67", "0.72", "0.76", "0.80", "0.84", "0.88", "0.93", "0.97", "1.01", "1.05", "1.09", "1.14", "1.18", "1.22", "1.26", "1.30", "1.35", "1.39", "1.43", "1.47", "1.51", "1.56", "1.60", "1.64", "1.68", "1.72", "1.77", "1.81", "1.85", "1.89", "1.94", "1.98", "2.02", "2.06", "2.10", "2.15", "2.19", "2.23", "2.27", "2.31", "2.36", "2.40", "2.44", "2.48", "2.52", "2.57", "2.61", "2.65", "2.69", "2.78", "2.86", "2.94", "3.03", "3.11", "3.20", "3.28", "3.37", "3.45", "3.53", "3.62", "3.70", "3.87", "4.04", "4.21", "4.37", "4.54", "4.71", "4.88", "5.05", "5.22", "5.38", "5.55", "5.72", "6.06", "6.39", "6.73", "7.07", "7.40", "7.74", "8.08", "8.41", "8.75", "9.08", "9.42", "9.76", "10.10", "10.80", "11.40", "12.10", "12.80", "13.50", "14.10", "14.80", "15.50", "16.20", "16.80", "17.50", "18.20", "19.50", "20.90", "22.20", "23.60", "24.90", "26.20", "27.60", "28.90", "30.30", "31.60", "33.00", "34.30", "37.00", "39.70" },
   -- Modulation Delay Offset
@@ -181,24 +182,6 @@ local mappedParams = {
   [274] = true
 }
 
-local variIndexes = { 1, 2, 3, 4, 5, 6 }
-
-local getSliderContentFromSequence = function(min, max)
-  local contents = ""
-  for i = min, max do
-    contents = string.format("%s\n%d", contents, i)
-  end
-  return contents
-end
-
-local getSliderContentFromArray = function(array)
-  local contents = ""
-  for i = 1, table.getn(array) do
-    contents = string.format("%s\n%s", contents, array[i])
-  end
-  return contents
-end
-
 local onMidiMessageTimeout = function()
   -- Clear message queue
   midiSendQueue = {}
@@ -242,6 +225,7 @@ function YamahaCS1xController:_init()
   DefaultControllerBase._init(self, SinglePerformanceSize, PerformanceBankSize, YamahaCS1xPatch, YamahaCS1xBank)
   self.midiSendQueue = {}
   self.receivedMidiData = {}
+  self.effectParamService = EffectParamService(effectParams, effectParamValues, 0x40)
 end
 
 function YamahaCS1xController:loadData(data, mute)
@@ -350,6 +334,7 @@ function YamahaCS1xController:getArpegValue()
   if arpegSplit == 0 then value = value + 4 end
   return value
 end
+
 ---
 -- @function [parent=#YamahaCS1xController] onEffectSelectorChanged
 -- Called when a modulator value changes
@@ -373,42 +358,15 @@ end
 --
 function YamahaCS1xController:onEffectTypeChanged(mod, value)
   local effectIndex = mod:getValueMapped() / 128
-  local effectParamList = thruParams
-  if effectIndex > 0 then
-    effectParamList = effectParams[string.format("0x%.2X", effectIndex)]
-  end
-  if effectParamList == nil then
-    effectParamList = thruParams
-  end
-
   local groupName = mod:getProperty("modulatorCustomNameGroup")
 
-  for i = 1, 6 do
-    --    local index = variIndexes[i]
-    local index = i
+  for index = 1, 6 do
     local modName = string.format("%s%d", groupName, index)
-    local paramValues = lutils.split(effectParamList[index], ":")
-    if table.getn(paramValues) ~= 5 then
-      error(string.format("Invalid param value string '%s'", effectParamList[index]))
-    end
-
-    local name = paramValues[1]
-    self:toggleVisibility(modName, name ~= "")
-    self:setVisibleName(modName, name)
-    if name ~= "" then
-      local dataArrayIndex = paramValues[2]
-      local min = paramValues[3]
-      local max = paramValues[4]
-      local offset = paramValues[5]
-
-      local sliderContents = ""
-      if dataArrayIndex == "" then
-        sliderContents = getSliderContentFromSequence(min, max)
-      else
-        sliderContents = getSliderContentFromArray(effectParamTables[tonumber(dataArrayIndex)])
-      end
-
-      self:setFixedSliderContent(modName, sliderContents)
+    local effectData = self.effectParamService:getEffectData(effectIndex, index)
+    self:toggleVisibility(modName, effectData ~= nil)
+    if effectData ~= nil then
+      self:setVisibleName(modName, effectData[1])
+      self:setFixedSliderContent(modName, effectData[2])
     end
   end
 end

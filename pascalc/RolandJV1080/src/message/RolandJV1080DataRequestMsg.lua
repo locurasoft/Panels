@@ -17,7 +17,7 @@ setmetatable(RolandJV1080DataRequestMsg, {
 
 function RolandJV1080DataRequestMsg:_init(patchOffset, length)
   SyxMsg._init(self)
-  self.data = { 0xf0, 0x41, 0x10, 0x6A, 0x11, 0x03, 0x00, patchOffset, 0x00, 0x00, 0x00, 0x00, length, 0, 0xf7 }
+  self.data = MemoryBlock({ 0xf0, 0x41, 0x10, 0x6A, 0x11, 0x03, 0x00, patchOffset, 0x00, 0x00, 0x00, 0x00, length, 0, 0xf7 })
   local checksum = midiService:calculateChecksum(self.data, CS_END)
   self.data:setByte(CS_OFFS, checksum)
 end

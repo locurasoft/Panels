@@ -133,9 +133,9 @@ function DefaultControllerBase:requestDump(requestMessages)
     table.insert(receivedMidiData, myData)
 
     if table.getn(requestMessages) > 0 then
-      self:sendMidiMessage(table.remove(requestMessages, 1))
       timer:setCallback(midiMessageTimerIndex, onMidiMessageTimeout)
       timer:startTimer(midiMessageTimerIndex, 1000)
+      self:sendMidiMessage(table.remove(requestMessages, 1))
     else
       self.midiFunction = prevMidiReceivedFunc
       local data = cutils.mergeArrayOfMemBlocks(receivedMidiData)
@@ -144,9 +144,9 @@ function DefaultControllerBase:requestDump(requestMessages)
   end
 
   self.midiFunction = midiReceived
-  self:sendMidiMessage(table.remove(requestMessages, 1))
   timer:setCallback(midiMessageTimerIndex, onMidiMessageTimeout)
   timer:startTimer(midiMessageTimerIndex, 1000)
+  self:sendMidiMessage(table.remove(requestMessages, 1))
 end
 
 ---

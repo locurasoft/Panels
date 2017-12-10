@@ -52,3 +52,7 @@ end
 function PropertyContainer:setPropertyInt(name, value)
   self.properties[name] = tostring(value)
 end
+
+function PropertyContainer:setPropertyString(name, value)
+  self.properties[name] = value
+end

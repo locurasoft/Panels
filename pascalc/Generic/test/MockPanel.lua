@@ -61,6 +61,10 @@ function MockPanel:_init(panelPath, midiListener)
   end
 end
 
+function MockPanel:setMidiListener(midiListener)
+	self.midiListener = midiListener
+end
+
 function MockPanel:getBootstrapState()
   return false
 end
@@ -69,7 +73,9 @@ function MockPanel:setGlobalVariable()
 end
 
 function MockPanel:sendMidiMessageNow(midiMessage)
-  self.midiListener(midiMessage:getData():toHexString(1))
+  if self.midiListener ~= nil then
+    self.midiListener(midiMessage:getData():toHexString(1))
+  end
 end
 
 function MockPanel:getProgramState()
@@ -119,6 +125,10 @@ end
 
 function MockPanel:getCanvas()
   return self.canvas
+end
+
+function MockPanel:getNumModulators()
+  return table.getn(self.modulators)
 end
 
 function MockPanel:debugPrint()

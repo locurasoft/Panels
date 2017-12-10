@@ -14,5 +14,5 @@ setmetatable(RolandJV1080SystemIdentityMsg, {
 
 function RolandJV1080SystemIdentityMsg:_init()
   SyxMsg._init(self)
-  self.data = {0xf0, 0x7E, 0x10, 0x06, 0x01, 0xF7}
+  self.data = MemoryBlock({0xf0, 0x7E, 0x10, 0x06, 0x01, 0xF7})
 end
